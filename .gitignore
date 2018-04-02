@@ -1,0 +1,16 @@
+.DS_Store
+local.properties
+app/.gitignore
+build/generated/mockable-android-25.jar
+workspace.xml
+.gradle/2.14.1/taskArtifacts/*
+.idea/*
+.gradle/2.14.1/tasks/*
+build/intermediates/*
+app/build/*
+android-master.iml
+compiler.xml
+app/app.iml
+.gradle
+build
+*.iml
