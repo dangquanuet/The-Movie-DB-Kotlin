@@ -1,4 +1,4 @@
-package com.quanda.movidedb
+package com.quanda.moviedb
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
