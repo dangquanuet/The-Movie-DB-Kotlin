@@ -13,4 +13,5 @@ class MovieDBApplication : Application() {
             Fabric.with(this, Crashlytics())
         }
     }
+
 }
