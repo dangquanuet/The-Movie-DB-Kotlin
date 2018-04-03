@@ -1,9 +1,10 @@
-package com.quanda.moviedb
+package com.quanda.moviedb.ui
 
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import com.quanda.moviedb.R
+import com.quanda.moviedb.base.activity.BaseActivity
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
