@@ -70,10 +70,17 @@ android {
   productFlavors.all {}
 
   applicationVariants.all { variant ->
+    def BASE_URL
+
     if (variant.getName().contains("dev")) {
+      BASE_URL = "https://www.themoviedb.org"
     } else if (variant.getName().contains("stg")) {
+      BASE_URL = "https://www.themoviedb.org"
     } else if (variant.getName().contains("prd")) {
+      BASE_URL = "https://www.themoviedb.org"
     }
+
+    variant.buildConfigField "String", "BASE_URL", "\"${BASE_URL}\""
   }
 }
 
