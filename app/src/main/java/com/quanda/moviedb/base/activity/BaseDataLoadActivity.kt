@@ -1,14 +1,15 @@
 package com.quanda.moviedb.base.activity
 
+import android.app.Dialog
 import android.databinding.Observable
 import android.databinding.ObservableBoolean
 import android.databinding.ViewDataBinding
 import com.quanda.moviedb.base.viewmodel.BaseDataLoadViewModel
 import com.quanda.moviedb.utils.DialogUtils
 
-abstract class BaseDataLoadActivity<T : ViewDataBinding, K : BaseDataLoadViewModel> : BaseDataBindActivity<T, K>() {
+abstract class BaseDataLoadActivity<View : ViewDataBinding, ViewModel : BaseDataLoadViewModel> : BaseDataBindActivity<View, ViewModel>() {
 
-    val loadingDialog = DialogUtils.createLoadingDialog(this, false)
+    lateinit var loadingDialog: Dialog
 
     val loadingCallback = object : Observable.OnPropertyChangedCallback() {
         override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
@@ -16,10 +17,11 @@ abstract class BaseDataLoadActivity<T : ViewDataBinding, K : BaseDataLoadViewMod
         }
     }
 
-    abstract fun initViewModel(): K
+    abstract fun initViewModel(): ViewModel
 
     override fun initData() {
-        initViewModel()
+        loadingDialog = DialogUtils.createLoadingDialog(this, false)
+        viewModel = initViewModel()
         viewModel.isDataLoading.addOnPropertyChangedCallback(loadingCallback)
     }
 
@@ -38,7 +40,7 @@ abstract class BaseDataLoadActivity<T : ViewDataBinding, K : BaseDataLoadViewMod
         loadingDialog.dismiss()
     }
 
-    fun handleLoadingChanged(isLoading: Boolean) {
+    open fun handleLoadingChanged(isLoading: Boolean) {
         if (isLoading) {
             showLoadingDialog()
         } else {

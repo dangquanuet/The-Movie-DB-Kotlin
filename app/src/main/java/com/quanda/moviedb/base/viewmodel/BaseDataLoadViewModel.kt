@@ -9,7 +9,7 @@ abstract class BaseDataLoadViewModel(context: Context, navigator: BaseNavigator)
 
     val isDataLoading = ObservableBoolean()
 
-    fun onLoadFail() {
+    open fun onLoadFail() {
         //TODO handle error
         isDataLoading.set(false)
     }

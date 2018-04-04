@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
+    >
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="view"
+            type="com.quanda.moviedb.base.activity.BaseDataLoadMoreRefreshActivity"
+            />
+        <variable
+            name="viewModel"
+            type="com.quanda.moviedb.base.viewmodel.BaseDataLoadMoreRefreshViewModel"
+            />
+    </data>
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+        <com.quanda.moviedb.widgets.PullRefreshRecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            bind:layout_constraintBottom_toTopOf="@id/progressBarLoadMore"
+            bind:layout_constraintEnd_toEndOf="parent"
+            bind:layout_constraintStart_toStartOf="parent"
+            bind:layout_constraintTop_toTopOf="parent"
+            bind:onScrollListener="@{ viewModel.onScrollListener }"
+            bind:refreshListener="@{ viewModel.onRefreshListener }"
+            bind:refreshing="@{ viewModel.isRefreshing }"
+            />
+
+        <ProgressBar
+            android:id="@+id/progressBarLoading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="@{ viewModel.isDataLoading ? View.VISIBLE : View.GONE }"
+            bind:layout_constraintBottom_toBottomOf="parent"
+            bind:layout_constraintEnd_toEndOf="parent"
+            bind:layout_constraintStart_toStartOf="parent"
+            bind:layout_constraintTop_toTopOf="parent"
+            />
+
+        <ProgressBar
+            android:id="@+id/progressBarLoadMore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:layout_marginTop="4dp"
+            android:visibility="@{ viewModel.isDataLoadMore ? View.VISIBLE : View.GONE }"
+            bind:layout_constraintBottom_toBottomOf="parent"
+            bind:layout_constraintEnd_toEndOf="parent"
+            bind:layout_constraintStart_toStartOf="parent"
+            />
+    </android.support.constraint.ConstraintLayout>
+</layout>

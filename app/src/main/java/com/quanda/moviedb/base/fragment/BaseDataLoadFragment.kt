@@ -1,14 +1,15 @@
 package com.quanda.moviedb.base.fragment
 
+import android.app.Dialog
 import android.databinding.Observable
 import android.databinding.ObservableBoolean
 import android.databinding.ViewDataBinding
 import com.quanda.moviedb.base.viewmodel.BaseDataLoadViewModel
 import com.quanda.moviedb.utils.DialogUtils
 
-abstract class BaseDataLoadFragment<T : ViewDataBinding, K : BaseDataLoadViewModel> : BaseDataBindFragment<T, K>() {
+abstract class BaseDataLoadFragment<View : ViewDataBinding, ViewModel : BaseDataLoadViewModel> : BaseDataBindFragment<View, ViewModel>() {
 
-    val loadingDialog = DialogUtils.createLoadingDialog(context, false)
+    lateinit var loadingDialog: Dialog
 
     val loadingCallback = object : Observable.OnPropertyChangedCallback() {
         override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
@@ -16,10 +17,13 @@ abstract class BaseDataLoadFragment<T : ViewDataBinding, K : BaseDataLoadViewMod
         }
     }
 
-    abstract fun initViewModel(): K
+    abstract fun initViewModel(): ViewModel
 
     override fun initData() {
-        initViewModel()
+        if (context != null) {
+            loadingDialog = DialogUtils.createLoadingDialog(context, false)
+        }
+        viewModel = initViewModel()
         viewModel.isDataLoading.addOnPropertyChangedCallback(loadingCallback)
     }
 

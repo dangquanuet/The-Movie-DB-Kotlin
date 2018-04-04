@@ -11,6 +11,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'io.fabric'
+apply plugin: 'kotlin-kapt'
 
 android {
   compileSdkVersion 27
@@ -71,6 +72,7 @@ android {
 
   applicationVariants.all { variant ->
     def BASE_URL
+    def TMBD_API_KEY = "2cdf3a5c7cf412421485f89ace91e373"
 
     if (variant.getName().contains("dev")) {
       BASE_URL = "https://www.themoviedb.org"
@@ -81,6 +83,7 @@ android {
     }
 
     variant.buildConfigField "String", "BASE_URL", "\"${BASE_URL}\""
+    variant.buildConfigField "String", "TMBD_API_KEY", "\"${TMBD_API_KEY}\""
   }
 }
 
