@@ -5,10 +5,10 @@ import android.databinding.ViewDataBinding
 import android.os.Bundle
 import com.quanda.moviedb.base.viewmodel.BaseViewModel
 
-abstract class BaseDataBindActivity<T : ViewDataBinding, K : BaseViewModel> : BaseActivity() {
+abstract class BaseDataBindActivity<View : ViewDataBinding, ViewModel : BaseViewModel> : BaseActivity() {
 
-    lateinit var binding: T
-    lateinit var viewModel: K
+    lateinit var binding: View
+    lateinit var viewModel: ViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
