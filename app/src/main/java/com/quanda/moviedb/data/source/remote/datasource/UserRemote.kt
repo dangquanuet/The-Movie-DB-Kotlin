@@ -1,6 +1,9 @@
 package com.quanda.moviedb.data.source.remote.datasource
 
 import com.quanda.moviedb.data.source.remote.IUserRemote
+import com.quanda.moviedb.data.source.remote.RequestCreator
+import com.quanda.moviedb.data.source.remote.response.GetMovieListResponse
+import io.reactivex.Single
 
 class UserRemote : IUserRemote {
 
@@ -15,4 +18,7 @@ class UserRemote : IUserRemote {
         }
     }
 
+    override fun getMovieList(): Single<GetMovieListResponse> {
+        return RequestCreator.getRequest().getMovieList()
+    }
 }

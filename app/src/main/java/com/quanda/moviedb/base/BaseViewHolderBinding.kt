@@ -3,12 +3,12 @@ package com.quanda.moviedb.base
 import android.databinding.ViewDataBinding
 import android.support.v7.widget.RecyclerView
 
-abstract class BaseViewHolderBinding<T : ViewDataBinding, K>(
-        val binding: T) : RecyclerView.ViewHolder(binding.root) {
+abstract class BaseViewHolderBinding<View : ViewDataBinding, Item>(
+        val binding: View) : RecyclerView.ViewHolder(binding.root) {
 
-    abstract fun bindData(item: K)
+    abstract fun bindData(item: Item)
 
-    interface OnItemCLickListener<K> {
-        fun onItemClick(position: Int, data: K)
+    interface OnItemCLickListener<Item> {
+        fun onItemClick(position: Int, data: Item)
     }
 }

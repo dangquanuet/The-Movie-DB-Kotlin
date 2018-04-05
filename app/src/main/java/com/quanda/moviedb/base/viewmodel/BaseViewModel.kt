@@ -11,8 +11,8 @@ abstract class BaseViewModel(context: Context, navigator: BaseNavigator) {
     val navigator = navigator
     val compoDisposable = CompositeDisposable()
 
-    fun addDisposable(disposables: Disposable) {
-        compoDisposable.add(disposables)
+    fun addDisposable(disposable: Disposable) {
+        compoDisposable.add(disposable)
     }
 
     fun onActivityDestroyed() {

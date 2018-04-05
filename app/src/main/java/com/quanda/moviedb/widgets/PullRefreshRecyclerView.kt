@@ -20,11 +20,12 @@ class PullRefreshRecyclerView(context: Context, attributeSet: AttributeSet) : Fr
     val onScrollListener = ObservableField<RecyclerView.OnScrollListener>()
     val isRefreshing = ObservableBoolean()
     val onRefreshListener = ObservableField<SwipeRefreshLayout.OnRefreshListener>()
-    val binding: LayoutPtrRecyclerViewBinding = DataBindingUtil.inflate(
-            LayoutInflater.from(context),
-            R.layout.layout_ptr_recycler_view, this, true)
+    val binding: LayoutPtrRecyclerViewBinding
 
     init {
+        binding = DataBindingUtil.inflate(
+                LayoutInflater.from(context),
+                R.layout.layout_ptr_recycler_view, this, true)
         binding.view = this
     }
 

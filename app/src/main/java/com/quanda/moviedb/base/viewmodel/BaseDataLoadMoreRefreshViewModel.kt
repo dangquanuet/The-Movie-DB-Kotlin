@@ -47,7 +47,6 @@ abstract class BaseDataLoadMoreRefreshViewModel<Item>(context: Context,
     fun getNumberItemPerPage() = Constants.DEFAULT_ITEM_PER_PAGE
 
     fun resetLoadMore() {
-        listItem.clear()
         onScrollListener.resetOnLoadMore()
         isLastPage = false
     }
@@ -59,8 +58,8 @@ abstract class BaseDataLoadMoreRefreshViewModel<Item>(context: Context,
         isDataLoadMore.set(false)
     }
 
-    override fun onLoadFail() {
-        super.onLoadFail()
+    override fun onLoadFail(e: Throwable) {
+        super.onLoadFail(e)
         isRefreshing.set(false)
         isDataLoadMore.set(false)
     }
