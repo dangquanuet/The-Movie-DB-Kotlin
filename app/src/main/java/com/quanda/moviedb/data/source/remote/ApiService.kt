@@ -6,7 +6,7 @@ import retrofit2.http.GET
 
 interface ApiService {
 
-    @GET("/discover/movie")
+    @GET("3/discover/movie")
     fun getMovieList(): Single<GetMovieListResponse>
 
 }

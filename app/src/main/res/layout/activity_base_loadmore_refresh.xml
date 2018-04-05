@@ -20,15 +20,29 @@
         android:layout_height="match_parent"
         >
 
+        <ProgressBar
+            android:id="@+id/progressBarLoadMore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:layout_marginTop="4dp"
+            android:visibility="@{ viewModel.isDataLoadMore ? View.VISIBLE : View.GONE }"
+            bind:layout_constraintBottom_toBottomOf="parent"
+            bind:layout_constraintEnd_toEndOf="parent"
+            bind:layout_constraintStart_toStartOf="parent"
+            />
+
         <com.quanda.moviedb.widgets.PullRefreshRecyclerView
             android:id="@+id/recycler_view"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            bind:layoutManager="@{ view.layoutManager }"
             bind:layout_constraintBottom_toTopOf="@id/progressBarLoadMore"
             bind:layout_constraintEnd_toEndOf="parent"
             bind:layout_constraintStart_toStartOf="parent"
             bind:layout_constraintTop_toTopOf="parent"
             bind:onScrollListener="@{ viewModel.onScrollListener }"
+            bind:recyclerAdapter="@{ view.adapter }"
             bind:refreshListener="@{ viewModel.onRefreshListener }"
             bind:refreshing="@{ viewModel.isRefreshing }"
             />
@@ -42,18 +56,6 @@
             bind:layout_constraintEnd_toEndOf="parent"
             bind:layout_constraintStart_toStartOf="parent"
             bind:layout_constraintTop_toTopOf="parent"
-            />
-
-        <ProgressBar
-            android:id="@+id/progressBarLoadMore"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="4dp"
-            android:layout_marginTop="4dp"
-            android:visibility="@{ viewModel.isDataLoadMore ? View.VISIBLE : View.GONE }"
-            bind:layout_constraintBottom_toBottomOf="parent"
-            bind:layout_constraintEnd_toEndOf="parent"
-            bind:layout_constraintStart_toStartOf="parent"
             />
     </android.support.constraint.ConstraintLayout>
 </layout>

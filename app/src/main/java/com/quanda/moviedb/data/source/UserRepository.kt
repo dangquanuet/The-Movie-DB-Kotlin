@@ -4,8 +4,12 @@ import com.quanda.moviedb.data.source.local.IUserLocal
 import com.quanda.moviedb.data.source.local.datasource.UserLocal
 import com.quanda.moviedb.data.source.remote.IUserRemote
 import com.quanda.moviedb.data.source.remote.datasource.UserRemote
+import com.quanda.moviedb.data.source.remote.response.GetMovieListResponse
+import com.quanda.moviedb.utils.SchedulerUtils
+import io.reactivex.Single
 
 class UserRepository() : IUserRemote, IUserLocal {
+
     companion object {
         private var INSTANCE: UserRepository? = null
 
@@ -17,6 +21,10 @@ class UserRepository() : IUserRemote, IUserLocal {
         }
     }
 
-    private val userLocal = UserLocal.getInstance()
-    private val userRemote = UserRemote.getInstance()
+    private val userLocal: IUserLocal = UserLocal.getInstance()
+    private val userRemote: IUserRemote = UserRemote.getInstance()
+
+    override fun getMovieList(): Single<GetMovieListResponse> {
+        return userRemote.getMovieList().compose(SchedulerUtils.applySingleAsyncSchedulers())
+    }
 }

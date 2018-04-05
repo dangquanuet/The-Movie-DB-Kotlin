@@ -1,7 +1,7 @@
 package com.quanda.moviedb.data.source.remote
 
 import com.quanda.moviedb.BuildConfig
-import okhttp3.OkHttpClient
+import okhttp3.*
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
@@ -24,12 +24,13 @@ class RequestCreator {
             httpClient.connectTimeout(CONNECTION_TIMEOUT, TimeUnit.SECONDS)
             httpClient.readTimeout(CONNECTION_TIMEOUT, TimeUnit.SECONDS)
             httpClient.addInterceptor(getHttpLoggingInterceptor())
+            httpClient.addInterceptor(RequestInterceptor())
 
             return Retrofit.Builder().addConverterFactory(
                     GsonConverterFactory.create()).addCallAdapterFactory(
                     RxJava2CallAdapterFactory.create()).baseUrl(BuildConfig.BASE_URL).client(
                     httpClient.build()).build().create(
-                    apiInstance.javaClass)
+                    ApiService::class.java)
         }
 
         private fun getHttpLoggingInterceptor(): HttpLoggingInterceptor {
@@ -39,5 +40,14 @@ class RequestCreator {
         }
     }
 
-
+    class RequestInterceptor() : Interceptor {
+        override fun intercept(chain: Interceptor.Chain?): Response? {
+            val original: Request? = chain?.request()
+            val originalHttpUrl: HttpUrl? = original?.url()
+            val url: HttpUrl? = originalHttpUrl?.newBuilder()?.addQueryParameter("api_key",
+                    BuildConfig.TMBD_API_KEY)?.build()
+            val request: Request? = original?.newBuilder()?.url(url)?.build()
+            return chain?.proceed(request)
+        }
+    }
 }
