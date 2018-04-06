@@ -80,8 +80,8 @@ fun loadLocalImage(view: ImageView, uri: Uri) {
 @BindingAdapter(
         value = ["loadImage", "placeholder", "centerCrop", "cacheSource", "animation"],
         requireAll = false)
-fun loadImage(img: ImageView, url: String?, placeHolder: Drawable?,
-        centerCrop: Boolean?, isCacheSource: Boolean?, animation: Boolean?) {
+fun loadImage(img: ImageView, url: String = "", placeHolder: Drawable?,
+        centerCrop: Boolean = false, isCacheSource: Boolean = false, animation: Boolean = false) {
     if (TextUtils.isEmpty(url)) {
         img.setImageDrawable(placeHolder)
         return
@@ -92,8 +92,8 @@ fun loadImage(img: ImageView, url: String?, placeHolder: Drawable?,
             if (isCacheSource ?: false) DiskCacheStrategy.DATA else DiskCacheStrategy.RESOURCE)
             .placeholder(placeHolder)
 
-    if (animation ?: true) requestOptions.dontAnimate()
-    if (centerCrop ?: false) {
+    if (!animation) requestOptions.dontAnimate()
+    if (centerCrop) {
         requestOptions.centerCrop()
     } else {
         requestOptions.fitCenter()

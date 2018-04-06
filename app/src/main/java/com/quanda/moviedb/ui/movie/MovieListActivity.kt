@@ -26,7 +26,7 @@ class MovieListActivity : BaseDataLoadMoreRefreshActivity<ActivityBaseLoadmoreRe
         return MovieListAdapter(this, viewModel.listItem,
                 object : BaseViewHolderBinding.OnItemCLickListener<Movie> {
                     override fun onItemClick(position: Int, data: Movie) {
-                        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                        // TODO
                     }
                 }) as RecyclerView.Adapter<RecyclerView.ViewHolder>
     }
