@@ -18,7 +18,7 @@ class UserRemote : IUserRemote {
         }
     }
 
-    override fun getMovieList(): Single<GetMovieListResponse> {
-        return RequestCreator.getRequest().getMovieList()
+    override fun getMovieList(hashMap: HashMap<String, String>): Single<GetMovieListResponse> {
+        return RequestCreator.getRequest().getMovieList(hashMap)
     }
 }

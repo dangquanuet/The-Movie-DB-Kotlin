@@ -14,7 +14,10 @@ class MovieListViewModel(context: Context,
     val userRepository = UserRepository.getInstance()
 
     override fun loadData(page: Int) {
-        userRepository.getMovieList().subscribe(object : DisposableSingleObserver<GetMovieListResponse>() {
+        val hashMap = HashMap<String, String>()
+        hashMap.put("page", page.toString())
+
+        userRepository.getMovieList(hashMap).subscribe(object : DisposableSingleObserver<GetMovieListResponse>() {
             override fun onSuccess(response: GetMovieListResponse) {
                 currentPage = page
                 if (currentPage == 1) listItem.clear()

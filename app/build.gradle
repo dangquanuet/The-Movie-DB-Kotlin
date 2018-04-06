@@ -72,16 +72,16 @@ android {
 
   applicationVariants.all { variant ->
     def BASE_URL = "https://api.themoviedb.org/"
-    def BASE_IMAGE_URL = "https://image.tmdb.org/t/p/w500"
+    def BASE_IMAGE_URL = "https://image.tmdb.org/t/p/w200"
     def TMBD_API_KEY = "2cdf3a5c7cf412421485f89ace91e373"
 
-//    if (variant.getName().contains("dev")) {
-//      BASE_URL = "https://api.themoviedb.org/"
-//    } else if (variant.getName().contains("stg")) {
-//      BASE_URL = "https://api.themoviedb.org/"
-//    } else if (variant.getName().contains("prd")) {
-//      BASE_URL = "https://api.themoviedb.org/"
-//    }
+    //    if (variant.getName().contains("dev")) {
+    //      BASE_URL = "https://api.themoviedb.org/"
+    //    } else if (variant.getName().contains("stg")) {
+    //      BASE_URL = "https://api.themoviedb.org/"
+    //    } else if (variant.getName().contains("prd")) {
+    //      BASE_URL = "https://api.themoviedb.org/"
+    //    }
 
     variant.buildConfigField "String", "BASE_URL", "\"${BASE_URL}\""
     variant.buildConfigField "String", "BASE_IMAGE_URL", "\"${BASE_IMAGE_URL}\""
@@ -92,12 +92,12 @@ android {
 dependencies {
   implementation fileTree(dir: 'libs', include: ['*.jar'])
   implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
-  implementation 'com.android.support:appcompat-v7:27.1.0'
-  implementation "com.android.support:support-v4:27.1.0"
+  implementation 'com.android.support:appcompat-v7:27.1.1'
+  implementation "com.android.support:support-v4:27.1.1"
   implementation 'com.android.support.constraint:constraint-layout:1.0.2'
-  implementation "com.android.support:recyclerview-v7:27.1.0"
-  implementation "com.android.support:cardview-v7:27.1.0"
-  implementation "com.android.support:design:27.1.0"
+  implementation "com.android.support:recyclerview-v7:27.1.1"
+  implementation "com.android.support:cardview-v7:27.1.1"
+  implementation "com.android.support:design:27.1.1"
 
   //Support ReactiveX android
   implementation 'io.reactivex.rxjava2:rxjava:2.1.8'

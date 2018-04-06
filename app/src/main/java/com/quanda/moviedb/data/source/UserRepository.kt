@@ -24,7 +24,7 @@ class UserRepository() : IUserRemote, IUserLocal {
     private val userLocal: IUserLocal = UserLocal.getInstance()
     private val userRemote: IUserRemote = UserRemote.getInstance()
 
-    override fun getMovieList(): Single<GetMovieListResponse> {
-        return userRemote.getMovieList().compose(SchedulerUtils.applySingleAsyncSchedulers())
+    override fun getMovieList(hashMap: HashMap<String, String>): Single<GetMovieListResponse> {
+        return userRemote.getMovieList(hashMap).compose(SchedulerUtils.applySingleAsyncSchedulers())
     }
 }
