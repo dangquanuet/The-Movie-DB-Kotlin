@@ -13,6 +13,12 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'io.fabric'
 apply plugin: 'kotlin-kapt'
 
+kotlin {
+  experimental {
+    coroutines 'enable'
+  }
+}
+
 android {
   compileSdkVersion 27
   buildToolsVersion "27.0.3"
@@ -102,6 +108,9 @@ dependencies {
   //Support ReactiveX android
   implementation 'io.reactivex.rxjava2:rxjava:2.1.8'
   implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
+
+  // coroutines
+  implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:0.21"
 
   //Using this for parse json data to object
   implementation "com.google.code.gson:gson:2.8.1"

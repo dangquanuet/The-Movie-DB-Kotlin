@@ -42,7 +42,6 @@
             bind:layout_constraintStart_toStartOf="parent"
             bind:layout_constraintTop_toTopOf="parent"
             bind:onScrollListener="@{ viewModel.onScrollListener }"
-            bind:recyclerAdapter="@{ view.adapter }"
             bind:refreshListener="@{ viewModel.onRefreshListener }"
             bind:refreshing="@{ viewModel.isRefreshing }"
             />
