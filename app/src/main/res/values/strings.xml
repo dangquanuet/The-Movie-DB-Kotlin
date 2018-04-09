@@ -1,2 +1,10 @@
 <resources>
+
+    <!--main screen-->
+    <string name="main_tab_popular">Popular</string>
+    <string name="main_tab_top_rated">Top Rated</string>
+    <string name="main_tab_favorite">Favorite</string>
+    <string name="main_tab_profile">Profile</string>
+
+
 </resources>
