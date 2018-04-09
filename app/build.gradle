@@ -132,6 +132,10 @@ dependencies {
   compileOnly 'javax.annotation:jsr250-api:1.0'
   implementation 'javax.inject:javax.inject:1'
 
+  // bottom navigation
+  implementation 'com.aurelhubert:ahbottomnavigation:2.1.0'
+
+  // databinding compiler
   kapt 'com.android.databinding:compiler:3.1.0'
 
   // fabric
