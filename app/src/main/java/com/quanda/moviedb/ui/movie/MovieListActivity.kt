@@ -17,6 +17,7 @@ class MovieListActivity : BaseDataLoadMoreRefreshActivity<ActivityBaseLoadmoreRe
         super.initData()
         binding.view = this
         binding.viewModel = viewModel
+        binding.recyclerView.adapter.set(mAdapter)
 
         viewModel.isDataLoading.set(true)
         viewModel.loadData(1)
