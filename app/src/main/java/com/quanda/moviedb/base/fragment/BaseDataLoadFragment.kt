@@ -42,7 +42,7 @@ abstract class BaseDataLoadFragment<View : ViewDataBinding, ViewModel : BaseData
         loadingDialog.dismiss()
     }
 
-    fun handleLoadingChanged(isLoading: Boolean) {
+    open fun handleLoadingChanged(isLoading: Boolean) {
         if (isLoading) {
             showLoadingDialog()
         } else {
