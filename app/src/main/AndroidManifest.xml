@@ -28,6 +28,10 @@
             android:name=".ui.movie.MovieListActivity"
             android:screenOrientation="portrait"/>
 
+        <activity
+            android:name=".ui.main.moviedetail.MovieDetailActivity"
+            android:screenOrientation="portrait"/>
+
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="85aa730194d8bb709a66c16ec20943bcbf3c841b"/>

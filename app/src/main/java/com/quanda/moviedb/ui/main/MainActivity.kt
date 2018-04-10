@@ -1,14 +1,19 @@
 package com.quanda.moviedb.ui.main
 
+import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationAdapter
 import com.quanda.moviedb.R
 import com.quanda.moviedb.base.activity.BaseDataLoadActivity
+import com.quanda.moviedb.constants.BundleConstants
+import com.quanda.moviedb.data.model.Movie
 import com.quanda.moviedb.databinding.ActivityMainBinding
+import com.quanda.moviedb.ui.main.moviedetail.MovieDetailActivity
 import com.quanda.moviedb.ui.main.popularmovie.PopularMovieFragment
 import com.quanda.moviedb.ui.main.popularmovie.PopularMovieNavigator
+import com.quanda.moviedb.utils.goToActivity
 
 class MainActivity : BaseDataLoadActivity<ActivityMainBinding, MainViewModel>(), MainNavigator, PopularMovieNavigator {
 
@@ -91,6 +96,27 @@ class MainActivity : BaseDataLoadActivity<ActivityMainBinding, MainViewModel>(),
             Tab.PROFILE.position -> Fragment() // TODO
             else -> Fragment()
         }
+    }
+
+    override fun onBackPressed() {
+        val fragment = supportFragmentManager.findFragmentById(R.id.frame_layout)
+        if (fragment != null) {
+            if (fragment.activity == null || fragment.activity!!.isFinishing) return
+            val stackCount = fragment.childFragmentManager.backStackEntryCount
+            if (stackCount <= 1) {
+                fragment.activity?.finish()
+            } else {
+                fragment.childFragmentManager.popBackStackImmediate()
+            }
+        } else {
+            super.onBackPressed()
+        }
+    }
+
+    override fun goToMovieDetail(movie: Movie) {
+        val bundle = Bundle()
+        bundle.putParcelable(BundleConstants.MOVIE, movie)
+        goToActivity(MovieDetailActivity::class.java, bundle)
     }
 
     enum class Tab(val position: Int) {

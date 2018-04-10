@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    >
+    <data>
+        <variable
+            name="viewModel"
+            type="com.quanda.moviedb.ui.main.moviedetail.MovieDetailViewModel"
+            />
+    </data>
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/black"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/dp_16"
+            >
+
+            <android.support.v7.widget.AppCompatImageView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_300"
+                bind:centerCrop="@{ true }"
+                bind:large="@{ true }"
+                bind:loadImage="@{ viewModel.movie.backdrop_path }"
+                bind:placeholder="@{ @drawable/ic_gallery }"
+                tools:scaleType="centerCrop"
+                tools:src="@drawable/ic_gallery"
+                />
+
+            <android.support.v7.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/dp_16"
+                android:text="@{ viewModel.movie.title }"
+                android:textColor="@color/white"
+                android:textSize="@dimen/sp_20"
+                tools:text="Title"
+                />
+
+            <android.support.v7.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_16"
+                android:text="@{ viewModel.movie.release_date }"
+                android:textColor="@color/white"
+                android:textSize="@dimen/sp_14"
+                tools:text="Date"
+                />
+
+            <android.support.v7.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_16"
+                android:layout_marginTop="@dimen/dp_10"
+                android:text="@{ String.valueOf(viewModel.movie.vote_average) }"
+                android:textColor="@color/white"
+                android:textSize="@dimen/sp_14"
+                tools:text="Vote"
+                />
+
+            <android.support.v7.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_16"
+                android:layout_marginTop="@dimen/dp_16"
+                android:text="Summary"
+                android:textColor="@color/white"
+                android:textSize="@dimen/sp_16"
+                />
+
+            <android.support.v7.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/dp_16"
+                android:layout_marginStart="@dimen/dp_16"
+                android:layout_marginTop="@dimen/dp_10"
+                android:text="@{ viewModel.movie.overview }"
+                android:textColor="@color/white"
+                android:textSize="@dimen/sp_14"
+                tools:text="Determined to prove herself, Officer Judy Hopps, the first bunny on Zootopia's police force, jumps at the chance to crack her first case - even if it means partnering with scam-artist fox Nick Wilde to solve the mystery."
+                />
+
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+</layout>

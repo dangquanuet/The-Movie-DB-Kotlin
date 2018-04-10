@@ -78,15 +78,16 @@ fun loadLocalImage(view: ImageView, uri: Uri) {
 }
 
 @BindingAdapter(
-        value = ["loadImage", "placeholder", "centerCrop", "cacheSource", "animation"],
+        value = ["loadImage", "placeholder", "centerCrop", "cacheSource", "animation", "large"],
         requireAll = false)
 fun loadImage(img: ImageView, url: String? = "", placeHolder: Drawable?,
-        centerCrop: Boolean = false, isCacheSource: Boolean = false, animation: Boolean = false) {
+        centerCrop: Boolean = false, isCacheSource: Boolean = false, animation: Boolean = false,
+        isLarge: Boolean = false) {
     if (TextUtils.isEmpty(url)) {
         img.setImageDrawable(placeHolder)
         return
     }
-    val urlWithHost = BuildConfig.BASE_IMAGE_URL + url
+    val urlWithHost = (if (isLarge) BuildConfig.LARGE_IMAGE_URL else BuildConfig.SMALL_IMAGE_URL) + url
     val requestBuilder = Glide.with(img.context).load(urlWithHost)
     val requestOptions = RequestOptions().diskCacheStrategy(
             if (isCacheSource ?: false) DiskCacheStrategy.DATA else DiskCacheStrategy.RESOURCE)
