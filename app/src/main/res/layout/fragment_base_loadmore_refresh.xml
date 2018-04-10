@@ -36,7 +36,6 @@
             android:id="@+id/recycler_view"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            bind:layoutManager="@{ view.layoutManager }"
             bind:layout_constraintBottom_toTopOf="@id/progressBarLoadMore"
             bind:layout_constraintEnd_toEndOf="parent"
             bind:layout_constraintStart_toStartOf="parent"

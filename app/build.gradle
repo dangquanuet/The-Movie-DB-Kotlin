@@ -136,7 +136,7 @@ dependencies {
   implementation 'com.aurelhubert:ahbottomnavigation:2.1.0'
 
   // databinding compiler
-  kapt 'com.android.databinding:compiler:3.1.0'
+  kapt 'com.android.databinding:compiler:3.1.1'
 
   // fabric
   implementation('com.crashlytics.sdk.android:crashlytics:2.9.1@aar') {

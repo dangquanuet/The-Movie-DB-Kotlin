@@ -9,22 +9,22 @@ import com.quanda.moviedb.widgets.OnListChangedListener
 
 abstract class BaseDataLoadMoreRefreshFragment<View : ViewDataBinding, ViewModel : BaseDataLoadMoreRefreshViewModel<Item>, Item> : BaseDataLoadFragment<View, ViewModel>() {
 
-    lateinit var mAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>
+    lateinit var adapter: RecyclerView.Adapter<RecyclerView.ViewHolder>
+    lateinit var layoutManager: RecyclerView.LayoutManager
 
-    override fun getLayoutId(): Int {
-        return R.layout.fragment_base_loadmore_refresh
-    }
+    override fun getLayoutId(): Int = R.layout.fragment_base_loadmore_refresh
 
     override fun initData() {
         super.initData()
-        mAdapter = getAdapter()
+        adapter = initAdapter()
+        layoutManager = initLayoutManager()
         viewModel.listItem.addOnListChangedCallback(
-                OnListChangedListener<Item>(mAdapter))
+                OnListChangedListener<Item>(adapter))
     }
 
-    abstract fun getAdapter(): RecyclerView.Adapter<RecyclerView.ViewHolder>
+    abstract fun initAdapter(): RecyclerView.Adapter<RecyclerView.ViewHolder>
 
-    open fun getLayoutManager(): RecyclerView.LayoutManager = LinearLayoutManager(context)
+    open fun initLayoutManager(): RecyclerView.LayoutManager = LinearLayoutManager(context)
 
     override fun handleLoadingChanged(isLoading: Boolean) {
         // implement if need

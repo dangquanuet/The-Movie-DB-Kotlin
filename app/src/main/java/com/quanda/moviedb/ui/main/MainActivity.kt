@@ -83,8 +83,10 @@ class MainActivity : BaseDataLoadActivity<ActivityMainBinding, MainViewModel>(),
 
     fun newFragmentInstance(position: Int): Fragment {
         return when (position) {
-            Tab.POPULAR.position -> PopularMovieFragment.newInstance()
-            Tab.TOP_RATED.position -> Fragment() // TODO
+            Tab.POPULAR.position -> PopularMovieFragment.newInstance(
+                    PopularMovieFragment.TYPE.POPULAR.type)
+            Tab.TOP_RATED.position -> PopularMovieFragment.newInstance(
+                    PopularMovieFragment.TYPE.TOP_RATED.type)
             Tab.FAVORITE.position -> Fragment() // TODO
             Tab.PROFILE.position -> Fragment() // TODO
             else -> Fragment()

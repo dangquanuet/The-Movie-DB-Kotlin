@@ -80,7 +80,7 @@ fun loadLocalImage(view: ImageView, uri: Uri) {
 @BindingAdapter(
         value = ["loadImage", "placeholder", "centerCrop", "cacheSource", "animation"],
         requireAll = false)
-fun loadImage(img: ImageView, url: String = "", placeHolder: Drawable?,
+fun loadImage(img: ImageView, url: String? = "", placeHolder: Drawable?,
         centerCrop: Boolean = false, isCacheSource: Boolean = false, animation: Boolean = false) {
     if (TextUtils.isEmpty(url)) {
         img.setImageDrawable(placeHolder)
