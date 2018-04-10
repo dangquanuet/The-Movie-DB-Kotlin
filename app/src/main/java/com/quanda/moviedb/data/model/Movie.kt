@@ -1,16 +1,20 @@
 package com.quanda.moviedb.data.model
 
+import android.arch.persistence.room.Entity
+import android.arch.persistence.room.PrimaryKey
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
+@Entity(tableName = "movie")
 data class Movie(
+        @PrimaryKey(autoGenerate = false)
+        val id: Int = 0,
         val adult: Boolean = false,
         val backdrop_path: String = "",
         val budget: Int = 0,
         val genres: List<Genre> = listOf(),
         val homepage: String = "",
-        val id: Int = 0,
         val imdb_id: String = "",
         val original_language: String = "",
         val original_title: String = "",
