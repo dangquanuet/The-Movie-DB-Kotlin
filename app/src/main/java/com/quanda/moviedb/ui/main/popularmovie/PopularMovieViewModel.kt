@@ -39,6 +39,9 @@ class PopularMovieViewModel(context: Context,
                 if (currentPage == 1) listItem.clear()
                 if (isRefreshing.get()) resetLoadMore()
                 listItem.addAll(response.results)
+
+//                MovieDBApplication.database?.movieDao()?.insertMovieList(response.results)
+
                 onLoadSuccess(response)
             }
 
