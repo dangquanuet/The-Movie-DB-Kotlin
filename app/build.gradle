@@ -78,7 +78,9 @@ android {
 
   applicationVariants.all { variant ->
     def BASE_URL = "https://api.themoviedb.org/"
-    def BASE_IMAGE_URL = "https://image.tmdb.org/t/p/w200"
+    def SMALL_IMAGE_URL = "https://image.tmdb.org/t/p/w200"
+    def LARGE_IMAGE_URL = "https://image.tmdb.org/t/p/w500"
+    def ORIGINAL_IMAGE_URL = "https://image.tmdb.org/t/p/original"
     def TMBD_API_KEY = "2cdf3a5c7cf412421485f89ace91e373"
 
     //    if (variant.getName().contains("dev")) {
@@ -90,7 +92,9 @@ android {
     //    }
 
     variant.buildConfigField "String", "BASE_URL", "\"${BASE_URL}\""
-    variant.buildConfigField "String", "BASE_IMAGE_URL", "\"${BASE_IMAGE_URL}\""
+    variant.buildConfigField "String", "SMALL_IMAGE_URL", "\"${SMALL_IMAGE_URL}\""
+    variant.buildConfigField "String", "LARGE_IMAGE_URL", "\"${LARGE_IMAGE_URL}\""
+    variant.buildConfigField "String", "ORIGINAL_IMAGE_URL", "\"${ORIGINAL_IMAGE_URL}\""
     variant.buildConfigField "String", "TMBD_API_KEY", "\"${TMBD_API_KEY}\""
   }
 }

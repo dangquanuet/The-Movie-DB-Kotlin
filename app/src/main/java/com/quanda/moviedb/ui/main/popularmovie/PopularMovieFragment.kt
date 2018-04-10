@@ -1,9 +1,9 @@
 package com.quanda.moviedb.ui.main.popularmovie
 
+import android.graphics.Color
 import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
-import com.quanda.moviedb.base.BaseViewHolderBinding
 import com.quanda.moviedb.base.fragment.BaseDataLoadMoreRefreshFragment
 import com.quanda.moviedb.constants.BundleConstants
 import com.quanda.moviedb.data.model.Movie
@@ -22,23 +22,14 @@ class PopularMovieFragment : BaseDataLoadMoreRefreshFragment<FragmentBaseLoadmor
     }
 
     override fun initViewModel(): PopularMovieViewModel {
-        return PopularMovieViewModel(context!!, when (navigator) {
-            is PopularMovieNavigator ->
-                navigator as PopularMovieNavigator
-            else -> object : PopularMovieNavigator {
-                override fun finish() {
-                    activity?.finish()
-                }
-
-                override fun onBackPressed() {
-                    activity?.onBackPressed()
-                }
-            }
-        }, arguments?.getInt(BundleConstants.TYPE) ?: PopularMovieFragment.TYPE.POPULAR.type)
+        return PopularMovieViewModel(context!!,
+                navigator as PopularMovieNavigator,
+                arguments?.getInt(BundleConstants.TYPE) ?: PopularMovieFragment.TYPE.POPULAR.type)
     }
 
     override fun initData() {
         super.initData()
+        binding.root.setBackgroundColor(Color.BLACK)
         binding.view = this
         binding.viewModel = viewModel
         binding.recyclerView.adapter.set(adapter)
@@ -50,11 +41,7 @@ class PopularMovieFragment : BaseDataLoadMoreRefreshFragment<FragmentBaseLoadmor
 
     override fun initAdapter(): RecyclerView.Adapter<RecyclerView.ViewHolder> {
         return PopularMovieAdapter(context!!, viewModel.listItem,
-                object : BaseViewHolderBinding.OnItemCLickListener<Movie> {
-                    override fun onItemClick(position: Int, data: Movie) {
-                        // TODO
-                    }
-                }) as RecyclerView.Adapter<RecyclerView.ViewHolder>
+                viewModel.itemCLickListener) as RecyclerView.Adapter<RecyclerView.ViewHolder>
     }
 
     override fun initLayoutManager() = GridLayoutManager(context, 2)
