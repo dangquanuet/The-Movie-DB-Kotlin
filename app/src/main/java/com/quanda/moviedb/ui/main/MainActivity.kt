@@ -7,8 +7,10 @@ import com.aurelhubert.ahbottomnavigation.AHBottomNavigationAdapter
 import com.quanda.moviedb.R
 import com.quanda.moviedb.base.activity.BaseDataLoadActivity
 import com.quanda.moviedb.databinding.ActivityMainBinding
+import com.quanda.moviedb.ui.main.popularmovie.PopularMovieFragment
+import com.quanda.moviedb.ui.main.popularmovie.PopularMovieNavigator
 
-class MainActivity : BaseDataLoadActivity<ActivityMainBinding, MainViewModel>(), MainNavigator {
+class MainActivity : BaseDataLoadActivity<ActivityMainBinding, MainViewModel>(), MainNavigator, PopularMovieNavigator {
 
     companion object {
         const val FRAGMENT_TAG = "fragment_tag_"
@@ -81,10 +83,10 @@ class MainActivity : BaseDataLoadActivity<ActivityMainBinding, MainViewModel>(),
 
     fun newFragmentInstance(position: Int): Fragment {
         return when (position) {
-            Tab.POPULAR.position -> Fragment()
-            Tab.TOP_RATED.position -> Fragment()
-            Tab.FAVORITE.position -> Fragment()
-            Tab.PROFILE.position -> Fragment()
+            Tab.POPULAR.position -> PopularMovieFragment.newInstance()
+            Tab.TOP_RATED.position -> Fragment() // TODO
+            Tab.FAVORITE.position -> Fragment() // TODO
+            Tab.PROFILE.position -> Fragment() // TODO
             else -> Fragment()
         }
     }
