@@ -1,5 +1,6 @@
 package com.quanda.moviedb.ui.main
 
+import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
@@ -29,7 +30,13 @@ class MainActivity : BaseDataLoadActivity<ActivityMainBinding, MainViewModel>(),
     }
 
     override fun initViewModel(): MainViewModel {
-        return MainViewModel(this, this)
+        return ViewModelProviders.of(this, MainViewModel.CustomFactory(this, this)).get(
+                MainViewModel::class.java)
+
+//        viewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
+//        viewModel.context = this
+//        viewModel.mainNavigator = this
+//        return viewModel
     }
 
     override fun initData() {

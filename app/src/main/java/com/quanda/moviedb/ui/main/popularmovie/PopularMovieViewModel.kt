@@ -1,5 +1,7 @@
 package com.quanda.moviedb.ui.main.popularmovie
 
+import android.arch.lifecycle.ViewModel
+import android.arch.lifecycle.ViewModelProvider
 import android.content.Context
 import com.quanda.moviedb.base.BaseViewHolderBinding
 import com.quanda.moviedb.base.viewmodel.BaseDataLoadMoreRefreshViewModel
@@ -10,11 +12,18 @@ import com.quanda.moviedb.data.source.remote.response.GetMovieListResponse
 import io.reactivex.observers.DisposableSingleObserver
 
 class PopularMovieViewModel(context: Context,
-        val popularMovieNavigator: PopularMovieNavigator,
-        val mode: Int) : BaseDataLoadMoreRefreshViewModel<Movie>(
-        context, popularMovieNavigator) {
+        var popularMovieNavigator: PopularMovieNavigator,
+        var mode: Int) : BaseDataLoadMoreRefreshViewModel<Movie>(context) {
 
-    val userRepository = UserRepository.getInstance()
+    class CustomFactory(val context: Context,
+            val popularMovieNavigator: PopularMovieNavigator,
+            val mode: Int) : ViewModelProvider.NewInstanceFactory() {
+        override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+            return PopularMovieViewModel(context, popularMovieNavigator, mode) as T
+        }
+    }
+
+    val userRepository = UserRepository.getInstance(context)
     val itemCLickListener = object : BaseViewHolderBinding.OnItemCLickListener<Movie> {
         override fun onItemClick(position: Int, data: Movie) {
             popularMovieNavigator.goToMovieDetail(data)

@@ -136,7 +136,7 @@ dependencies {
 
   //dagger 2
   implementation "com.google.dagger:dagger:2.11"
-  annotationProcessor "com.google.dagger:dagger-compiler:2.11"
+  kapt "com.google.dagger:dagger-compiler:2.11"
   compileOnly 'javax.annotation:jsr250-api:1.0'
   implementation 'javax.inject:javax.inject:1'
 
@@ -148,8 +148,12 @@ dependencies {
 
   // room
   implementation "android.arch.persistence.room:runtime:1.1.0-beta2"
-  annotationProcessor "android.arch.persistence.room:compiler:1.1.0-beta2"
+  kapt "android.arch.persistence.room:compiler:1.1.0-beta2"
   implementation "android.arch.persistence.room:rxjava2:1.1.0-beta2"
+
+  // live data
+  implementation "android.arch.lifecycle:extensions:1.1.1"
+  kapt "android.arch.lifecycle:compiler:1.1.1"
 
   // fabric
   implementation('com.crashlytics.sdk.android:crashlytics:2.9.1@aar') {

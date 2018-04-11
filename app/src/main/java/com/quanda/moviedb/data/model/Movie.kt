@@ -6,9 +6,9 @@ import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-@Entity(tableName = "movie")
+//@Entity(tableName = "movie")
 data class Movie(
-        @PrimaryKey(autoGenerate = false)
+//        @PrimaryKey(autoGenerate = false)
         val id: Int = 0,
         val adult: Boolean = false,
         val backdrop_path: String = "",

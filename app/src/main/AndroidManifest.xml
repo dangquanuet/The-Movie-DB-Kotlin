@@ -14,8 +14,7 @@
         android:theme="@style/AppTheme">
 
         <activity
-            android:name="com.quanda.moviedb.ui.main.MainActivity"
-            android:screenOrientation="portrait">
+            android:name="com.quanda.moviedb.ui.main.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <action android:name="android.intent.action.VIEW"/>
@@ -25,12 +24,10 @@
         </activity>
 
         <activity
-            android:name=".ui.movie.MovieListActivity"
-            android:screenOrientation="portrait"/>
+            android:name=".ui.movie.MovieListActivity"/>
 
         <activity
-            android:name=".ui.main.moviedetail.MovieDetailActivity"
-            android:screenOrientation="portrait"/>
+            android:name=".ui.main.moviedetail.MovieDetailActivity"/>
 
         <meta-data
             android:name="io.fabric.ApiKey"
