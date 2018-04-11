@@ -4,13 +4,12 @@ import android.content.Context
 import android.databinding.ObservableArrayList
 import android.databinding.ObservableBoolean
 import android.support.v4.widget.SwipeRefreshLayout
-import com.quanda.moviedb.base.navigator.BaseNavigator
 import com.quanda.moviedb.constants.Constants
 import com.quanda.moviedb.data.source.remote.response.BaseListResponse
 import com.quanda.moviedb.widgets.EndlessRecyclerOnScrollListener
 
-abstract class BaseDataLoadMoreRefreshViewModel<Item>(context: Context,
-        baseNavigator: BaseNavigator) : BaseDataLoadViewModel(context, baseNavigator) {
+abstract class BaseDataLoadMoreRefreshViewModel<Item>(context: Context) : BaseDataLoadViewModel(
+        context) {
 
     val isRefreshing = ObservableBoolean()
     val onRefreshListener = SwipeRefreshLayout.OnRefreshListener {

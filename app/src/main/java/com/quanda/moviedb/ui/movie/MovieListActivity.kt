@@ -1,5 +1,6 @@
 package com.quanda.moviedb.ui.movie
 
+import android.arch.lifecycle.ViewModelProviders
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
 import com.quanda.moviedb.base.BaseViewHolderBinding
@@ -10,7 +11,9 @@ import com.quanda.moviedb.databinding.ActivityBaseLoadmoreRefreshBinding
 class MovieListActivity : BaseDataLoadMoreRefreshActivity<ActivityBaseLoadmoreRefreshBinding, MovieListViewModel, Movie>(), MovieListNavigator {
 
     override fun initViewModel(): MovieListViewModel {
-        return MovieListViewModel(this, this)
+        viewModel = ViewModelProviders.of(this).get(MovieListViewModel::class.java)
+        viewModel.movieListNavigator = this
+        return viewModel
     }
 
     override fun initData() {

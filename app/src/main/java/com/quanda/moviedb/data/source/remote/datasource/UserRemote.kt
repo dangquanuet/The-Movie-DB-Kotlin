@@ -8,6 +8,7 @@ import io.reactivex.Single
 class UserRemote : IUserRemote {
 
     companion object {
+        @Volatile
         private var INSTANCE: UserRemote? = null
 
         fun getInstance(): UserRemote {

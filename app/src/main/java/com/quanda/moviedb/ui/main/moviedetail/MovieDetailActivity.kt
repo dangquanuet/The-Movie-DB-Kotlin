@@ -1,5 +1,6 @@
 package com.quanda.moviedb.ui.main.moviedetail
 
+import android.arch.lifecycle.ViewModelProviders
 import com.quanda.moviedb.R
 import com.quanda.moviedb.base.activity.BaseDataLoadActivity
 import com.quanda.moviedb.constants.BundleConstants
@@ -13,7 +14,13 @@ class MovieDetailActivity : BaseDataLoadActivity<ActivityMovieDetailBinding, Mov
     }
 
     override fun initViewModel(): MovieDetailViewModel {
-        return MovieDetailViewModel(this, this)
+        return ViewModelProviders.of(this, MovieDetailViewModel.CustomFactory(this, this)).get(
+                MovieDetailViewModel::class.java)
+
+//        viewModel = ViewModelProviders.of(this).get(MovieDetailViewModel::class.java)
+//        viewModel.context = this
+//        viewModel.movieDetailNavigator = this
+//        return viewModel
     }
 
     override fun initData() {
@@ -23,7 +30,7 @@ class MovieDetailActivity : BaseDataLoadActivity<ActivityMovieDetailBinding, Mov
         val bundle = intent.extras
         if (bundle != null) {
             val movie = bundle.getParcelable<Movie>(BundleConstants.MOVIE)
-            viewModel.movie.set(bundle.getParcelable(BundleConstants.MOVIE))
+            viewModel.movie.postValue(bundle.getParcelable(BundleConstants.MOVIE))
         }
     }
 }

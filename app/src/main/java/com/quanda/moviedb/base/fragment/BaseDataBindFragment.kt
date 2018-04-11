@@ -10,10 +10,10 @@ import android.view.ViewGroup
 import com.quanda.moviedb.base.navigator.BaseNavigator
 import com.quanda.moviedb.base.viewmodel.BaseViewModel
 
-abstract class BaseDataBindFragment<T : ViewDataBinding, K : BaseViewModel> : BaseFragment() {
+abstract class BaseDataBindFragment<ViewBinding : ViewDataBinding, ViewModel : BaseViewModel> : BaseFragment() {
 
-    lateinit var binding: T
-    lateinit var viewModel: K
+    lateinit var binding: ViewBinding
+    lateinit var viewModel: ViewModel
     lateinit var navigator: BaseNavigator
 
     abstract fun getLayoutId(): Int
@@ -43,6 +43,4 @@ abstract class BaseDataBindFragment<T : ViewDataBinding, K : BaseViewModel> : Ba
         super.onDestroy()
         viewModel.onActivityDestroyed()
     }
-
-
 }

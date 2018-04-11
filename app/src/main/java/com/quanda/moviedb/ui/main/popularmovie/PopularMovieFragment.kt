@@ -1,5 +1,6 @@
 package com.quanda.moviedb.ui.main.popularmovie
 
+import android.arch.lifecycle.ViewModelProviders
 import android.graphics.Color
 import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
@@ -22,9 +23,19 @@ class PopularMovieFragment : BaseDataLoadMoreRefreshFragment<FragmentBaseLoadmor
     }
 
     override fun initViewModel(): PopularMovieViewModel {
-        return PopularMovieViewModel(context!!,
-                navigator as PopularMovieNavigator,
-                arguments?.getInt(BundleConstants.TYPE) ?: PopularMovieFragment.TYPE.POPULAR.type)
+        return ViewModelProviders.of(this,
+                PopularMovieViewModel.CustomFactory(context!!, navigator as PopularMovieNavigator,
+                        arguments?.getInt(
+                                BundleConstants.TYPE)
+                                ?: PopularMovieFragment.TYPE.POPULAR.type)).get(
+                PopularMovieViewModel::class.java)
+
+//        viewModel = ViewModelProviders.of(this).get(PopularMovieViewModel::class.java)
+//        viewModel.context = context!!
+//        viewModel.popularMovieNavigator = navigator as PopularMovieNavigator
+//        viewModel.mode = arguments?.getInt(
+//                BundleConstants.TYPE) ?: PopularMovieFragment.TYPE.POPULAR.type
+//        return viewModel
     }
 
     override fun initData() {
