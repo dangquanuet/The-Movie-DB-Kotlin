@@ -4,7 +4,6 @@ import android.arch.lifecycle.ViewModelProviders
 import com.quanda.moviedb.R
 import com.quanda.moviedb.base.activity.BaseDataLoadActivity
 import com.quanda.moviedb.constants.BundleConstants
-import com.quanda.moviedb.data.model.Movie
 import com.quanda.moviedb.databinding.ActivityMovieDetailBinding
 
 class MovieDetailActivity : BaseDataLoadActivity<ActivityMovieDetailBinding, MovieDetailViewModel>(), MovieDetailNavigator {
@@ -27,10 +26,8 @@ class MovieDetailActivity : BaseDataLoadActivity<ActivityMovieDetailBinding, Mov
         super.initData()
         binding.viewModel = viewModel
 
-        val bundle = intent.extras
-        if (bundle != null) {
-            val movie = bundle.getParcelable<Movie>(BundleConstants.MOVIE)
-            viewModel.movie.postValue(bundle.getParcelable(BundleConstants.MOVIE))
+        intent.extras.let {
+            viewModel.movie.set(it.getParcelable(BundleConstants.MOVIE))
         }
     }
 }
