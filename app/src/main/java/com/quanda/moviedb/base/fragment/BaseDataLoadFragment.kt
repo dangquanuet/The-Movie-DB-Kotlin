@@ -1,8 +1,7 @@
 package com.quanda.moviedb.base.fragment
 
 import android.app.Dialog
-import android.databinding.Observable
-import android.databinding.ObservableBoolean
+import android.arch.lifecycle.Observer
 import android.databinding.ViewDataBinding
 import com.quanda.moviedb.base.viewmodel.BaseDataLoadViewModel
 import com.quanda.moviedb.utils.DialogUtils
@@ -11,12 +10,6 @@ abstract class BaseDataLoadFragment<View : ViewDataBinding, ViewModel : BaseData
 
     lateinit var loadingDialog: Dialog
 
-    val loadingCallback = object : Observable.OnPropertyChangedCallback() {
-        override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-            handleLoadingChanged((sender as ObservableBoolean).get())
-        }
-    }
-
     abstract fun initViewModel(): ViewModel
 
     override fun initData() {
@@ -24,12 +17,13 @@ abstract class BaseDataLoadFragment<View : ViewDataBinding, ViewModel : BaseData
             loadingDialog = DialogUtils.createLoadingDialog(context, false)
         }
         viewModel = initViewModel()
-        viewModel.isDataLoading.addOnPropertyChangedCallback(loadingCallback)
+        viewModel.isDataLoading.observe(this,
+                Observer<Boolean> { t -> handleLoadingChanged(t == true) })
     }
 
-    override fun onDestroyOptionsMenu() {
-        super.onDestroyOptionsMenu()
-        viewModel.isDataLoading.removeOnPropertyChangedCallback(loadingCallback)
+    override fun onDestroy() {
+        super.onDestroy()
+        viewModel.isDataLoading.removeObservers(this)
     }
 
     fun showLoadingDialog() {
@@ -43,10 +37,6 @@ abstract class BaseDataLoadFragment<View : ViewDataBinding, ViewModel : BaseData
     }
 
     open fun handleLoadingChanged(isLoading: Boolean) {
-        if (isLoading) {
-            showLoadingDialog()
-        } else {
-            hideLoadingDialog()
-        }
+        if (isLoading) showLoadingDialog() else hideLoadingDialog()
     }
 }

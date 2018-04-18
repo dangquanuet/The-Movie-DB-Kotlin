@@ -1,17 +1,18 @@
 package com.quanda.moviedb.ui.main
 
+import android.app.Application
 import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProvider
-import android.content.Context
 import com.quanda.moviedb.base.viewmodel.BaseDataLoadViewModel
 
-class MainViewModel(context: Context, var mainNavigator: MainNavigator) : BaseDataLoadViewModel(
-        context) {
+class MainViewModel(application: Application,
+        var mainNavigator: MainNavigator) : BaseDataLoadViewModel(
+        application) {
 
-    class CustomFactory(val context: Context,
+    class CustomFactory(val application: Application,
             val mainNavigator: MainNavigator) : ViewModelProvider.NewInstanceFactory() {
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-            return MainViewModel(context, mainNavigator) as T
+            return MainViewModel(application, mainNavigator) as T
         }
     }
 

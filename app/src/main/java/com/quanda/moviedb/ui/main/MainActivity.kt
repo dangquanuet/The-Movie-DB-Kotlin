@@ -30,13 +30,8 @@ class MainActivity : BaseDataLoadActivity<ActivityMainBinding, MainViewModel>(),
     }
 
     override fun initViewModel(): MainViewModel {
-        return ViewModelProviders.of(this, MainViewModel.CustomFactory(this, this)).get(
+        return ViewModelProviders.of(this, MainViewModel.CustomFactory(application, this)).get(
                 MainViewModel::class.java)
-
-//        viewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
-//        viewModel.context = this
-//        viewModel.mainNavigator = this
-//        return viewModel
     }
 
     override fun initData() {
@@ -48,18 +43,19 @@ class MainActivity : BaseDataLoadActivity<ActivityMainBinding, MainViewModel>(),
 
     fun initBottomNavigation() {
         bottomNavigation = binding.bottomNavigation
-        val bottomNavigationAdapter = AHBottomNavigationAdapter(this,
+        val bottomNavigationAdapter = AHBottomNavigationAdapter(this@MainActivity,
                 R.menu.menu_bottom_navigation)
         bottomNavigationAdapter.setupWithBottomNavigation(bottomNavigation)
 
-        bottomNavigation.titleState = AHBottomNavigation.TitleState.ALWAYS_SHOW
-        bottomNavigation.defaultBackgroundColor = ContextCompat.getColor(this, R.color.white)
+        bottomNavigation.apply {
+            titleState = AHBottomNavigation.TitleState.ALWAYS_SHOW
+            defaultBackgroundColor = ContextCompat.getColor(this@MainActivity, R.color.white)
 
-        bottomNavigation.setOnTabSelectedListener(
-                AHBottomNavigation.OnTabSelectedListener { position, wasSelected ->
-                    onClickBottomNavigationItem(position)
-                })
-        bottomNavigation.currentItem = Tab.POPULAR.position
+            setOnTabSelectedListener({ position, wasSelected ->
+                onClickBottomNavigationItem(position)
+            })
+            currentItem = Tab.POPULAR.position
+        }
     }
 
     fun onClickBottomNavigationItem(position: Int): Boolean {

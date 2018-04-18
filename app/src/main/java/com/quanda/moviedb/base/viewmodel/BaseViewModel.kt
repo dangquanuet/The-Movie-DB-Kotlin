@@ -1,10 +1,11 @@
 package com.quanda.moviedb.base.viewmodel
 
-import android.arch.lifecycle.ViewModel
+import android.app.Application
+import android.arch.lifecycle.AndroidViewModel
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 
-abstract class BaseViewModel() : ViewModel() {
+abstract class BaseViewModel(application: Application) : AndroidViewModel(application) {
 
     val compoDisposable = CompositeDisposable()
 

@@ -29,7 +29,10 @@ abstract class BaseDataBindFragment<ViewBinding : ViewDataBinding, ViewModel : B
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?): View? {
         binding = DataBindingUtil.inflate(inflater, getLayoutId(), container, false)
-        binding.root.isClickable = true
+        binding.apply {
+            root.isClickable = true
+            setLifecycleOwner(this@BaseDataBindFragment)
+        }
         return binding.root
     }
 
