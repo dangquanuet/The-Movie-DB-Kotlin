@@ -8,26 +8,26 @@ import com.quanda.moviedb.databinding.ActivityMovieDetailBinding
 
 class MovieDetailActivity : BaseDataLoadActivity<ActivityMovieDetailBinding, MovieDetailViewModel>(), MovieDetailNavigator {
 
+//    val vmb by vmb<MovieDetailViewModel, ActivityMovieDetailBinding>(R.layout.activity_movie_detail)
+
     override fun getLayoutId(): Int {
         return R.layout.activity_movie_detail
     }
 
     override fun initViewModel(): MovieDetailViewModel {
-        return ViewModelProviders.of(this, MovieDetailViewModel.CustomFactory(this, this)).get(
+        return ViewModelProviders.of(this,
+                MovieDetailViewModel.CustomFactory(application, this)).get(
                 MovieDetailViewModel::class.java)
-
-//        viewModel = ViewModelProviders.of(this).get(MovieDetailViewModel::class.java)
-//        viewModel.context = this
-//        viewModel.movieDetailNavigator = this
-//        return viewModel
     }
 
     override fun initData() {
         super.initData()
-        binding.viewModel = viewModel
+        binding.apply {
+            viewModel = this@MovieDetailActivity.viewModel
+        }
 
-        intent.extras.let {
-            viewModel.movie.set(it.getParcelable(BundleConstants.MOVIE))
+        intent.extras?.apply {
+            viewModel.movie.postValue(getParcelable(BundleConstants.MOVIE))
         }
     }
 }

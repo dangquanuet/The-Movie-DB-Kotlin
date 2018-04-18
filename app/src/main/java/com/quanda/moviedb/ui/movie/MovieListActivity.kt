@@ -11,22 +11,25 @@ import com.quanda.moviedb.databinding.ActivityBaseLoadmoreRefreshBinding
 class MovieListActivity : BaseDataLoadMoreRefreshActivity<ActivityBaseLoadmoreRefreshBinding, MovieListViewModel, Movie>(), MovieListNavigator {
 
     override fun initViewModel(): MovieListViewModel {
-        viewModel = ViewModelProviders.of(this).get(MovieListViewModel::class.java)
-        viewModel.movieListNavigator = this
-        return viewModel
+        return ViewModelProviders.of(this, MovieListViewModel.CustomFactory(application, this)).get(
+                MovieListViewModel::class.java)
     }
 
     override fun initData() {
         super.initData()
-        binding.view = this
-        binding.viewModel = viewModel
-        binding.recyclerView.adapter.set(mAdapter)
+        binding.apply {
+            view = this@MovieListActivity
+            viewModel = this@MovieListActivity.viewModel
+            recyclerView.adapter.value = adapter
+        }
 
-        viewModel.isDataLoading.set(true)
-        viewModel.loadData(1)
+        viewModel.apply {
+            isDataLoading.value = true
+            loadData(1)
+        }
     }
 
-    override fun getAdapter(): RecyclerView.Adapter<RecyclerView.ViewHolder> {
+    override fun initAdapter(): RecyclerView.Adapter<RecyclerView.ViewHolder> {
         return MovieListAdapter(this, viewModel.listItem,
                 object : BaseViewHolderBinding.OnItemCLickListener<Movie> {
                     override fun onItemClick(position: Int, data: Movie) {
@@ -35,5 +38,5 @@ class MovieListActivity : BaseDataLoadMoreRefreshActivity<ActivityBaseLoadmoreRe
                 }) as RecyclerView.Adapter<RecyclerView.ViewHolder>
     }
 
-    override fun getLayoutManager(): RecyclerView.LayoutManager = GridLayoutManager(this, 2)
+    override fun initLayoutManager(): RecyclerView.LayoutManager = GridLayoutManager(this, 2)
 }

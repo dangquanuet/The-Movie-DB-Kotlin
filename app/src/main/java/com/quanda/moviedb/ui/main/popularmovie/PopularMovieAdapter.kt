@@ -25,10 +25,12 @@ class PopularMovieAdapter(context: Context, list: List<Movie>,
             binding: ItemMovieBinding) : BaseViewHolderBinding<ItemMovieBinding, Movie>(
             binding) {
         override fun bindData(item: Movie) {
-            binding.title = item.title
-            binding.imageUrl = item.poster_path
-            binding.imageClickListener = View.OnClickListener {
-                listener?.onItemClick(adapterPosition, item)
+            binding.apply {
+                title = item.title
+                imageUrl = item.poster_path
+                imageClickListener = View.OnClickListener {
+                    listener?.onItemClick(adapterPosition, item)
+                }
             }
         }
     }

@@ -24,30 +24,28 @@ class PopularMovieFragment : BaseDataLoadMoreRefreshFragment<FragmentBaseLoadmor
 
     override fun initViewModel(): PopularMovieViewModel {
         return ViewModelProviders.of(this,
-                PopularMovieViewModel.CustomFactory(context!!, navigator as PopularMovieNavigator,
+                PopularMovieViewModel.CustomFactory(activity?.application!!,
+                        navigator as PopularMovieNavigator,
                         arguments?.getInt(
                                 BundleConstants.TYPE)
                                 ?: PopularMovieFragment.TYPE.POPULAR.type)).get(
                 PopularMovieViewModel::class.java)
-
-//        viewModel = ViewModelProviders.of(this).get(PopularMovieViewModel::class.java)
-//        viewModel.context = context!!
-//        viewModel.popularMovieNavigator = navigator as PopularMovieNavigator
-//        viewModel.mode = arguments?.getInt(
-//                BundleConstants.TYPE) ?: PopularMovieFragment.TYPE.POPULAR.type
-//        return viewModel
     }
 
     override fun initData() {
         super.initData()
-        binding.root.setBackgroundColor(Color.BLACK)
-        binding.view = this
-        binding.viewModel = viewModel
-        binding.recyclerView.adapter.set(adapter)
-        binding.recyclerView.layoutManager.set(layoutManager)
+        binding.apply {
+            root.setBackgroundColor(Color.BLACK)
+            view = this@PopularMovieFragment
+            viewModel = this@PopularMovieFragment.viewModel
+            recyclerView.adapter.value = adapter
+            recyclerView.layoutManager.value = layoutManager
+        }
 
-        viewModel.isDataLoading.set(true)
-        viewModel.loadData(1)
+        viewModel.apply {
+            isDataLoading.value = true
+            loadData(1)
+        }
     }
 
     override fun initAdapter(): RecyclerView.Adapter<RecyclerView.ViewHolder> {

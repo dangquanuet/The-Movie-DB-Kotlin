@@ -1,19 +1,19 @@
 package com.quanda.moviedb.base.viewmodel
 
-import android.content.Context
-import android.databinding.ObservableBoolean
+import android.app.Application
+import android.arch.lifecycle.MutableLiveData
 import android.widget.Toast
 
-abstract class BaseDataLoadViewModel(var context: Context) : BaseViewModel() {
+abstract class BaseDataLoadViewModel(application: Application) : BaseViewModel(application) {
 
-    val isDataLoading = ObservableBoolean()
+    val isDataLoading = MutableLiveData<Boolean>().apply { value = false }
 
     open fun onLoadFail(e: Throwable) {
         showError(e)
-        isDataLoading.set(false)
+        isDataLoading.value = false
     }
 
     fun showError(e: Throwable) {
-        Toast.makeText(context, e.message, Toast.LENGTH_SHORT).show()
+        Toast.makeText(getApplication(), e.message, Toast.LENGTH_SHORT).show()
     }
 }

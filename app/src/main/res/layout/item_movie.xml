@@ -26,9 +26,9 @@
         <android.support.v7.widget.AppCompatImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:onClick="@{ imageClickListener }"
             bind:cacheSource="@{ true }"
             bind:centerCrop="@{ true }"
-            bind:clickSafe="@{ imageClickListener }"
             bind:loadImage="@{ imageUrl }"
             tools:src="@drawable/bg_default_image"
             />

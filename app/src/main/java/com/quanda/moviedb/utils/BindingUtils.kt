@@ -40,31 +40,31 @@ fun setLayoutManager(view: RecyclerView,
 @BindingAdapter("recyclerAdapter")
 fun setPTRRecyclerAdapter(view: PullRefreshRecyclerView,
         adapter: RecyclerView.Adapter<RecyclerView.ViewHolder>) {
-    view.adapter.set(adapter)
+    view.adapter.value = adapter
 }
 
 @BindingAdapter("layoutManager")
 fun setPTRLayoutManager(view: PullRefreshRecyclerView,
         layoutManager: RecyclerView.LayoutManager) {
-    view.layoutManager.set(layoutManager)
+    view.layoutManager.value = layoutManager
 }
 
 @BindingAdapter("onScrollListener")
 fun setPTRScrollListener(view: PullRefreshRecyclerView,
         listener: RecyclerView.OnScrollListener) {
-    view.onScrollListener.set(listener)
+    view.onScrollListener.value = listener
 }
 
 @BindingAdapter("refreshListener")
 fun setPTRRefreshListener(view: PullRefreshRecyclerView,
         listener: SwipeRefreshLayout.OnRefreshListener) {
-    view.onRefreshListener.set(listener)
+    view.onRefreshListener.value = listener
 }
 
 @BindingAdapter("refreshing")
 fun setPTRRefreshing(view: PullRefreshRecyclerView,
         isRefreshing: Boolean) {
-    view.isRefreshing.set(isRefreshing)
+    view.isRefreshing.value = isRefreshing
 }
 
 @BindingAdapter("glideSrc")
