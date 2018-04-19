@@ -42,9 +42,11 @@ class PopularMovieFragment : BaseDataLoadMoreRefreshFragment<FragmentBaseLoadmor
             recyclerView.layoutManager.value = layoutManager
         }
 
-        viewModel.apply {
-            isDataLoading.value = true
-            loadData(1)
+        if (viewModel.listItem.isEmpty()) {
+            viewModel.apply {
+                isDataLoading.value = true
+                loadData(1)
+            }
         }
     }
 
