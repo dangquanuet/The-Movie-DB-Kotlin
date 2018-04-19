@@ -3,7 +3,6 @@ package com.quanda.moviedb.widgets
 import android.arch.lifecycle.MutableLiveData
 import android.content.Context
 import android.databinding.DataBindingUtil
-import android.databinding.ObservableBoolean
 import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.RecyclerView
 import android.util.AttributeSet
@@ -18,8 +17,7 @@ class PullRefreshRecyclerView(context: Context, attributeSet: AttributeSet) : Fr
     val layoutManager = MutableLiveData<RecyclerView.LayoutManager>()
     val adapter = MutableLiveData<RecyclerView.Adapter<RecyclerView.ViewHolder>>()
     val onScrollListener = MutableLiveData<RecyclerView.OnScrollListener>()
-    // can not get lifecycle from custom view, so use ObserveField
-    val isRefreshing = ObservableBoolean()
+    val isRefreshing = MutableLiveData<Boolean>()
     val onRefreshListener = MutableLiveData<SwipeRefreshLayout.OnRefreshListener>()
     val binding: LayoutPtrRecyclerViewBinding
 
@@ -28,10 +26,11 @@ class PullRefreshRecyclerView(context: Context, attributeSet: AttributeSet) : Fr
                 LayoutInflater.from(context),
                 R.layout.layout_ptr_recycler_view, this, true)
         binding.view = this
+        isRefreshing.observeForever { t -> binding.swipeLayout.isRefreshing = t == true }
     }
 
     fun setRefreshing(isRefreshing: Boolean) {
-        this.isRefreshing.set(isRefreshing)
+        this.isRefreshing.value = isRefreshing
     }
 
     fun scrollToPosition(position: Int) {
