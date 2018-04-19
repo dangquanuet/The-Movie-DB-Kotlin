@@ -64,7 +64,7 @@ fun setPTRRefreshListener(view: PullRefreshRecyclerView,
 @BindingAdapter("refreshing")
 fun setPTRRefreshing(view: PullRefreshRecyclerView,
         isRefreshing: Boolean) {
-    view.isRefreshing.set(isRefreshing)
+    view.isRefreshing.value = isRefreshing
 }
 
 @BindingAdapter("glideSrc")
