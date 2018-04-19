@@ -3,13 +3,19 @@ package com.quanda.moviedb.ui.main.popularmovie
 import android.app.Application
 import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProvider
+import android.databinding.ObservableArrayList
 import com.quanda.moviedb.base.BaseViewHolderBinding
 import com.quanda.moviedb.base.viewmodel.BaseDataLoadMoreRefreshViewModel
 import com.quanda.moviedb.constants.ApiParam
 import com.quanda.moviedb.data.model.Movie
 import com.quanda.moviedb.data.source.UserRepository
+import com.quanda.moviedb.data.source.local.AppDatabase
 import com.quanda.moviedb.data.source.remote.response.GetMovieListResponse
+import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.observers.DisposableSingleObserver
+import io.reactivex.schedulers.Schedulers
+import kotlinx.coroutines.experimental.async
+import kotlinx.coroutines.experimental.launch
 
 class PopularMovieViewModel(application: Application,
         val popularMovieNavigator: PopularMovieNavigator,
@@ -23,12 +29,14 @@ class PopularMovieViewModel(application: Application,
         }
     }
 
-    private val userRepository = UserRepository.getInstance(application)
+    val userRepository = UserRepository.getInstance(application)
     val itemCLickListener = object : BaseViewHolderBinding.OnItemCLickListener<Movie> {
         override fun onItemClick(position: Int, data: Movie) {
             popularMovieNavigator.goToMovieDetail(data)
         }
     }
+    val movieDao = AppDatabase.getInstance(application).movieDao()
+    val tempMovieList = ObservableArrayList<Movie>()
 
     override fun loadData(page: Int) {
         val hashMap = HashMap<String, String>()
@@ -41,15 +49,44 @@ class PopularMovieViewModel(application: Application,
             else -> hashMap.put(ApiParam.SORT_BY, ApiParam.POPULARITY_DESC)
         }
 
+        if (page == 1 && tempMovieList.isEmpty()) {
+            movieDao.getMoviePage(getNumberItemPerPage(), page).subscribeOn(
+                    Schedulers.io()).observeOn(
+                    AndroidSchedulers.mainThread()).subscribe(object : DisposableSingleObserver<List<Movie>>() {
+                override fun onSuccess(t: List<Movie>) {
+                    tempMovieList.addAll(t)
+                    listItem.addAll(t)
+                }
+
+                override fun onError(e: Throwable) {
+
+                }
+            })
+        }
+
         userRepository.getMovieList(
                 hashMap).subscribe(object : DisposableSingleObserver<GetMovieListResponse>() {
             override fun onSuccess(response: GetMovieListResponse) {
                 currentPage = page
                 if (currentPage == 1) listItem.clear()
-                if (isRefreshing.value == true) resetLoadMore()
-                listItem.addAll(response.results)
+                if (isRefreshing.value == true) {
+                    resetLoadMore()
+                    launch {
+                        async {
+                            movieDao.deleteAll()
+                        }
+                    }
+                }
 
-//                MovieDBApplication.database?.movieDao()?.insertMovieList(response.results)
+                listItem.removeAll(tempMovieList)
+                tempMovieList.clear()
+
+                listItem.addAll(response.results)
+                launch {
+                    async {
+                        movieDao.insert(response.results)
+                    }
+                }
 
                 onLoadSuccess(response)
             }
