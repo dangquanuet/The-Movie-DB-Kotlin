@@ -3,7 +3,9 @@ package com.quanda.moviedb.data.source.local
 import android.content.Context
 import android.content.SharedPreferences
 import com.quanda.moviedb.utils.GsonUtils
+import javax.inject.Singleton
 
+@Singleton
 class SharedPreferenceApi private constructor(context: Context) {
 
     companion object {

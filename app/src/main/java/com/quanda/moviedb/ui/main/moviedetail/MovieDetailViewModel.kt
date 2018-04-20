@@ -10,6 +10,7 @@ import android.text.TextUtils
 import com.quanda.moviedb.base.viewmodel.BaseDataLoadViewModel
 import com.quanda.moviedb.data.model.Movie
 import com.quanda.moviedb.data.source.UserRepository
+import javax.inject.Inject
 
 class MovieDetailViewModel(application: Application,
         val movieDetailNavigator: MovieDetailNavigator) : BaseDataLoadViewModel(application) {
@@ -22,7 +23,9 @@ class MovieDetailViewModel(application: Application,
     }
 
     val movie = MutableLiveData<Movie>()
-    val userRepository = UserRepository.getInstance(application)
+
+    @Inject
+    lateinit var userRepository: UserRepository
 
     val email = MutableLiveData<String>()
     val password = MutableLiveData<String>()

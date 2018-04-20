@@ -8,7 +8,9 @@ import com.quanda.moviedb.data.source.remote.datasource.UserRemote
 import com.quanda.moviedb.data.source.remote.response.GetMovieListResponse
 import com.quanda.moviedb.utils.SchedulerUtils
 import io.reactivex.Single
+import javax.inject.Singleton
 
+@Singleton
 class UserRepository(context: Context) : IUserRemote, IUserLocal {
 
     companion object {
