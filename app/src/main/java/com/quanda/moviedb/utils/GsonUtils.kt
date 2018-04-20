@@ -17,7 +17,7 @@ class GsonUtils {
             return INSTANCE as Gson
         }
 
-        fun objectToString(unit: Unit): String = getInstance().toJson(unit)
+        fun objectToString(any: Any): String = getInstance().toJson(any)
 
         fun <T> stringToObject(json: String, claszz: Class<T>): T? {
             try {
