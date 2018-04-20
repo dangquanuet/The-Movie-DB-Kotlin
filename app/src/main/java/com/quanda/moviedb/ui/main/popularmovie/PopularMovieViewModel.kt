@@ -4,18 +4,21 @@ import android.app.Application
 import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProvider
 import android.databinding.ObservableArrayList
+import com.quanda.moviedb.MovieDBApplication
 import com.quanda.moviedb.base.BaseViewHolderBinding
 import com.quanda.moviedb.base.viewmodel.BaseDataLoadMoreRefreshViewModel
 import com.quanda.moviedb.constants.ApiParam
 import com.quanda.moviedb.data.model.Movie
 import com.quanda.moviedb.data.source.UserRepository
 import com.quanda.moviedb.data.source.local.AppDatabase
+import com.quanda.moviedb.data.source.local.dao.MovieDao
 import com.quanda.moviedb.data.source.remote.response.GetMovieListResponse
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.schedulers.Schedulers
 import kotlinx.coroutines.experimental.async
 import kotlinx.coroutines.experimental.launch
+import javax.inject.Inject
 
 class PopularMovieViewModel(application: Application,
         val popularMovieNavigator: PopularMovieNavigator,
@@ -29,14 +32,26 @@ class PopularMovieViewModel(application: Application,
         }
     }
 
-    val userRepository = UserRepository.getInstance(application)
+    @Inject
+    lateinit var userRepository: UserRepository
+
     val itemCLickListener = object : BaseViewHolderBinding.OnItemCLickListener<Movie> {
         override fun onItemClick(position: Int, data: Movie) {
             popularMovieNavigator.goToMovieDetail(data)
         }
     }
-    val movieDao = AppDatabase.getInstance(application).movieDao()
+
+    @Inject
+    lateinit var appDatabase: AppDatabase
+
+    val movieDao: MovieDao
+
     val tempMovieList = ObservableArrayList<Movie>()
+
+    init {
+        (application as MovieDBApplication).appComponent.inject(this)
+        movieDao = appDatabase.movieDao()
+    }
 
     override fun loadData(page: Int) {
         val hashMap = HashMap<String, String>()

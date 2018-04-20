@@ -6,7 +6,9 @@ import android.arch.persistence.room.RoomDatabase
 import android.content.Context
 import com.quanda.moviedb.data.model.Movie
 import com.quanda.moviedb.data.source.local.dao.MovieDao
+import javax.inject.Singleton
 
+@Singleton
 @Database(entities = arrayOf(Movie::class), version = 1, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
 
