@@ -24,55 +24,59 @@ class SharedPreferenceApi private constructor(context: Context) {
         sharedPreferences = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
     }
 
-    operator fun <T> get(key: String, clazz: Class<T>): T? {
-        if (clazz == String::class.java) {
-            return sharedPreferences.getString(key, "") as T
-        } else if (clazz == Boolean::class.java) {
-            return java.lang.Boolean.valueOf(sharedPreferences.getBoolean(key, false)) as T
-        } else if (clazz == Float::class.java) {
-            return java.lang.Float.valueOf(sharedPreferences.getFloat(key, 0f)) as T
-        } else if (clazz == Int::class.java) {
-            return Integer.valueOf(sharedPreferences.getInt(key, 0)) as T
-        } else if (clazz == Long::class.java) {
-            return java.lang.Long.valueOf(sharedPreferences.getLong(key, 0)) as T
-        } else {
-            return GsonUtils.stringToObject(sharedPreferences.getString(key, ""), clazz) as T
+    /**
+     * Java way
+     */
+    fun <T> get(key: String, clazz: Class<T>): T {
+        return when (clazz) {
+            String::class.java -> sharedPreferences.getString(key, "") as T
+            Boolean::class.java -> sharedPreferences.getBoolean(key, false) as T
+            Float::class.java -> sharedPreferences.getFloat(key, 0f) as T
+            Int::class.java -> sharedPreferences.getInt(key, 0) as T
+            Long::class.java -> sharedPreferences.getLong(key, 0) as T
+            else -> GsonUtils.stringToObject(sharedPreferences.getString(key, ""), clazz) as T
         }
     }
 
-    operator fun <T> get(key: String, clazz: Class<T>, defValue: T): T? {
-        if (clazz == String::class.java) {
-            return sharedPreferences.getString(key, defValue as String) as T
-        } else if (clazz == Boolean::class.java) {
-            return java.lang.Boolean.valueOf(
-                    sharedPreferences.getBoolean(key, defValue as Boolean)) as T
-        } else if (clazz == Float::class.java) {
-            return java.lang.Float.valueOf(sharedPreferences.getFloat(key, defValue as Float)) as T
-        } else if (clazz == Int::class.java) {
-            return Integer.valueOf(sharedPreferences.getInt(key, defValue as Int)) as T
-        } else if (clazz == Long::class.java) {
-            return java.lang.Long.valueOf(sharedPreferences.getLong(key, defValue as Long)) as T
-        } else {
-            return GsonUtils.stringToObject(sharedPreferences.getString(key, defValue as String),
-                    clazz)
+    /**
+     * Kotlin way
+     */
+    inline fun <reified T> get(key: String): T {
+        return when (T::class) {
+            String::class -> get(key, "") as T
+            Boolean::class -> get(key, false) as T
+            Float::class -> get(key, 0.0) as T
+            Int::class -> get(key, 0) as T
+            Long::class -> get(key, 0) as T
+            else -> GsonUtils.stringToObject(get(key, ""), T::class.java) as T
+        }
+    }
+
+    fun <T> get(key: String, defValue: T): T {
+        return when (defValue) {
+            is String -> sharedPreferences.getString(key, defValue) as T
+            is Boolean -> sharedPreferences.getBoolean(key, defValue) as T
+            is Float -> sharedPreferences.getFloat(key, defValue) as T
+            is Int -> sharedPreferences.getInt(key, defValue) as T
+            is Long -> sharedPreferences.getLong(key, defValue) as T
+            else -> defValue
         }
     }
 
     fun <T> put(key: String, data: T) {
-        val editor = sharedPreferences.edit()
-        if (data is String) {
-            editor.putString(key, data as String)
-        } else if (data is Boolean) {
-            editor.putBoolean(key, data as Boolean)
-        } else if (data is Float) {
-            editor.putFloat(key, data as Float)
-        } else if (data is Int) {
-            editor.putInt(key, data as Int)
-        } else if (data is Long) {
-            editor.putLong(key, data as Long)
-        } else {
-            editor.putString(key, GsonUtils.objectToString(data as Unit))
-        }
-        editor.apply()
+        sharedPreferences.edit().apply {
+            when (data) {
+                is String -> putString(key, data)
+                is Boolean -> putBoolean(key, data)
+                is Float -> putFloat(key, data)
+                is Int -> putInt(key, data)
+                is Long -> putLong(key, data)
+                else -> putString(key, GsonUtils.objectToString(data as Any))
+            }
+        }.apply()
     }
+
+    fun remove(key: String) = sharedPreferences.edit().remove(key).apply()
+
+    fun clear() = sharedPreferences.edit().clear().apply()
 }
