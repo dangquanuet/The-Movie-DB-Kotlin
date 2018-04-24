@@ -11,6 +11,7 @@ import com.quanda.moviedb.base.activity.BaseDataLoadActivity
 import com.quanda.moviedb.constants.BundleConstants
 import com.quanda.moviedb.data.model.Movie
 import com.quanda.moviedb.databinding.ActivityMainBinding
+import com.quanda.moviedb.ui.main.login.LoginActivity
 import com.quanda.moviedb.ui.main.moviedetail.MovieDetailActivity
 import com.quanda.moviedb.ui.main.popularmovie.PopularMovieFragment
 import com.quanda.moviedb.ui.main.popularmovie.PopularMovieNavigator
@@ -52,6 +53,9 @@ class MainActivity : BaseDataLoadActivity<ActivityMainBinding, MainViewModel>(),
             defaultBackgroundColor = ContextCompat.getColor(this@MainActivity, R.color.white)
 
             setOnTabSelectedListener({ position, wasSelected ->
+                if (position == Tab.PROFILE.position) { // TODO check login
+                    goToActivity(LoginActivity::class.java)
+                }
                 onClickBottomNavigationItem(position)
             })
             currentItem = Tab.POPULAR.position

@@ -23,11 +23,13 @@
             </intent-filter>
         </activity>
 
-        <activity
-            android:name=".ui.movie.MovieListActivity"/>
+        <activity android:name=".ui.movie.MovieListActivity"/>
+
+        <activity android:name=".ui.main.moviedetail.MovieDetailActivity"/>
 
         <activity
-            android:name=".ui.main.moviedetail.MovieDetailActivity"/>
+            android:name=".ui.main.login.LoginActivity"
+            android:windowSoftInputMode="adjustResize"/>
 
         <meta-data
             android:name="io.fabric.ApiKey"
