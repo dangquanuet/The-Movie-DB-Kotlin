@@ -6,5 +6,9 @@
     <string name="main_tab_favorite">Favorite</string>
     <string name="main_tab_profile">Profile</string>
 
+    <!--login-->
+    <string name="login_email">Email</string>
+    <string name="login_password">Password</string>
+    <string name="login_button_login">Login</string>
 
 </resources>

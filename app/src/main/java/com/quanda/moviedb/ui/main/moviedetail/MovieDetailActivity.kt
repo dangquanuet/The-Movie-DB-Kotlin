@@ -8,9 +8,7 @@ import com.quanda.moviedb.databinding.ActivityMovieDetailBinding
 
 class MovieDetailActivity : BaseDataLoadActivity<ActivityMovieDetailBinding, MovieDetailViewModel>(), MovieDetailNavigator {
 
-    override fun getLayoutId(): Int {
-        return R.layout.activity_movie_detail
-    }
+    override fun getLayoutId() = R.layout.activity_movie_detail
 
     override fun initViewModel(): MovieDetailViewModel {
         return ViewModelProviders.of(this,

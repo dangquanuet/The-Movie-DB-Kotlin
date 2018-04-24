@@ -3,7 +3,10 @@ package com.quanda.moviedb.ui.main
 import android.app.Application
 import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProvider
+import com.quanda.moviedb.MovieDBApplication
 import com.quanda.moviedb.base.viewmodel.BaseDataLoadViewModel
+import com.quanda.moviedb.data.source.UserRepository
+import javax.inject.Inject
 
 class MainViewModel(application: Application,
         var mainNavigator: MainNavigator) : BaseDataLoadViewModel(
@@ -16,4 +19,10 @@ class MainViewModel(application: Application,
         }
     }
 
+    @Inject
+    lateinit var userRepository: UserRepository
+
+    init {
+        (application as MovieDBApplication).appComponent.inject(this)
+    }
 }
