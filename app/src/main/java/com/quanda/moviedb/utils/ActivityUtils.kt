@@ -10,3 +10,11 @@ fun AppCompatActivity.goToActivity(activity: Class<*>, bundle: Bundle? = null, f
         if (bundle != null) putExtras(bundle)
     })
 }
+
+fun AppCompatActivity.goToActivityForResult(activity: Class<*>, bundle: Bundle? = null,
+        flag: Int = 0, requestCode: Int) {
+    startActivityForResult(Intent(this, activity).apply {
+        if (flag != 0) flags = flag
+        if (bundle != null) putExtras(bundle)
+    }, requestCode)
+}

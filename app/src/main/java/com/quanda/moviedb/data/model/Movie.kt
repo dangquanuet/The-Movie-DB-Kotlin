@@ -10,9 +10,9 @@ import kotlinx.android.parcel.Parcelize
 @Entity(tableName = "movie")
 class Movie(
         @PrimaryKey(autoGenerate = false)
-        val id: Int = 0,
+        val id: String = "",
         val adult: Boolean = false,
-        val backdrop_path: String = "",
+        val backdrop_path: String? = "",
         val budget: Int = 0,
         //        val genres: List<Genre> = listOf(),
         val homepage: String = "",
@@ -34,9 +34,10 @@ class Movie(
         val title: String = "",
         val video: Boolean = false,
         val vote_average: Double = 0.0,
-        val vote_count: Int = 0
+        val vote_count: Int = 0,
+        var isFavorite: Boolean = false
 ) : Parcelable {
     @Ignore
-    constructor() : this(0) {
+    constructor() : this("") {
     }
 }

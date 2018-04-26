@@ -1,6 +1,7 @@
 package com.quanda.moviedb.ui.main
 
 import android.arch.lifecycle.ViewModelProviders
+import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
@@ -11,16 +12,19 @@ import com.quanda.moviedb.base.activity.BaseDataLoadActivity
 import com.quanda.moviedb.constants.BundleConstants
 import com.quanda.moviedb.data.model.Movie
 import com.quanda.moviedb.databinding.ActivityMainBinding
+import com.quanda.moviedb.ui.main.favoritemovie.FavoriteMovieFragment
+import com.quanda.moviedb.ui.main.favoritemovie.FavoriteMovieNavigator
 import com.quanda.moviedb.ui.main.login.LoginActivity
 import com.quanda.moviedb.ui.main.moviedetail.MovieDetailActivity
 import com.quanda.moviedb.ui.main.popularmovie.PopularMovieFragment
 import com.quanda.moviedb.ui.main.popularmovie.PopularMovieNavigator
 import com.quanda.moviedb.utils.goToActivity
+import com.quanda.moviedb.utils.goToActivityForResult
 
-class MainActivity : BaseDataLoadActivity<ActivityMainBinding, MainViewModel>(), MainNavigator, PopularMovieNavigator {
-
+class MainActivity : BaseDataLoadActivity<ActivityMainBinding, MainViewModel>(), MainNavigator, PopularMovieNavigator, FavoriteMovieNavigator {
     companion object {
         const val FRAGMENT_TAG = "fragment_tag_"
+        const val CODE_MOVIE_DETAIL = 1000
     }
 
     lateinit var bottomNavigation: AHBottomNavigation
@@ -99,7 +103,7 @@ class MainActivity : BaseDataLoadActivity<ActivityMainBinding, MainViewModel>(),
                     PopularMovieFragment.TYPE.POPULAR.type)
             Tab.TOP_RATED.position -> PopularMovieFragment.newInstance(
                     PopularMovieFragment.TYPE.TOP_RATED.type)
-            Tab.FAVORITE.position -> Fragment() // TODO
+            Tab.FAVORITE.position -> FavoriteMovieFragment.newInstance()
             Tab.PROFILE.position -> Fragment() // TODO
             else -> Fragment()
         }
@@ -124,6 +128,29 @@ class MainActivity : BaseDataLoadActivity<ActivityMainBinding, MainViewModel>(),
         val bundle = Bundle()
         bundle.putParcelable(BundleConstants.MOVIE, movie)
         goToActivity(MovieDetailActivity::class.java, bundle)
+    }
+
+    override fun goToMovieDetailWithResult(movie: Movie) {
+        val bundle = Bundle()
+        bundle.putParcelable(BundleConstants.MOVIE, movie)
+        goToActivityForResult(MovieDetailActivity::class.java, bundle,
+                requestCode = CODE_MOVIE_DETAIL)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        when (requestCode) {
+            CODE_MOVIE_DETAIL -> {
+                if (currentPositionFragment == Tab.FAVORITE.position) {
+                    val fragment = supportFragmentManager.findFragmentByTag(
+                            getTabFragmentTag(currentPositionFragment))
+                    if (fragment is FavoriteMovieFragment) {
+                        fragment.loadData()
+                    }
+                }
+            }
+            else -> return
+        }
     }
 
     enum class Tab(val position: Int) {

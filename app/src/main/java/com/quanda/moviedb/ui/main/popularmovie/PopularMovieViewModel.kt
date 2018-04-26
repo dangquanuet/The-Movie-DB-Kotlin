@@ -65,18 +65,19 @@ class PopularMovieViewModel(application: Application,
         }
 
         if (page == 1 && tempMovieList.isEmpty()) {
-            movieDao.getMoviePage(getNumberItemPerPage(), page).subscribeOn(
-                    Schedulers.io()).observeOn(
-                    AndroidSchedulers.mainThread()).subscribe(object : DisposableSingleObserver<List<Movie>>() {
-                override fun onSuccess(t: List<Movie>) {
-                    tempMovieList.addAll(t)
-                    listItem.addAll(t)
-                }
+            movieDao.getMoviePage(getNumberItemPerPage(), page)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(object : DisposableSingleObserver<List<Movie>>() {
+                        override fun onSuccess(t: List<Movie>) {
+                            tempMovieList.addAll(t)
+                            listItem.addAll(t)
+                        }
 
-                override fun onError(e: Throwable) {
+                        override fun onError(e: Throwable) {
 
-                }
-            })
+                        }
+                    })
         }
 
         userRepository.getMovieList(
@@ -86,11 +87,6 @@ class PopularMovieViewModel(application: Application,
                 if (currentPage == 1) listItem.clear()
                 if (isRefreshing.value == true) {
                     resetLoadMore()
-                    launch {
-                        async {
-                            movieDao.deleteAll()
-                        }
-                    }
                 }
 
                 listItem.removeAll(tempMovieList)
