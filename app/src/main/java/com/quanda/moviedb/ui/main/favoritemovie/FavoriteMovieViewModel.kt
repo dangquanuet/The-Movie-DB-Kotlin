@@ -3,7 +3,7 @@ package com.quanda.moviedb.ui.main.favoritemovie
 import android.app.Application
 import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProvider
-import com.quanda.moviedb.MovieDBApplication
+import com.quanda.moviedb.MainApplication
 import com.quanda.moviedb.base.BaseViewHolderBinding
 import com.quanda.moviedb.base.viewmodel.BaseDataLoadMoreRefreshViewModel
 import com.quanda.moviedb.data.model.Movie
@@ -34,7 +34,7 @@ class FavoriteMovieViewModel(application: Application,
     }
 
     init {
-        (application as MovieDBApplication).appComponent.inject(this)
+        MainApplication.appComponent.inject(this)
     }
 
     override fun loadData(page: Int) {

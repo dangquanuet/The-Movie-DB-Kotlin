@@ -7,7 +7,7 @@ import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProvider
 import android.support.v4.util.PatternsCompat
 import android.text.TextUtils
-import com.quanda.moviedb.MovieDBApplication
+import com.quanda.moviedb.MainApplication
 import com.quanda.moviedb.base.viewmodel.BaseDataLoadViewModel
 import com.quanda.moviedb.constants.Constants
 import com.quanda.moviedb.data.source.UserRepository
@@ -35,7 +35,7 @@ class LoginViewModel(application: Application,
     }
 
     init {
-        (application as MovieDBApplication).appComponent.inject(this)
+        MainApplication.appComponent.inject(this)
     }
 
     private fun validateForm(email: String?, password: String?): Boolean = validateEmail(

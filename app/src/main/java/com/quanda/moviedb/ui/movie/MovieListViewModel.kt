@@ -4,7 +4,7 @@ import android.app.Application
 import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProvider
 import android.util.Log
-import com.quanda.moviedb.MovieDBApplication
+import com.quanda.moviedb.MainApplication
 import com.quanda.moviedb.base.viewmodel.BaseDataLoadMoreRefreshViewModel
 import com.quanda.moviedb.constants.ApiParam
 import com.quanda.moviedb.data.model.Movie
@@ -32,7 +32,7 @@ class MovieListViewModel(application: Application,
     lateinit var userRepository: UserRepository
 
     init {
-        (application as MovieDBApplication).appComponent.inject(this)
+        MainApplication.appComponent.inject(this)
     }
 
     override fun loadData(page: Int) {
