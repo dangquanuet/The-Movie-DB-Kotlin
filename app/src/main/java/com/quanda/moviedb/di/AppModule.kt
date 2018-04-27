@@ -30,4 +30,8 @@ class AppModule(private val application: Application) {
     @Provides
     @Singleton
     fun provideAppDatabase() = AppDatabase.getInstance(application)
+
+    @Provides
+    @Singleton
+    fun provideMovieDao() = provideAppDatabase().movieDao()
 }

@@ -1,6 +1,7 @@
 package com.quanda.moviedb.di
 
 import com.quanda.moviedb.ui.main.MainViewModel
+import com.quanda.moviedb.ui.main.favoritemovie.FavoriteMovieViewModel
 import com.quanda.moviedb.ui.main.login.LoginViewModel
 import com.quanda.moviedb.ui.main.moviedetail.MovieDetailViewModel
 import com.quanda.moviedb.ui.main.popularmovie.PopularMovieViewModel
@@ -15,6 +16,8 @@ interface AppComponent {
     fun inject(viewModel: MainViewModel)
 
     fun inject(viewModel: PopularMovieViewModel)
+
+    fun inject(viewModel: FavoriteMovieViewModel)
 
     fun inject(viewModel: MovieListViewModel)
 

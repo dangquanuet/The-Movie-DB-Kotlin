@@ -119,6 +119,7 @@ dependencies {
 
   // coroutines
   implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:0.21"
+  implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:0.20"
 
   //Using this for parse json data to object
   implementation "com.google.code.gson:gson:2.8.1"

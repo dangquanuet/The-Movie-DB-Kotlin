@@ -9,7 +9,7 @@ import com.quanda.moviedb.data.source.local.dao.MovieDao
 import javax.inject.Singleton
 
 @Singleton
-@Database(entities = arrayOf(Movie::class), version = 1, exportSchema = false)
+@Database(entities = arrayOf(Movie::class), version = 2, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
 
     companion object {
