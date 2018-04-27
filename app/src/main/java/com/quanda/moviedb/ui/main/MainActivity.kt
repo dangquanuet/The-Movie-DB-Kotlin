@@ -1,5 +1,6 @@
 package com.quanda.moviedb.ui.main
 
+import android.app.Activity
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.os.Bundle
@@ -141,7 +142,7 @@ class MainActivity : BaseDataLoadActivity<ActivityMainBinding, MainViewModel>(),
         super.onActivityResult(requestCode, resultCode, data)
         when (requestCode) {
             CODE_MOVIE_DETAIL -> {
-                if (currentPositionFragment == Tab.FAVORITE.position) {
+                if (currentPositionFragment == Tab.FAVORITE.position && resultCode == Activity.RESULT_OK) {
                     val fragment = supportFragmentManager.findFragmentByTag(
                             getTabFragmentTag(currentPositionFragment))
                     if (fragment is FavoriteMovieFragment) {
