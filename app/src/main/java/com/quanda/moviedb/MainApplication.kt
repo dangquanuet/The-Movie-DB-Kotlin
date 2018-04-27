@@ -7,9 +7,11 @@ import com.quanda.moviedb.di.AppModule
 import com.quanda.moviedb.di.DaggerAppComponent
 import io.fabric.sdk.android.Fabric
 
-class MovieDBApplication : Application() {
+class MainApplication : Application() {
 
-    lateinit var appComponent: AppComponent
+    companion object {
+        lateinit var appComponent: AppComponent
+    }
 
     override fun onCreate() {
         super.onCreate()
@@ -21,6 +23,9 @@ class MovieDBApplication : Application() {
         appComponent = createAppComponent()
     }
 
-    private fun createAppComponent(): AppComponent = DaggerAppComponent.builder().appModule(
-            AppModule(this@MovieDBApplication)).build()
+    private fun createAppComponent(): AppComponent {
+        return DaggerAppComponent.builder()
+                .appModule(AppModule(this@MainApplication))
+                .build()
+    }
 }

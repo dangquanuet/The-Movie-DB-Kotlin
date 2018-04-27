@@ -24,8 +24,4 @@ interface AppComponent {
     fun inject(viewModel: MovieDetailViewModel)
 
     fun inject(viewModel: LoginViewModel)
-
-    interface Injectable {
-        fun inject(appComponent: AppComponent)
-    }
 }

@@ -1,4 +1,4 @@
-package com.quanda.moviedb.data.source.local
+package com.quanda.moviedb.di
 
 import android.arch.persistence.room.Database
 import android.arch.persistence.room.Room
@@ -21,13 +21,15 @@ abstract class AppDatabase : RoomDatabase() {
         @Synchronized
         fun getInstance(context: Context): AppDatabase {
             if (INSTANCE == null) {
-                INSTANCE = create(context)
+                INSTANCE = create(
+                        context)
             }
             return INSTANCE as AppDatabase
         }
 
         private fun create(context: Context): AppDatabase {
-            return Room.databaseBuilder(context, AppDatabase::class.java, DB_NAME).build()
+            return Room.databaseBuilder(context, AppDatabase::class.java,
+                    DB_NAME).build()
         }
     }
 

@@ -4,13 +4,12 @@ import android.app.Application
 import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProvider
 import android.databinding.ObservableArrayList
-import com.quanda.moviedb.MovieDBApplication
+import com.quanda.moviedb.MainApplication
 import com.quanda.moviedb.base.BaseViewHolderBinding
 import com.quanda.moviedb.base.viewmodel.BaseDataLoadMoreRefreshViewModel
 import com.quanda.moviedb.constants.ApiParam
 import com.quanda.moviedb.data.model.Movie
 import com.quanda.moviedb.data.source.UserRepository
-import com.quanda.moviedb.data.source.local.AppDatabase
 import com.quanda.moviedb.data.source.local.dao.MovieDao
 import com.quanda.moviedb.data.source.remote.response.GetMovieListResponse
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -34,6 +33,8 @@ class PopularMovieViewModel(application: Application,
 
     @Inject
     lateinit var userRepository: UserRepository
+    @Inject
+    lateinit var movieDao: MovieDao
 
     val itemCLickListener = object : BaseViewHolderBinding.OnItemCLickListener<Movie> {
         override fun onItemClick(position: Int, data: Movie) {
@@ -41,16 +42,10 @@ class PopularMovieViewModel(application: Application,
         }
     }
 
-    @Inject
-    lateinit var appDatabase: AppDatabase
-
-    val movieDao: MovieDao
-
     val tempMovieList = ObservableArrayList<Movie>()
 
     init {
-        (application as MovieDBApplication).appComponent.inject(this)
-        movieDao = appDatabase.movieDao()
+        MainApplication.appComponent.inject(this)
     }
 
     override fun loadData(page: Int) {

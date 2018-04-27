@@ -1,23 +1,16 @@
-package com.quanda.moviedb.data.source.local
+package com.quanda.moviedb.di
 
 import android.content.Context
 import android.content.SharedPreferences
 import com.quanda.moviedb.utils.GsonUtils
+import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class SharedPreferenceApi private constructor(context: Context) {
+class SharedPreferenceApi @Inject constructor(context: Context) {
 
     companion object {
         private const val PREFS_NAME = "MovieDBSharedPreferences"
-        private var INSTANCE: SharedPreferenceApi? = null
-
-        fun getInstance(context: Context): SharedPreferenceApi {
-            if (INSTANCE == null) {
-                INSTANCE = SharedPreferenceApi(context)
-            }
-            return INSTANCE as SharedPreferenceApi
-        }
     }
 
     private var sharedPreferences: SharedPreferences

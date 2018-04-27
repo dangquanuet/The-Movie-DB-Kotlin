@@ -1,9 +1,7 @@
 package com.quanda.moviedb.di
 
 import android.app.Application
-import com.quanda.moviedb.data.source.UserRepository
-import com.quanda.moviedb.data.source.local.AppDatabase
-import com.quanda.moviedb.data.source.local.SharedPreferenceApi
+import android.content.Context
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -11,25 +9,27 @@ import javax.inject.Singleton
 @Module
 class AppModule(private val application: Application) {
 
-    @Provides
-    @Singleton
-    fun provideContext() = application
+    private val context: Context
+
+    init {
+        context = application
+    }
 
     @Provides
     @Singleton
-    fun provideResources() = application.resources
+    fun provideApplication() = application
 
     @Provides
     @Singleton
-    fun provideSharePreferenceApi() = SharedPreferenceApi.getInstance(application)
+    fun provideContext() = context
 
     @Provides
     @Singleton
-    fun provideUserRepository() = UserRepository.getInstance(application)
+    fun provideResources() = context.resources
 
     @Provides
     @Singleton
-    fun provideAppDatabase() = AppDatabase.getInstance(application)
+    fun provideAppDatabase() = AppDatabase.getInstance(context)
 
     @Provides
     @Singleton
