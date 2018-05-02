@@ -174,7 +174,14 @@ dependencies {
   // unit test
   testImplementation 'junit:junit:4.12'
   testImplementation 'org.mockito:mockito-core:2.10.0'
+  testImplementation "android.arch.core:core-testing:1.1.1"
 
   androidTestImplementation 'com.android.support.test:runner:1.0.2'
   androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+
+  androidTestCompile "android.arch.persistence.room:testing:1.0.0"
+  androidTestCompile "android.arch.core:core-testing:1.1.1"
+
+  testImplementation "com.squareup.okhttp3:mockwebserver:3.9.0"
+  testImplementation "org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version"
 }

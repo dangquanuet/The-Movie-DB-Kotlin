@@ -8,7 +8,7 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class UserRemote @Inject constructor() : IUserRemote {
+open class UserRemote @Inject constructor() : IUserRemote {
 
     override fun getMovieList(hashMap: HashMap<String, String>): Single<GetMovieListResponse> {
         return RequestCreator.getRequest().getMovieList(hashMap)
