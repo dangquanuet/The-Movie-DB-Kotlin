@@ -7,7 +7,7 @@ import com.quanda.moviedb.MainApplication
 import com.quanda.moviedb.base.BaseViewHolderBinding
 import com.quanda.moviedb.base.viewmodel.BaseDataLoadMoreRefreshViewModel
 import com.quanda.moviedb.data.model.Movie
-import com.quanda.moviedb.data.source.local.dao.MovieDao
+import com.quanda.moviedb.data.dao.MovieDao
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.observers.DisposableMaybeObserver
 import io.reactivex.schedulers.Schedulers

@@ -1,4 +1,4 @@
-package com.quanda.moviedb.data.source.local.dao
+package com.quanda.moviedb.data.dao
 
 import android.arch.persistence.room.Dao
 import android.arch.persistence.room.Delete

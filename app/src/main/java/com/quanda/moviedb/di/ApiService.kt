@@ -1,7 +1,7 @@
-package com.quanda.moviedb.data.source.remote
+package com.quanda.moviedb.di
 
 import com.quanda.moviedb.data.model.Movie
-import com.quanda.moviedb.data.source.remote.response.GetMovieListResponse
+import com.quanda.moviedb.data.remote.response.GetMovieListResponse
 import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.QueryMap

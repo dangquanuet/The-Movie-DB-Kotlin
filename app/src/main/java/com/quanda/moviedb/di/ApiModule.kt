@@ -2,7 +2,6 @@ package com.quanda.moviedb.di
 
 import android.app.Application
 import com.quanda.moviedb.BuildConfig
-import com.quanda.moviedb.data.source.remote.ApiService
 import dagger.Module
 import dagger.Provides
 import okhttp3.Cache
@@ -19,8 +18,14 @@ import javax.inject.Singleton
 @Module
 class ApiModule {
 
+    companion object {
+        const val TIME_OUT = 30
+        const val GOOGLE_MAP_APIS_BASE_URL = "https://maps.googleapis.com"
+    }
+
     @Provides
     @Singleton
+    @Named("cache")
     internal fun provideOkHttpCache(application: Application): Cache {
         val size = (10 * 1024 * 1024).toLong() // 10 Mb
         return Cache(application.cacheDir, size)
@@ -28,10 +33,10 @@ class ApiModule {
 
     @Provides
     @Singleton
-    @Named("log")
+    @Named("logging")
     internal fun provideLoggingInterceptor(): Interceptor {
         val logging = HttpLoggingInterceptor()
-        logging.level = HttpLoggingInterceptor.Level.BODY
+        logging.level = if (BuildConfig.DEBUG) HttpLoggingInterceptor.Level.BODY else HttpLoggingInterceptor.Level.NONE
         return logging
     }
 
@@ -41,42 +46,43 @@ class ApiModule {
     internal fun provideHeaderInterceptor(): Interceptor {
         return Interceptor { chain ->
             val request = chain.request()
-
+            val newUrl = request.url().newBuilder()
+                    .addQueryParameter("api_key", BuildConfig.TMBD_API_KEY)
+                    .build()
             val newRequest = request.newBuilder()
+                    .url(newUrl)
                     .header("Content-Type", "application/json")
-                    .header("X-App-Secret", "EZ1hEQ2NOUpT-tBUgw2ADQ")
+//                    .header("X-App-Secret", "EZ1hEQ2NOUpT-tBUgw2ADQ")
 //                    .header("Authorization", UserDataManager.getAccessToken())
                     .method(request.method(), request.body())
                     .build()
-
             chain.proceed(newRequest)
         }
     }
 
     @Provides
     @Singleton
-    internal fun provideOkHttpClient(cache: Cache,
-            @Named("log") logger: Interceptor,
+    @Named("okHttp_client")
+    internal fun provideOkHttpClient(@Named("cache") cache: Cache,
+            @Named("logging") logging: Interceptor,
             @Named("header") header: Interceptor): OkHttpClient {
-        val builder = OkHttpClient.Builder()
-        builder
+        return OkHttpClient.Builder()
                 .cache(cache)
                 .connectTimeout(TIME_OUT.toLong(), TimeUnit.SECONDS)
                 .readTimeout(TIME_OUT.toLong(), TimeUnit.SECONDS)
                 .addInterceptor(header)
-                .addInterceptor(logger)
-
-        return builder.build()
+                .addInterceptor(logging)
+                .build()
     }
 
     @Provides
     @Singleton
     @Named("app_retrofit")
-    internal fun provideAppRetrofit(okHttpClient: OkHttpClient): Retrofit {
+    internal fun provideAppRetrofit(@Named("okHttp_client") okHttpClient: OkHttpClient): Retrofit {
         return Retrofit.Builder()
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
-                .baseUrl(BASE_URL)
+                .baseUrl(BuildConfig.BASE_URL)
                 .client(okHttpClient)
                 .build()
     }
@@ -116,8 +122,4 @@ class ApiModule {
 //    internal fun provideMapService(@Named("map_retrofit") retrofit: Retrofit): GoogleMapsApi {
 //        return retrofit.create(GoogleMapsApi::class.java!!)
 //    }
-
-    private val TIME_OUT = 30
-    private val BASE_URL = BuildConfig.BASE_URL
-    private val GOOGLE_MAP_APIS_BASE_URL = "https://maps.googleapis.com"
 }

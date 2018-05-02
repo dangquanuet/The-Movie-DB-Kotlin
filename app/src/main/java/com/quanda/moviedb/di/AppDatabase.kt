@@ -5,7 +5,7 @@ import android.arch.persistence.room.Room
 import android.arch.persistence.room.RoomDatabase
 import android.content.Context
 import com.quanda.moviedb.data.model.Movie
-import com.quanda.moviedb.data.source.local.dao.MovieDao
+import com.quanda.moviedb.data.dao.MovieDao
 import javax.inject.Singleton
 
 @Singleton

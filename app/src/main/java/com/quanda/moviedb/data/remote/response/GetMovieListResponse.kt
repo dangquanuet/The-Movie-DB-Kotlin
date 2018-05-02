@@ -1,4 +1,4 @@
-package com.quanda.moviedb.data.source.remote.response
+package com.quanda.moviedb.data.remote.response
 
 import com.quanda.moviedb.data.model.Movie
 

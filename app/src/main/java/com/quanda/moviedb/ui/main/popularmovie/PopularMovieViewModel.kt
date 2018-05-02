@@ -8,10 +8,10 @@ import com.quanda.moviedb.MainApplication
 import com.quanda.moviedb.base.BaseViewHolderBinding
 import com.quanda.moviedb.base.viewmodel.BaseDataLoadMoreRefreshViewModel
 import com.quanda.moviedb.constants.ApiParam
+import com.quanda.moviedb.data.dao.MovieDao
 import com.quanda.moviedb.data.model.Movie
-import com.quanda.moviedb.data.source.UserRepository
-import com.quanda.moviedb.data.source.local.dao.MovieDao
-import com.quanda.moviedb.data.source.remote.response.GetMovieListResponse
+import com.quanda.moviedb.data.remote.response.GetMovieListResponse
+import com.quanda.moviedb.data.repository.impl.MovieRepository
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.observers.DisposableMaybeObserver
 import io.reactivex.observers.DisposableSingleObserver
@@ -33,7 +33,7 @@ class PopularMovieViewModel(application: Application,
     }
 
     @Inject
-    lateinit var userRepository: UserRepository
+    lateinit var movieRepository: MovieRepository
     @Inject
     lateinit var movieDao: MovieDao
 
@@ -80,7 +80,7 @@ class PopularMovieViewModel(application: Application,
                     })
         }
 
-        userRepository.getMovieList(
+        movieRepository.getMovieList(
                 hashMap).subscribe(object : DisposableSingleObserver<GetMovieListResponse>() {
             override fun onSuccess(response: GetMovieListResponse) {
                 currentPage = page
