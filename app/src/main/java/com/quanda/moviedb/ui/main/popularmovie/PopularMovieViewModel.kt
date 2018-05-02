@@ -13,6 +13,7 @@ import com.quanda.moviedb.data.source.UserRepository
 import com.quanda.moviedb.data.source.local.dao.MovieDao
 import com.quanda.moviedb.data.source.remote.response.GetMovieListResponse
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.observers.DisposableMaybeObserver
 import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.schedulers.Schedulers
 import kotlinx.coroutines.experimental.async
@@ -63,7 +64,11 @@ class PopularMovieViewModel(application: Application,
             movieDao.getMoviePage(getNumberItemPerPage(), page)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(object : DisposableSingleObserver<List<Movie>>() {
+                    .subscribe(object : DisposableMaybeObserver<List<Movie>>() {
+                        override fun onComplete() {
+
+                        }
+
                         override fun onSuccess(t: List<Movie>) {
                             tempMovieList.addAll(t)
                             listItem.addAll(t)

@@ -14,5 +14,5 @@ open class BaseListResponse<Item> : BaseResponse() {
     var totalPages: Int = 0
 
     @SerializedName("results")
-    var results: List<Item> = ArrayList<Item>()
+    var results: ArrayList<Item> = ArrayList()
 }

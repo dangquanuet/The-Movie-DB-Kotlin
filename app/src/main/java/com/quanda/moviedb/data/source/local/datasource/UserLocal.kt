@@ -5,6 +5,6 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class UserLocal @Inject constructor() : IUserLocal {
+open class UserLocal @Inject constructor() : IUserLocal {
 
 }
