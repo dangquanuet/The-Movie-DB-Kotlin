@@ -3,12 +3,10 @@ package com.quanda.moviedb.repository
 import android.arch.core.executor.testing.InstantTaskExecutorRule
 import com.quanda.moviedb.RxImmediateSchedulerRule
 import com.quanda.moviedb.data.model.Movie
-import com.quanda.moviedb.data.source.UserRepository
-import com.quanda.moviedb.data.source.local.dao.MovieDao
+import com.quanda.moviedb.data.dao.MovieDao
 import com.quanda.moviedb.data.source.local.datasource.UserLocal
-import com.quanda.moviedb.data.source.remote.ApiService
-import com.quanda.moviedb.data.source.remote.datasource.UserRemote
-import com.quanda.moviedb.data.source.remote.response.GetMovieListResponse
+import com.quanda.moviedb.di.ApiService
+import com.quanda.moviedb.data.remote.response.GetMovieListResponse
 import com.quanda.moviedb.di.SharedPreferenceApi
 import io.reactivex.Observable
 import io.reactivex.Single
@@ -27,7 +25,7 @@ class MovieRepositoryTest {
     lateinit var movieDao: MovieDao
     lateinit var userRepository: UserRepository
     lateinit var userLocal: UserLocal
-    lateinit var userRemote: UserRemote
+    lateinit var userRemote: com.quanda.moviedb.data.remote.datasource.UserRepository
 
     @get:Rule
     var instantExecutorRule = InstantTaskExecutorRule()
@@ -38,11 +36,12 @@ class MovieRepositoryTest {
 
     @Before
     fun setup() {
-        apiService = Mockito.mock<ApiService>(ApiService::class.java)
+        apiService = Mockito.mock<ApiService>(
+                ApiService::class.java)
 //        sharedPreferenceApi = Mockito.mock<SharedPreferenceApi>(SharedPreferenceApi::class.java)
         movieDao = Mockito.mock<MovieDao>(MovieDao::class.java)
         userLocal = Mockito.mock<UserLocal>(UserLocal::class.java)
-        userRemote = Mockito.mock<UserRemote>(UserRemote::class.java)
+        userRemote = Mockito.mock<com.quanda.moviedb.data.remote.datasource.UserRepository>(UserRepository::class.java)
         userRepository = UserRepository(userLocal, userRemote)
     }
 

@@ -7,8 +7,8 @@ import android.arch.lifecycle.ViewModelProvider
 import com.quanda.moviedb.MainApplication
 import com.quanda.moviedb.base.viewmodel.BaseDataLoadViewModel
 import com.quanda.moviedb.data.model.Movie
-import com.quanda.moviedb.data.source.UserRepository
-import com.quanda.moviedb.data.source.local.dao.MovieDao
+import com.quanda.moviedb.data.repository.impl.UserRepository
+import com.quanda.moviedb.data.dao.MovieDao
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.observers.DisposableMaybeObserver
 import io.reactivex.schedulers.Schedulers

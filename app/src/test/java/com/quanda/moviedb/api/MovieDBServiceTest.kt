@@ -1,7 +1,7 @@
 package com.quanda.moviedb.api
 
 import android.arch.core.executor.testing.InstantTaskExecutorRule
-import com.quanda.moviedb.data.source.remote.ApiService
+import com.quanda.moviedb.di.ApiService
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
 import okhttp3.mockwebserver.RecordedRequest

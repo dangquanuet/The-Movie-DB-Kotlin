@@ -10,7 +10,7 @@ import android.text.TextUtils
 import com.quanda.moviedb.MainApplication
 import com.quanda.moviedb.base.viewmodel.BaseDataLoadViewModel
 import com.quanda.moviedb.constants.Constants
-import com.quanda.moviedb.data.source.UserRepository
+import com.quanda.moviedb.data.repository.impl.UserRepository
 import javax.inject.Inject
 
 class LoginViewModel(application: Application,

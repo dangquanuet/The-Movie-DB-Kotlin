@@ -5,7 +5,7 @@ import android.arch.lifecycle.MutableLiveData
 import android.databinding.ObservableArrayList
 import android.support.v4.widget.SwipeRefreshLayout
 import com.quanda.moviedb.constants.Constants
-import com.quanda.moviedb.data.source.remote.response.BaseListResponse
+import com.quanda.moviedb.data.remote.response.BaseListResponse
 import com.quanda.moviedb.widgets.EndlessRecyclerOnScrollListener
 
 abstract class BaseDataLoadMoreRefreshViewModel<Item>(
