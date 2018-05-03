@@ -5,19 +5,17 @@ import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProvider
 import android.databinding.ObservableArrayList
 import com.quanda.moviedb.MainApplication
-import com.quanda.moviedb.ui.base.BaseViewHolderBinding
-import com.quanda.moviedb.ui.base.viewmodel.BaseDataLoadMoreRefreshViewModel
 import com.quanda.moviedb.data.constants.ApiParam
 import com.quanda.moviedb.data.local.dao.MovieDao
 import com.quanda.moviedb.data.model.Movie
 import com.quanda.moviedb.data.remote.response.GetMovieListResponse
 import com.quanda.moviedb.data.repository.impl.MovieRepository
+import com.quanda.moviedb.ui.base.BaseViewHolderBinding
+import com.quanda.moviedb.ui.base.viewmodel.BaseDataLoadMoreRefreshViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.observers.DisposableMaybeObserver
 import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.schedulers.Schedulers
-import kotlinx.coroutines.experimental.async
-import kotlinx.coroutines.experimental.launch
 import javax.inject.Inject
 
 class PopularMovieViewModel(application: Application,
@@ -93,11 +91,7 @@ class PopularMovieViewModel(application: Application,
                 tempMovieList.clear()
 
                 listItem.addAll(response.results)
-                launch {
-                    async {
-                        movieDao.insert(response.results)
-                    }
-                }
+                movieRepository.insertDB(response.results)
 
                 onLoadSuccess(response)
             }
