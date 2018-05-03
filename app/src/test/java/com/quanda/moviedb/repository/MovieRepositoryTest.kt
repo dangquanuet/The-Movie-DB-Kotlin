@@ -2,12 +2,11 @@ package com.quanda.moviedb.repository
 
 import android.arch.core.executor.testing.InstantTaskExecutorRule
 import com.quanda.moviedb.RxImmediateSchedulerRule
-import com.quanda.moviedb.data.model.Movie
 import com.quanda.moviedb.data.dao.MovieDao
-import com.quanda.moviedb.data.source.local.datasource.UserLocal
-import com.quanda.moviedb.di.ApiService
+import com.quanda.moviedb.data.model.Movie
 import com.quanda.moviedb.data.remote.response.GetMovieListResponse
-import com.quanda.moviedb.di.SharedPreferenceApi
+import com.quanda.moviedb.data.repository.impl.MovieRepository
+import com.quanda.moviedb.di.ApiService
 import io.reactivex.Observable
 import io.reactivex.Single
 import org.junit.Before
@@ -21,11 +20,8 @@ import org.mockito.Mockito
 class MovieRepositoryTest {
 
     lateinit var apiService: ApiService
-    lateinit var sharedPreferenceApi: SharedPreferenceApi
     lateinit var movieDao: MovieDao
-    lateinit var userRepository: UserRepository
-    lateinit var userLocal: UserLocal
-    lateinit var userRemote: com.quanda.moviedb.data.remote.datasource.UserRepository
+    lateinit var movieRepository: MovieRepository
 
     @get:Rule
     var instantExecutorRule = InstantTaskExecutorRule()
@@ -38,18 +34,15 @@ class MovieRepositoryTest {
     fun setup() {
         apiService = Mockito.mock<ApiService>(
                 ApiService::class.java)
-//        sharedPreferenceApi = Mockito.mock<SharedPreferenceApi>(SharedPreferenceApi::class.java)
         movieDao = Mockito.mock<MovieDao>(MovieDao::class.java)
-        userLocal = Mockito.mock<UserLocal>(UserLocal::class.java)
-        userRemote = Mockito.mock<com.quanda.moviedb.data.remote.datasource.UserRepository>(UserRepository::class.java)
-        userRepository = UserRepository(userLocal, userRemote)
+        movieRepository = MovieRepository(apiService)
     }
 
     @Test
     fun getMovieList() {
         //true data return
         Mockito.`when`(apiService.getMovieList()).thenReturn(Single.just(createMovie()))
-        userRepository.getMovieList().test().assertValue {
+        movieRepository.getMovieList().test().assertValue {
             it.results.size == 2
             it.results.get(0).title == "Movie1"
             it.results.get(1).title == "Movie2"
@@ -58,16 +51,7 @@ class MovieRepositoryTest {
         // error data return
         val runtimeException = RuntimeException("123");
         Mockito.`when`(apiService.getMovieList()).thenReturn(Single.error(runtimeException))
-        userRepository.getMovieList().test().assertError(runtimeException)
-
-//        Mockito.verifyNoMoreInteractions(movieDao)
-//        Mockito.verifyNoMoreInteractions(sharedPreferenceApi)
-
-        /*
-        //test move to other function
-        movieRepository.trailers("123")
-        verify(tmdbWebService).trailers("123")
-        */
+        movieRepository.getMovieList().test().assertError(runtimeException)
     }
 
     @Test
