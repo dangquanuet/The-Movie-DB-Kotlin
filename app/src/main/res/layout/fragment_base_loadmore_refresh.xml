@@ -7,11 +7,11 @@
         <import type="android.view.View"/>
         <variable
             name="view"
-            type="com.quanda.moviedb.base.fragment.BaseDataLoadMoreRefreshFragment"
+            type="com.quanda.moviedb.ui.base.fragment.BaseDataLoadMoreRefreshFragment"
             />
         <variable
             name="viewModel"
-            type="com.quanda.moviedb.base.viewmodel.BaseDataLoadMoreRefreshViewModel"
+            type="com.quanda.moviedb.ui.base.viewmodel.BaseDataLoadMoreRefreshViewModel"
             />
     </data>
 
@@ -32,7 +32,7 @@
             bind:layout_constraintStart_toStartOf="parent"
             />
 
-        <com.quanda.moviedb.widgets.PullRefreshRecyclerView
+        <com.quanda.moviedb.ui.widgets.PullRefreshRecyclerView
             android:id="@+id/recycler_view"
             android:layout_width="0dp"
             android:layout_height="0dp"

@@ -1,11 +1,11 @@
 package com.quanda.moviedb.di
 
-import com.quanda.moviedb.ui.main.MainViewModel
-import com.quanda.moviedb.ui.main.favoritemovie.FavoriteMovieViewModel
-import com.quanda.moviedb.ui.main.login.LoginViewModel
-import com.quanda.moviedb.ui.main.moviedetail.MovieDetailViewModel
-import com.quanda.moviedb.ui.main.popularmovie.PopularMovieViewModel
-import com.quanda.moviedb.ui.movie.MovieListViewModel
+import com.quanda.moviedb.ui.screen.main.MainViewModel
+import com.quanda.moviedb.ui.screen.main.favoritemovie.FavoriteMovieViewModel
+import com.quanda.moviedb.ui.screen.main.login.LoginViewModel
+import com.quanda.moviedb.ui.screen.main.moviedetail.MovieDetailViewModel
+import com.quanda.moviedb.ui.screen.main.popularmovie.PopularMovieViewModel
+import com.quanda.moviedb.ui.screen.movie.MovieListViewModel
 import dagger.Component
 import javax.inject.Singleton
 

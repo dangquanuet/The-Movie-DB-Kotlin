@@ -2,7 +2,7 @@ package com.quanda.moviedb.data.repository.impl
 
 import com.quanda.moviedb.data.remote.response.GetMovieListResponse
 import com.quanda.moviedb.data.repository.IMovieRepository
-import com.quanda.moviedb.di.ApiService
+import com.quanda.moviedb.data.remote.ApiService
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers

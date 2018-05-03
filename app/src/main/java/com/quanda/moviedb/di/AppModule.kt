@@ -2,6 +2,7 @@ package com.quanda.moviedb.di
 
 import android.app.Application
 import android.content.Context
+import com.quanda.moviedb.data.local.AppDatabase
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton

@@ -4,8 +4,8 @@ import android.arch.persistence.room.Room
 import android.support.test.InstrumentationRegistry
 import android.support.test.runner.AndroidJUnit4
 import com.quanda.moviedb.data.model.Movie
-import com.quanda.moviedb.data.dao.MovieDao
-import com.quanda.moviedb.di.AppDatabase
+import com.quanda.moviedb.data.local.dao.MovieDao
+import com.quanda.moviedb.data.local.AppDatabase
 import org.junit.After
 import org.junit.Before
 import org.junit.Test

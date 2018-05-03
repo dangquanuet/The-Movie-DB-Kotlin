@@ -5,7 +5,7 @@
     <data>
         <variable
             name="view"
-            type="com.quanda.moviedb.widgets.PullRefreshRecyclerView"
+            type="com.quanda.moviedb.ui.widgets.PullRefreshRecyclerView"
             />
     </data>
 

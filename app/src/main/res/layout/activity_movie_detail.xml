@@ -10,7 +10,7 @@
             />
         <variable
             name="viewModel"
-            type="com.quanda.moviedb.ui.main.moviedetail.MovieDetailViewModel"
+            type="com.quanda.moviedb.ui.screen.main.moviedetail.MovieDetailViewModel"
             />
     </data>
 
