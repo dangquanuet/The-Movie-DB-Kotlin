@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     >
     <data>
         <variable
             name="view"
-            type="com.quanda.moviedb.ui.main.login.LoginActivity"
+            type="com.quanda.moviedb.ui.screen.main.login.LoginActivity"
             />
         <variable
             name="viewModel"
-            type="com.quanda.moviedb.ui.main.login.LoginViewModel"
+            type="com.quanda.moviedb.ui.screen.main.login.LoginViewModel"
             />
     </data>
     <android.support.constraint.ConstraintLayout

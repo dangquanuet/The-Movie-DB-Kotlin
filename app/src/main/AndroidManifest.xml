@@ -14,7 +14,7 @@
         android:theme="@style/AppTheme">
 
         <activity
-            android:name="com.quanda.moviedb.ui.main.MainActivity">
+            android:name="com.quanda.moviedb.ui.screen.main.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <action android:name="android.intent.action.VIEW"/>
@@ -23,12 +23,12 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".ui.movie.MovieListActivity"/>
+        <activity android:name=".ui.screen.movie.MovieListActivity"/>
 
-        <activity android:name=".ui.main.moviedetail.MovieDetailActivity"/>
+        <activity android:name=".ui.screen.main.moviedetail.MovieDetailActivity"/>
 
         <activity
-            android:name=".ui.main.login.LoginActivity"
+            android:name=".ui.screen.main.login.LoginActivity"
             android:windowSoftInputMode="adjustResize"/>
 
         <meta-data

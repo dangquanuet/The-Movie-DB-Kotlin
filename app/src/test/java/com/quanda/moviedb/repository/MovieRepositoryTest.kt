@@ -2,11 +2,11 @@ package com.quanda.moviedb.repository
 
 import android.arch.core.executor.testing.InstantTaskExecutorRule
 import com.quanda.moviedb.RxImmediateSchedulerRule
-import com.quanda.moviedb.data.dao.MovieDao
+import com.quanda.moviedb.data.local.dao.MovieDao
 import com.quanda.moviedb.data.model.Movie
 import com.quanda.moviedb.data.remote.response.GetMovieListResponse
 import com.quanda.moviedb.data.repository.impl.MovieRepository
-import com.quanda.moviedb.di.ApiService
+import com.quanda.moviedb.data.remote.ApiService
 import io.reactivex.Observable
 import io.reactivex.Single
 import org.junit.Before

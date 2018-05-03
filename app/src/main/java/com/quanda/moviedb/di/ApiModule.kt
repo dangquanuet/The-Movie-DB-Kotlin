@@ -2,6 +2,7 @@ package com.quanda.moviedb.di
 
 import android.app.Application
 import com.quanda.moviedb.BuildConfig
+import com.quanda.moviedb.data.remote.ApiService
 import dagger.Module
 import dagger.Provides
 import okhttp3.Cache
