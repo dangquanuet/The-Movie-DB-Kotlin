@@ -3,7 +3,7 @@ package com.quanda.moviedb.data.local.dao
 import android.arch.persistence.room.Dao
 import android.arch.persistence.room.Delete
 import android.arch.persistence.room.Insert
-import android.arch.persistence.room.OnConflictStrategy.ABORT
+import android.arch.persistence.room.OnConflictStrategy.IGNORE
 import android.arch.persistence.room.OnConflictStrategy.REPLACE
 import android.arch.persistence.room.Query
 import com.quanda.moviedb.data.model.Movie
@@ -17,10 +17,10 @@ interface MovieDao {
     @Query("SELECT * FROM movie WHERE movie.id = :id")
     fun getMovie(id: String): Maybe<Movie>
 
-    @Insert(onConflict = ABORT)
+    @Insert(onConflict = IGNORE)
     fun insert(movie: Movie)
 
-    @Insert(onConflict = ABORT)
+    @Insert(onConflict = IGNORE)
     fun insert(list: List<Movie>)
 
     @Insert(onConflict = REPLACE)

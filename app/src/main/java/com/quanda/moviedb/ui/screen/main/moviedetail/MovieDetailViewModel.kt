@@ -5,15 +5,13 @@ import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProvider
 import com.quanda.moviedb.MainApplication
-import com.quanda.moviedb.ui.base.viewmodel.BaseDataLoadViewModel
-import com.quanda.moviedb.data.model.Movie
-import com.quanda.moviedb.data.repository.impl.UserRepository
 import com.quanda.moviedb.data.local.dao.MovieDao
+import com.quanda.moviedb.data.model.Movie
+import com.quanda.moviedb.data.repository.impl.MovieRepository
+import com.quanda.moviedb.ui.base.viewmodel.BaseDataLoadViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.observers.DisposableMaybeObserver
 import io.reactivex.schedulers.Schedulers
-import kotlinx.coroutines.experimental.async
-import kotlinx.coroutines.experimental.launch
 import javax.inject.Inject
 
 class MovieDetailViewModel(application: Application,
@@ -27,7 +25,7 @@ class MovieDetailViewModel(application: Application,
     }
 
     @Inject
-    lateinit var userRepository: UserRepository
+    lateinit var movieRepository: MovieRepository
     @Inject
     lateinit var movieDao: MovieDao
 
@@ -68,9 +66,7 @@ class MovieDetailViewModel(application: Application,
         favoriteChanged.value = true
 
         newMovie?.apply {
-            launch {
-                async { movieDao.update(newMovie) }
-            }
+            movieRepository.updateDB(newMovie)
         }
     }
 }
