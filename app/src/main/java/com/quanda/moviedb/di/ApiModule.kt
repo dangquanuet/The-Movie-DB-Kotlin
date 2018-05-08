@@ -1,6 +1,7 @@
 package com.quanda.moviedb.di
 
 import android.app.Application
+import com.jakewharton.retrofit2.adapter.kotlin.coroutines.experimental.CoroutineCallAdapterFactory
 import com.quanda.moviedb.BuildConfig
 import com.quanda.moviedb.data.remote.ApiService
 import dagger.Module
@@ -82,6 +83,7 @@ class ApiModule {
     internal fun provideAppRetrofit(@Named("okHttp_client") okHttpClient: OkHttpClient): Retrofit {
         return Retrofit.Builder()
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .addCallAdapterFactory(CoroutineCallAdapterFactory.invoke())
                 .addConverterFactory(GsonConverterFactory.create())
                 .baseUrl(BuildConfig.BASE_URL)
                 .client(okHttpClient)
@@ -94,6 +96,7 @@ class ApiModule {
     internal fun provideMapRetrofit(okHttpClient: OkHttpClient): Retrofit {
         return Retrofit.Builder()
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .addCallAdapterFactory(CoroutineCallAdapterFactory.invoke())
                 .addConverterFactory(GsonConverterFactory.create())
                 .baseUrl(GOOGLE_MAP_APIS_BASE_URL)
                 .client(okHttpClient)

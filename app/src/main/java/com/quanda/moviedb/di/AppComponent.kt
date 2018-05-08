@@ -6,6 +6,7 @@ import com.quanda.moviedb.ui.screen.main.login.LoginViewModel
 import com.quanda.moviedb.ui.screen.main.moviedetail.MovieDetailViewModel
 import com.quanda.moviedb.ui.screen.main.popularmovie.PopularMovieViewModel
 import com.quanda.moviedb.ui.screen.movie.MovieListViewModel
+import com.quanda.moviedb.ui.screen.tv.TvListViewModel
 import dagger.Component
 import javax.inject.Singleton
 
@@ -20,6 +21,8 @@ interface AppComponent {
     fun inject(viewModel: FavoriteMovieViewModel)
 
     fun inject(viewModel: MovieListViewModel)
+
+    fun inject(viewModel: TvListViewModel)
 
     fun inject(viewModel: MovieDetailViewModel)
 
