@@ -10,7 +10,6 @@ import com.quanda.moviedb.data.repository.impl.MovieRepository
 import com.quanda.moviedb.ui.base.viewmodel.BaseDataLoadMoreRefreshViewModel
 import kotlinx.coroutines.experimental.android.UI
 import kotlinx.coroutines.experimental.launch
-import kotlinx.coroutines.experimental.withContext
 import javax.inject.Inject
 
 class TvListViewModel(application: Application,
@@ -35,22 +34,47 @@ class TvListViewModel(application: Application,
         val hashMap = HashMap<String, String>()
         hashMap.put(ApiParam.PAGE, page.toString())
 
-        launch() {
+        launch(UI) {
             try {
-                val response = movieRepository.getTvList().await()
-                withContext(UI) {
-                    currentPage = page
-                    if (currentPage == 1) listItem.clear()
-                    if (isRefreshing.value == true) resetLoadMore()
-                    listItem.addAll(response.results)
-                    onLoadSuccess(response)
-                }
-            } catch (e: Exception) {
-                withContext(UI) {
-                    onLoadFail(e)
-                }
+                val response = movieRepository.getTvList(hashMap).await()
+                currentPage = page
+                if (currentPage == 1) listItem.clear()
+                if (isRefreshing.value == true) resetLoadMore()
+                listItem.addAll(response.results)
+                onLoadSuccess(response)
+            } catch (e: Throwable) {
+                onLoadFail(e)
             }
         }
+
+        /*
+        movieRepository.getTvList(hashMap, { response ->
+            currentPage = page
+            if (currentPage == 1) listItem.clear()
+            if (isRefreshing.value == true) resetLoadMore()
+            listItem.addAll(response.results)
+            onLoadSuccess(response)
+        }, { e ->
+            onLoadFail(e)
+        })
+        */
+
+        /*
+        val result = movieRepository.getTvList2(hashMap)
+        when (result) {
+            is Result.Success<GetTvListResponse> -> {
+                val response = result.data
+                currentPage = page
+                if (currentPage == 1) listItem.clear()
+                if (isRefreshing.value == true) resetLoadMore()
+                listItem.addAll(response.results)
+                onLoadSuccess(response)
+            }
+            is Result.Error -> {
+                onLoadFail(result.error)
+            }
+        }
+        */
     }
 
 }
