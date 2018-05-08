@@ -25,6 +25,8 @@
 
         <activity android:name=".ui.screen.movie.MovieListActivity"/>
 
+        <activity android:name=".ui.screen.tv.TvListActivity"/>
+
         <activity android:name=".ui.screen.main.moviedetail.MovieDetailActivity"/>
 
         <activity

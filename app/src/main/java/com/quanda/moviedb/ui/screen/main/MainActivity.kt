@@ -19,6 +19,7 @@ import com.quanda.moviedb.ui.screen.main.login.LoginActivity
 import com.quanda.moviedb.ui.screen.main.moviedetail.MovieDetailActivity
 import com.quanda.moviedb.ui.screen.main.popularmovie.PopularMovieFragment
 import com.quanda.moviedb.ui.screen.main.popularmovie.PopularMovieNavigator
+import com.quanda.moviedb.ui.screen.tv.TvListActivity
 import com.quanda.moviedb.utils.goToActivity
 import com.quanda.moviedb.utils.goToActivityForResult
 
@@ -59,7 +60,8 @@ class MainActivity : BaseDataLoadActivity<ActivityMainBinding, MainViewModel>(),
 
             setOnTabSelectedListener({ position, wasSelected ->
                 if (position == Tab.PROFILE.position) { // TODO check login
-                    goToActivity(LoginActivity::class.java)
+//                    goToActivity(LoginActivity::class.java)
+                    goToActivity(TvListActivity::class.java)
                 }
                 onClickBottomNavigationItem(position)
             })
