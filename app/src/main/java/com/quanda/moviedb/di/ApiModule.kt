@@ -17,6 +17,9 @@ import java.util.concurrent.TimeUnit
 import javax.inject.Named
 import javax.inject.Singleton
 
+//const val TIME_OUT = 30
+//const val GOOGLE_MAP_APIS_BASE_URL = "https://maps.googleapis.com"
+
 @Module
 class ApiModule {
 
