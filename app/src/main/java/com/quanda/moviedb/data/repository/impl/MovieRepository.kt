@@ -13,7 +13,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.coroutines.experimental.Deferred
 import kotlinx.coroutines.experimental.android.UI
-import kotlinx.coroutines.experimental.launch
+import kotlinx.coroutines.experimental.async
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -33,7 +33,7 @@ class MovieRepository @Inject constructor(val apiService: ApiService,
 
     override fun getTvList(hashMap: HashMap<String, String>, success: (GetTvListResponse) -> Unit,
             fail: (Throwable) -> Unit) {
-        launch(UI) {
+        async(UI) {
             try {
                 success(apiService.getTvList(hashMap).await())
             } catch (e: Throwable) {
@@ -44,7 +44,7 @@ class MovieRepository @Inject constructor(val apiService: ApiService,
 
     override fun getTvList2(hashMap: HashMap<String, String>): Result<GetTvListResponse> {
         lateinit var result: Result<GetTvListResponse>
-        launch(UI) {
+        async(UI) {
             try {
                 result = Result.Success(apiService.getTvList(hashMap).await())
             } catch (e: Throwable) {
@@ -55,7 +55,7 @@ class MovieRepository @Inject constructor(val apiService: ApiService,
     }
 
     override fun insertDB(list: List<Movie>) {
-        launch {
+        async {
             try {
                 movieDao.insert(list)
             } catch (e: Throwable) {
@@ -65,7 +65,7 @@ class MovieRepository @Inject constructor(val apiService: ApiService,
     }
 
     override fun updateDB(movie: Movie) {
-        launch {
+        async {
             try {
                 movieDao.update(movie)
             } catch (e: Throwable) {

@@ -9,7 +9,7 @@ import com.quanda.moviedb.data.model.Tv
 import com.quanda.moviedb.data.repository.impl.MovieRepository
 import com.quanda.moviedb.ui.base.viewmodel.BaseDataLoadMoreRefreshViewModel
 import kotlinx.coroutines.experimental.android.UI
-import kotlinx.coroutines.experimental.launch
+import kotlinx.coroutines.experimental.async
 import javax.inject.Inject
 
 class TvListViewModel(application: Application,
@@ -34,7 +34,7 @@ class TvListViewModel(application: Application,
         val hashMap = HashMap<String, String>()
         hashMap.put(ApiParam.PAGE, page.toString())
 
-        launch(UI) {
+        async(UI) {
             try {
                 val response = movieRepository.getTvList(hashMap).await()
                 currentPage = page

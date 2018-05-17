@@ -9,6 +9,7 @@ abstract class BaseDataLoadViewModel(application: Application) : BaseViewModel(a
     val isDataLoading = MutableLiveData<Boolean>().apply { value = false }
 
     open fun onLoadFail(e: Throwable) {
+        e.printStackTrace()
         showError(e)
         isDataLoading.value = false
     }
