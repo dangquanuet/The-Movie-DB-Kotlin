@@ -1,17 +1,19 @@
 package com.quanda.moviedb.ui.screen.main.moviedetail
 
 import android.app.Activity
+import android.arch.lifecycle.Lifecycle
+import android.arch.lifecycle.LifecycleObserver
+import android.arch.lifecycle.OnLifecycleEvent
 import android.arch.lifecycle.ViewModelProviders
+import android.util.Log
 import android.view.View
 import com.quanda.moviedb.R
 import com.quanda.moviedb.data.constants.BundleConstants
 import com.quanda.moviedb.data.model.Movie
 import com.quanda.moviedb.databinding.ActivityMovieDetailBinding
 import com.quanda.moviedb.ui.base.activity.BaseDataLoadActivity
+import kotlinx.coroutines.experimental.*
 import kotlinx.coroutines.experimental.android.UI
-import kotlinx.coroutines.experimental.async
-import kotlinx.coroutines.experimental.delay
-import kotlinx.coroutines.experimental.launch
 import kotlin.system.measureTimeMillis
 
 class MovieDetailActivity : BaseDataLoadActivity<ActivityMovieDetailBinding, MovieDetailViewModel>(), MovieDetailNavigator {
@@ -36,6 +38,7 @@ class MovieDetailActivity : BaseDataLoadActivity<ActivityMovieDetailBinding, Mov
                 viewModel.updateNewMovie(this)
             }
         }
+        sample4()
     }
 
     override fun onBackPressed() {
@@ -45,7 +48,9 @@ class MovieDetailActivity : BaseDataLoadActivity<ActivityMovieDetailBinding, Mov
         super.onBackPressed()
     }
 
-    // demo kotlin coroutine
+    /*
+    demo kotlin coroutine
+    */
 
     suspend fun doSomethingUsefulOne(): Int {
         delay(1000L) // pretend we are doing something useful here
@@ -58,7 +63,7 @@ class MovieDetailActivity : BaseDataLoadActivity<ActivityMovieDetailBinding, Mov
     }
 
     fun sequential() {
-        launch {
+        async {
             val time = measureTimeMillis {
                 val one = doSomethingUsefulOne()
                 val two = doSomethingUsefulTwo()
@@ -71,7 +76,7 @@ class MovieDetailActivity : BaseDataLoadActivity<ActivityMovieDetailBinding, Mov
     }
 
     fun concurrent() {
-        launch {
+        async {
             val time = measureTimeMillis {
                 val one = async { doSomethingUsefulOne() }
                 val two = async { doSomethingUsefulTwo() }
@@ -84,7 +89,7 @@ class MovieDetailActivity : BaseDataLoadActivity<ActivityMovieDetailBinding, Mov
     }
 
     fun setup() {
-        val job = launch(UI) {
+        val job = async(UI) {
             // launch coroutine in UI context
             for (i in 10 downTo 1) { // countdown from 10 to 1
                 println("Countdown $i ...") // update text
@@ -93,5 +98,84 @@ class MovieDetailActivity : BaseDataLoadActivity<ActivityMovieDetailBinding, Mov
             println("Done!")
         }
         View.OnClickListener { job.cancel() } // cancel coroutine on click
+    }
+
+    //    sample 1,2,3 are execute sequentially
+    fun sample1() {
+        async(UI) {
+            withContext(CommonPool) {
+                delay(1000)
+                Log.e(this::class.java.simpleName, "withContext")
+            }
+            Log.e(this::class.java.simpleName, "async")
+        }
+    }
+
+    //    sample 1,2,3 are execute sequentially
+    fun sample2() {
+        async(UI) {
+            async(CommonPool) {
+                delay(1000)
+                Log.e(this::class.java.simpleName, "withContext")
+            }.await()
+            Log.e(this::class.java.simpleName, "async")
+        }
+    }
+
+    //    sample 1,2,3 are execute sequentially
+    fun sample3() {
+        async(UI) {
+            withContext(CommonPool) {
+                delay(1000)
+                Log.e(this::class.java.simpleName, "withContext")
+            }
+            withContext(CommonPool) {
+                delay(1000)
+                Log.e(this::class.java.simpleName, "withContext2")
+            }
+            Log.e(this::class.java.simpleName, "async")
+        }
+    }
+
+    fun sample4() {
+        async(UI) {
+            log("start UI")
+            async(CommonPool) {
+                log("start withContext 1")
+                delay(1000)
+                Log.e(this::class.java.simpleName, "withContext")
+                log("end withContext 1")
+            }
+            async(CommonPool) {
+                log("start withContext 2")
+                delay(1000)
+                Log.e(this::class.java.simpleName, "withContext2")
+                log("end withContext 2")
+            }
+            log("before async")
+            Log.e(this::class.java.simpleName, "async")
+            log("end UI")
+        }
+    }
+
+    // lifecycle aware job
+
+    val job: AndroidJob = AndroidJob(lifecycle)
+
+    fun sampleLoadData() = async(parent = job) {
+
+    }
+
+    class AndroidJob(lifecycle: Lifecycle) : Job by Job(), LifecycleObserver {
+        init {
+            lifecycle.addObserver(this)
+        }
+
+        @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
+        fun destroy() = cancel()
+    }
+
+    fun log(message: String) {
+        Log.e(this::class.java.simpleName, "[${Thread.currentThread().name}] $message")
     }
 }
