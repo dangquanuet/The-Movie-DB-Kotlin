@@ -34,12 +34,29 @@ android {
     testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
   }
 
+  signingConfigs {
+    release {
+      storeFile file("movie-db.jks")
+      storePassword "123456"
+      keyAlias "key0"
+      keyPassword "123456"
+    }
+  }
+
   buildTypes {
     debug {
       signingConfig signingConfigs.debug
-    }
-    release {
+      debuggable true
       minifyEnabled false
+      shrinkResources false
+      proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+    }
+
+    release {
+      signingConfig signingConfigs.release
+      debuggable false
+      minifyEnabled true
+      shrinkResources true
       proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
     }
   }
