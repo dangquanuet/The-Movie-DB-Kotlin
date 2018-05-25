@@ -3,6 +3,7 @@ package com.quanda.moviedb.utils
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 
 // top level fun in kotlin = static fun in java
 // use for utils class
@@ -21,4 +22,8 @@ fun AppCompatActivity.goToActivityForResult(activity: Class<*>, bundle: Bundle? 
         if (flag != 0) flags = flag
         if (bundle != null) putExtras(bundle)
     }, requestCode)
+}
+
+fun AppCompatActivity.logError(message: String) {
+    Log.e(this::class.java.simpleName, message);
 }

@@ -5,15 +5,16 @@ import android.arch.lifecycle.Lifecycle
 import android.arch.lifecycle.LifecycleObserver
 import android.arch.lifecycle.OnLifecycleEvent
 import android.arch.lifecycle.ViewModelProviders
-import android.util.Log
 import android.view.View
 import com.quanda.moviedb.R
 import com.quanda.moviedb.data.constants.BundleConstants
 import com.quanda.moviedb.data.model.Movie
 import com.quanda.moviedb.databinding.ActivityMovieDetailBinding
 import com.quanda.moviedb.ui.base.activity.BaseDataLoadActivity
+import com.quanda.moviedb.utils.logError
 import kotlinx.coroutines.experimental.*
 import kotlinx.coroutines.experimental.android.UI
+import kotlin.coroutines.experimental.CoroutineContext
 import kotlin.system.measureTimeMillis
 
 class MovieDetailActivity : BaseDataLoadActivity<ActivityMovieDetailBinding, MovieDetailViewModel>(), MovieDetailNavigator {
@@ -38,7 +39,6 @@ class MovieDetailActivity : BaseDataLoadActivity<ActivityMovieDetailBinding, Mov
                 viewModel.updateNewMovie(this)
             }
         }
-        sample4()
     }
 
     override fun onBackPressed() {
@@ -67,9 +67,9 @@ class MovieDetailActivity : BaseDataLoadActivity<ActivityMovieDetailBinding, Mov
             val time = measureTimeMillis {
                 val one = doSomethingUsefulOne()
                 val two = doSomethingUsefulTwo()
-                println("The answer is ${one + two}")
+                logError("The answer is ${one + two}")
             }
-            println("Completed in $time ms")
+            logError("Completed in $time ms")
 //            The answer is 42
 //            Completed in 2017 ms
         }
@@ -80,9 +80,9 @@ class MovieDetailActivity : BaseDataLoadActivity<ActivityMovieDetailBinding, Mov
             val time = measureTimeMillis {
                 val one = async { doSomethingUsefulOne() }
                 val two = async { doSomethingUsefulTwo() }
-                println("The answer is ${one.await() + two.await()}")
+                logError("The answer is ${one.await() + two.await()}")
             }
-            println("Completed in $time ms")
+            logError("Completed in $time ms")
 //            The answer is 42
 //            Completed in 1017 ms
         }
@@ -92,12 +92,16 @@ class MovieDetailActivity : BaseDataLoadActivity<ActivityMovieDetailBinding, Mov
         val job = async(UI) {
             // launch coroutine in UI context
             for (i in 10 downTo 1) { // countdown from 10 to 1
-                println("Countdown $i ...") // update text
+                logError("Countdown $i ...") // update text
                 delay(1000) // wait half a second
             }
-            println("Done!")
+            logError("Done!")
         }
         View.OnClickListener { job.cancel() } // cancel coroutine on click
+    }
+
+    fun createException() {
+        throw Exception("Loi roi fix di")
     }
 
     //    sample 1,2,3 are execute sequentially
@@ -105,9 +109,98 @@ class MovieDetailActivity : BaseDataLoadActivity<ActivityMovieDetailBinding, Mov
         async(UI) {
             withContext(CommonPool) {
                 delay(1000)
-                Log.e(this::class.java.simpleName, "withContext")
+                logError("withContext")
             }
-            Log.e(this::class.java.simpleName, "async")
+            logError("async")
+        }
+    }
+
+    fun sample1b() {
+        launch(UI) {
+            createException()
+        }
+    }
+
+    fun sample1c() {
+        launch {
+            createException()
+        }
+    }
+
+    fun sample1d() {
+        async(UI) {
+            createException()
+        }
+    }
+
+    fun sample1e() {
+        async {
+            createException()
+        }
+    }
+
+    fun sample1f() {
+        launch {
+            try {
+                createException()
+            } catch (e: Exception) {
+                logError(e.toString())
+            }
+        }
+    }
+
+    // when async has exception
+    // if invoke await() -> need to try catch
+    // if not invoke await() exception will be kept in Defered
+    fun sample1g() {
+        async {
+            val job = async {
+                try {
+                    logError("truoc loi")
+                    createException()
+                    logError("sau loi")
+                    "123"
+                } catch (e: Exception) {
+                    "456"
+                }
+            }
+            logError(job.await())
+        }
+    }
+
+    val exceptionHandler: CoroutineContext = CoroutineExceptionHandler { _, throwable ->
+        logError(throwable.message ?: "")
+    }
+
+    val parentJob = Job()
+
+    fun sample1h() {
+        launch(CommonPool + parentJob + exceptionHandler) {
+            createException()
+        }
+    }
+
+    @Override
+    override fun onDestroy() {
+        super.onDestroy()
+        parentJob.cancel()
+    }
+
+    fun sample1i() {
+        val parentJob = Job()
+        async {
+            val job = async(parent = parentJob) {
+                for (i in 10 downTo 1) { // countdown from 10 to 1
+                    logError("Countdown $i ...") // update text
+                    delay(1000) // wait half a second
+                }
+                logError("Done!")
+            }
+            val job2 = async {
+                delay(3000)
+                parentJob.cancel()
+            }
+            ""
         }
     }
 
@@ -116,9 +209,9 @@ class MovieDetailActivity : BaseDataLoadActivity<ActivityMovieDetailBinding, Mov
         async(UI) {
             async(CommonPool) {
                 delay(1000)
-                Log.e(this::class.java.simpleName, "withContext")
+                logError("withContext")
             }.await()
-            Log.e(this::class.java.simpleName, "async")
+            logError("async")
         }
     }
 
@@ -127,34 +220,48 @@ class MovieDetailActivity : BaseDataLoadActivity<ActivityMovieDetailBinding, Mov
         async(UI) {
             withContext(CommonPool) {
                 delay(1000)
-                Log.e(this::class.java.simpleName, "withContext")
+                logError("withContext")
             }
             withContext(CommonPool) {
                 delay(1000)
-                Log.e(this::class.java.simpleName, "withContext2")
+                logError("withContext2")
             }
-            Log.e(this::class.java.simpleName, "async")
+            logError("async")
         }
     }
 
     fun sample4() {
         async(UI) {
-            log("start UI")
+            logError("start UI")
             async(CommonPool) {
-                log("start withContext 1")
+                logError("start withContext 1")
                 delay(1000)
-                Log.e(this::class.java.simpleName, "withContext")
-                log("end withContext 1")
+                logError("end withContext 1")
             }
             async(CommonPool) {
-                log("start withContext 2")
+                logError("start withContext 2")
                 delay(1000)
-                Log.e(this::class.java.simpleName, "withContext2")
-                log("end withContext 2")
+                logError("end withContext 2")
             }
-            log("before async")
-            Log.e(this::class.java.simpleName, "async")
-            log("end UI")
+            logError("end UI")
+        }
+    }
+
+    fun sample5() {
+        launch(UI) {
+            println(async(CommonPool) {
+                delay(2000)
+                "sau 2 giay async"
+            }.await())
+        }
+    }
+
+    fun sample5b() {
+        launch(UI) {
+            println(withContext(CommonPool) {
+                delay(2000)
+                "sau 2 giay withContext"
+            })
         }
     }
 
@@ -173,9 +280,5 @@ class MovieDetailActivity : BaseDataLoadActivity<ActivityMovieDetailBinding, Mov
 
         @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
         fun destroy() = cancel()
-    }
-
-    fun log(message: String) {
-        Log.e(this::class.java.simpleName, "[${Thread.currentThread().name}] $message")
     }
 }
