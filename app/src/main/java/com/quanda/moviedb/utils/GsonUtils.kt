@@ -4,15 +4,29 @@ import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.google.gson.JsonSyntaxException
 import java.util.*
+import javax.inject.Singleton
 
+@Singleton
 class GsonUtils {
 
+    init {
+        if (INSTANCE != null) {
+            throw UnsupportedOperationException("use getInstance(0")
+        }
+    }
+
     companion object {
+
+        @Volatile
         private var INSTANCE: Gson? = null
 
         private fun getInstance(): Gson {
             if (INSTANCE == null) {
-                INSTANCE = GsonBuilder().create()
+                synchronized(this) {
+                    if (INSTANCE == null) {
+                        INSTANCE = GsonBuilder().create()
+                    }
+                }
             }
             return INSTANCE as Gson
         }
