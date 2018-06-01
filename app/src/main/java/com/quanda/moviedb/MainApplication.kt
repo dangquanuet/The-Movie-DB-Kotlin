@@ -2,6 +2,7 @@ package com.quanda.moviedb
 
 import android.app.Application
 import com.crashlytics.android.Crashlytics
+import com.quanda.moviedb.di.ApiModule
 import com.quanda.moviedb.di.AppComponent
 import com.quanda.moviedb.di.AppModule
 import com.quanda.moviedb.di.DaggerAppComponent
@@ -26,6 +27,7 @@ class MainApplication : Application() {
     private fun createAppComponent(): AppComponent {
         return DaggerAppComponent.builder()
                 .appModule(AppModule(this@MainApplication))
+                .apiModule(ApiModule())
                 .build()
     }
 }
