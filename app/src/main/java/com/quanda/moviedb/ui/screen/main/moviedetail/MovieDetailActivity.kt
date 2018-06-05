@@ -22,9 +22,10 @@ class MovieDetailActivity : BaseDataLoadActivity<ActivityMovieDetailBinding, Mov
     override fun getLayoutId() = R.layout.activity_movie_detail
 
     override fun initViewModel(): MovieDetailViewModel {
-        return ViewModelProviders.of(this,
-                MovieDetailViewModel.CustomFactory(application, this)).get(
-                MovieDetailViewModel::class.java)
+        return ViewModelProviders.of(this).get(MovieDetailViewModel::class.java)
+                .apply {
+                    navigator = this@MovieDetailActivity
+                }
     }
 
     override fun initData() {

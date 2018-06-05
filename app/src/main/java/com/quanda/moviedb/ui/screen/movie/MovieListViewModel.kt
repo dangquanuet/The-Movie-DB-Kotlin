@@ -1,15 +1,12 @@
 package com.quanda.moviedb.ui.screen.movie
 
-import android.app.Application
-import android.arch.lifecycle.ViewModel
-import android.arch.lifecycle.ViewModelProvider
 import android.util.Log
-import com.quanda.moviedb.MainApplication
-import com.quanda.moviedb.ui.base.viewmodel.BaseDataLoadMoreRefreshViewModel
+import com.quanda.moviedb.App
 import com.quanda.moviedb.data.constants.ApiParam
 import com.quanda.moviedb.data.model.Movie
 import com.quanda.moviedb.data.remote.response.GetMovieListResponse
 import com.quanda.moviedb.data.repository.impl.MovieRepository
+import com.quanda.moviedb.ui.base.viewmodel.BaseDataLoadMoreRefreshViewModel
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.observers.DisposableSingleObserver
@@ -17,22 +14,15 @@ import io.reactivex.schedulers.Schedulers
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
-class MovieListViewModel(application: Application,
-        val movieListNavigator: MovieListNavigator) : BaseDataLoadMoreRefreshViewModel<Movie>(
-        application) {
-
-    class CustomFactory(val application: Application,
-            val movieListNavigator: MovieListNavigator) : ViewModelProvider.NewInstanceFactory() {
-        override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-            return MovieListViewModel(application, movieListNavigator) as T
-        }
-    }
+class MovieListViewModel : BaseDataLoadMoreRefreshViewModel<Movie>() {
 
     @Inject
     lateinit var movieRepository: MovieRepository
 
+    lateinit var navigator: MovieListNavigator
+
     init {
-        MainApplication.appComponent.inject(this)
+        App.appComponent.inject(this)
     }
 
     override fun loadData(page: Int) {

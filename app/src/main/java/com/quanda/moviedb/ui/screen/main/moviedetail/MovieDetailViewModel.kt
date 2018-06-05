@@ -1,10 +1,7 @@
 package com.quanda.moviedb.ui.screen.main.moviedetail
 
-import android.app.Application
 import android.arch.lifecycle.MutableLiveData
-import android.arch.lifecycle.ViewModel
-import android.arch.lifecycle.ViewModelProvider
-import com.quanda.moviedb.MainApplication
+import com.quanda.moviedb.App
 import com.quanda.moviedb.data.local.dao.MovieDao
 import com.quanda.moviedb.data.model.Movie
 import com.quanda.moviedb.data.repository.impl.MovieRepository
@@ -14,26 +11,20 @@ import io.reactivex.observers.DisposableMaybeObserver
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
-class MovieDetailViewModel(application: Application,
-        val movieDetailNavigator: MovieDetailNavigator) : BaseDataLoadViewModel(application) {
-
-    class CustomFactory(val application: Application,
-            val movieDetailNavigator: MovieDetailNavigator) : ViewModelProvider.NewInstanceFactory() {
-        override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-            return MovieDetailViewModel(application, movieDetailNavigator) as T
-        }
-    }
+class MovieDetailViewModel : BaseDataLoadViewModel() {
 
     @Inject
     lateinit var movieRepository: MovieRepository
     @Inject
     lateinit var movieDao: MovieDao
 
+    lateinit var navigator: MovieDetailNavigator
+
     val movie = MutableLiveData<Movie>()
     val favoriteChanged = MutableLiveData<Boolean>().apply { value = false }
 
     init {
-        MainApplication.appComponent.inject(this)
+        App.appComponent.inject(this)
     }
 
     fun updateNewMovie(newMovie: Movie) {

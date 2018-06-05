@@ -6,10 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.quanda.moviedb.R
-import com.quanda.moviedb.ui.base.BaseRecyclerViewAdapterBinding
-import com.quanda.moviedb.ui.base.BaseViewHolderBinding
 import com.quanda.moviedb.data.model.Movie
 import com.quanda.moviedb.databinding.ItemMovieBinding
+import com.quanda.moviedb.ui.base.BaseRecyclerViewAdapterBinding
+import com.quanda.moviedb.ui.base.BaseViewHolderBinding
 
 class PopularMovieAdapter(context: Context, list: List<Movie>,
         val listener: BaseViewHolderBinding.OnItemCLickListener<Movie>?) : BaseRecyclerViewAdapterBinding<PopularMovieAdapter.MovieHolder, ItemMovieBinding, Movie>(

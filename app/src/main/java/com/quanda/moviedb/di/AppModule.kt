@@ -2,37 +2,34 @@ package com.quanda.moviedb.di
 
 import android.app.Application
 import android.content.Context
-import com.quanda.moviedb.data.local.AppDatabase
+import android.content.res.Resources
+import com.quanda.moviedb.App
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
 
 @Module
-class AppModule(private val application: Application) {
+class AppModule(private val app: App) {
 
     private val context: Context
 
     init {
-        context = application
+        context = app.applicationContext
     }
 
     @Provides
     @Singleton
-    fun provideApplication() = application
+    fun provideApp(): App = app
 
     @Provides
     @Singleton
-    fun provideContext() = context
+    fun provideApplication(): Application = app
 
     @Provides
     @Singleton
-    fun provideResources() = context.resources
+    fun provideContext(): Context = context
 
     @Provides
     @Singleton
-    fun provideAppDatabase() = AppDatabase.getInstance(context)
-
-    @Provides
-    @Singleton
-    fun provideMovieDao() = provideAppDatabase().movieDao()
+    fun provideResources(): Resources = context.resources
 }

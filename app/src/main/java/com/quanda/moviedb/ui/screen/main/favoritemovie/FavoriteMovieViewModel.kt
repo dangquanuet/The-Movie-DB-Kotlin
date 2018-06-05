@@ -1,40 +1,30 @@
 package com.quanda.moviedb.ui.screen.main.favoritemovie
 
-import android.app.Application
-import android.arch.lifecycle.ViewModel
-import android.arch.lifecycle.ViewModelProvider
-import com.quanda.moviedb.MainApplication
+import com.quanda.moviedb.App
+import com.quanda.moviedb.data.local.dao.MovieDao
+import com.quanda.moviedb.data.model.Movie
 import com.quanda.moviedb.ui.base.BaseViewHolderBinding
 import com.quanda.moviedb.ui.base.viewmodel.BaseDataLoadMoreRefreshViewModel
-import com.quanda.moviedb.data.model.Movie
-import com.quanda.moviedb.data.local.dao.MovieDao
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.observers.DisposableMaybeObserver
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
-class FavoriteMovieViewModel(application: Application,
-        val favoriteMovieNavigator: FavoriteMovieNavigator) : BaseDataLoadMoreRefreshViewModel<Movie>(
-        application) {
-
-    class CustomFactory(val application: Application,
-            val favoriteMovieNavigator: FavoriteMovieNavigator) : ViewModelProvider.NewInstanceFactory() {
-        override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-            return FavoriteMovieViewModel(application, favoriteMovieNavigator) as T
-        }
-    }
+class FavoriteMovieViewModel : BaseDataLoadMoreRefreshViewModel<Movie>() {
 
     @Inject
     lateinit var movieDao: MovieDao
 
+    lateinit var navigator: FavoriteMovieNavigator
+
     val itemCLickListener = object : BaseViewHolderBinding.OnItemCLickListener<Movie> {
         override fun onItemClick(position: Int, data: Movie) {
-            favoriteMovieNavigator.goToMovieDetailWithResult(data)
+            navigator.goToMovieDetailWithResult(data)
         }
     }
 
     init {
-        MainApplication.appComponent.inject(this)
+        App.appComponent.inject(this)
     }
 
     override fun loadData(page: Int) {

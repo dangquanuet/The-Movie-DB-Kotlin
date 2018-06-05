@@ -1,6 +1,5 @@
 package com.quanda.moviedb.ui.base.viewmodel
 
-import android.app.Application
 import android.arch.lifecycle.MutableLiveData
 import android.databinding.ObservableArrayList
 import android.support.v4.widget.SwipeRefreshLayout
@@ -8,9 +7,7 @@ import com.quanda.moviedb.data.constants.Constants
 import com.quanda.moviedb.data.remote.response.BaseListResponse
 import com.quanda.moviedb.ui.widgets.EndlessRecyclerOnScrollListener
 
-abstract class BaseDataLoadMoreRefreshViewModel<Item>(
-        application: Application) : BaseDataLoadViewModel(
-        application) {
+abstract class BaseDataLoadMoreRefreshViewModel<Item>() : BaseDataLoadViewModel() {
 
     val isRefreshing = MutableLiveData<Boolean>().apply { value = false }
     val onRefreshListener = SwipeRefreshLayout.OnRefreshListener {
