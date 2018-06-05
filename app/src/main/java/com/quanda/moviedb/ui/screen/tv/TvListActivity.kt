@@ -11,8 +11,10 @@ import com.quanda.moviedb.ui.base.activity.BaseDataLoadMoreRefreshActivity
 class TvListActivity : BaseDataLoadMoreRefreshActivity<ActivityBaseLoadmoreRefreshBinding, TvListViewModel, Tv>(), TvListNavigator {
 
     override fun initViewModel(): TvListViewModel {
-        return ViewModelProviders.of(this, TvListViewModel.CustomFactory(application, this)).get(
-                TvListViewModel::class.java)
+        return ViewModelProviders.of(this).get(TvListViewModel::class.java)
+                .apply {
+                    navigator = this@TvListActivity
+                }
     }
 
     override fun initData() {

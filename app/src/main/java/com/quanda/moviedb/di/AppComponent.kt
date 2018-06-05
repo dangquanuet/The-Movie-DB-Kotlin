@@ -1,5 +1,6 @@
 package com.quanda.moviedb.di
 
+import com.quanda.moviedb.ui.base.viewmodel.BaseDataLoadViewModel
 import com.quanda.moviedb.ui.screen.main.MainViewModel
 import com.quanda.moviedb.ui.screen.main.favoritemovie.FavoriteMovieViewModel
 import com.quanda.moviedb.ui.screen.main.login.LoginViewModel
@@ -11,8 +12,14 @@ import dagger.Component
 import javax.inject.Singleton
 
 @Singleton
-@Component(modules = arrayOf(AppModule::class, ApiModule::class))
+@Component(modules = arrayOf(
+        AppModule::class,
+        ApiModule::class,
+        RoomModule::class
+))
 interface AppComponent {
+
+    fun inject(viewModel: BaseDataLoadViewModel)
 
     fun inject(viewModel: MainViewModel)
 

@@ -1,9 +1,6 @@
 package com.quanda.moviedb.ui.screen.tv
 
-import android.app.Application
-import android.arch.lifecycle.ViewModel
-import android.arch.lifecycle.ViewModelProvider
-import com.quanda.moviedb.MainApplication
+import com.quanda.moviedb.App
 import com.quanda.moviedb.data.constants.ApiParam
 import com.quanda.moviedb.data.model.Tv
 import com.quanda.moviedb.data.repository.impl.MovieRepository
@@ -12,22 +9,15 @@ import kotlinx.coroutines.experimental.android.UI
 import kotlinx.coroutines.experimental.async
 import javax.inject.Inject
 
-class TvListViewModel(application: Application,
-        val tvListNavigator: TvListNavigator) : BaseDataLoadMoreRefreshViewModel<Tv>(
-        application) {
-
-    class CustomFactory(val application: Application,
-            val tvListNavigator: TvListNavigator) : ViewModelProvider.NewInstanceFactory() {
-        override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-            return TvListViewModel(application, tvListNavigator) as T
-        }
-    }
+class TvListViewModel() : BaseDataLoadMoreRefreshViewModel<Tv>() {
 
     @Inject
     lateinit var movieRepository: MovieRepository
 
+    lateinit var navigator: TvListNavigator
+
     init {
-        MainApplication.appComponent.inject(this)
+        App.appComponent.inject(this)
     }
 
     override fun loadData(page: Int) {

@@ -5,10 +5,10 @@ import android.graphics.Color
 import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
-import com.quanda.moviedb.ui.base.fragment.BaseDataLoadMoreRefreshFragment
 import com.quanda.moviedb.data.constants.BundleConstants
 import com.quanda.moviedb.data.model.Movie
 import com.quanda.moviedb.databinding.FragmentBaseLoadmoreRefreshBinding
+import com.quanda.moviedb.ui.base.fragment.BaseDataLoadMoreRefreshFragment
 
 class PopularMovieFragment : BaseDataLoadMoreRefreshFragment<FragmentBaseLoadmoreRefreshBinding, PopularMovieViewModel, Movie>() {
 
@@ -23,13 +23,12 @@ class PopularMovieFragment : BaseDataLoadMoreRefreshFragment<FragmentBaseLoadmor
     }
 
     override fun initViewModel(): PopularMovieViewModel {
-        return ViewModelProviders.of(this,
-                PopularMovieViewModel.CustomFactory(activity?.application!!,
-                        navigator as PopularMovieNavigator,
-                        arguments?.getInt(
-                                BundleConstants.TYPE)
-                                ?: PopularMovieFragment.TYPE.POPULAR.type)).get(
-                PopularMovieViewModel::class.java)
+        return ViewModelProviders.of(this).get(PopularMovieViewModel::class.java)
+                .apply {
+                    navigator = this@PopularMovieFragment.navigator as PopularMovieNavigator
+                    mode = arguments?.getInt(
+                            BundleConstants.TYPE) ?: PopularMovieFragment.TYPE.POPULAR.type
+                }
     }
 
     override fun initData() {

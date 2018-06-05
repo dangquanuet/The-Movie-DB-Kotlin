@@ -9,13 +9,12 @@ import android.support.v4.content.ContextCompat
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationAdapter
 import com.quanda.moviedb.R
-import com.quanda.moviedb.ui.base.activity.BaseDataLoadActivity
 import com.quanda.moviedb.data.constants.BundleConstants
 import com.quanda.moviedb.data.model.Movie
 import com.quanda.moviedb.databinding.ActivityMainBinding
+import com.quanda.moviedb.ui.base.activity.BaseDataLoadActivity
 import com.quanda.moviedb.ui.screen.main.favoritemovie.FavoriteMovieFragment
 import com.quanda.moviedb.ui.screen.main.favoritemovie.FavoriteMovieNavigator
-import com.quanda.moviedb.ui.screen.main.login.LoginActivity
 import com.quanda.moviedb.ui.screen.main.moviedetail.MovieDetailActivity
 import com.quanda.moviedb.ui.screen.main.popularmovie.PopularMovieFragment
 import com.quanda.moviedb.ui.screen.main.popularmovie.PopularMovieNavigator
@@ -37,8 +36,10 @@ class MainActivity : BaseDataLoadActivity<ActivityMainBinding, MainViewModel>(),
     }
 
     override fun initViewModel(): MainViewModel {
-        return ViewModelProviders.of(this, MainViewModel.CustomFactory(application, this)).get(
-                MainViewModel::class.java)
+        return ViewModelProviders.of(this).get(MainViewModel::class.java)
+                .apply {
+                    navigator = this@MainActivity
+                }
     }
 
     override fun initData() {
