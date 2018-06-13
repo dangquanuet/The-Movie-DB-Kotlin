@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+    <data>
+        <variable
+            name="view"
+            type="com.quanda.moviedb.ui.screen.permission.PermissionActivity"
+            />
+        <variable
+            name="viewModel"
+            type="com.quanda.moviedb.ui.screen.permission.PermissionViewModel"
+            />
+    </data>
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/dp_16"
+        >
+
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/button_1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="@{ () -> view.case1() }"
+            android:text="case 1"
+            />
+
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/button_2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_16"
+            android:onClick="@{ () -> view.case2() }"
+            android:text="case 2"
+            app:layout_constraintTop_toBottomOf="@id/button_1"
+            />
+
+    </android.support.constraint.ConstraintLayout>
+</layout>
