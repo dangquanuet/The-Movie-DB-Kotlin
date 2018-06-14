@@ -14,7 +14,7 @@ import com.quanda.moviedb.data.constants.Constants
 import com.quanda.moviedb.databinding.ActivityPermisisonBinding
 import com.quanda.moviedb.ui.base.activity.BaseDataLoadActivity
 import com.quanda.moviedb.utils.PermissionAskListener
-import com.quanda.moviedb.utils.checkPermission
+import com.quanda.moviedb.utils.requestPermission
 import com.quanda.moviedb.utils.firstTimeAskingPermission
 import com.quanda.moviedb.utils.isFirstTimeAskingPermission
 
@@ -104,7 +104,7 @@ class PermissionActivity : BaseDataLoadActivity<ActivityPermisisonBinding, Permi
     }
 
     fun case2() {
-        checkPermission(Manifest.permission.READ_CONTACTS, object : PermissionAskListener {
+        requestPermission(Manifest.permission.READ_CONTACTS, object : PermissionAskListener {
             override fun onNeedPermission() {
                 ActivityCompat.requestPermissions(this@PermissionActivity,
                         arrayOf(Manifest.permission.READ_CONTACTS),

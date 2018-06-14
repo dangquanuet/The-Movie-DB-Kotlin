@@ -37,7 +37,7 @@ fun AppCompatActivity.shouldAskPermission(permission: String): Boolean {
     return false
 }
 
-fun AppCompatActivity.checkPermission(permission: String, listener: PermissionAskListener) {
+fun AppCompatActivity.requestPermission(permission: String, listener: PermissionAskListener) {
     /*
     * If permission is not granted
     * */
