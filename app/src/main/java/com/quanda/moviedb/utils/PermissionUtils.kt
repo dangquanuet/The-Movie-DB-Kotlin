@@ -10,18 +10,34 @@ import com.quanda.moviedb.data.local.PREFS_NAME
 
 
 fun AppCompatActivity.firstTimeAskingPermission(permission: String, isFirstTime: Boolean) {
-    val sharedPreference: SharedPreferences = this.getSharedPreferences(PREFS_NAME,
-            MODE_PRIVATE)
+    val sharedPreference: SharedPreferences = this.getSharedPreferences(PREFS_NAME, MODE_PRIVATE)
     sharedPreference.edit().putBoolean(permission, isFirstTime).apply()
 }
+
+fun AppCompatActivity.firstTimeAskingPermissions(permissions: Array<String>, isFirstTime: Boolean) {
+    val sharedPreference: SharedPreferences = this.getSharedPreferences(PREFS_NAME, MODE_PRIVATE)
+    for (permission in permissions) {
+        sharedPreference.edit().putBoolean(permission, isFirstTime).apply()
+    }
+}
+
 
 fun AppCompatActivity.isFirstTimeAskingPermission(permission: String): Boolean {
     return this.getSharedPreferences(PREFS_NAME, MODE_PRIVATE).getBoolean(permission, true)
 }
 
+fun AppCompatActivity.isFirstTimeAskingPermissions(permissions: Array<String>): Boolean {
+    val sharedPreference: SharedPreferences = this.getSharedPreferences(PREFS_NAME, MODE_PRIVATE)
+    for (permission in permissions) {
+        if (sharedPreference.getBoolean(permission, true)) {
+            return true
+        }
+    }
+    return false
+}
+
 /*
-* Check if version is marshmallow and above.
-* Used in deciding to ask runtime permission
+* Check if version is marshmallow and above. deciding to ask runtime permission
 * */
 fun AppCompatActivity.shouldAskPermission(): Boolean {
     return Build.VERSION.SDK_INT >= Build.VERSION_CODES.M
@@ -29,14 +45,17 @@ fun AppCompatActivity.shouldAskPermission(): Boolean {
 
 fun AppCompatActivity.shouldAskPermission(permission: String): Boolean {
     if (shouldAskPermission()) {
-        val permissionResult = ActivityCompat.checkSelfPermission(this, permission)
-        if (permissionResult != PackageManager.PERMISSION_GRANTED) {
+        if (ActivityCompat.checkSelfPermission(this, permission)
+                != PackageManager.PERMISSION_GRANTED) {
             return true
         }
     }
     return false
 }
 
+/**
+ * request single permission
+ */
 fun AppCompatActivity.requestPermission(permission: String, listener: PermissionAskListener) {
     /*
     * If permission is not granted
@@ -53,6 +72,69 @@ fun AppCompatActivity.requestPermission(permission: String, listener: Permission
             * */
             if (isFirstTimeAskingPermission(permission)) {
                 firstTimeAskingPermission(permission, false)
+                listener.onNeedPermission()
+            } else {
+                /*
+                * Handle the feature without permission or ask user to manually allow permission
+                * */
+                listener.onPermissionDisabled()
+            }
+        }
+    } else {
+        listener.onPermissionGranted()
+    }
+}
+
+fun AppCompatActivity.isPermissionsGranted(grantResults: IntArray): Boolean {
+    for (grantResult in grantResults) {
+        if (grantResult != PackageManager.PERMISSION_GRANTED) {
+            return false
+        }
+    }
+    return true
+}
+
+fun AppCompatActivity.shouldAskPermissions(permissions: Array<String>): Boolean {
+    if (shouldAskPermission()) {
+        for (permission in permissions) {
+            if (ActivityCompat.checkSelfPermission(this, permission)
+                    != PackageManager.PERMISSION_GRANTED) {
+                return true
+            }
+        }
+    }
+    return false
+}
+
+fun AppCompatActivity.shouldShowRequestPermissionsRationale(permissions: Array<String>): Boolean {
+    for (permission in permissions) {
+        if (ActivityCompat.shouldShowRequestPermissionRationale(this, permission)) {
+            return true
+        }
+    }
+    return false
+}
+
+/**
+ * request multiple permissions
+ */
+fun AppCompatActivity.requestPermissions(permissions: Array<String>,
+        listener: PermissionAskListener) {
+    /*
+    * If permissions is not granted
+    * */
+    if (shouldAskPermissions(permissions)) {
+        /*
+        * If permissions denied previously
+        * */
+        if (shouldShowRequestPermissionsRationale(permissions)) {
+            listener.onPermissionPreviouslyDenied()
+        } else {
+            /*
+            * Permission denied or first time requested
+            * */
+            if (isFirstTimeAskingPermissions(permissions)) {
+                firstTimeAskingPermissions(permissions, false)
                 listener.onNeedPermission()
             } else {
                 /*
