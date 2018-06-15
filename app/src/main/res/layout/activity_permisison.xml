@@ -23,7 +23,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="@{ () -> view.case1() }"
-            android:text="case 1"
+            android:text="Normal Single Permission"
             />
 
         <android.support.v7.widget.AppCompatButton
@@ -32,8 +32,28 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp_16"
             android:onClick="@{ () -> view.case2() }"
-            android:text="case 2"
+            android:text="Simple Single Permission"
             app:layout_constraintTop_toBottomOf="@id/button_1"
+            />
+
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/button_3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_16"
+            android:onClick="@{ () -> view.case3() }"
+            android:text="Normal Multiple Permissions"
+            app:layout_constraintTop_toBottomOf="@id/button_2"
+            />
+
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/button_4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_16"
+            android:onClick="@{ () -> view.case4() }"
+            android:text="Simple Multiple Permissions"
+            app:layout_constraintTop_toBottomOf="@id/button_3"
             />
 
     </android.support.constraint.ConstraintLayout>
