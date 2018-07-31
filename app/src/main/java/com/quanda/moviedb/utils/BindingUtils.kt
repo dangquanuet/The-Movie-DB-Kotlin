@@ -68,42 +68,40 @@ fun setPTRRefreshing(view: PullRefreshRecyclerView,
 }
 
 @BindingAdapter("glideSrc")
-fun setGlideSrc(view: ImageView, @DrawableRes src: Int) {
-    if (src != -1) Glide.with(view.context).load(src).into(view)
+fun ImageView.setGlideSrc(@DrawableRes src: Int) {
+    if (src != -1) Glide.with(context).load(src).into(this)
 }
 
 @BindingAdapter("loadUri")
-fun loadLocalImage(view: ImageView, uri: Uri) {
-    Glide.with(view.context).load(uri).into(view)
+fun ImageView.loadLocalImage(uri: Uri) {
+    Glide.with(context).load(uri).into(this)
 }
 
 @BindingAdapter(
-        value = ["loadImage", "placeholder", "centerCrop", "cacheSource", "animation", "large"],
+        value = ["loadImage", "placeholder", "centerCrop", "fitCenter", "circleCrop", "cacheSource", "animation", "large"],
         requireAll = false)
-fun loadImage(img: ImageView, url: String? = "", placeHolder: Drawable?,
-        centerCrop: Boolean = false, isCacheSource: Boolean = false, animation: Boolean = false,
-        isLarge: Boolean = false) {
+fun ImageView.loadImage(url: String? = "", placeHolder: Drawable?,
+        centerCrop: Boolean = false, fitCenter: Boolean = false, circleCrop: Boolean = false,
+        isCacheSource: Boolean = false, animation: Boolean = false, isLarge: Boolean = false) {
     if (TextUtils.isEmpty(url)) {
-        img.setImageDrawable(placeHolder)
+        setImageDrawable(placeHolder)
         return
     }
     val urlWithHost = (if (isLarge) BuildConfig.LARGE_IMAGE_URL else BuildConfig.SMALL_IMAGE_URL) + url
-    val requestBuilder = Glide.with(img.context).load(urlWithHost)
+    val requestBuilder = Glide.with(context).load(urlWithHost)
     val requestOptions = RequestOptions().diskCacheStrategy(
             if (isCacheSource ?: false) DiskCacheStrategy.DATA else DiskCacheStrategy.RESOURCE)
             .placeholder(placeHolder)
 
     if (!animation) requestOptions.dontAnimate()
-    if (centerCrop) {
-        requestOptions.centerCrop()
-    } else {
-        requestOptions.fitCenter()
-    }
+    if (centerCrop) requestOptions.centerCrop()
+    if (fitCenter) requestOptions.fitCenter()
+    if (circleCrop) requestOptions.circleCrop()
     val file = File(urlWithHost)
     if (file.exists()) {
         requestOptions.signature(ObjectKey(file.lastModified().toString()))
     }
-    requestBuilder.apply(requestOptions).into(img)
+    requestBuilder.apply(requestOptions).into(this)
 }
 
 @BindingAdapter("clickSafe")
