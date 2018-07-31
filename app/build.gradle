@@ -1,11 +1,11 @@
 buildscript {
-  repositories {
-    mavenCentral()
-    maven { url 'https://maven.fabric.io/public' }
-  }
-  dependencies {
-    classpath 'io.fabric.tools:gradle:1.25.4'
-  }
+    repositories {
+        mavenCentral()
+        maven { url 'https://maven.fabric.io/public' }
+    }
+    dependencies {
+        classpath 'io.fabric.tools:gradle:1.25.4'
+    }
 }
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
@@ -14,197 +14,208 @@ apply plugin: 'io.fabric'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'org.jetbrains.kotlin.android.extensions'
 androidExtensions {
-  experimental = true
+    experimental = true
 }
 
 kotlin {
-  experimental {
-    coroutines 'enable'
-  }
+    experimental {
+        coroutines 'enable'
+    }
 }
 
 android {
-  compileSdkVersion 27
-  buildToolsVersion "27.0.3"
+    compileSdkVersion 27
+    buildToolsVersion "27.0.3"
 
-  defaultConfig {
-    applicationId "com.quanda.moviedb"
-    minSdkVersion 19
-    targetSdkVersion 27
-    testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-  }
-
-  signingConfigs {
-    release {
-      storeFile file("movie-db.jks")
-      storePassword "123456"
-      keyAlias "key0"
-      keyPassword "123456"
-    }
-  }
-
-  buildTypes {
-    debug {
-      signingConfig signingConfigs.debug
-      debuggable true
-      minifyEnabled false
-      shrinkResources false
-      proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+    defaultConfig {
+        applicationId "com.quanda.moviedb"
+        minSdkVersion 19
+        targetSdkVersion 27
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 
-    release {
-      signingConfig signingConfigs.release
-      debuggable false
-      minifyEnabled true
-      shrinkResources true
-      proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-    }
-  }
-
-  compileOptions {
-    targetCompatibility 1.8
-    sourceCompatibility 1.8
-  }
-
-  dataBinding {
-    enabled = true
-  }
-
-  flavorDimensions "default"
-
-  productFlavors {
-    dev {
-      versionCode rootProject.ext.versionCode_dev
-      versionName rootProject.ext.versionName_dev
-      applicationIdSuffix = ".dev"
-      resValue "string", "app_name", "Movie DB DEV"
+    signingConfigs {
+        release {
+            storeFile file("movie-db.jks")
+            storePassword "123456"
+            keyAlias "key0"
+            keyPassword "123456"
+        }
     }
 
-    // build this flavor for qa test
-    stg {
-      versionCode rootProject.ext.versionCode_dev
-      versionName rootProject.ext.versionName_dev
-      applicationIdSuffix = ".stg"
-      resValue "string", "app_name", "Movie DB STG"
+    buildTypes {
+        debug {
+            signingConfig signingConfigs.debug
+            buildConfigField "boolean", "MOCK_DATA", "false"
+            debuggable true
+            minifyEnabled false
+            shrinkResources false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+
+        mock {
+            signingConfig signingConfigs.debug
+            buildConfigField "boolean", "MOCK_DATA", "true"
+            debuggable true
+            minifyEnabled false
+            shrinkResources false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+
+        release {
+            signingConfig signingConfigs.release
+            buildConfigField "boolean", "MOCK_DATA", "false"
+            debuggable false
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
     }
 
-    prd {
-      versionCode rootProject.ext.versionCode_product
-      versionName rootProject.ext.versionName_product
-      resValue "string", "app_name", "Movie DB"
+    compileOptions {
+        targetCompatibility 1.8
+        sourceCompatibility 1.8
     }
-  }
 
-  productFlavors.all {}
+    dataBinding {
+        enabled = true
+    }
 
-  applicationVariants.all { variant ->
-    def BASE_URL = "https://api.themoviedb.org/"
-    def SMALL_IMAGE_URL = "https://image.tmdb.org/t/p/w200"
-    def LARGE_IMAGE_URL = "https://image.tmdb.org/t/p/w500"
-    def ORIGINAL_IMAGE_URL = "https://image.tmdb.org/t/p/original"
-    def TMBD_API_KEY = "2cdf3a5c7cf412421485f89ace91e373"
+    flavorDimensions "default"
 
-    //    if (variant.getName().contains("dev")) {
-    //      BASE_URL = "https://api.themoviedb.org/"
-    //    } else if (variant.getName().contains("stg")) {
-    //      BASE_URL = "https://api.themoviedb.org/"
-    //    } else if (variant.getName().contains("prd")) {
-    //      BASE_URL = "https://api.themoviedb.org/"
-    //    }
+    productFlavors {
+        dev {
+            versionCode rootProject.ext.versionCode_dev
+            versionName rootProject.ext.versionName_dev
+            applicationIdSuffix = ".dev"
+            resValue "string", "app_name", "Movie DB DEV"
+        }
 
-    variant.buildConfigField "String", "BASE_URL", "\"${BASE_URL}\""
-    variant.buildConfigField "String", "SMALL_IMAGE_URL", "\"${SMALL_IMAGE_URL}\""
-    variant.buildConfigField "String", "LARGE_IMAGE_URL", "\"${LARGE_IMAGE_URL}\""
-    variant.buildConfigField "String", "ORIGINAL_IMAGE_URL", "\"${ORIGINAL_IMAGE_URL}\""
-    variant.buildConfigField "String", "TMBD_API_KEY", "\"${TMBD_API_KEY}\""
-  }
+        // build this flavor for qa test
+        stg {
+            versionCode rootProject.ext.versionCode_dev
+            versionName rootProject.ext.versionName_dev
+            applicationIdSuffix = ".stg"
+            resValue "string", "app_name", "Movie DB STG"
+        }
+
+        prd {
+            versionCode rootProject.ext.versionCode_product
+            versionName rootProject.ext.versionName_product
+            resValue "string", "app_name", "Movie DB"
+        }
+    }
+
+    productFlavors.all {}
+
+    applicationVariants.all { variant ->
+        def BASE_URL = "https://api.themoviedb.org/"
+        def SMALL_IMAGE_URL = "https://image.tmdb.org/t/p/w200"
+        def LARGE_IMAGE_URL = "https://image.tmdb.org/t/p/w500"
+        def ORIGINAL_IMAGE_URL = "https://image.tmdb.org/t/p/original"
+        def TMBD_API_KEY = "2cdf3a5c7cf412421485f89ace91e373"
+
+        //    if (variant.getName().contains("dev")) {
+        //      BASE_URL = "https://api.themoviedb.org/"
+        //    } else if (variant.getName().contains("stg")) {
+        //      BASE_URL = "https://api.themoviedb.org/"
+        //    } else if (variant.getName().contains("prd")) {
+        //      BASE_URL = "https://api.themoviedb.org/"
+        //    }
+
+        variant.buildConfigField "String", "BASE_URL", "\"${BASE_URL}\""
+        variant.buildConfigField "String", "SMALL_IMAGE_URL", "\"${SMALL_IMAGE_URL}\""
+        variant.buildConfigField "String", "LARGE_IMAGE_URL", "\"${LARGE_IMAGE_URL}\""
+        variant.buildConfigField "String", "ORIGINAL_IMAGE_URL", "\"${ORIGINAL_IMAGE_URL}\""
+        variant.buildConfigField "String", "TMBD_API_KEY", "\"${TMBD_API_KEY}\""
+    }
 }
 
 dependencies {
-  implementation fileTree(dir: 'libs', include: ['*.jar'])
-  implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-  implementation 'com.android.support:appcompat-v7:27.1.1'
-  implementation "com.android.support:support-v4:27.1.1"
-  implementation 'com.android.support.constraint:constraint-layout:1.1.2'
-  implementation "com.android.support:recyclerview-v7:27.1.1"
-  implementation "com.android.support:cardview-v7:27.1.1"
-  implementation "com.android.support:design:27.1.1"
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation 'com.android.support:appcompat-v7:27.1.1'
+    implementation "com.android.support:support-v4:27.1.1"
+    implementation 'com.android.support.constraint:constraint-layout:1.1.2'
+    implementation "com.android.support:recyclerview-v7:27.1.1"
+    implementation "com.android.support:cardview-v7:27.1.1"
+    implementation "com.android.support:design:27.1.1"
 
-  //Support ReactiveX android
-  implementation 'io.reactivex.rxjava2:rxjava:2.1.8'
-  implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
+    //Support ReactiveX android
+    implementation 'io.reactivex.rxjava2:rxjava:2.1.16'
+    implementation 'io.reactivex.rxjava2:rxandroid:2.0.2'
 
-  // coroutines
-  implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:0.22.5"
-  implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:0.22.5"
+    // coroutines
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:0.22.5"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:0.22.5"
 
-  //Using this for parse json data to object
-  implementation "com.google.code.gson:gson:2.8.2"
+    //Using this for parse json data to object
+    implementation "com.google.code.gson:gson:2.8.5"
 
-  //Using retrofit library for connect api v4.data.source.remote.service
-  implementation "com.squareup.retrofit2:retrofit:2.3.0"
-  implementation "com.squareup.retrofit2:converter-gson:2.3.0"
-  implementation "com.squareup.okhttp3:logging-interceptor:3.9.1"
-  implementation "com.squareup.retrofit2:adapter-rxjava2:2.3.0"
-  implementation 'com.jakewharton.retrofit:retrofit2-kotlin-coroutines-experimental-adapter:1.0.0'
+    //Using retrofit library for connect api v4.data.source.remote.service
+    implementation "com.squareup.retrofit2:retrofit:2.4.0"
+    implementation "com.squareup.retrofit2:converter-gson:2.4.0"
+    implementation "com.squareup.okhttp3:logging-interceptor:3.9.1"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:2.4.0"
+    implementation 'com.jakewharton.retrofit:retrofit2-kotlin-coroutines-experimental-adapter:1.0.0'
 
-  //Glide library load image
-  implementation("com.github.bumptech.glide:glide:4.3.1") {
-    exclude module: 'support-annotations'
-  }
+    //Glide library load image
+    implementation("com.github.bumptech.glide:glide:4.3.1") {
+        exclude module: 'support-annotations'
+    }
 
-  //dagger 2 core
-  implementation "com.google.dagger:dagger:2.16"
-  kapt "com.google.dagger:dagger-compiler:2.16"
-  compileOnly 'javax.annotation:jsr250-api:1.0'
-  implementation 'javax.inject:javax.inject:1'
+    //dagger 2 core
+    implementation "com.google.dagger:dagger:2.16"
+    kapt "com.google.dagger:dagger-compiler:2.16"
+    compileOnly 'javax.annotation:jsr250-api:1.0'
+    implementation 'javax.inject:javax.inject:1'
 
-  // dagger 2 android
-//  implementation "com.google.dagger:dagger-android:2.16"
-//  implementation  "com.google.dagger:dagger-android-support:2.16"
-//  kapt "com.google.dagger:dagger-android-processor:2.16"
+    // dagger 2 android
+    implementation "com.google.dagger:dagger-android:2.16"
+    implementation "com.google.dagger:dagger-android-support:2.16"
+    kapt "com.google.dagger:dagger-android-processor:2.16"
 
-  // bottom navigation
-  implementation 'com.aurelhubert:ahbottomnavigation:2.1.0'
+    // bottom navigation
+    implementation 'com.aurelhubert:ahbottomnavigation:2.1.0'
 
-  // databinding compiler
-  kapt 'com.android.databinding:compiler:3.1.3'
+    // databinding compiler
+    kapt 'com.android.databinding:compiler:3.1.3'
 
-  // room
-  implementation "android.arch.persistence.room:runtime:1.1.1"
-  kapt "android.arch.persistence.room:compiler:1.1.1"
-  // RxJava support for Room
-  implementation "android.arch.persistence.room:rxjava2:1.1.1"
+    // room
+    implementation "android.arch.persistence.room:runtime:1.1.1"
+    kapt "android.arch.persistence.room:compiler:1.1.1"
+    // RxJava support for Room
+    implementation "android.arch.persistence.room:rxjava2:1.1.1"
 
-  // ViewModel and LiveData
-  implementation "android.arch.lifecycle:extensions:1.1.1"
-  //  kapt "android.arch.lifecycle:compiler:1.1.1"
-  // Java8 support for Lifecycles
-  implementation "android.arch.lifecycle:common-java8:1.1.1"
-  // ReactiveStreams support for LiveData
-  implementation "android.arch.lifecycle:reactivestreams:1.1.1"
+    // ViewModel and LiveData
+    implementation "android.arch.lifecycle:extensions:1.1.1"
+    //  kapt "android.arch.lifecycle:compiler:1.1.1"
+    // Java8 support for Lifecycles
+    implementation "android.arch.lifecycle:common-java8:1.1.1"
+    // ReactiveStreams support for LiveData
+    implementation "android.arch.lifecycle:reactivestreams:1.1.1"
 
-  // Paging
-  implementation "android.arch.paging:runtime:1.0.0"
-  // RxJava support for Paging
-  implementation "android.arch.paging:rxjava2:1.0.0-rc1"
+    // Paging
+    implementation "android.arch.paging:runtime:1.0.1"
+    // RxJava support for Paging
+    implementation "android.arch.paging:rxjava2:1.0.1"
 
-  // fabric
-  implementation('com.crashlytics.sdk.android:crashlytics:2.9.1@aar') {
-    transitive = true;
-  }
+    // fabric
+    implementation('com.crashlytics.sdk.android:crashlytics:2.9.1@aar') {
+        transitive = true;
+    }
 
-  // unit test
-  testImplementation 'junit:junit:4.12'
-  testImplementation 'org.mockito:mockito-core:2.10.0'
-  testImplementation "android.arch.core:core-testing:1.1.1"
+    // unit test
+    testImplementation 'junit:junit:4.12'
+    testImplementation 'org.mockito:mockito-core:2.10.0'
+    testImplementation "android.arch.core:core-testing:1.1.1"
 
-  androidTestImplementation 'com.android.support.test:runner:1.0.2'
-  androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 
-  androidTestImplementation "android.arch.persistence.room:testing:1.1.1"
-  androidTestImplementation "android.arch.core:core-testing:1.1.1"
+    androidTestImplementation "android.arch.persistence.room:testing:1.1.1"
+    androidTestImplementation "android.arch.core:core-testing:1.1.1"
 
-  testImplementation "com.squareup.okhttp3:mockwebserver:3.9.0"
-  testImplementation "org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version"
+    testImplementation "com.squareup.okhttp3:mockwebserver:3.9.0"
+    testImplementation "org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version"
 }

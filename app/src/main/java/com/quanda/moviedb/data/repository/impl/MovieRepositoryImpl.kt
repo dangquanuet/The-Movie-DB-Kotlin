@@ -7,7 +7,7 @@ import com.quanda.moviedb.data.remote.ApiService
 import com.quanda.moviedb.data.remote.response.GetMovieListResponse
 import com.quanda.moviedb.data.remote.response.GetTvListResponse
 import com.quanda.moviedb.data.remote.response.Result
-import com.quanda.moviedb.data.repository.IMovieRepository
+import com.quanda.moviedb.data.repository.MovieRepository
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -18,8 +18,10 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class MovieRepository @Inject constructor(val apiService: ApiService,
-        val movieDao: MovieDao) : IMovieRepository {
+class MovieRepositoryImpl @Inject constructor(
+        val apiService: ApiService,
+        val movieDao: MovieDao
+) : MovieRepository {
 
     override fun getMovieList(hashMap: HashMap<String, String>): Single<GetMovieListResponse> {
         return apiService.getMovieList(hashMap)

@@ -3,18 +3,18 @@ package com.quanda.moviedb.ui.base.activity
 import android.app.Dialog
 import android.arch.lifecycle.Observer
 import android.databinding.ViewDataBinding
+import android.os.Bundle
+import android.os.PersistableBundle
 import com.quanda.moviedb.ui.base.viewmodel.BaseDataLoadViewModel
 import com.quanda.moviedb.utils.DialogUtils
 
-abstract class BaseDataLoadActivity<View : ViewDataBinding, ViewModel : BaseDataLoadViewModel> : BaseDataBindActivity<View, ViewModel>() {
+abstract class BaseDataLoadActivity<View : ViewDataBinding, ViewModel : BaseDataLoadViewModel> : BaseActivity<View, ViewModel>() {
 
     lateinit var loadingDialog: Dialog
 
-    abstract fun initViewModel(): ViewModel
-
-    override fun initData() {
+    override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
+        super.onCreate(savedInstanceState, persistentState)
         loadingDialog = DialogUtils.createLoadingDialog(this, false)
-        viewModel = initViewModel()
         viewModel.isDataLoading.observe(this,
                 Observer<Boolean> { t -> handleLoadingChanged(t == true) })
     }

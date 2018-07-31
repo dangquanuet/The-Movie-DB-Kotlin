@@ -1,9 +1,9 @@
 package com.quanda.moviedb.ui.screen.tv
 
-import com.quanda.moviedb.App
-import com.quanda.moviedb.data.constants.ApiParam
+import com.quanda.moviedb.MainApplication
+import com.quanda.moviedb.data.remote.ApiParam
 import com.quanda.moviedb.data.model.Tv
-import com.quanda.moviedb.data.repository.impl.MovieRepository
+import com.quanda.moviedb.data.repository.impl.MovieRepositoryImpl
 import com.quanda.moviedb.ui.base.viewmodel.BaseDataLoadMoreRefreshViewModel
 import kotlinx.coroutines.experimental.android.UI
 import kotlinx.coroutines.experimental.async
@@ -12,13 +12,9 @@ import javax.inject.Inject
 class TvListViewModel() : BaseDataLoadMoreRefreshViewModel<Tv>() {
 
     @Inject
-    lateinit var movieRepository: MovieRepository
+    lateinit var movieRepository: MovieRepositoryImpl
 
     lateinit var navigator: TvListNavigator
-
-    init {
-        App.appComponent.inject(this)
-    }
 
     override fun loadData(page: Int) {
         val hashMap = HashMap<String, String>()

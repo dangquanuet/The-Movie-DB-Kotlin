@@ -1,4 +1,4 @@
-package com.quanda.moviedb.data.constants
+package com.quanda.moviedb.data.remote
 
 object ApiParam {
     const val PAGE = "page"

@@ -6,7 +6,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.quanda.moviedb.ui.screen.main.MainViewModel"
+            type="com.quanda.moviedb.ui.screen.main.MainActivityViewModel"
             />
     </data>
     <android.support.constraint.ConstraintLayout

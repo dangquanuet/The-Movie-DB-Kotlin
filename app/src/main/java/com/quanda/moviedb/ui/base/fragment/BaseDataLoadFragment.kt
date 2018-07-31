@@ -6,7 +6,7 @@ import android.databinding.ViewDataBinding
 import com.quanda.moviedb.ui.base.viewmodel.BaseDataLoadViewModel
 import com.quanda.moviedb.utils.DialogUtils
 
-abstract class BaseDataLoadFragment<View : ViewDataBinding, ViewModel : BaseDataLoadViewModel> : BaseDataBindFragment<View, ViewModel>() {
+abstract class BaseDataLoadFragment<View : ViewDataBinding, ViewModel : BaseDataLoadViewModel> : BaseFragment<View, ViewModel>() {
 
     lateinit var loadingDialog: Dialog
 

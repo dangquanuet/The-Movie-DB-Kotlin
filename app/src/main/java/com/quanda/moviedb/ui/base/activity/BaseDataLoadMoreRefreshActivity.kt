@@ -1,6 +1,7 @@
 package com.quanda.moviedb.ui.base.activity
 
 import android.databinding.ViewDataBinding
+import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import com.quanda.moviedb.R
@@ -9,13 +10,14 @@ import com.quanda.moviedb.ui.widgets.OnListChangedListener
 
 abstract class BaseDataLoadMoreRefreshActivity<View : ViewDataBinding, ViewModel : BaseDataLoadMoreRefreshViewModel<Item>, Item> : BaseDataLoadActivity<View, ViewModel>() {
 
+    override val layoutId: Int
+        get() = R.layout.activity_base_loadmore_refresh
+
     lateinit var adapter: RecyclerView.Adapter<RecyclerView.ViewHolder>
     lateinit var layoutManager: RecyclerView.LayoutManager
 
-    override fun getLayoutId(): Int = R.layout.activity_base_loadmore_refresh
-
-    override fun initData() {
-        super.initData()
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
         adapter = initAdapter()
         layoutManager = initLayoutManager()
         viewModel.listItem.addOnListChangedCallback(

@@ -1,6 +1,5 @@
 package com.quanda.moviedb.ui.screen.main.favoritemovie
 
-import com.quanda.moviedb.App
 import com.quanda.moviedb.data.local.dao.MovieDao
 import com.quanda.moviedb.data.model.Movie
 import com.quanda.moviedb.ui.base.BaseViewHolderBinding
@@ -15,16 +14,12 @@ class FavoriteMovieViewModel : BaseDataLoadMoreRefreshViewModel<Movie>() {
     @Inject
     lateinit var movieDao: MovieDao
 
-    lateinit var navigator: FavoriteMovieNavigator
+    var navigator: FavoriteMovieNavigator? = null
 
     val itemCLickListener = object : BaseViewHolderBinding.OnItemCLickListener<Movie> {
         override fun onItemClick(position: Int, data: Movie) {
-            navigator.goToMovieDetailWithResult(data)
+            navigator?.goToMovieDetailWithResult(data)
         }
-    }
-
-    init {
-        App.appComponent.inject(this)
     }
 
     override fun loadData(page: Int) {

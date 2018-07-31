@@ -1,11 +1,11 @@
 package com.quanda.moviedb.ui.screen.movie
 
 import android.util.Log
-import com.quanda.moviedb.App
-import com.quanda.moviedb.data.constants.ApiParam
+import com.quanda.moviedb.MainApplication
+import com.quanda.moviedb.data.remote.ApiParam
 import com.quanda.moviedb.data.model.Movie
 import com.quanda.moviedb.data.remote.response.GetMovieListResponse
-import com.quanda.moviedb.data.repository.impl.MovieRepository
+import com.quanda.moviedb.data.repository.impl.MovieRepositoryImpl
 import com.quanda.moviedb.ui.base.viewmodel.BaseDataLoadMoreRefreshViewModel
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -17,13 +17,9 @@ import javax.inject.Inject
 class MovieListViewModel : BaseDataLoadMoreRefreshViewModel<Movie>() {
 
     @Inject
-    lateinit var movieRepository: MovieRepository
+    lateinit var movieRepository: MovieRepositoryImpl
 
     lateinit var navigator: MovieListNavigator
-
-    init {
-        App.appComponent.inject(this)
-    }
 
     override fun loadData(page: Int) {
         val hashMap = HashMap<String, String>()

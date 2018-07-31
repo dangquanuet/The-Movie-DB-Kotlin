@@ -5,7 +5,7 @@ import com.quanda.moviedb.RxImmediateSchedulerRule
 import com.quanda.moviedb.data.local.dao.MovieDao
 import com.quanda.moviedb.data.model.Movie
 import com.quanda.moviedb.data.remote.response.GetMovieListResponse
-import com.quanda.moviedb.data.repository.impl.MovieRepository
+import com.quanda.moviedb.data.repository.impl.MovieRepositoryImpl
 import com.quanda.moviedb.data.remote.ApiService
 import io.reactivex.Observable
 import io.reactivex.Single
@@ -21,7 +21,7 @@ class MovieRepositoryTest {
 
     lateinit var apiService: ApiService
     lateinit var movieDao: MovieDao
-    lateinit var movieRepository: MovieRepository
+    lateinit var movieRepository: MovieRepositoryImpl
 
     @get:Rule
     var instantExecutorRule = InstantTaskExecutorRule()
@@ -35,7 +35,7 @@ class MovieRepositoryTest {
         apiService = Mockito.mock<ApiService>(
                 ApiService::class.java)
         movieDao = Mockito.mock<MovieDao>(MovieDao::class.java)
-        movieRepository = MovieRepository(apiService)
+        movieRepository = MovieRepositoryImpl(apiService)
     }
 
     @Test

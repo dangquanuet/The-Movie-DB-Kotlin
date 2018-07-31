@@ -1,12 +1,11 @@
 package com.quanda.moviedb.ui.screen.main.popularmovie
 
 import android.databinding.ObservableArrayList
-import com.quanda.moviedb.App
-import com.quanda.moviedb.data.constants.ApiParam
 import com.quanda.moviedb.data.local.dao.MovieDao
 import com.quanda.moviedb.data.model.Movie
+import com.quanda.moviedb.data.remote.ApiParam
 import com.quanda.moviedb.data.remote.response.GetMovieListResponse
-import com.quanda.moviedb.data.repository.impl.MovieRepository
+import com.quanda.moviedb.data.repository.MovieRepository
 import com.quanda.moviedb.ui.base.BaseViewHolderBinding
 import com.quanda.moviedb.ui.base.viewmodel.BaseDataLoadMoreRefreshViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -15,12 +14,10 @@ import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
-class PopularMovieViewModel : BaseDataLoadMoreRefreshViewModel<Movie>() {
-
-    @Inject
-    lateinit var movieRepository: MovieRepository
-    @Inject
-    lateinit var movieDao: MovieDao
+class PopularMovieViewModel @Inject constructor(
+        val movieRepository: MovieRepository,
+        val movieDao: MovieDao
+) : BaseDataLoadMoreRefreshViewModel<Movie>() {
 
     lateinit var navigator: PopularMovieNavigator
 
@@ -34,19 +31,18 @@ class PopularMovieViewModel : BaseDataLoadMoreRefreshViewModel<Movie>() {
 
     val tempMovieList = ObservableArrayList<Movie>()
 
-    init {
-        App.appComponent.inject(this)
-    }
-
     override fun loadData(page: Int) {
         val hashMap = HashMap<String, String>()
         hashMap.put(ApiParam.PAGE, page.toString())
         when (mode) {
-            PopularMovieFragment.TYPE.POPULAR.type -> hashMap.put(ApiParam.SORT_BY,
+            PopularMovieFragment.TYPE.POPULAR.type -> hashMap.put(
+                    ApiParam.SORT_BY,
                     ApiParam.POPULARITY_DESC)
-            PopularMovieFragment.TYPE.TOP_RATED.type -> hashMap.put(ApiParam.SORT_BY,
+            PopularMovieFragment.TYPE.TOP_RATED.type -> hashMap.put(
+                    ApiParam.SORT_BY,
                     ApiParam.VOTE_AVERAGE_DESC)
-            else -> hashMap.put(ApiParam.SORT_BY, ApiParam.POPULARITY_DESC)
+            else -> hashMap.put(
+                    ApiParam.SORT_BY, ApiParam.POPULARITY_DESC)
         }
 
         if (page == 1 && tempMovieList.isEmpty()) {

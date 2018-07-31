@@ -1,4 +1,4 @@
-package com.quanda.moviedb.data.local
+package com.quanda.moviedb.data.local.pref
 
 import android.content.Context
 import android.content.SharedPreferences
@@ -9,7 +9,6 @@ import javax.inject.Singleton
 // top level fun or properties in kotlin = static in java
 const val PREFS_NAME = "MovieDBSharedPreferences"
 
-@Singleton
 class SharedPreferenceApi @Inject constructor(context: Context) {
 
 //    companion object {
@@ -19,7 +18,8 @@ class SharedPreferenceApi @Inject constructor(context: Context) {
     private var sharedPreferences: SharedPreferences
 
     init {
-        sharedPreferences = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+        sharedPreferences = context.getSharedPreferences(
+                PREFS_NAME, Context.MODE_PRIVATE)
     }
 
     /**
