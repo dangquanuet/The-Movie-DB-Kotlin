@@ -7,7 +7,7 @@ import com.quanda.moviedb.data.remote.response.Result
 import io.reactivex.Single
 import kotlinx.coroutines.experimental.Deferred
 
-interface IMovieRepository {
+interface MovieRepository {
 
     fun getMovieList(hashMap: HashMap<String, String> = HashMap()): Single<GetMovieListResponse>
 

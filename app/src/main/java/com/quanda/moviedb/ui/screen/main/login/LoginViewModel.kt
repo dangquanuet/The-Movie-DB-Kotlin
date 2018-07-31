@@ -4,16 +4,16 @@ import android.arch.lifecycle.MediatorLiveData
 import android.arch.lifecycle.MutableLiveData
 import android.support.v4.util.PatternsCompat
 import android.text.TextUtils
-import com.quanda.moviedb.App
+import com.quanda.moviedb.MainApplication
 import com.quanda.moviedb.data.constants.Constants
-import com.quanda.moviedb.data.repository.impl.UserRepository
+import com.quanda.moviedb.data.repository.impl.UserRepositoryImpl
 import com.quanda.moviedb.ui.base.viewmodel.BaseDataLoadViewModel
 import javax.inject.Inject
 
 class LoginViewModel : BaseDataLoadViewModel() {
 
     @Inject
-    lateinit var userRepository: UserRepository
+    lateinit var userRepository: UserRepositoryImpl
 
     lateinit var navigator: LoginNavigator
 
@@ -26,7 +26,7 @@ class LoginViewModel : BaseDataLoadViewModel() {
     }
 
     init {
-        App.appComponent.inject(this)
+        MainApplication.appComponent.inject(this)
     }
 
     private fun validateForm(email: String?, password: String?): Boolean = validateEmail(

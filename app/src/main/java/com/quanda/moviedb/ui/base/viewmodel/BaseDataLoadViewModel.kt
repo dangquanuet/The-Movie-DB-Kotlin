@@ -2,19 +2,15 @@ package com.quanda.moviedb.ui.base.viewmodel
 
 import android.arch.lifecycle.MutableLiveData
 import android.widget.Toast
-import com.quanda.moviedb.App
+import com.quanda.moviedb.MainApplication
 import javax.inject.Inject
 
 abstract class BaseDataLoadViewModel : BaseViewModel() {
 
     @Inject
-    lateinit var app: App
+    lateinit var app: MainApplication
 
     val isDataLoading = MutableLiveData<Boolean>().apply { value = false }
-
-    init {
-        App.appComponent.inject(this)
-    }
 
     open fun onLoadFail(e: Throwable) {
         e.printStackTrace()

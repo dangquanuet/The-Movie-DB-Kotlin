@@ -1,4 +1,4 @@
-package com.quanda.moviedb.data.local
+package com.quanda.moviedb.data.local.pref
 
 import android.content.Context
 import android.content.SharedPreferences
@@ -19,7 +19,8 @@ class SharedPreferenceApi @Inject constructor(context: Context) {
     private var sharedPreferences: SharedPreferences
 
     init {
-        sharedPreferences = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+        sharedPreferences = context.getSharedPreferences(
+                PREFS_NAME, Context.MODE_PRIVATE)
     }
 
     /**
