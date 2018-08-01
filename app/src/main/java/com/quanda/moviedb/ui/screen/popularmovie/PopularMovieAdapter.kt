@@ -1,4 +1,4 @@
-package com.quanda.moviedb.ui.screen.main.popularmovie
+package com.quanda.moviedb.ui.screen.popularmovie
 
 import android.content.Context
 import android.databinding.DataBindingUtil

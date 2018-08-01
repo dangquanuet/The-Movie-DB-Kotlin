@@ -1,16 +1,16 @@
-package com.quanda.moviedb.ui.screen.main.login
+package com.quanda.moviedb.ui.screen.login
 
 import android.arch.lifecycle.MediatorLiveData
 import android.arch.lifecycle.MutableLiveData
 import android.support.v4.util.PatternsCompat
 import android.text.TextUtils
-import com.quanda.moviedb.MainApplication
 import com.quanda.moviedb.data.constants.Constants
 import com.quanda.moviedb.data.repository.impl.UserRepositoryImpl
 import com.quanda.moviedb.ui.base.viewmodel.BaseDataLoadViewModel
+import com.quanda.moviedb.ui.base.viewmodel.BaseViewModel
 import javax.inject.Inject
 
-class LoginViewModel : BaseDataLoadViewModel() {
+class LoginViewModel : BaseViewModel() {
 
     @Inject
     lateinit var userRepository: UserRepositoryImpl
@@ -23,10 +23,6 @@ class LoginViewModel : BaseDataLoadViewModel() {
         value = false
         addSource(email, { value = validateForm(email.value, password.value) })
         addSource(password, { value = validateForm(email.value, password.value) })
-    }
-
-    init {
-        MainApplication.appComponent.inject(this)
     }
 
     private fun validateForm(email: String?, password: String?): Boolean = validateEmail(

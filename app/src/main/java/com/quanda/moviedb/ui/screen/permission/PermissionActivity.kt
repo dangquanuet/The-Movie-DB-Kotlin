@@ -5,6 +5,7 @@ import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
+import android.os.Bundle
 import android.provider.Settings
 import android.support.v4.app.ActivityCompat
 import android.support.v7.app.AlertDialog
@@ -12,27 +13,35 @@ import android.widget.Toast
 import com.quanda.moviedb.R
 import com.quanda.moviedb.data.constants.Constants
 import com.quanda.moviedb.databinding.ActivityPermisisonBinding
-import com.quanda.moviedb.ui.base.activity.BaseDataLoadActivity
-import com.quanda.moviedb.utils.*
+import com.quanda.moviedb.ui.base.activity.BaseActivity
+import com.quanda.moviedb.utils.PermissionAskListener
+import com.quanda.moviedb.utils.firstTimeAskingPermission
+import com.quanda.moviedb.utils.firstTimeAskingPermissions
+import com.quanda.moviedb.utils.isFirstTimeAskingPermission
+import com.quanda.moviedb.utils.isFirstTimeAskingPermissions
+import com.quanda.moviedb.utils.isPermissionsGranted
+import com.quanda.moviedb.utils.requestPermission
+import com.quanda.moviedb.utils.requestPermissions
+import com.quanda.moviedb.utils.shouldAskPermission
+import com.quanda.moviedb.utils.shouldAskPermissions
+import com.quanda.moviedb.utils.shouldShowRequestPermissionsRationale
 
 
-class PermissionActivity : BaseDataLoadActivity<ActivityPermisisonBinding, PermissionViewModel>(), PermissionNavigator {
+class PermissionActivity : BaseActivity<ActivityPermisisonBinding, PermissionViewModel>(), PermissionNavigator {
 
     val permissions = arrayOf(Manifest.permission.CAMERA, Manifest.permission.READ_CONTACTS)
 
-    override fun getLayoutId(): Int {
-        return R.layout.activity_permisison
-    }
+    override val layoutId: Int
+        get() = R.layout.activity_permisison
 
-    override fun initViewModel(): PermissionViewModel {
-        return ViewModelProviders.of(this).get(PermissionViewModel::class.java)
+    override val viewModel: PermissionViewModel
+        get() = ViewModelProviders.of(this, viewModelFactory).get(PermissionViewModel::class.java)
                 .apply {
                     navigator = this@PermissionActivity
                 }
-    }
 
-    override fun initData() {
-        super.initData()
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
         binding.apply {
             view = this@PermissionActivity
             viewModel = this@PermissionActivity.viewModel

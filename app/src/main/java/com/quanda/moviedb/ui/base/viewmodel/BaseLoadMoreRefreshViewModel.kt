@@ -7,7 +7,7 @@ import com.quanda.moviedb.data.constants.Constants
 import com.quanda.moviedb.data.remote.response.BaseListResponse
 import com.quanda.moviedb.ui.widgets.EndlessRecyclerOnScrollListener
 
-abstract class BaseDataLoadMoreRefreshViewModel<Item>() : BaseDataLoadViewModel() {
+abstract class BaseLoadMoreRefreshViewModel<Item>() : BaseViewModel() {
 
     val isRefreshing = MutableLiveData<Boolean>().apply { value = false }
     val onRefreshListener = SwipeRefreshLayout.OnRefreshListener {

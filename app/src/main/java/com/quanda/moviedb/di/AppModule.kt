@@ -7,12 +7,16 @@ import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
 
-@Module(includes = [ViewModelModule::class, ApiModule::class, RepositoryModule::class])
+@Module(includes = [
+    ViewModelModule::class,
+    ApiModule::class,
+    RepositoryModule::class
+])
 class AppModule() {
 
-    @Provides
-    @Singleton
-    fun provideApplication(application: Application): Application = application
+//    @Provides
+//    @Singleton
+//    fun provideApplication(application: Application): Application = application
 
     @Provides
     @Singleton

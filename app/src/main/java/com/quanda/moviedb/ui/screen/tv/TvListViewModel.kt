@@ -1,15 +1,14 @@
 package com.quanda.moviedb.ui.screen.tv
 
-import com.quanda.moviedb.MainApplication
 import com.quanda.moviedb.data.remote.ApiParam
 import com.quanda.moviedb.data.model.Tv
 import com.quanda.moviedb.data.repository.impl.MovieRepositoryImpl
-import com.quanda.moviedb.ui.base.viewmodel.BaseDataLoadMoreRefreshViewModel
+import com.quanda.moviedb.ui.base.viewmodel.BaseLoadMoreRefreshViewModel
 import kotlinx.coroutines.experimental.android.UI
 import kotlinx.coroutines.experimental.async
 import javax.inject.Inject
 
-class TvListViewModel() : BaseDataLoadMoreRefreshViewModel<Tv>() {
+class TvListViewModel() : BaseLoadMoreRefreshViewModel<Tv>() {
 
     @Inject
     lateinit var movieRepository: MovieRepositoryImpl

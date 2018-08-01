@@ -142,21 +142,21 @@ dependencies {
     implementation "com.android.support:design:27.1.1"
 
     //Support ReactiveX android
-    implementation 'io.reactivex.rxjava2:rxjava:2.1.8'
-    implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
+    implementation 'io.reactivex.rxjava2:rxjava:2.1.16'
+    implementation 'io.reactivex.rxjava2:rxandroid:2.0.2'
 
     // coroutines
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:0.22.5"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:0.22.5"
 
     //Using this for parse json data to object
-    implementation "com.google.code.gson:gson:2.8.2"
+    implementation "com.google.code.gson:gson:2.8.5"
 
     //Using retrofit library for connect api v4.data.source.remote.service
-    implementation "com.squareup.retrofit2:retrofit:2.3.0"
-    implementation "com.squareup.retrofit2:converter-gson:2.3.0"
+    implementation "com.squareup.retrofit2:retrofit:2.4.0"
+    implementation "com.squareup.retrofit2:converter-gson:2.4.0"
     implementation "com.squareup.okhttp3:logging-interceptor:3.9.1"
-    implementation "com.squareup.retrofit2:adapter-rxjava2:2.3.0"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:2.4.0"
     implementation 'com.jakewharton.retrofit:retrofit2-kotlin-coroutines-experimental-adapter:1.0.0'
 
     //Glide library load image
@@ -196,9 +196,9 @@ dependencies {
     implementation "android.arch.lifecycle:reactivestreams:1.1.1"
 
     // Paging
-    implementation "android.arch.paging:runtime:1.0.0"
+    implementation "android.arch.paging:runtime:1.0.1"
     // RxJava support for Paging
-    implementation "android.arch.paging:rxjava2:1.0.0-rc1"
+    implementation "android.arch.paging:rxjava2:1.0.1"
 
     // fabric
     implementation('com.crashlytics.sdk.android:crashlytics:2.9.1@aar') {

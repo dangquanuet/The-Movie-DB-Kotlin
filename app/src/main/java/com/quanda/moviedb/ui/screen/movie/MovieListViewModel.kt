@@ -1,12 +1,11 @@
 package com.quanda.moviedb.ui.screen.movie
 
 import android.util.Log
-import com.quanda.moviedb.MainApplication
 import com.quanda.moviedb.data.remote.ApiParam
 import com.quanda.moviedb.data.model.Movie
 import com.quanda.moviedb.data.remote.response.GetMovieListResponse
 import com.quanda.moviedb.data.repository.impl.MovieRepositoryImpl
-import com.quanda.moviedb.ui.base.viewmodel.BaseDataLoadMoreRefreshViewModel
+import com.quanda.moviedb.ui.base.viewmodel.BaseLoadMoreRefreshViewModel
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.observers.DisposableSingleObserver
@@ -14,7 +13,7 @@ import io.reactivex.schedulers.Schedulers
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
-class MovieListViewModel : BaseDataLoadMoreRefreshViewModel<Movie>() {
+class MovieListViewModel : BaseLoadMoreRefreshViewModel<Movie>() {
 
     @Inject
     lateinit var movieRepository: MovieRepositoryImpl

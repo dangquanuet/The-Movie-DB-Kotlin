@@ -1,35 +1,43 @@
-package com.quanda.moviedb.ui.screen.main.moviedetail
+package com.quanda.moviedb.ui.screen.moviedetail
 
 import android.app.Activity
 import android.arch.lifecycle.Lifecycle
 import android.arch.lifecycle.LifecycleObserver
 import android.arch.lifecycle.OnLifecycleEvent
 import android.arch.lifecycle.ViewModelProviders
+import android.os.Bundle
 import android.view.View
 import com.quanda.moviedb.R
 import com.quanda.moviedb.data.constants.BundleConstants
 import com.quanda.moviedb.data.model.Movie
 import com.quanda.moviedb.databinding.ActivityMovieDetailBinding
-import com.quanda.moviedb.ui.base.activity.BaseDataLoadActivity
+import com.quanda.moviedb.ui.base.activity.BaseActivity
 import com.quanda.moviedb.utils.logError
-import kotlinx.coroutines.experimental.*
+import kotlinx.coroutines.experimental.CommonPool
+import kotlinx.coroutines.experimental.CoroutineExceptionHandler
+import kotlinx.coroutines.experimental.Job
 import kotlinx.coroutines.experimental.android.UI
+import kotlinx.coroutines.experimental.async
+import kotlinx.coroutines.experimental.delay
+import kotlinx.coroutines.experimental.launch
+import kotlinx.coroutines.experimental.withContext
 import kotlin.coroutines.experimental.CoroutineContext
 import kotlin.system.measureTimeMillis
 
-class MovieDetailActivity : BaseDataLoadActivity<ActivityMovieDetailBinding, MovieDetailViewModel>(), MovieDetailNavigator {
+class MovieDetailActivity : BaseActivity<ActivityMovieDetailBinding, MovieDetailViewModel>(), MovieDetailNavigator {
 
-    override fun getLayoutId() = R.layout.activity_movie_detail
+    override val layoutId: Int
+        get() = R.layout.activity_movie_detail
 
-    override fun initViewModel(): MovieDetailViewModel {
-        return ViewModelProviders.of(this).get(MovieDetailViewModel::class.java)
+    override val viewModel: MovieDetailViewModel
+        get() = ViewModelProviders.of(this, viewModelFactory).get(
+                MovieDetailViewModel::class.java)
                 .apply {
                     navigator = this@MovieDetailActivity
                 }
-    }
 
-    override fun initData() {
-        super.initData()
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
         binding.apply {
             viewModel = this@MovieDetailActivity.viewModel
             favoriteListener = View.OnClickListener { this@MovieDetailActivity.viewModel.favoriteMovie() }
@@ -268,7 +276,8 @@ class MovieDetailActivity : BaseDataLoadActivity<ActivityMovieDetailBinding, Mov
 
     // lifecycle aware job
 
-    val job: AndroidJob = AndroidJob(lifecycle)
+    val job: AndroidJob = AndroidJob(
+            lifecycle)
 
     fun sampleLoadData() = async(parent = job) {
 

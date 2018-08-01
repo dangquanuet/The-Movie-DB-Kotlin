@@ -5,10 +5,10 @@ import com.google.gson.Gson
 import javax.inject.Inject
 
 class AppPrefs @Inject constructor(
-        mContext: Context, val gson: Gson
+        context: Context, val gson: Gson
 ) : PrefHelper {
 
-    var sharedPreferences = mContext.getSharedPreferences(mContext.packageName,
+    var sharedPreferences = context.getSharedPreferences(context.packageName,
             Context.MODE_PRIVATE)
 
     companion object {

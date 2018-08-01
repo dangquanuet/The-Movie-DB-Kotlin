@@ -1,4 +1,4 @@
-package com.quanda.moviedb.ui.screen.main
+package com.quanda.moviedb.ui.screen
 
 import android.app.Activity
 import android.arch.lifecycle.ViewModelProviders
@@ -9,20 +9,24 @@ import android.support.v4.content.ContextCompat
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationAdapter
 import com.quanda.moviedb.R
-import com.quanda.moviedb.data.constants.BundleConstants
-import com.quanda.moviedb.data.model.Movie
 import com.quanda.moviedb.databinding.ActivityMainBinding
-import com.quanda.moviedb.ui.base.activity.BaseDataLoadActivity
-import com.quanda.moviedb.ui.screen.main.favoritemovie.FavoriteMovieFragment
-import com.quanda.moviedb.ui.screen.main.favoritemovie.FavoriteMovieNavigator
-import com.quanda.moviedb.ui.screen.main.moviedetail.MovieDetailActivity
-import com.quanda.moviedb.ui.screen.main.popularmovie.PopularMovieFragment
-import com.quanda.moviedb.ui.screen.main.popularmovie.PopularMovieNavigator
+import com.quanda.moviedb.ui.base.activity.BaseActivity
+import com.quanda.moviedb.ui.screen.favoritemovie.FavoriteMovieFragment
+import com.quanda.moviedb.ui.screen.popularmovie.PopularMovieFragment
 import com.quanda.moviedb.ui.screen.tv.TvListActivity
 import com.quanda.moviedb.utils.goToActivity
-import com.quanda.moviedb.utils.goToActivityForResult
 
-class MainActivity : BaseDataLoadActivity<ActivityMainBinding, MainViewModel>(), MainNavigator, PopularMovieNavigator, FavoriteMovieNavigator {
+class MainActivity : BaseActivity<ActivityMainBinding, MainActivityViewModel>(), MainActivityNavigator {
+
+    override val layoutId: Int
+        get() = R.layout.activity_main
+
+    override val viewModel: MainActivityViewModel
+        get() = ViewModelProviders.of(this, viewModelFactory).get(
+                MainActivityViewModel::class.java).apply {
+            navigator = this@MainActivity
+        }
+
     companion object {
         const val FRAGMENT_TAG = "fragment_tag_"
         const val CODE_MOVIE_DETAIL = 1000
@@ -31,19 +35,8 @@ class MainActivity : BaseDataLoadActivity<ActivityMainBinding, MainViewModel>(),
     lateinit var bottomNavigation: AHBottomNavigation
     var currentPositionFragment = Tab.POPULAR.position
 
-    override fun getLayoutId(): Int {
-        return R.layout.activity_main
-    }
-
-    override fun initViewModel(): MainViewModel {
-        return ViewModelProviders.of(this).get(MainViewModel::class.java)
-                .apply {
-                    navigator = this@MainActivity
-                }
-    }
-
-    override fun initData() {
-        super.initData()
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
         binding.viewModel = viewModel
 
         initBottomNavigation()
@@ -128,6 +121,7 @@ class MainActivity : BaseDataLoadActivity<ActivityMainBinding, MainViewModel>(),
         }
     }
 
+    /*
     override fun goToMovieDetail(movie: Movie) {
         val bundle = Bundle()
         bundle.putParcelable(BundleConstants.MOVIE, movie)
@@ -140,6 +134,7 @@ class MainActivity : BaseDataLoadActivity<ActivityMainBinding, MainViewModel>(),
         goToActivityForResult(MovieDetailActivity::class.java, bundle,
                 requestCode = CODE_MOVIE_DETAIL)
     }
+    */
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)

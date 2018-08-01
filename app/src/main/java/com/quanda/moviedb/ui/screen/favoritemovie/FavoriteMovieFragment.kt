@@ -1,4 +1,4 @@
-package com.quanda.moviedb.ui.screen.main.favoritemovie
+package com.quanda.moviedb.ui.screen.favoritemovie
 
 import android.arch.lifecycle.ViewModelProviders
 import android.graphics.Color
@@ -6,10 +6,10 @@ import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
 import com.quanda.moviedb.data.model.Movie
 import com.quanda.moviedb.databinding.FragmentBaseLoadmoreRefreshBinding
-import com.quanda.moviedb.ui.base.fragment.BaseDataLoadMoreRefreshFragment
-import com.quanda.moviedb.ui.screen.main.popularmovie.PopularMovieAdapter
+import com.quanda.moviedb.ui.base.fragment.BaseLoadMoreRefreshFragment
+import com.quanda.moviedb.ui.screen.popularmovie.PopularMovieAdapter
 
-class FavoriteMovieFragment : BaseDataLoadMoreRefreshFragment<FragmentBaseLoadmoreRefreshBinding, FavoriteMovieViewModel, Movie>() {
+class FavoriteMovieFragment : BaseLoadMoreRefreshFragment<FragmentBaseLoadmoreRefreshBinding, FavoriteMovieViewModel, Movie>() {
 
     companion object {
         fun newInstance(): FavoriteMovieFragment {
@@ -18,7 +18,8 @@ class FavoriteMovieFragment : BaseDataLoadMoreRefreshFragment<FragmentBaseLoadmo
     }
 
     override fun initViewModel(): FavoriteMovieViewModel {
-        return ViewModelProviders.of(this).get(FavoriteMovieViewModel::class.java)
+        return ViewModelProviders.of(this).get(
+                FavoriteMovieViewModel::class.java)
                 .apply {
                     navigator = this@FavoriteMovieFragment.navigator as FavoriteMovieNavigator
                 }
@@ -52,7 +53,8 @@ class FavoriteMovieFragment : BaseDataLoadMoreRefreshFragment<FragmentBaseLoadmo
     }
 
     override fun initAdapter(): RecyclerView.Adapter<RecyclerView.ViewHolder> {
-        return PopularMovieAdapter(context!!, viewModel.listItem,
+        return PopularMovieAdapter(context!!,
+                viewModel.listItem,
                 viewModel.itemCLickListener) as RecyclerView.Adapter<RecyclerView.ViewHolder>
     }
 

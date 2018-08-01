@@ -18,8 +18,10 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class MovieRepositoryImpl @Inject constructor(val apiService: ApiService,
-        val movieDao: MovieDao) : MovieRepository {
+class MovieRepositoryImpl @Inject constructor(
+        val apiService: ApiService,
+        val movieDao: MovieDao
+) : MovieRepository {
 
     override fun getMovieList(hashMap: HashMap<String, String>): Single<GetMovieListResponse> {
         return apiService.getMovieList(hashMap)

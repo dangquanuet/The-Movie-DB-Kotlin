@@ -9,7 +9,6 @@ import javax.inject.Singleton
 // top level fun or properties in kotlin = static in java
 const val PREFS_NAME = "MovieDBSharedPreferences"
 
-@Singleton
 class SharedPreferenceApi @Inject constructor(context: Context) {
 
 //    companion object {

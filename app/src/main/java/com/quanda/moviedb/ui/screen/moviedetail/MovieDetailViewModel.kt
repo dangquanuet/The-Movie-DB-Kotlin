@@ -1,17 +1,17 @@
-package com.quanda.moviedb.ui.screen.main.moviedetail
+package com.quanda.moviedb.ui.screen.moviedetail
 
 import android.arch.lifecycle.MutableLiveData
-import com.quanda.moviedb.MainApplication
 import com.quanda.moviedb.data.local.dao.MovieDao
 import com.quanda.moviedb.data.model.Movie
 import com.quanda.moviedb.data.repository.impl.MovieRepositoryImpl
 import com.quanda.moviedb.ui.base.viewmodel.BaseDataLoadViewModel
+import com.quanda.moviedb.ui.base.viewmodel.BaseViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.observers.DisposableMaybeObserver
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
-class MovieDetailViewModel : BaseDataLoadViewModel() {
+class MovieDetailViewModel : BaseViewModel() {
 
     @Inject
     lateinit var movieRepository: MovieRepositoryImpl

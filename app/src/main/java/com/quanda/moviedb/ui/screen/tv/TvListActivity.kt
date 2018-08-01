@@ -1,25 +1,25 @@
 package com.quanda.moviedb.ui.screen.tv
 
 import android.arch.lifecycle.ViewModelProviders
+import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
 import com.quanda.moviedb.data.model.Tv
 import com.quanda.moviedb.databinding.ActivityBaseLoadmoreRefreshBinding
 import com.quanda.moviedb.ui.base.BaseViewHolderBinding
-import com.quanda.moviedb.ui.base.activity.BaseDataLoadMoreRefreshActivity
+import com.quanda.moviedb.ui.base.activity.BaseLoadMoreRefreshActivity
 import com.quanda.moviedb.ui.screen.tv2.TvListAdapter2
 
-class TvListActivity : BaseDataLoadMoreRefreshActivity<ActivityBaseLoadmoreRefreshBinding, TvListViewModel, Tv>(), TvListNavigator {
+class TvListActivity : BaseLoadMoreRefreshActivity<ActivityBaseLoadmoreRefreshBinding, TvListViewModel, Tv>(), TvListNavigator {
 
-    override fun initViewModel(): TvListViewModel {
-        return ViewModelProviders.of(this).get(TvListViewModel::class.java)
+    override val viewModel: TvListViewModel
+        get() = ViewModelProviders.of(this).get(TvListViewModel::class.java)
                 .apply {
                     navigator = this@TvListActivity
                 }
-    }
 
-    override fun initData() {
-        super.initData()
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
         binding.apply {
             view = this@TvListActivity
             viewModel = this@TvListActivity.viewModel

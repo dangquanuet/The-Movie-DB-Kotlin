@@ -1,4 +1,4 @@
-package com.quanda.moviedb.ui.screen.main.popularmovie
+package com.quanda.moviedb.ui.screen.popularmovie
 
 import com.quanda.moviedb.data.model.Movie
 import com.quanda.moviedb.ui.base.navigator.BaseNavigator

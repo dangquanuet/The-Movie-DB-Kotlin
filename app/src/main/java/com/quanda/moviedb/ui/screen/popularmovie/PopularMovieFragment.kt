@@ -1,4 +1,4 @@
-package com.quanda.moviedb.ui.screen.main.popularmovie
+package com.quanda.moviedb.ui.screen.popularmovie
 
 import android.arch.lifecycle.ViewModelProviders
 import android.graphics.Color
@@ -8,9 +8,9 @@ import android.support.v7.widget.RecyclerView
 import com.quanda.moviedb.data.constants.BundleConstants
 import com.quanda.moviedb.data.model.Movie
 import com.quanda.moviedb.databinding.FragmentBaseLoadmoreRefreshBinding
-import com.quanda.moviedb.ui.base.fragment.BaseDataLoadMoreRefreshFragment
+import com.quanda.moviedb.ui.base.fragment.BaseLoadMoreRefreshFragment
 
-class PopularMovieFragment : BaseDataLoadMoreRefreshFragment<FragmentBaseLoadmoreRefreshBinding, PopularMovieViewModel, Movie>() {
+class PopularMovieFragment : BaseLoadMoreRefreshFragment<FragmentBaseLoadmoreRefreshBinding, PopularMovieViewModel, Movie>() {
 
     companion object {
         fun newInstance(type: Int): PopularMovieFragment {
@@ -23,11 +23,12 @@ class PopularMovieFragment : BaseDataLoadMoreRefreshFragment<FragmentBaseLoadmor
     }
 
     override fun initViewModel(): PopularMovieViewModel {
-        return ViewModelProviders.of(this).get(PopularMovieViewModel::class.java)
+        return ViewModelProviders.of(this).get(
+                PopularMovieViewModel::class.java)
                 .apply {
                     navigator = this@PopularMovieFragment.navigator as PopularMovieNavigator
                     mode = arguments?.getInt(
-                            BundleConstants.TYPE) ?: PopularMovieFragment.TYPE.POPULAR.type
+                            BundleConstants.TYPE) ?: TYPE.POPULAR.type
                 }
     }
 
@@ -50,7 +51,8 @@ class PopularMovieFragment : BaseDataLoadMoreRefreshFragment<FragmentBaseLoadmor
     }
 
     override fun initAdapter(): RecyclerView.Adapter<RecyclerView.ViewHolder> {
-        return PopularMovieAdapter(context!!, viewModel.listItem,
+        return PopularMovieAdapter(context!!,
+                viewModel.listItem,
                 viewModel.itemCLickListener) as RecyclerView.Adapter<RecyclerView.ViewHolder>
     }
 

@@ -13,19 +13,20 @@ import com.quanda.moviedb.data.repository.impl.MovieRepositoryImpl
 import com.quanda.moviedb.data.repository.impl.UserRepositoryImpl
 import dagger.Module
 import dagger.Provides
+import javax.inject.Named
 import javax.inject.Singleton
 
 @Module
 class RepositoryModule {
     @Provides
-    @DatabaseInfo
+    @Named("database_name")
     fun providerDatabaseName(): String {
         return Constants.DATABASE_NAME
     }
 
     @Provides
     @Singleton
-    fun provideAppDatabase(@DatabaseInfo dbName: String, context: Context): AppDatabase {
+    fun provideAppDatabase(@Named("database_name") dbName: String, context: Context): AppDatabase {
         return Room.databaseBuilder(context, AppDatabase::class.java,
                 dbName).fallbackToDestructiveMigration()
                 .build()
