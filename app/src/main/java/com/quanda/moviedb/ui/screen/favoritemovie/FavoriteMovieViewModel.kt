@@ -9,10 +9,9 @@ import io.reactivex.observers.DisposableMaybeObserver
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
-class FavoriteMovieViewModel : BaseLoadMoreRefreshViewModel<Movie>() {
-
-    @Inject
-    lateinit var movieDao: MovieDao
+class FavoriteMovieViewModel @Inject constructor(
+        private val movieDao: MovieDao
+) : BaseLoadMoreRefreshViewModel<Movie>() {
 
     var navigator: FavoriteMovieNavigator? = null
 

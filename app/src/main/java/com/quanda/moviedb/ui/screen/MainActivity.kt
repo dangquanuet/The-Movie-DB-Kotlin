@@ -18,6 +18,11 @@ import com.quanda.moviedb.utils.goToActivity
 
 class MainActivity : BaseActivity<ActivityMainBinding, MainActivityViewModel>(), MainActivityNavigator {
 
+    companion object {
+        const val FRAGMENT_TAG = "fragment_tag_"
+        const val CODE_MOVIE_DETAIL = 1000
+    }
+
     override val layoutId: Int
         get() = R.layout.activity_main
 
@@ -27,12 +32,8 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainActivityViewModel>(),
             navigator = this@MainActivity
         }
 
-    companion object {
-        const val FRAGMENT_TAG = "fragment_tag_"
-        const val CODE_MOVIE_DETAIL = 1000
-    }
-
     lateinit var bottomNavigation: AHBottomNavigation
+
     var currentPositionFragment = Tab.POPULAR.position
 
     override fun onCreate(savedInstanceState: Bundle?) {

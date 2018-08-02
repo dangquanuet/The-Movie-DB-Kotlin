@@ -4,10 +4,9 @@ import com.quanda.moviedb.data.repository.UserRepository
 import com.quanda.moviedb.ui.base.viewmodel.BaseViewModel
 import javax.inject.Inject
 
-class MainActivityViewModel : BaseViewModel() {
+class MainActivityViewModel @Inject constructor(
 
-    @Inject
-    lateinit var userRepository: UserRepository
+) : BaseViewModel() {
 
     var navigator: MainActivityNavigator? = null
 

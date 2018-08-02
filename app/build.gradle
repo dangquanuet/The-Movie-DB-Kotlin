@@ -50,6 +50,7 @@ android {
             debuggable true
             minifyEnabled false
             shrinkResources false
+            useProguard false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
 
@@ -59,6 +60,7 @@ android {
             debuggable true
             minifyEnabled false
             shrinkResources false
+            useProguard false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
 
@@ -68,6 +70,7 @@ android {
             debuggable false
             minifyEnabled true
             shrinkResources true
+            useProguard true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
@@ -142,7 +145,7 @@ dependencies {
     implementation "com.android.support:design:27.1.1"
 
     //Support ReactiveX android
-    implementation 'io.reactivex.rxjava2:rxjava:2.1.16'
+    implementation 'io.reactivex.rxjava2:rxjava:2.1.17'
     implementation 'io.reactivex.rxjava2:rxandroid:2.0.2'
 
     // coroutines

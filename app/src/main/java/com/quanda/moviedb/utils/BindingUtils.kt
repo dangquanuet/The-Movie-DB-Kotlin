@@ -20,7 +20,8 @@ import com.quanda.moviedb.ui.widgets.PullRefreshRecyclerView
 import java.io.File
 
 @BindingAdapter("recyclerAdapter")
-fun setRecyclerAdapter(view: RecyclerView, adapter: RecyclerView.Adapter<RecyclerView.ViewHolder>) {
+fun setRecyclerAdapter(view: RecyclerView,
+        adapter: RecyclerView.Adapter<RecyclerView.ViewHolder>?) {
     view.setHasFixedSize(true)
     view.adapter = adapter
 }
@@ -33,47 +34,47 @@ fun setScrollListener(view: RecyclerView,
 
 @BindingAdapter("layoutManager")
 fun setLayoutManager(view: RecyclerView,
-        layoutManager: RecyclerView.LayoutManager) {
+        layoutManager: RecyclerView.LayoutManager?) {
     view.layoutManager = layoutManager
 }
 
 @BindingAdapter("recyclerAdapter")
 fun setPTRRecyclerAdapter(view: PullRefreshRecyclerView,
-        adapter: RecyclerView.Adapter<RecyclerView.ViewHolder>) {
+        adapter: RecyclerView.Adapter<RecyclerView.ViewHolder>?) {
     view.adapter.value = adapter
 }
 
 @BindingAdapter("layoutManager")
 fun setPTRLayoutManager(view: PullRefreshRecyclerView,
-        layoutManager: RecyclerView.LayoutManager) {
+        layoutManager: RecyclerView.LayoutManager?) {
     view.layoutManager.value = layoutManager
 }
 
 @BindingAdapter("onScrollListener")
 fun setPTRScrollListener(view: PullRefreshRecyclerView,
-        listener: RecyclerView.OnScrollListener) {
+        listener: RecyclerView.OnScrollListener?) {
     view.onScrollListener.value = listener
 }
 
 @BindingAdapter("refreshListener")
 fun setPTRRefreshListener(view: PullRefreshRecyclerView,
-        listener: SwipeRefreshLayout.OnRefreshListener) {
+        listener: SwipeRefreshLayout.OnRefreshListener?) {
     view.onRefreshListener.value = listener
 }
 
 @BindingAdapter("refreshing")
 fun setPTRRefreshing(view: PullRefreshRecyclerView,
-        isRefreshing: Boolean) {
+        isRefreshing: Boolean?) {
     view.isRefreshing.value = isRefreshing
 }
 
 @BindingAdapter("glideSrc")
-fun ImageView.setGlideSrc(@DrawableRes src: Int) {
-    if (src != -1) Glide.with(context).load(src).into(this)
+fun ImageView.setGlideSrc(@DrawableRes src: Int?) {
+    Glide.with(context).load(src).into(this)
 }
 
 @BindingAdapter("loadUri")
-fun ImageView.loadLocalImage(uri: Uri) {
+fun ImageView.loadLocalImage(uri: Uri?) {
     Glide.with(context).load(uri).into(this)
 }
 

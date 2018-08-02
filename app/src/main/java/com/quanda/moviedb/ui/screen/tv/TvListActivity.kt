@@ -13,7 +13,7 @@ import com.quanda.moviedb.ui.screen.tv2.TvListAdapter2
 class TvListActivity : BaseLoadMoreRefreshActivity<ActivityBaseLoadmoreRefreshBinding, TvListViewModel, Tv>(), TvListNavigator {
 
     override val viewModel: TvListViewModel
-        get() = ViewModelProviders.of(this).get(TvListViewModel::class.java)
+        get() = ViewModelProviders.of(this, viewModelFactory).get(TvListViewModel::class.java)
                 .apply {
                     navigator = this@TvListActivity
                 }

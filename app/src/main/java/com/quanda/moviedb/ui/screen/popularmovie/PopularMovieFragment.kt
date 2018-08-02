@@ -10,7 +10,7 @@ import com.quanda.moviedb.data.model.Movie
 import com.quanda.moviedb.databinding.FragmentBaseLoadmoreRefreshBinding
 import com.quanda.moviedb.ui.base.fragment.BaseLoadMoreRefreshFragment
 
-class PopularMovieFragment : BaseLoadMoreRefreshFragment<FragmentBaseLoadmoreRefreshBinding, PopularMovieViewModel, Movie>() {
+class PopularMovieFragment : BaseLoadMoreRefreshFragment<FragmentBaseLoadmoreRefreshBinding, PopularMovieViewModel, Movie>(), PopularMovieNavigator {
 
     companion object {
         fun newInstance(type: Int): PopularMovieFragment {
@@ -22,18 +22,17 @@ class PopularMovieFragment : BaseLoadMoreRefreshFragment<FragmentBaseLoadmoreRef
         }
     }
 
-    override fun initViewModel(): PopularMovieViewModel {
-        return ViewModelProviders.of(this).get(
+    override val viewModel: PopularMovieViewModel
+        get() = ViewModelProviders.of(this, viewModelFactory).get(
                 PopularMovieViewModel::class.java)
                 .apply {
-                    navigator = this@PopularMovieFragment.navigator as PopularMovieNavigator
+                    navigator = this@PopularMovieFragment
                     mode = arguments?.getInt(
                             BundleConstants.TYPE) ?: TYPE.POPULAR.type
                 }
-    }
 
-    override fun initData() {
-        super.initData()
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
         binding.apply {
             root.setBackgroundColor(Color.BLACK)
             view = this@PopularMovieFragment
@@ -57,6 +56,10 @@ class PopularMovieFragment : BaseLoadMoreRefreshFragment<FragmentBaseLoadmoreRef
     }
 
     override fun initLayoutManager() = GridLayoutManager(context, 2)
+
+    override fun goToMovieDetail(movie: Movie) {
+
+    }
 
     enum class TYPE(val type: Int) {
         POPULAR(0), TOP_RATED(1)

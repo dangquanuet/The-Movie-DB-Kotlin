@@ -15,9 +15,7 @@ import kotlinx.coroutines.experimental.Deferred
 import kotlinx.coroutines.experimental.android.UI
 import kotlinx.coroutines.experimental.async
 import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
 class MovieRepositoryImpl @Inject constructor(
         val apiService: ApiService,
         val movieDao: MovieDao

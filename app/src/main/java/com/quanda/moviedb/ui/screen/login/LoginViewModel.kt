@@ -5,17 +5,15 @@ import android.arch.lifecycle.MutableLiveData
 import android.support.v4.util.PatternsCompat
 import android.text.TextUtils
 import com.quanda.moviedb.data.constants.Constants
-import com.quanda.moviedb.data.repository.impl.UserRepositoryImpl
-import com.quanda.moviedb.ui.base.viewmodel.BaseDataLoadViewModel
+import com.quanda.moviedb.data.repository.UserRepository
 import com.quanda.moviedb.ui.base.viewmodel.BaseViewModel
 import javax.inject.Inject
 
-class LoginViewModel : BaseViewModel() {
+class LoginViewModel @Inject constructor(
+        private val userRepository: UserRepository
+) : BaseViewModel() {
 
-    @Inject
-    lateinit var userRepository: UserRepositoryImpl
-
-    lateinit var navigator: LoginNavigator
+    var navigator: LoginNavigator? = null
 
     val email = MutableLiveData<String>()
     val password = MutableLiveData<String>()

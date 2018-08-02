@@ -6,14 +6,11 @@ import com.quanda.moviedb.utils.GsonUtils
 import javax.inject.Inject
 import javax.inject.Singleton
 
-// top level fun or properties in kotlin = static in java
-const val PREFS_NAME = "MovieDBSharedPreferences"
-
 class SharedPreferenceApi @Inject constructor(context: Context) {
 
-//    companion object {
-//        private const val PREFS_NAME = "MovieDBSharedPreferences"
-//    }
+    companion object {
+        const val PREFS_NAME = "MovieDBSharedPreferences"
+    }
 
     private var sharedPreferences: SharedPreferences
 

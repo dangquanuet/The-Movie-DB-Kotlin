@@ -1,9 +1,9 @@
 package com.quanda.moviedb.ui.screen.popularmovie
 
 import android.databinding.ObservableArrayList
-import com.quanda.moviedb.data.remote.ApiParam
 import com.quanda.moviedb.data.local.dao.MovieDao
 import com.quanda.moviedb.data.model.Movie
+import com.quanda.moviedb.data.remote.ApiParams
 import com.quanda.moviedb.data.remote.response.GetMovieListResponse
 import com.quanda.moviedb.data.repository.MovieRepository
 import com.quanda.moviedb.ui.base.BaseViewHolderBinding
@@ -19,13 +19,13 @@ class PopularMovieViewModel @Inject constructor(
         val movieDao: MovieDao
 ) : BaseLoadMoreRefreshViewModel<Movie>() {
 
-    lateinit var navigator: PopularMovieNavigator
+    var navigator: PopularMovieNavigator? = null
 
     var mode: Int = 0
 
     val itemCLickListener = object : BaseViewHolderBinding.OnItemCLickListener<Movie> {
         override fun onItemClick(position: Int, data: Movie) {
-            navigator.goToMovieDetail(data)
+            navigator?.goToMovieDetail(data)
         }
     }
 
@@ -33,16 +33,16 @@ class PopularMovieViewModel @Inject constructor(
 
     override fun loadData(page: Int) {
         val hashMap = HashMap<String, String>()
-        hashMap.put(ApiParam.PAGE, page.toString())
+        hashMap.put(ApiParams.PAGE, page.toString())
         when (mode) {
             PopularMovieFragment.TYPE.POPULAR.type -> hashMap.put(
-                    ApiParam.SORT_BY,
-                    ApiParam.POPULARITY_DESC)
+                    ApiParams.SORT_BY,
+                    ApiParams.POPULARITY_DESC)
             PopularMovieFragment.TYPE.TOP_RATED.type -> hashMap.put(
-                    ApiParam.SORT_BY,
-                    ApiParam.VOTE_AVERAGE_DESC)
+                    ApiParams.SORT_BY,
+                    ApiParams.VOTE_AVERAGE_DESC)
             else -> hashMap.put(
-                    ApiParam.SORT_BY, ApiParam.POPULARITY_DESC)
+                    ApiParams.SORT_BY, ApiParams.POPULARITY_DESC)
         }
 
         if (page == 1 && tempMovieList.isEmpty()) {
@@ -77,8 +77,8 @@ class PopularMovieViewModel @Inject constructor(
                 listItem.removeAll(tempMovieList)
                 tempMovieList.clear()
 
-                listItem.addAll(response.results)
-                movieRepository.insertDB(response.results)
+                listItem.addAll(response.results?.toList() ?: listOf())
+                movieRepository.insertDB(response.results?.toList() ?: listOf())
 
                 onLoadSuccess(response)
             }

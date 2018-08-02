@@ -1,6 +1,7 @@
 package com.quanda.moviedb.ui.screen.movie
 
 import android.arch.lifecycle.ViewModelProviders
+import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
 import com.quanda.moviedb.data.model.Movie
@@ -10,15 +11,14 @@ import com.quanda.moviedb.ui.base.activity.BaseLoadMoreRefreshActivity
 
 class MovieListActivity : BaseLoadMoreRefreshActivity<ActivityBaseLoadmoreRefreshBinding, MovieListViewModel, Movie>(), MovieListNavigator {
 
-    override fun initViewModel(): MovieListViewModel {
-        return ViewModelProviders.of(this).get(MovieListViewModel::class.java)
+    override val viewModel: MovieListViewModel
+        get() = ViewModelProviders.of(this, viewModelFactory).get(MovieListViewModel::class.java)
                 .apply {
                     navigator = this@MovieListActivity
                 }
-    }
 
-    override fun initData() {
-        super.initData()
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
         binding.apply {
             view = this@MovieListActivity
             viewModel = this@MovieListActivity.viewModel

@@ -1,6 +1,8 @@
 package com.quanda.moviedb.ui.base.fragment
 
 import android.arch.lifecycle.Observer
+import android.arch.lifecycle.ViewModelProvider
+import android.content.Context
 import android.databinding.DataBindingUtil
 import android.databinding.ViewDataBinding
 import android.os.Bundle
@@ -12,6 +14,8 @@ import android.view.View
 import android.view.ViewGroup
 import com.quanda.moviedb.ui.base.viewmodel.BaseViewModel
 import com.quanda.moviedb.utils.DialogUtils
+import dagger.android.support.AndroidSupportInjection
+import javax.inject.Inject
 
 abstract class BaseFragment<ViewBinding : ViewDataBinding, ViewModel : BaseViewModel> : Fragment() {
 
@@ -22,9 +26,10 @@ abstract class BaseFragment<ViewBinding : ViewDataBinding, ViewModel : BaseViewM
     @get:LayoutRes
     abstract val layoutId: Int
 
-    var loadingDialog: AlertDialog? = null
+    @Inject
+    lateinit var viewModelFactory: ViewModelProvider.Factory
 
-    abstract fun initViewModel(): ViewModel
+    var loadingDialog: AlertDialog? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?): View? {
@@ -32,6 +37,7 @@ abstract class BaseFragment<ViewBinding : ViewDataBinding, ViewModel : BaseViewM
         binding.apply {
             root.isClickable = true
             setLifecycleOwner(this@BaseFragment)
+            executePendingBindings()
         }
         return binding.root
     }
@@ -62,5 +68,14 @@ abstract class BaseFragment<ViewBinding : ViewDataBinding, ViewModel : BaseViewM
 
     open fun handleLoadingChanged(isLoading: Boolean) {
         if (isLoading) showLoadingDialog() else hideLoadingDialog()
+    }
+
+    override fun onAttach(context: Context?) {
+        performDependencyInjection()
+        super.onAttach(context)
+    }
+
+    private fun performDependencyInjection() {
+        AndroidSupportInjection.inject(this)
     }
 }

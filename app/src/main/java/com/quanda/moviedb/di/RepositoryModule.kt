@@ -4,6 +4,7 @@ import android.arch.persistence.room.Room
 import android.content.Context
 import com.google.gson.Gson
 import com.quanda.moviedb.data.constants.Constants
+import com.quanda.moviedb.data.local.dao.MovieDao
 import com.quanda.moviedb.data.local.db.AppDatabase
 import com.quanda.moviedb.data.local.pref.AppPrefs
 import com.quanda.moviedb.data.local.pref.PrefHelper
@@ -18,6 +19,7 @@ import javax.inject.Singleton
 
 @Module
 class RepositoryModule {
+
     @Provides
     @Named("database_name")
     fun providerDatabaseName(): String {
@@ -34,15 +36,15 @@ class RepositoryModule {
 
     @Provides
     @Singleton
-    fun providePrefHelper(appPrefs: AppPrefs): PrefHelper {
-        return appPrefs
-    }
+    fun provideMovieDao(appDatabase: AppDatabase): MovieDao = appDatabase.movieDao()
 
     @Provides
     @Singleton
-    fun providerAppPrefs(context: Context, gson: Gson): AppPrefs {
-        return AppPrefs(context, gson)
-    }
+    fun providePrefHelper(appPrefs: AppPrefs): PrefHelper = appPrefs
+
+    @Provides
+    @Singleton
+    fun providerAppPrefs(context: Context, gson: Gson): PrefHelper = AppPrefs(context, gson)
 
     @Provides
     @Singleton

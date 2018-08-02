@@ -6,7 +6,7 @@ import android.content.pm.PackageManager
 import android.os.Build
 import android.support.v4.app.ActivityCompat
 import android.support.v7.app.AppCompatActivity
-import com.quanda.moviedb.data.local.pref.PREFS_NAME
+import com.quanda.moviedb.data.local.pref.SharedPreferenceApi.Companion.PREFS_NAME
 
 
 fun AppCompatActivity.firstTimeAskingPermission(permission: String, isFirstTime: Boolean) {

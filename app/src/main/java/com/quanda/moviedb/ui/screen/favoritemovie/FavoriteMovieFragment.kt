@@ -2,6 +2,7 @@ package com.quanda.moviedb.ui.screen.favoritemovie
 
 import android.arch.lifecycle.ViewModelProviders
 import android.graphics.Color
+import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
 import com.quanda.moviedb.data.model.Movie
@@ -9,7 +10,7 @@ import com.quanda.moviedb.databinding.FragmentBaseLoadmoreRefreshBinding
 import com.quanda.moviedb.ui.base.fragment.BaseLoadMoreRefreshFragment
 import com.quanda.moviedb.ui.screen.popularmovie.PopularMovieAdapter
 
-class FavoriteMovieFragment : BaseLoadMoreRefreshFragment<FragmentBaseLoadmoreRefreshBinding, FavoriteMovieViewModel, Movie>() {
+class FavoriteMovieFragment : BaseLoadMoreRefreshFragment<FragmentBaseLoadmoreRefreshBinding, FavoriteMovieViewModel, Movie>(), FavoriteMovieNavigator {
 
     companion object {
         fun newInstance(): FavoriteMovieFragment {
@@ -17,16 +18,15 @@ class FavoriteMovieFragment : BaseLoadMoreRefreshFragment<FragmentBaseLoadmoreRe
         }
     }
 
-    override fun initViewModel(): FavoriteMovieViewModel {
-        return ViewModelProviders.of(this).get(
+    override val viewModel: FavoriteMovieViewModel
+        get() = ViewModelProviders.of(this, viewModelFactory).get(
                 FavoriteMovieViewModel::class.java)
                 .apply {
-                    navigator = this@FavoriteMovieFragment.navigator as FavoriteMovieNavigator
+                    navigator = this@FavoriteMovieFragment
                 }
-    }
 
-    override fun initData() {
-        super.initData()
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
         binding.apply {
             root.setBackgroundColor(Color.BLACK)
             view = this@FavoriteMovieFragment
@@ -59,4 +59,8 @@ class FavoriteMovieFragment : BaseLoadMoreRefreshFragment<FragmentBaseLoadmoreRe
     }
 
     override fun initLayoutManager() = GridLayoutManager(context, 2)
+
+    override fun goToMovieDetailWithResult(movie: Movie) {
+
+    }
 }
