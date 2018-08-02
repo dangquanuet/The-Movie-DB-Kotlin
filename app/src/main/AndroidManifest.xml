@@ -16,7 +16,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
     <application
-        android:name="com.quanda.moviedb.App"
+        android:name="com.quanda.moviedb.MainApplication"
         android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -25,7 +25,7 @@
         android:theme="@style/AppTheme">
 
         <activity
-            android:name="com.quanda.moviedb.ui.screen.main.MainActivity">
+            android:name="com.quanda.moviedb.ui.screen.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <action android:name="android.intent.action.VIEW"/>
@@ -38,10 +38,10 @@
 
         <activity android:name=".ui.screen.tv.TvListActivity"/>
 
-        <activity android:name=".ui.screen.main.moviedetail.MovieDetailActivity"/>
+        <activity android:name=".ui.screen.moviedetail.MovieDetailActivity"/>
 
         <activity
-            android:name=".ui.screen.main.login.LoginActivity"
+            android:name=".ui.screen.login.LoginActivity"
             android:windowSoftInputMode="adjustResize"/>
 
         <activity android:name=".ui.screen.permission.PermissionActivity"/>

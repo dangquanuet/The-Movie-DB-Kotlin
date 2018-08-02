@@ -1,28 +1,22 @@
 package com.quanda.moviedb.ui.screen.tv
 
-import com.quanda.moviedb.App
-import com.quanda.moviedb.data.constants.ApiParam
 import com.quanda.moviedb.data.model.Tv
-import com.quanda.moviedb.data.repository.impl.MovieRepository
-import com.quanda.moviedb.ui.base.viewmodel.BaseDataLoadMoreRefreshViewModel
+import com.quanda.moviedb.data.remote.ApiParams
+import com.quanda.moviedb.data.repository.impl.MovieRepositoryImpl
+import com.quanda.moviedb.ui.base.viewmodel.BaseLoadMoreRefreshViewModel
 import kotlinx.coroutines.experimental.android.UI
 import kotlinx.coroutines.experimental.async
 import javax.inject.Inject
 
-class TvListViewModel() : BaseDataLoadMoreRefreshViewModel<Tv>() {
-
-    @Inject
-    lateinit var movieRepository: MovieRepository
+class TvListViewModel @Inject constructor(
+        private val movieRepository: MovieRepositoryImpl
+) : BaseLoadMoreRefreshViewModel<Tv>() {
 
     lateinit var navigator: TvListNavigator
 
-    init {
-        App.appComponent.inject(this)
-    }
-
     override fun loadData(page: Int) {
         val hashMap = HashMap<String, String>()
-        hashMap.put(ApiParam.PAGE, page.toString())
+        hashMap.put(ApiParams.PAGE, page.toString())
 
         async(UI) {
             try {
@@ -30,7 +24,7 @@ class TvListViewModel() : BaseDataLoadMoreRefreshViewModel<Tv>() {
                 currentPage = page
                 if (currentPage == 1) listItem.clear()
                 if (isRefreshing.value == true) resetLoadMore()
-                listItem.addAll(response.results)
+                listItem.addAll(response.results?.toList() ?: listOf())
                 onLoadSuccess(response)
             } catch (e: Throwable) {
                 onLoadFail(e)

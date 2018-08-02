@@ -1,18 +1,9 @@
 package com.quanda.moviedb.ui.screen.permission
 
-import com.quanda.moviedb.App
-import com.quanda.moviedb.data.local.SharedPreferenceApi
-import com.quanda.moviedb.ui.base.viewmodel.BaseDataLoadViewModel
-import javax.inject.Inject
+import com.quanda.moviedb.ui.base.viewmodel.BaseViewModel
 
-class PermissionViewModel : BaseDataLoadViewModel() {
+class PermissionViewModel : BaseViewModel() {
 
-    @Inject
-    lateinit var preferences: SharedPreferenceApi
+    var navigator: PermissionNavigator? = null
 
-    lateinit var navigator: PermissionNavigator
-
-    init {
-        App.appComponent.inject(this)
-    }
 }

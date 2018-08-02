@@ -17,14 +17,11 @@ import java.util.concurrent.TimeUnit
 import javax.inject.Named
 import javax.inject.Singleton
 
-//const val TIME_OUT = 30
-//const val GOOGLE_MAP_APIS_BASE_URL = "https://maps.googleapis.com"
-
 @Module
 class ApiModule {
 
     companion object {
-        const val TIME_OUT = 30
+        const val TIME_OUT = 10
         const val GOOGLE_MAP_APIS_BASE_URL = "https://maps.googleapis.com"
     }
 
@@ -41,7 +38,8 @@ class ApiModule {
     @Named("logging")
     internal fun provideLoggingInterceptor(): Interceptor {
         val logging = HttpLoggingInterceptor()
-        logging.level = if (BuildConfig.DEBUG) HttpLoggingInterceptor.Level.BODY else HttpLoggingInterceptor.Level.NONE
+        logging.level = if (BuildConfig.DEBUG) HttpLoggingInterceptor.Level.BODY
+        else HttpLoggingInterceptor.Level.NONE
         return logging
     }
 

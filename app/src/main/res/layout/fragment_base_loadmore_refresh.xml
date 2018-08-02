@@ -7,11 +7,11 @@
         <import type="android.view.View"/>
         <variable
             name="view"
-            type="com.quanda.moviedb.ui.base.fragment.BaseDataLoadMoreRefreshFragment"
+            type="com.quanda.moviedb.ui.base.fragment.BaseLoadMoreRefreshFragment"
             />
         <variable
             name="viewModel"
-            type="com.quanda.moviedb.ui.base.viewmodel.BaseDataLoadMoreRefreshViewModel"
+            type="com.quanda.moviedb.ui.base.viewmodel.BaseLoadMoreRefreshViewModel"
             />
     </data>
 

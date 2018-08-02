@@ -1,12 +1,11 @@
 package com.quanda.moviedb.ui.screen.movie
 
 import android.util.Log
-import com.quanda.moviedb.App
-import com.quanda.moviedb.data.constants.ApiParam
 import com.quanda.moviedb.data.model.Movie
+import com.quanda.moviedb.data.remote.ApiParams
 import com.quanda.moviedb.data.remote.response.GetMovieListResponse
-import com.quanda.moviedb.data.repository.impl.MovieRepository
-import com.quanda.moviedb.ui.base.viewmodel.BaseDataLoadMoreRefreshViewModel
+import com.quanda.moviedb.data.repository.impl.MovieRepositoryImpl
+import com.quanda.moviedb.ui.base.viewmodel.BaseLoadMoreRefreshViewModel
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.observers.DisposableSingleObserver
@@ -14,20 +13,15 @@ import io.reactivex.schedulers.Schedulers
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
-class MovieListViewModel : BaseDataLoadMoreRefreshViewModel<Movie>() {
+class MovieListViewModel @Inject constructor(
+        private val movieRepository: MovieRepositoryImpl
+) : BaseLoadMoreRefreshViewModel<Movie>() {
 
-    @Inject
-    lateinit var movieRepository: MovieRepository
-
-    lateinit var navigator: MovieListNavigator
-
-    init {
-        App.appComponent.inject(this)
-    }
+    var navigator: MovieListNavigator? = null
 
     override fun loadData(page: Int) {
         val hashMap = HashMap<String, String>()
-        hashMap.put(ApiParam.PAGE, page.toString())
+        hashMap.put(ApiParams.PAGE, page.toString())
 
         movieRepository.getMovieList(
                 hashMap).subscribe(object : DisposableSingleObserver<GetMovieListResponse>() {
@@ -35,7 +29,7 @@ class MovieListViewModel : BaseDataLoadMoreRefreshViewModel<Movie>() {
                 currentPage = page
                 if (currentPage == 1) listItem.clear()
                 if (isRefreshing.value == true) resetLoadMore()
-                listItem.addAll(response.results)
+                listItem.addAll(response.results?.toList() ?: listOf())
                 onLoadSuccess(response)
             }
 

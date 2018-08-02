@@ -5,11 +5,11 @@
     <data>
         <variable
             name="view"
-            type="com.quanda.moviedb.ui.screen.main.login.LoginActivity"
+            type="com.quanda.moviedb.ui.screen.login.LoginActivity"
             />
         <variable
             name="viewModel"
-            type="com.quanda.moviedb.ui.screen.main.login.LoginViewModel"
+            type="com.quanda.moviedb.ui.screen.login.LoginViewModel"
             />
     </data>
     <android.support.constraint.ConstraintLayout

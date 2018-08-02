@@ -6,16 +6,18 @@ import android.content.pm.PackageManager
 import android.os.Build
 import android.support.v4.app.ActivityCompat
 import android.support.v7.app.AppCompatActivity
-import com.quanda.moviedb.data.local.PREFS_NAME
+import com.quanda.moviedb.data.local.pref.SharedPreferenceApi.Companion.PREFS_NAME
 
 
 fun AppCompatActivity.firstTimeAskingPermission(permission: String, isFirstTime: Boolean) {
-    val sharedPreference: SharedPreferences = this.getSharedPreferences(PREFS_NAME, MODE_PRIVATE)
+    val sharedPreference: SharedPreferences = this.getSharedPreferences(
+            PREFS_NAME, MODE_PRIVATE)
     sharedPreference.edit().putBoolean(permission, isFirstTime).apply()
 }
 
 fun AppCompatActivity.firstTimeAskingPermissions(permissions: Array<String>, isFirstTime: Boolean) {
-    val sharedPreference: SharedPreferences = this.getSharedPreferences(PREFS_NAME, MODE_PRIVATE)
+    val sharedPreference: SharedPreferences = this.getSharedPreferences(
+            PREFS_NAME, MODE_PRIVATE)
     for (permission in permissions) {
         sharedPreference.edit().putBoolean(permission, isFirstTime).apply()
     }
@@ -27,7 +29,8 @@ fun AppCompatActivity.isFirstTimeAskingPermission(permission: String): Boolean {
 }
 
 fun AppCompatActivity.isFirstTimeAskingPermissions(permissions: Array<String>): Boolean {
-    val sharedPreference: SharedPreferences = this.getSharedPreferences(PREFS_NAME, MODE_PRIVATE)
+    val sharedPreference: SharedPreferences = this.getSharedPreferences(
+            PREFS_NAME, MODE_PRIVATE)
     for (permission in permissions) {
         if (sharedPreference.getBoolean(permission, true)) {
             return true

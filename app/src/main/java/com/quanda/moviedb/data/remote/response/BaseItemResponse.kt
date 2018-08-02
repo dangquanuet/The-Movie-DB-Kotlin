@@ -1,4 +1,5 @@
 package com.quanda.moviedb.data.remote.response
 
-class BaseItemResponse<Item> : BaseResponse() {
-}
+class BaseItemResponse<Item>(
+        val item: Item? = null
+) : BaseResponse()
