@@ -6,7 +6,6 @@ import android.support.v7.widget.RecyclerView
 import android.view.ViewGroup
 
 abstract class BaseRecyclerViewAdapterBinding<ViewHolder : BaseViewHolderBinding<View, Item>, View : ViewDataBinding, Item>(
-        val context: Context,
         val list: List<Item>) : RecyclerView.Adapter<BaseViewHolderBinding<View, Item>>() {
 
     abstract fun getViewHolder(parent: ViewGroup, viewType: Int): ViewHolder

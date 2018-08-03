@@ -11,7 +11,7 @@ import com.quanda.moviedb.ui.widgets.OnListChangedListener
 abstract class BaseLoadMoreRefreshActivity<View : ViewDataBinding, ViewModel : BaseLoadMoreRefreshViewModel<Item>, Item> : BaseActivity<View, ViewModel>() {
 
     override val layoutId: Int
-        get() = R.layout.activity_base_loadmore_refresh
+        get() = R.layout.activity_loadmore_refresh
 
     lateinit var adapter: RecyclerView.Adapter<RecyclerView.ViewHolder>
     lateinit var layoutManager: RecyclerView.LayoutManager

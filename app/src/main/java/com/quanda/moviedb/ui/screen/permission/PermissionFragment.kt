@@ -2,55 +2,39 @@ package com.quanda.moviedb.ui.screen.permission
 
 import android.Manifest
 import android.arch.lifecycle.ViewModelProviders
-import android.content.Intent
-import android.content.pm.PackageManager
-import android.net.Uri
 import android.os.Bundle
-import android.provider.Settings
-import android.support.v4.app.ActivityCompat
-import android.support.v7.app.AlertDialog
-import android.widget.Toast
 import com.quanda.moviedb.R
-import com.quanda.moviedb.data.constants.Constants
-import com.quanda.moviedb.databinding.ActivityPermisisonBinding
-import com.quanda.moviedb.ui.base.activity.BaseActivity
-import com.quanda.moviedb.utils.PermissionAskListener
-import com.quanda.moviedb.utils.firstTimeAskingPermission
-import com.quanda.moviedb.utils.firstTimeAskingPermissions
-import com.quanda.moviedb.utils.isFirstTimeAskingPermission
-import com.quanda.moviedb.utils.isFirstTimeAskingPermissions
-import com.quanda.moviedb.utils.isPermissionsGranted
-import com.quanda.moviedb.utils.requestPermission
-import com.quanda.moviedb.utils.requestPermissions
-import com.quanda.moviedb.utils.shouldAskPermission
-import com.quanda.moviedb.utils.shouldAskPermissions
-import com.quanda.moviedb.utils.shouldShowRequestPermissionsRationale
+import com.quanda.moviedb.databinding.FragmentPermisisonBinding
+import com.quanda.moviedb.ui.base.fragment.BaseFragment
 
 
-class PermissionActivity : BaseActivity<ActivityPermisisonBinding, PermissionViewModel>(), PermissionNavigator {
+class PermissionFragment : BaseFragment<FragmentPermisisonBinding, PermissionViewModel>(), PermissionNavigator {
 
     val permissions = arrayOf(Manifest.permission.CAMERA, Manifest.permission.READ_CONTACTS)
 
     override val layoutId: Int
-        get() = R.layout.activity_permisison
+        get() = R.layout.fragment_permisison
 
     override val viewModel: PermissionViewModel
         get() = ViewModelProviders.of(this, viewModelFactory).get(PermissionViewModel::class.java)
                 .apply {
-                    navigator = this@PermissionActivity
+                    navigator = this@PermissionFragment
                 }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding.apply {
-            view = this@PermissionActivity
-            viewModel = this@PermissionActivity.viewModel
-        }
-
-        viewModel.apply {
-            navigator = this@PermissionActivity
+            view = this@PermissionFragment
+            viewModel = this@PermissionFragment.viewModel
         }
     }
+
+    fun case1() {}
+    fun case2() {}
+    fun case3() {}
+    fun case4() {}
+
+    /*
 
     /**
      * normal way to request runtime permission
@@ -115,17 +99,17 @@ class PermissionActivity : BaseActivity<ActivityPermisisonBinding, PermissionVie
     fun case2() {
         requestPermission(Manifest.permission.READ_CONTACTS, object : PermissionAskListener {
             override fun onNeedPermission() {
-                ActivityCompat.requestPermissions(this@PermissionActivity,
+                ActivityCompat.requestPermissions(this@PermissionFragment,
                         arrayOf(Manifest.permission.READ_CONTACTS),
                         Constants.REQUEST_READ_CONTACTS
                 )
             }
 
             override fun onPermissionPreviouslyDenied() {
-                AlertDialog.Builder(this@PermissionActivity)
+                AlertDialog.Builder(this@PermissionFragment)
                         .setMessage("Please allow permission to use this feature")
                         .setPositiveButton("OK") { dialog, which ->
-                            ActivityCompat.requestPermissions(this@PermissionActivity,
+                            ActivityCompat.requestPermissions(this@PermissionFragment,
                                     arrayOf(Manifest.permission.READ_CONTACTS),
                                     Constants.REQUEST_READ_CONTACTS)
                         }
@@ -136,7 +120,7 @@ class PermissionActivity : BaseActivity<ActivityPermisisonBinding, PermissionVie
             }
 
             override fun onPermissionDisabled() {
-                AlertDialog.Builder(this@PermissionActivity)
+                AlertDialog.Builder(this@PermissionFragment)
                         .setMessage(
                                 "Permission Disabled, Please allow permission to use this feature")
                         .setPositiveButton("OK") { dialog, which ->
@@ -219,15 +203,15 @@ class PermissionActivity : BaseActivity<ActivityPermisisonBinding, PermissionVie
     fun case4() {
         requestPermissions(permissions, object : PermissionAskListener {
             override fun onNeedPermission() {
-                ActivityCompat.requestPermissions(this@PermissionActivity, permissions,
+                ActivityCompat.requestPermissions(this@PermissionFragment, permissions,
                         Constants.REQUEST_CAMERA_READ_CONTACTS)
             }
 
             override fun onPermissionPreviouslyDenied() {
-                AlertDialog.Builder(this@PermissionActivity)
+                AlertDialog.Builder(this@PermissionFragment)
                         .setMessage("Please allow permissions to use this feature")
                         .setPositiveButton("OK") { dialog, which ->
-                            ActivityCompat.requestPermissions(this@PermissionActivity, permissions,
+                            ActivityCompat.requestPermissions(this@PermissionFragment, permissions,
                                     Constants.REQUEST_CAMERA_READ_CONTACTS)
                         }
                         .setNegativeButton("Cancel") { dialog, which ->
@@ -237,7 +221,7 @@ class PermissionActivity : BaseActivity<ActivityPermisisonBinding, PermissionVie
             }
 
             override fun onPermissionDisabled() {
-                AlertDialog.Builder(this@PermissionActivity)
+                AlertDialog.Builder(this@PermissionFragment)
                         .setMessage(
                                 "Permissions Disabled, Please allow permissions to use this feature")
                         .setPositiveButton("OK") { dialog, which ->
@@ -286,7 +270,7 @@ class PermissionActivity : BaseActivity<ActivityPermisisonBinding, PermissionVie
 
             Constants.REQUEST_CAMERA_READ_CONTACTS -> {
                 // If request is cancelled, the result arrays are empty.
-                if (grantResults.size == this@PermissionActivity.permissions.size) {
+                if (grantResults.size == this@PermissionFragment.permissions.size) {
                     // permission was granted, yay! Do the
                     // contacts-related task you need to do.
                     if (isPermissionsGranted(grantResults)) {
@@ -295,7 +279,7 @@ class PermissionActivity : BaseActivity<ActivityPermisisonBinding, PermissionVie
                         // permission denied, boo! Disable the
                         // functionality that depends on this permission.
                         if (shouldShowRequestPermissionsRationale(
-                                        this@PermissionActivity.permissions)) {
+                                        this@PermissionFragment.permissions)) {
                             // permission denied
                             Toast.makeText(this, "permission denied", Toast.LENGTH_SHORT).show()
                         } else {
@@ -306,11 +290,13 @@ class PermissionActivity : BaseActivity<ActivityPermisisonBinding, PermissionVie
                 }
             }
 
-        // Add other 'when' lines to check for other
-        // permissions this app might request.
+            // Add other 'when' lines to check for other
+            // permissions this app might request.
             else -> {
                 // Ignore all other requests.
             }
         }
     }
+
+    */
 }

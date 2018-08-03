@@ -35,10 +35,10 @@ class PopularMovieViewModel @Inject constructor(
         val hashMap = HashMap<String, String>()
         hashMap.put(ApiParams.PAGE, page.toString())
         when (mode) {
-            PopularMovieFragment.TYPE.POPULAR.type -> hashMap.put(
+            PopularMovieFragment.Type.POPULAR.type -> hashMap.put(
                     ApiParams.SORT_BY,
                     ApiParams.POPULARITY_DESC)
-            PopularMovieFragment.TYPE.TOP_RATED.type -> hashMap.put(
+            PopularMovieFragment.Type.TOP_RATED.type -> hashMap.put(
                     ApiParams.SORT_BY,
                     ApiParams.VOTE_AVERAGE_DESC)
             else -> hashMap.put(

@@ -5,7 +5,7 @@
     <data>
         <variable
             name="view"
-            type="com.quanda.moviedb.ui.screen.login.LoginActivity"
+            type="com.quanda.moviedb.ui.screen.login.LoginFragment"
             />
         <variable
             name="viewModel"

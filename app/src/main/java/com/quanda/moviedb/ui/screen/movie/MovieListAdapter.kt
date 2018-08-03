@@ -1,6 +1,5 @@
 package com.quanda.moviedb.ui.screen.movie
 
-import android.content.Context
 import android.databinding.DataBindingUtil
 import android.view.LayoutInflater
 import android.view.View
@@ -11,9 +10,9 @@ import com.quanda.moviedb.databinding.ItemMovieBinding
 import com.quanda.moviedb.ui.base.BaseRecyclerViewAdapterBinding
 import com.quanda.moviedb.ui.base.BaseViewHolderBinding
 
-class MovieListAdapter(context: Context, list: List<Movie>,
-        val listener: BaseViewHolderBinding.OnItemCLickListener<Movie>?) : BaseRecyclerViewAdapterBinding<MovieListAdapter.MovieHolder, ItemMovieBinding, Movie>(
-        context, list) {
+class MovieListAdapter(list: List<Movie>,
+        val listener: BaseViewHolderBinding.OnItemCLickListener<Movie>?
+) : BaseRecyclerViewAdapterBinding<MovieListAdapter.MovieHolder, ItemMovieBinding, Movie>(list) {
 
     override fun getViewHolder(parent: ViewGroup, viewType: Int): MovieHolder {
         return MovieHolder(

@@ -1,6 +1,5 @@
 package com.quanda.moviedb.ui.screen.popularmovie
 
-import android.content.Context
 import android.databinding.DataBindingUtil
 import android.view.LayoutInflater
 import android.view.View
@@ -11,9 +10,9 @@ import com.quanda.moviedb.databinding.ItemMovieBinding
 import com.quanda.moviedb.ui.base.BaseRecyclerViewAdapterBinding
 import com.quanda.moviedb.ui.base.BaseViewHolderBinding
 
-class PopularMovieAdapter(context: Context, list: List<Movie>,
-        val listener: BaseViewHolderBinding.OnItemCLickListener<Movie>?) : BaseRecyclerViewAdapterBinding<PopularMovieAdapter.MovieHolder, ItemMovieBinding, Movie>(
-        context, list) {
+class PopularMovieAdapter(list: List<Movie>,
+        val listener: BaseViewHolderBinding.OnItemCLickListener<Movie>?
+) : BaseRecyclerViewAdapterBinding<PopularMovieAdapter.MovieHolder, ItemMovieBinding, Movie>(list) {
 
     override fun getViewHolder(parent: ViewGroup, viewType: Int): MovieHolder {
         return MovieHolder(

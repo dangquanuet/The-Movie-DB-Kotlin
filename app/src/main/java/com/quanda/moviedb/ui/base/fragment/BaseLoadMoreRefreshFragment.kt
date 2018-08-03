@@ -15,7 +15,7 @@ abstract class BaseLoadMoreRefreshFragment<View : ViewDataBinding, ViewModel : B
     lateinit var layoutManager: RecyclerView.LayoutManager
 
     override val layoutId: Int
-        get() = R.layout.fragment_base_loadmore_refresh
+        get() = R.layout.fragment_loadmore_refresh
 
     override fun onViewCreated(view: android.view.View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

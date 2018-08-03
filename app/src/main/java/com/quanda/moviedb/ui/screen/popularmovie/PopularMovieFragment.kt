@@ -5,20 +5,21 @@ import android.graphics.Color
 import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
-import com.quanda.moviedb.data.constants.BundleConstants
 import com.quanda.moviedb.data.model.Movie
-import com.quanda.moviedb.databinding.FragmentBaseLoadmoreRefreshBinding
+import com.quanda.moviedb.databinding.FragmentLoadmoreRefreshBinding
 import com.quanda.moviedb.ui.base.fragment.BaseLoadMoreRefreshFragment
 
-class PopularMovieFragment : BaseLoadMoreRefreshFragment<FragmentBaseLoadmoreRefreshBinding, PopularMovieViewModel, Movie>(), PopularMovieNavigator {
+class PopularMovieFragment : BaseLoadMoreRefreshFragment<FragmentLoadmoreRefreshBinding, PopularMovieViewModel, Movie>(), PopularMovieNavigator {
 
     companion object {
-        fun newInstance(type: Int): PopularMovieFragment {
-            val popularMovieFragment = PopularMovieFragment()
-            val bundle = Bundle()
-            bundle.putInt(BundleConstants.TYPE, type)
-            popularMovieFragment.arguments = bundle
-            return popularMovieFragment
+        const val TYPE = "TYPE"
+
+        const val TAG = "PopularMovieFragment"
+
+        fun newInstance(type: Int) = PopularMovieFragment().apply {
+            arguments = Bundle().apply {
+                putInt(TYPE, type)
+            }
         }
     }
 
@@ -27,8 +28,7 @@ class PopularMovieFragment : BaseLoadMoreRefreshFragment<FragmentBaseLoadmoreRef
                 PopularMovieViewModel::class.java)
                 .apply {
                     navigator = this@PopularMovieFragment
-                    mode = arguments?.getInt(
-                            BundleConstants.TYPE) ?: TYPE.POPULAR.type
+                    mode = arguments?.getInt(TYPE) ?: Type.POPULAR.type
                 }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -50,8 +50,7 @@ class PopularMovieFragment : BaseLoadMoreRefreshFragment<FragmentBaseLoadmoreRef
     }
 
     override fun initAdapter(): RecyclerView.Adapter<RecyclerView.ViewHolder> {
-        return PopularMovieAdapter(context!!,
-                viewModel.listItem,
+        return PopularMovieAdapter(viewModel.listItem,
                 viewModel.itemCLickListener) as RecyclerView.Adapter<RecyclerView.ViewHolder>
     }
 
@@ -61,7 +60,7 @@ class PopularMovieFragment : BaseLoadMoreRefreshFragment<FragmentBaseLoadmoreRef
 
     }
 
-    enum class TYPE(val type: Int) {
+    enum class Type(val type: Int) {
         POPULAR(0), TOP_RATED(1)
     }
 }

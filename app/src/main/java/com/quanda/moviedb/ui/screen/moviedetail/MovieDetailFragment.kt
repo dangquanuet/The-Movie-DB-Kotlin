@@ -1,6 +1,5 @@
 package com.quanda.moviedb.ui.screen.moviedetail
 
-import android.app.Activity
 import android.arch.lifecycle.Lifecycle
 import android.arch.lifecycle.LifecycleObserver
 import android.arch.lifecycle.OnLifecycleEvent
@@ -8,10 +7,9 @@ import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.view.View
 import com.quanda.moviedb.R
-import com.quanda.moviedb.data.constants.BundleConstants
 import com.quanda.moviedb.data.model.Movie
-import com.quanda.moviedb.databinding.ActivityMovieDetailBinding
-import com.quanda.moviedb.ui.base.activity.BaseActivity
+import com.quanda.moviedb.databinding.FragmentMovieDetailBinding
+import com.quanda.moviedb.ui.base.fragment.BaseFragment
 import com.quanda.moviedb.utils.logError
 import kotlinx.coroutines.experimental.CommonPool
 import kotlinx.coroutines.experimental.CoroutineExceptionHandler
@@ -24,38 +22,48 @@ import kotlinx.coroutines.experimental.withContext
 import kotlin.coroutines.experimental.CoroutineContext
 import kotlin.system.measureTimeMillis
 
-class MovieDetailActivity : BaseActivity<ActivityMovieDetailBinding, MovieDetailViewModel>(), MovieDetailNavigator {
+class MovieDetailFragment : BaseFragment<FragmentMovieDetailBinding, MovieDetailViewModel>(), MovieDetailNavigator {
+
+    companion object {
+        const val MOVIE = "MOVIE"
+
+        fun newInstance(movie: Movie) = MovieDetailFragment().apply {
+            arguments = Bundle().apply {
+                putParcelable(MOVIE, movie)
+            }
+        }
+    }
 
     override val layoutId: Int
-        get() = R.layout.activity_movie_detail
+        get() = R.layout.fragment_movie_detail
 
     override val viewModel: MovieDetailViewModel
-        get() = ViewModelProviders.of(this, viewModelFactory).get(
-                MovieDetailViewModel::class.java)
+        get() = ViewModelProviders.of(this, viewModelFactory)
+                .get(MovieDetailViewModel::class.java)
                 .apply {
-                    navigator = this@MovieDetailActivity
+                    navigator = this@MovieDetailFragment
                 }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding.apply {
-            viewModel = this@MovieDetailActivity.viewModel
-            favoriteListener = View.OnClickListener { this@MovieDetailActivity.viewModel.favoriteMovie() }
+            viewModel = this@MovieDetailFragment.viewModel
+            favoriteListener = View.OnClickListener { this@MovieDetailFragment.viewModel.favoriteMovie() }
         }
 
-        intent.extras?.apply {
-            getParcelable<Movie>(BundleConstants.MOVIE)?.apply {
+        arguments?.apply {
+            getParcelable<Movie>(MOVIE)?.apply {
                 viewModel.updateNewMovie(this)
             }
         }
     }
 
-    override fun onBackPressed() {
-        if (viewModel.favoriteChanged.value == true) {
-            setResult(Activity.RESULT_OK)
-        }
-        super.onBackPressed()
-    }
+//    override fun onBackPressed() {
+//        if (viewModel.favoriteChanged.value == true) {
+//            setResult(Activity.RESULT_OK)
+//        }
+//        super.onBackPressed()
+//    }
 
     /*
     demo kotlin coroutine

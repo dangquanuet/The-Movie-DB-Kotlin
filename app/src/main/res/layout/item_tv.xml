@@ -6,17 +6,8 @@
     >
     <data>
         <variable
-            name="title"
-            type="String"
-            />
-        <variable
-            name="imageUrl"
-            type="String"
-            />
-        <variable
-            name="imageClickListener"
-            type="android.view.View.OnClickListener"
-            />
+            name="item"
+            type="com.quanda.moviedb.data.model.Tv" />
     </data>
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
@@ -26,10 +17,9 @@
         <android.support.v7.widget.AppCompatImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:onClick="@{ imageClickListener }"
             bind:cacheSource="@{ true }"
             bind:centerCrop="@{ true }"
-            bind:loadImage="@{ imageUrl }"
+            bind:loadImage="@{ item.poster_path }"
             tools:src="@drawable/bg_default_image"
             />
 
@@ -43,7 +33,7 @@
             android:paddingStart="@dimen/dp_16"
             android:paddingTop="@dimen/dp_10"
             android:singleLine="true"
-            android:text="@{ title }"
+            android:text="@{ item.name }"
             android:textColor="@android:color/white"
             android:textSize="@dimen/sp_16"
             app:layout_constraintBottom_toBottomOf="parent"

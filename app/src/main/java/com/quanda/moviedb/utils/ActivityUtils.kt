@@ -2,6 +2,7 @@ package com.quanda.moviedb.utils
 
 import android.content.Intent
 import android.os.Bundle
+import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 
@@ -25,5 +26,9 @@ fun AppCompatActivity.goToActivityForResult(activity: Class<*>, bundle: Bundle? 
 }
 
 fun AppCompatActivity.logError(message: String) {
+    Log.e(this::class.java.simpleName, message);
+}
+
+fun Fragment.logError(message: String) {
     Log.e(this::class.java.simpleName, message);
 }

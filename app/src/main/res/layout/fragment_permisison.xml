@@ -5,7 +5,7 @@
     <data>
         <variable
             name="view"
-            type="com.quanda.moviedb.ui.screen.permission.PermissionActivity"
+            type="com.quanda.moviedb.ui.screen.permission.PermissionFragment"
             />
         <variable
             name="viewModel"
@@ -55,6 +55,7 @@
             android:text="Simple Multiple Permissions"
             app:layout_constraintTop_toBottomOf="@id/button_3"
             />
+
 
     </android.support.constraint.ConstraintLayout>
 </layout>
