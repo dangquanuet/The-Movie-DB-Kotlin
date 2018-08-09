@@ -27,10 +27,12 @@ class MovieListViewModel @Inject constructor(
                 hashMap).subscribe(object : DisposableSingleObserver<GetMovieListResponse>() {
             override fun onSuccess(response: GetMovieListResponse) {
                 currentPage = page
-                if (currentPage == 1) listItem.clear()
+                if (currentPage == 1) listItem.value = arrayListOf()
                 if (isRefreshing.value == true) resetLoadMore()
-                listItem.addAll(response.results?.toList() ?: listOf())
-                onLoadSuccess(response)
+                val newList = listItem.value ?: arrayListOf()
+                newList.addAll(response.results?.toList() ?: arrayListOf())
+                listItem.value = newList
+                onLoadSuccess(response.results?.size ?: 0)
             }
 
             override fun onError(e: Throwable) {

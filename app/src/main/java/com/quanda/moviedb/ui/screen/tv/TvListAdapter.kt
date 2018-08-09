@@ -1,30 +1,40 @@
 package com.quanda.moviedb.ui.screen.tv
 
 import android.databinding.DataBindingUtil
+import android.support.v7.util.DiffUtil
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.quanda.moviedb.R
 import com.quanda.moviedb.data.model.Tv
 import com.quanda.moviedb.databinding.ItemTvBinding
-import com.quanda.moviedb.ui.base.BaseRecyclerViewAdapterBinding
-import com.quanda.moviedb.ui.base.BaseViewHolderBinding
+import com.quanda.moviedb.ui.base.BaseRecyclerAdapter
 
-class TvListAdapter(list: List<Tv>,
-        val listener: BaseViewHolderBinding.OnItemCLickListener<Tv>?
-) : BaseRecyclerViewAdapterBinding<TvListAdapter.TvHolder, ItemTvBinding, Tv>(list) {
-
-    override fun getViewHolder(parent: ViewGroup, viewType: Int): TvHolder {
-        return TvHolder(
-                DataBindingUtil.inflate(LayoutInflater.from(parent.context), R.layout.item_tv,
-                        parent, false))
+class TvListAdapter(
+        val itemClickListener: ((Tv) -> Unit)? = null
+) : BaseRecyclerAdapter<Tv, ItemTvBinding>(object : DiffUtil.ItemCallback<Tv>() {
+    override fun areItemsTheSame(oldItem: Tv?, newItem: Tv?): Boolean {
+        return oldItem?.id == newItem?.id
     }
 
-    inner class TvHolder(binding: ItemTvBinding) : BaseViewHolderBinding<ItemTvBinding, Tv>(
-            binding) {
-        override fun bindData(item: Tv) {
-            binding.apply {
-                this.item = item
+    override fun areContentsTheSame(oldItem: Tv?, newItem: Tv?): Boolean {
+        return oldItem == newItem
+    }
+}) {
+
+    override fun createBinding(parent: ViewGroup, viewType: Int): ItemTvBinding {
+        return DataBindingUtil.inflate<ItemTvBinding>(LayoutInflater.from(parent.context),
+                R.layout.item_tv, parent, false).apply {
+            root.setOnClickListener {
+                item?.apply {
+                    itemClickListener?.invoke(this)
+                }
             }
+        }
+    }
+
+    override fun bind(binding: ItemTvBinding, item: Tv) {
+        binding.apply {
+            this.item = item
         }
     }
 }

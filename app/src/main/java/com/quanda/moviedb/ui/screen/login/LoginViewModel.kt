@@ -33,4 +33,8 @@ class LoginViewModel @Inject constructor(
     private fun validatePassword(password: String?): Boolean = password != null
             && !TextUtils.isEmpty(password.trim())
             && password.trim().length >= Constants.MIN_PASSWORD_LENGTH
+
+    fun clickLogin() {
+
+    }
 }

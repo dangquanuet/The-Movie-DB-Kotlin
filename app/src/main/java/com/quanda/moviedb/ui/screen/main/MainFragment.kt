@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationAdapter
+import com.quanda.moviedb.BR
 import com.quanda.moviedb.R
 import com.quanda.moviedb.databinding.FragmentMainBinding
 import com.quanda.moviedb.ui.base.fragment.BaseFragment
@@ -24,6 +25,9 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>(), MainNav
         fun newInstance() = MainFragment()
     }
 
+    override val bindingVariable: Int
+        get() = BR.viewModel
+
     override val layoutId: Int
         get() = R.layout.fragment_main
 
@@ -39,12 +43,12 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>(), MainNav
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        binding.viewModel = viewModel
+        viewBinding.viewModel = viewModel
         initBottomNavigation()
     }
 
     fun initBottomNavigation() {
-        bottomNavigation = binding.bottomNavigation
+        bottomNavigation = viewBinding.bottomNavigation
         val bottomNavigationAdapter = AHBottomNavigationAdapter(activity,
                 R.menu.menu_bottom_navigation)
         bottomNavigationAdapter.setupWithBottomNavigation(bottomNavigation)
@@ -145,7 +149,7 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>(), MainNav
                     val fragment = childFragmentManager.findFragmentByTag(
                             getTabFragmentTag(currentPositionFragment))
                     if (fragment is FavoriteMovieFragment) {
-                        fragment.loadData()
+//                        fragment.loadData()
                     }
                 }
             }

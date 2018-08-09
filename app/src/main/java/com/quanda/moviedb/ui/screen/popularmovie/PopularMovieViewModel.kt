@@ -23,12 +23,6 @@ class PopularMovieViewModel @Inject constructor(
 
     var mode: Int = 0
 
-    val itemCLickListener = object : BaseViewHolderBinding.OnItemCLickListener<Movie> {
-        override fun onItemClick(position: Int, data: Movie) {
-            navigator?.goToMovieDetail(data)
-        }
-    }
-
     val tempMovieList = ObservableArrayList<Movie>()
 
     override fun loadData(page: Int) {

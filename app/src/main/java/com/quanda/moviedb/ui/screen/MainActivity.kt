@@ -1,27 +1,24 @@
 package com.quanda.moviedb.ui.screen
 
+import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import com.quanda.moviedb.R
-import com.quanda.moviedb.databinding.ActivityMainBinding
 import com.quanda.moviedb.ui.base.activity.BaseActivity
 import com.quanda.moviedb.ui.screen.main.MainFragment
+import javax.inject.Inject
 
-class MainActivity : BaseActivity<ActivityMainBinding, MainActivityViewModel>(), MainActivityNavigator {
+class MainActivity : BaseActivity() {
 
-    override val layoutId: Int
-        get() = R.layout.activity_main
+    @Inject
+    lateinit var viewModelFactory: ViewModelProvider.Factory
 
-    override val viewModel: MainActivityViewModel
-        get() = ViewModelProviders.of(this, viewModelFactory).get(
-                MainActivityViewModel::class.java).apply {
-            navigator = this@MainActivity
-        }
+    val viewModel: MainActivityViewModel
+        get() = ViewModelProviders.of(this, viewModelFactory).get(MainActivityViewModel::class.java)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding.viewModel = viewModel
-
+        setContentView(R.layout.activity_main)
         supportFragmentManager.beginTransaction()
                 .replace(R.id.parent, MainFragment.newInstance(), MainFragment.TAG)
                 .commit()

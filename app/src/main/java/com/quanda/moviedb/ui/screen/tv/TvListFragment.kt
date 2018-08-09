@@ -1,13 +1,14 @@
 package com.quanda.moviedb.ui.screen.tv
 
+import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
+import android.graphics.Color
 import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
-import android.support.v7.widget.RecyclerView
+import com.quanda.moviedb.BR
 import com.quanda.moviedb.data.model.Tv
 import com.quanda.moviedb.databinding.FragmentLoadmoreRefreshBinding
 import com.quanda.moviedb.ui.base.fragment.BaseLoadMoreRefreshFragment
-import com.quanda.moviedb.ui.screen.tv2.TvListAdapter2
 
 class TvListFragment : BaseLoadMoreRefreshFragment<FragmentLoadmoreRefreshBinding, TvListViewModel, Tv>(), TvListNavigator {
 
@@ -17,39 +18,32 @@ class TvListFragment : BaseLoadMoreRefreshFragment<FragmentLoadmoreRefreshBindin
         fun newInstance() = TvListFragment()
     }
 
+    override val bindingVariable: Int
+        get() = BR.viewModel
+
     override val viewModel: TvListViewModel
         get() = ViewModelProviders.of(this, viewModelFactory)
                 .get(TvListViewModel::class.java)
-                .apply {
-                    navigator = this@TvListFragment
-                }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding.apply {
-            view = this@TvListFragment
-            viewModel = this@TvListFragment.viewModel
-            recyclerView.adapter.value = adapter
+        val adapter = TvListAdapter(itemClickListener = { goToTvDetail(it) })
+        viewBinding.apply {
+            root.setBackgroundColor(Color.BLACK)
+            recyclerView.apply {
+                layoutManager = GridLayoutManager(context, 2)
+                this.adapter = adapter
+            }
         }
-
         viewModel.apply {
-            isDataLoading.value = true
-            loadData(1)
+            listItem.observe(this@TvListFragment, Observer {
+                adapter.submitList(it)
+            })
+            firstLoad()
         }
     }
 
-//    override fun initAdapter(): RecyclerView.Adapter<RecyclerView.ViewHolder> {
-//        return TvListAdapter(this, viewModel.listItem,
-//                object : BaseViewHolderBinding.OnItemCLickListener<Tv> {
-//                    override fun onItemClick(position: Int, data: Tv) {
-//                        // TODO
-//                    }
-//                }) as RecyclerView.Adapter<RecyclerView.ViewHolder>
-//    }
+    fun goToTvDetail(tv: Tv) {
 
-    override fun initAdapter(): RecyclerView.Adapter<RecyclerView.ViewHolder> {
-        return TvListAdapter2() as RecyclerView.Adapter<RecyclerView.ViewHolder>
     }
-
-    override fun initLayoutManager(): RecyclerView.LayoutManager = GridLayoutManager(context, 2)
 }

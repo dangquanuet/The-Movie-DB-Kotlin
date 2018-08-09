@@ -1,36 +1,41 @@
 package com.quanda.moviedb.ui.screen.popularmovie
 
 import android.databinding.DataBindingUtil
+import android.support.v7.util.DiffUtil
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import com.quanda.moviedb.R
 import com.quanda.moviedb.data.model.Movie
 import com.quanda.moviedb.databinding.ItemMovieBinding
-import com.quanda.moviedb.ui.base.BaseRecyclerViewAdapterBinding
-import com.quanda.moviedb.ui.base.BaseViewHolderBinding
+import com.quanda.moviedb.ui.base.BaseRecyclerAdapter
 
-class PopularMovieAdapter(list: List<Movie>,
-        val listener: BaseViewHolderBinding.OnItemCLickListener<Movie>?
-) : BaseRecyclerViewAdapterBinding<PopularMovieAdapter.MovieHolder, ItemMovieBinding, Movie>(list) {
-
-    override fun getViewHolder(parent: ViewGroup, viewType: Int): MovieHolder {
-        return MovieHolder(
-                DataBindingUtil.inflate(LayoutInflater.from(parent.context), R.layout.item_movie,
-                        parent, false))
+class PopularMovieAdapter(
+        val itemClickListener: ((Movie) -> Unit)? = null
+) : BaseRecyclerAdapter<Movie, ItemMovieBinding>(object : DiffUtil.ItemCallback<Movie>() {
+    override fun areItemsTheSame(oldItem: Movie, newItem: Movie): Boolean {
+        return oldItem.id == newItem.id
     }
 
-    inner class MovieHolder(
-            binding: ItemMovieBinding) : BaseViewHolderBinding<ItemMovieBinding, Movie>(
-            binding) {
-        override fun bindData(item: Movie) {
-            binding.apply {
-                title = item.title
-                imageUrl = item.poster_path
-                imageClickListener = View.OnClickListener {
-                    listener?.onItemClick(adapterPosition, item)
+    override fun areContentsTheSame(oldItem: Movie, newItem: Movie): Boolean {
+        return oldItem == newItem
+    }
+}) {
+
+    override fun createBinding(parent: ViewGroup, viewType: Int): ItemMovieBinding {
+        return DataBindingUtil.inflate<ItemMovieBinding>(LayoutInflater.from(parent.context),
+                R.layout.item_movie,
+                parent, false).apply {
+            root.setOnClickListener {
+                item?.apply {
+                    itemClickListener?.invoke(this)
                 }
             }
+        }
+    }
+
+    override fun bind(binding: ItemMovieBinding, item: Movie) {
+        binding.apply {
+            this.item = item
         }
     }
 }

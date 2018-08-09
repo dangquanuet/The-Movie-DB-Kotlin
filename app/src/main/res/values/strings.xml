@@ -11,4 +11,6 @@
     <string name="login_password">Password</string>
     <string name="login_button_login">Login</string>
 
+    <string name="ok">OK</string>
+
 </resources>

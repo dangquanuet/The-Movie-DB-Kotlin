@@ -51,7 +51,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp_16"
             android:enabled="@{ viewModel.formValid }"
-            android:onClick="@{ () -> view.clickLogin() }"
+            android:onClick="@{ () -> viewModel.clickLogin() }"
             android:text="@string/login_button_login"
             app:layout_constraintTop_toBottomOf="@id/edt_password"
             />

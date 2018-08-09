@@ -2,7 +2,6 @@ package com.quanda.moviedb.ui.screen.favoritemovie
 
 import com.quanda.moviedb.data.local.dao.MovieDao
 import com.quanda.moviedb.data.model.Movie
-import com.quanda.moviedb.ui.base.BaseViewHolderBinding
 import com.quanda.moviedb.ui.base.viewmodel.BaseLoadMoreRefreshViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.observers.DisposableMaybeObserver
@@ -13,14 +12,6 @@ class FavoriteMovieViewModel @Inject constructor(
         private val movieDao: MovieDao
 ) : BaseLoadMoreRefreshViewModel<Movie>() {
 
-    var navigator: FavoriteMovieNavigator? = null
-
-    val itemCLickListener = object : BaseViewHolderBinding.OnItemCLickListener<Movie> {
-        override fun onItemClick(position: Int, data: Movie) {
-            navigator?.goToMovieDetailWithResult(data)
-        }
-    }
-
     override fun loadData(page: Int) {
         movieDao.getFavorite(getNumberItemPerPage(), page)
                 .subscribeOn(Schedulers.io())
@@ -28,18 +19,16 @@ class FavoriteMovieViewModel @Inject constructor(
                 .subscribe(object : DisposableMaybeObserver<List<Movie>>() {
                     override fun onSuccess(t: List<Movie>) {
                         currentPage = page
-                        if (currentPage == 1) listItem.clear()
+                        if (currentPage == 1) listItem.value = null
                         if (isRefreshing.value == true) resetLoadMore()
-                        listItem.addAll(t)
-
-                        isLastPage == t.size < getNumberItemPerPage()
-                        isDataLoading.value = false
-                        isRefreshing.value = false
-                        isDataLoadMore.value = false
+                        val newList = if (listItem.value != null) listItem.value else ArrayList()
+                        newList?.addAll(t)
+                        listItem.value = newList
+                        onLoadSuccess(t.size)
                     }
 
                     override fun onComplete() {
-
+                        onLoadSuccess(0)
                     }
 
                     override fun onError(e: Throwable) {

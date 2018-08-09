@@ -8,6 +8,4 @@ class MainActivityViewModel @Inject constructor(
 
 ) : BaseViewModel() {
 
-    var navigator: MainActivityNavigator? = null
-
 }

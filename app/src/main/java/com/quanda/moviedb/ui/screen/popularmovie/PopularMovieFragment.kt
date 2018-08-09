@@ -1,10 +1,12 @@
 package com.quanda.moviedb.ui.screen.popularmovie
 
+import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.graphics.Color
 import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
+import com.quanda.moviedb.BR
 import com.quanda.moviedb.data.model.Movie
 import com.quanda.moviedb.databinding.FragmentLoadmoreRefreshBinding
 import com.quanda.moviedb.ui.base.fragment.BaseLoadMoreRefreshFragment
@@ -23,6 +25,9 @@ class PopularMovieFragment : BaseLoadMoreRefreshFragment<FragmentLoadmoreRefresh
         }
     }
 
+    override val bindingVariable: Int
+        get() = BR.viewModel
+
     override val viewModel: PopularMovieViewModel
         get() = ViewModelProviders.of(this, viewModelFactory).get(
                 PopularMovieViewModel::class.java)
@@ -33,28 +38,21 @@ class PopularMovieFragment : BaseLoadMoreRefreshFragment<FragmentLoadmoreRefresh
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        binding.apply {
+        val adapter = PopularMovieAdapter(itemClickListener = { goToMovieDetail(it) })
+        viewBinding.apply {
             root.setBackgroundColor(Color.BLACK)
-            view = this@PopularMovieFragment
-            viewModel = this@PopularMovieFragment.viewModel
-            recyclerView.adapter.value = adapter
-            recyclerView.layoutManager.value = layoutManager
-        }
-
-        if (viewModel.listItem.isEmpty()) {
-            viewModel.apply {
-                isDataLoading.value = true
-                loadData(1)
+            recyclerView.apply {
+                layoutManager = GridLayoutManager(context, 2)
+                this.adapter = adapter
             }
         }
+        viewModel.apply {
+            listItem.observe(this@PopularMovieFragment, Observer {
+                adapter.submitList(it)
+            })
+            firstLoad()
+        }
     }
-
-    override fun initAdapter(): RecyclerView.Adapter<RecyclerView.ViewHolder> {
-        return PopularMovieAdapter(viewModel.listItem,
-                viewModel.itemCLickListener) as RecyclerView.Adapter<RecyclerView.ViewHolder>
-    }
-
-    override fun initLayoutManager() = GridLayoutManager(context, 2)
 
     override fun goToMovieDetail(movie: Movie) {
 

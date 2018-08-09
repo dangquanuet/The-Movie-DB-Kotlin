@@ -22,10 +22,12 @@ class TvListViewModel @Inject constructor(
             try {
                 val response = movieRepository.getTvList(hashMap).await()
                 currentPage = page
-                if (currentPage == 1) listItem.clear()
+                if (currentPage == 1) listItem.value = null
                 if (isRefreshing.value == true) resetLoadMore()
-                listItem.addAll(response.results?.toList() ?: listOf())
-                onLoadSuccess(response)
+                val newList = if (listItem.value != null) response.results else ArrayList()
+                newList?.addAll(response.results?.toList() ?: listOf())
+                listItem.value = newList
+                onLoadSuccess(response.results?.size ?: 0)
             } catch (e: Throwable) {
                 onLoadFail(e)
             }

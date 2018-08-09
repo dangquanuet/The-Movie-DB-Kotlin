@@ -15,14 +15,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.quanda.moviedb.R
+import com.quanda.moviedb.ui.base.navigator.BaseNavigator
 import com.quanda.moviedb.ui.base.viewmodel.BaseViewModel
 import com.quanda.moviedb.utils.DialogUtils
 import dagger.android.support.AndroidSupportInjection
 import javax.inject.Inject
 
-abstract class BaseFragment<ViewBinding : ViewDataBinding, ViewModel : BaseViewModel> : Fragment() {
+abstract class BaseFragment<ViewBinding : ViewDataBinding, ViewModel : BaseViewModel> : Fragment(), BaseNavigator {
 
-    lateinit var binding: ViewBinding
+    abstract val bindingVariable: Int
+
+    lateinit var viewBinding: ViewBinding
 
     abstract val viewModel: ViewModel
 
@@ -34,29 +37,66 @@ abstract class BaseFragment<ViewBinding : ViewDataBinding, ViewModel : BaseViewM
 
     var loadingDialog: AlertDialog? = null
 
+    private var mAlertDialog: AlertDialog? = null
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?): View? {
-        binding = DataBindingUtil.inflate(inflater, layoutId, container, false)
-        binding.apply {
+        viewBinding = DataBindingUtil.inflate(inflater, layoutId, container, false)
+        return viewBinding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        viewBinding.apply {
             root.isClickable = true
             setLifecycleOwner(this@BaseFragment)
             executePendingBindings()
         }
-        return binding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         loadingDialog = DialogUtils.createLoadingDialog(context, false)
-        viewModel.isDataLoading.observe(this, Observer {
+        viewModel.isLoading.observe(this, Observer {
             handleLoadingChanged(it == true)
         })
+
+        viewModel.apply {
+            isLoading.observe(this@BaseFragment, Observer {
+                handleShowLoading(it == true)
+            })
+            errorMessage.observe(this@BaseFragment, Observer {
+                hideLoading()
+                if (it != null && it.isNotBlank()) {
+                    handleShowErrorMessage(it)
+                }
+            })
+        }
+    }
+
+    open fun handleShowLoading(isLoading: Boolean) {
+        if (isLoading) showLoading() else hideLoading()
+    }
+
+    fun handleShowErrorMessage(message: String) {
+        DialogUtils.showMessage(context, message = message, textPositive = getString(R.string.ok))
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        viewModel.isDataLoading.removeObservers(this)
+        viewModel.isLoading.removeObservers(this)
         viewModel.onActivityDestroyed()
+    }
+
+    fun showLoading() {
+        hideLoading()
+        mAlertDialog = DialogUtils.showLoadingDialog(activity)
+    }
+
+    fun hideLoading() {
+        if (mAlertDialog != null && mAlertDialog!!.isShowing) {
+            mAlertDialog?.cancel()
+        }
     }
 
     fun showLoadingDialog() {
@@ -135,5 +175,9 @@ abstract class BaseFragment<ViewBinding : ViewDataBinding, ViewModel : BaseViewM
 
     fun popChildFragment(parentFragment: Fragment = this) {
         parentFragment.childFragmentManager.popBackStack()
+    }
+
+    override fun onBack(): Boolean {
+        return false
     }
 }

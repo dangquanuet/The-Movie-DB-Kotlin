@@ -10,8 +10,7 @@ import java.util.concurrent.Executors
 
 
 abstract class BaseRecyclerAdapter<Item, ViewBinding : ViewDataBinding>(
-        callBack: DiffUtil.ItemCallback<Item>,
-        val itemClickListener: ((Item) -> Unit)? = null
+        callBack: DiffUtil.ItemCallback<Item>
 ) : ListAdapter<Item, BaseViewHolder<ViewBinding>>(
         AsyncDifferConfig.Builder<Item>(callBack)
                 .setBackgroundThreadExecutor(Executors.newSingleThreadExecutor())

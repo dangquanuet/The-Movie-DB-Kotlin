@@ -1,48 +1,48 @@
 package com.quanda.moviedb.ui.screen.movie
 
+import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
+import android.graphics.Color
 import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
-import android.support.v7.widget.RecyclerView
+import com.quanda.moviedb.BR
 import com.quanda.moviedb.data.model.Movie
 import com.quanda.moviedb.databinding.FragmentLoadmoreRefreshBinding
-import com.quanda.moviedb.ui.base.BaseViewHolderBinding
 import com.quanda.moviedb.ui.base.fragment.BaseLoadMoreRefreshFragment
 
 class MovieListFragment : BaseLoadMoreRefreshFragment<FragmentLoadmoreRefreshBinding, MovieListViewModel, Movie>(), MovieListNavigator {
 
     companion object {
+        const val TAG = "MovieListFragment"
+
         fun newInstance() = MovieListFragment()
     }
 
+    override val bindingVariable: Int
+        get() = BR.viewModel
+
     override val viewModel: MovieListViewModel
         get() = ViewModelProviders.of(this, viewModelFactory).get(MovieListViewModel::class.java)
-                .apply {
-                    navigator = this@MovieListFragment
-                }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding.apply {
-            view = this@MovieListFragment
-            viewModel = this@MovieListFragment.viewModel
-            recyclerView.adapter.value = adapter
+        val adapter = MovieListAdapter(itemClickListener = { goToMovieDetail(it) })
+        viewBinding.apply {
+            root.setBackgroundColor(Color.BLACK)
+            recyclerView.apply {
+                layoutManager = GridLayoutManager(context, 2)
+                this.adapter = adapter
+            }
         }
-
         viewModel.apply {
-            isDataLoading.value = true
-            loadData(1)
+            listItem.observe(this@MovieListFragment, Observer {
+                adapter.submitList(it)
+            })
+            firstLoad()
         }
     }
 
-    override fun initAdapter(): RecyclerView.Adapter<RecyclerView.ViewHolder> {
-        return MovieListAdapter(viewModel.listItem,
-                object : BaseViewHolderBinding.OnItemCLickListener<Movie> {
-                    override fun onItemClick(position: Int, data: Movie) {
-                        // TODO
-                    }
-                }) as RecyclerView.Adapter<RecyclerView.ViewHolder>
-    }
+    fun goToMovieDetail(movie: Movie) {
 
-    override fun initLayoutManager(): RecyclerView.LayoutManager = GridLayoutManager(context, 2)
+    }
 }

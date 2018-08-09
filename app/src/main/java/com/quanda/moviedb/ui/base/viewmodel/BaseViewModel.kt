@@ -6,14 +6,16 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import kotlinx.coroutines.experimental.CoroutineExceptionHandler
 import kotlinx.coroutines.experimental.Job
+import javax.inject.Inject
 import kotlin.coroutines.experimental.CoroutineContext
 
-abstract class BaseViewModel : ViewModel() {
+abstract class BaseViewModel @Inject constructor(
 
-//    @Inject
-//    lateinit var mainApplication: MainApplication
+) : ViewModel() {
 
-    val isDataLoading = MutableLiveData<Boolean>().apply { value = false }
+    val isLoading = MutableLiveData<Boolean>().apply { value = false }
+    val errorMessage = MutableLiveData<String>()
+
     // rx
     val compoDisposable = CompositeDisposable()
 
@@ -30,7 +32,7 @@ abstract class BaseViewModel : ViewModel() {
     open fun onLoadFail(e: Throwable) {
         e.printStackTrace()
         showError(e)
-        isDataLoading.value = false
+        isLoading.value = false
     }
 
     open fun showError(e: Throwable) {
