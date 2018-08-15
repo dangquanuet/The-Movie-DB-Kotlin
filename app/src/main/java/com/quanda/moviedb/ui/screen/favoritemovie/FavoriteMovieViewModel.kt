@@ -18,8 +18,8 @@ class FavoriteMovieViewModel @Inject constructor(
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(object : DisposableMaybeObserver<List<Movie>>() {
                     override fun onSuccess(t: List<Movie>) {
-                        currentPage = page
-                        if (currentPage == 1) listItem.value = null
+                        currentPage.value = page
+                        if (currentPage.value == 1) listItem.value = null
                         if (isRefreshing.value == true) resetLoadMore()
                         val newList = if (listItem.value != null) listItem.value else ArrayList()
                         newList?.addAll(t)

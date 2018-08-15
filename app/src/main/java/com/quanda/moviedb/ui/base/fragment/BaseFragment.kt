@@ -48,6 +48,7 @@ abstract class BaseFragment<ViewBinding : ViewDataBinding, ViewModel : BaseViewM
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewBinding.apply {
+            setVariable(bindingVariable, viewModel)
             root.isClickable = true
             setLifecycleOwner(this@BaseFragment)
             executePendingBindings()

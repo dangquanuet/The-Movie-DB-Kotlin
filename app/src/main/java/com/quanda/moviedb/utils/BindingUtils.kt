@@ -19,56 +19,21 @@ import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.signature.ObjectKey
 import com.quanda.moviedb.BuildConfig
 import com.quanda.moviedb.data.constants.Constants
-import com.quanda.moviedb.ui.widgets.PullRefreshRecyclerView
 import java.io.File
 
-@BindingAdapter("recyclerAdapter")
-fun setRecyclerAdapter(view: RecyclerView,
-        adapter: RecyclerView.Adapter<RecyclerView.ViewHolder>?) {
-    view.setHasFixedSize(true)
-    view.adapter = adapter
+@BindingAdapter("onRefreshListener")
+fun SwipeRefreshLayout.customRefreshListener(listener: SwipeRefreshLayout.OnRefreshListener?) {
+    if (listener != null) setOnRefreshListener(listener)
+}
+
+@BindingAdapter("isRefreshing")
+fun SwipeRefreshLayout.customRefreshing(refreshing: Boolean?) {
+    isRefreshing = refreshing == true
 }
 
 @BindingAdapter("onScrollListener")
-fun setScrollListener(view: RecyclerView,
-        listener: RecyclerView.OnScrollListener?) {
-    if (listener != null) view.addOnScrollListener(listener)
-}
-
-@BindingAdapter("layoutManager")
-fun setLayoutManager(view: RecyclerView,
-        layoutManager: RecyclerView.LayoutManager?) {
-    view.layoutManager = layoutManager
-}
-
-@BindingAdapter("recyclerAdapter")
-fun setPTRRecyclerAdapter(view: PullRefreshRecyclerView,
-        adapter: RecyclerView.Adapter<RecyclerView.ViewHolder>?) {
-    view.adapter.value = adapter
-}
-
-@BindingAdapter("layoutManager")
-fun setPTRLayoutManager(view: PullRefreshRecyclerView,
-        layoutManager: RecyclerView.LayoutManager?) {
-    view.layoutManager.value = layoutManager
-}
-
-@BindingAdapter("onScrollListener")
-fun setPTRScrollListener(view: PullRefreshRecyclerView,
-        listener: RecyclerView.OnScrollListener?) {
-    view.onScrollListener.value = listener
-}
-
-@BindingAdapter("refreshListener")
-fun setPTRRefreshListener(view: PullRefreshRecyclerView,
-        listener: SwipeRefreshLayout.OnRefreshListener?) {
-    view.onRefreshListener.value = listener
-}
-
-@BindingAdapter("refreshing")
-fun setPTRRefreshing(view: PullRefreshRecyclerView,
-        isRefreshing: Boolean?) {
-    view.isRefreshing.value = isRefreshing
+fun RecyclerView.customScrollListener(listener: RecyclerView.OnScrollListener?) {
+    if (listener != null) addOnScrollListener(listener)
 }
 
 @BindingAdapter("glideSrc")
@@ -121,22 +86,6 @@ fun setClickSafe(view: View, listener: View.OnClickListener?) {
             mLastClickTime = SystemClock.elapsedRealtime()
         }
     })
-}
-
-@BindingAdapter("onRefreshListener")
-fun SwipeRefreshLayout.customRefreshListener(
-        listener: SwipeRefreshLayout.OnRefreshListener?) {
-    setOnRefreshListener(listener)
-}
-
-@BindingAdapter("isRefreshing")
-fun SwipeRefreshLayout.customRefreshing(refreshing: Boolean?) {
-    isRefreshing = refreshing == true
-}
-
-@BindingAdapter("onScrollListener")
-fun RecyclerView.customScrollListener(listener: RecyclerView.OnScrollListener?) {
-    addOnScrollListener(listener)
 }
 
 @BindingAdapter("loadUrl")

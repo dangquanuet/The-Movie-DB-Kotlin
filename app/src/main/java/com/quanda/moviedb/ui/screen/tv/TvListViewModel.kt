@@ -21,8 +21,8 @@ class TvListViewModel @Inject constructor(
         async(UI) {
             try {
                 val response = movieRepository.getTvList(hashMap).await()
-                currentPage = page
-                if (currentPage == 1) listItem.value = null
+                currentPage.value = page
+                if (currentPage.value == 1) listItem.value = null
                 if (isRefreshing.value == true) resetLoadMore()
                 val newList = if (listItem.value != null) response.results else ArrayList()
                 newList?.addAll(response.results?.toList() ?: listOf())

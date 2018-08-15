@@ -17,8 +17,6 @@ class MovieListViewModel @Inject constructor(
         private val movieRepository: MovieRepositoryImpl
 ) : BaseLoadMoreRefreshViewModel<Movie>() {
 
-    var navigator: MovieListNavigator? = null
-
     override fun loadData(page: Int) {
         val hashMap = HashMap<String, String>()
         hashMap.put(ApiParams.PAGE, page.toString())
@@ -26,8 +24,8 @@ class MovieListViewModel @Inject constructor(
         movieRepository.getMovieList(
                 hashMap).subscribe(object : DisposableSingleObserver<GetMovieListResponse>() {
             override fun onSuccess(response: GetMovieListResponse) {
-                currentPage = page
-                if (currentPage == 1) listItem.value = arrayListOf()
+                currentPage.value = page
+                if (currentPage.value == 1) listItem.value = arrayListOf()
                 if (isRefreshing.value == true) resetLoadMore()
                 val newList = listItem.value ?: arrayListOf()
                 newList.addAll(response.results?.toList() ?: arrayListOf())

@@ -8,7 +8,7 @@ import com.quanda.moviedb.R
 import com.quanda.moviedb.databinding.FragmentLoginBinding
 import com.quanda.moviedb.ui.base.fragment.BaseFragment
 
-class LoginFragment : BaseFragment<FragmentLoginBinding, LoginViewModel>(), LoginNavigator {
+class LoginFragment : BaseFragment<FragmentLoginBinding, LoginViewModel>() {
 
     companion object {
         const val TAG = "LoginFragment"
@@ -27,9 +27,6 @@ class LoginFragment : BaseFragment<FragmentLoginBinding, LoginViewModel>(), Logi
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel.apply {
-            navigator = this@LoginFragment
-        }
     }
 
     fun clickLogin() {

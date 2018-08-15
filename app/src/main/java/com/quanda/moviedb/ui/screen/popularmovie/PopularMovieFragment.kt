@@ -5,7 +5,6 @@ import android.arch.lifecycle.ViewModelProviders
 import android.graphics.Color
 import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
-import android.support.v7.widget.RecyclerView
 import com.quanda.moviedb.BR
 import com.quanda.moviedb.data.model.Movie
 import com.quanda.moviedb.databinding.FragmentLoadmoreRefreshBinding
@@ -14,9 +13,8 @@ import com.quanda.moviedb.ui.base.fragment.BaseLoadMoreRefreshFragment
 class PopularMovieFragment : BaseLoadMoreRefreshFragment<FragmentLoadmoreRefreshBinding, PopularMovieViewModel, Movie>(), PopularMovieNavigator {
 
     companion object {
-        const val TYPE = "TYPE"
-
         const val TAG = "PopularMovieFragment"
+        const val TYPE = "TYPE"
 
         fun newInstance(type: Int) = PopularMovieFragment().apply {
             arguments = Bundle().apply {

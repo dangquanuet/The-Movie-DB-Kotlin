@@ -19,8 +19,8 @@ class FavoriteMovieFragment : BaseLoadMoreRefreshFragment<FragmentLoadmoreRefres
     }
 
     override val viewModel: FavoriteMovieViewModel
-        get() = ViewModelProviders.of(this, viewModelFactory)
-                .get(FavoriteMovieViewModel::class.java)
+        get() = ViewModelProviders.of(this, viewModelFactory).get(
+                FavoriteMovieViewModel::class.java)
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)

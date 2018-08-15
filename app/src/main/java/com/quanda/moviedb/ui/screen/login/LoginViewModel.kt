@@ -13,8 +13,6 @@ class LoginViewModel @Inject constructor(
         private val userRepository: UserRepository
 ) : BaseViewModel() {
 
-    var navigator: LoginNavigator? = null
-
     val email = MutableLiveData<String>()
     val password = MutableLiveData<String>()
     val formValid = MediatorLiveData<Boolean>().apply {

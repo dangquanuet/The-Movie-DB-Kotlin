@@ -15,11 +15,15 @@ abstract class BaseLoadMoreRefreshViewModel<Item>() : BaseViewModel() {
     }
 
     val isLoadMore = MutableLiveData<Boolean>().apply { value = false }
-    var currentPage: Int = 0
-    var isLastPage: Boolean = false
+    var currentPage = MutableLiveData<Int>().apply { value = 0 }
+    var isLastPage = MutableLiveData<Boolean>().apply { value = false }
+
     val onScrollListener = object : EndlessRecyclerOnScrollListener(getLoadMoreThreshold()) {
         override fun onLoadMore() {
-            if (isLoading.value == true || isRefreshing.value == true || isLoadMore.value == true || isLastPage) return
+            if (isLoading.value == true
+                    || isRefreshing.value == true
+                    || isLoadMore.value == true
+                    || isLastPage.value == true) return
             isLoadMore.value = true
             loadMore()
         }
@@ -27,6 +31,9 @@ abstract class BaseLoadMoreRefreshViewModel<Item>() : BaseViewModel() {
     val listItem = MutableLiveData<ArrayList<Item>>()
 
     abstract fun loadData(page: Int)
+
+    fun isFirst() = currentPage.value == 0
+            && (listItem.value == null || listItem.value?.size == 0)
 
     fun firstLoad() {
         isLoading.value = true
@@ -38,7 +45,7 @@ abstract class BaseLoadMoreRefreshViewModel<Item>() : BaseViewModel() {
     }
 
     fun loadMore() {
-        loadData(currentPage + 1)
+        loadData(currentPage.value?.plus(1) ?: 1)
     }
 
     fun getLoadMoreThreshold() = Constants.DEFAULT_NUM_VISIBLE_THRESHOLD
@@ -47,11 +54,11 @@ abstract class BaseLoadMoreRefreshViewModel<Item>() : BaseViewModel() {
 
     fun resetLoadMore() {
         onScrollListener.resetOnLoadMore()
-        isLastPage = false
+        isLastPage.value = false
     }
 
     fun onLoadSuccess(listSize: Int) {
-        isLastPage = listSize < getNumberItemPerPage()
+        isLastPage.value = listSize < getNumberItemPerPage()
         isLoading.value = false
         isRefreshing.value = false
         isLoadMore.value = false

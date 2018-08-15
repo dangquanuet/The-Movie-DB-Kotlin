@@ -6,10 +6,9 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import kotlinx.coroutines.experimental.CoroutineExceptionHandler
 import kotlinx.coroutines.experimental.Job
-import javax.inject.Inject
 import kotlin.coroutines.experimental.CoroutineContext
 
-abstract class BaseViewModel @Inject constructor(
+abstract class BaseViewModel(
 
 ) : ViewModel() {
 

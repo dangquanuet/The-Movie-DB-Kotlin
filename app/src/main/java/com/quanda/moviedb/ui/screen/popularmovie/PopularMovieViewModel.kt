@@ -1,17 +1,12 @@
 package com.quanda.moviedb.ui.screen.popularmovie
 
-import android.databinding.ObservableArrayList
 import com.quanda.moviedb.data.local.dao.MovieDao
 import com.quanda.moviedb.data.model.Movie
 import com.quanda.moviedb.data.remote.ApiParams
 import com.quanda.moviedb.data.remote.response.GetMovieListResponse
 import com.quanda.moviedb.data.repository.MovieRepository
-import com.quanda.moviedb.ui.base.BaseViewHolderBinding
 import com.quanda.moviedb.ui.base.viewmodel.BaseLoadMoreRefreshViewModel
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.observers.DisposableMaybeObserver
 import io.reactivex.observers.DisposableSingleObserver
-import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 class PopularMovieViewModel @Inject constructor(
@@ -23,7 +18,7 @@ class PopularMovieViewModel @Inject constructor(
 
     var mode: Int = 0
 
-    val tempMovieList = ObservableArrayList<Movie>()
+//    val tempMovieList = ObservableArrayList<Movie>()
 
     override fun loadData(page: Int) {
         val hashMap = HashMap<String, String>()
@@ -39,42 +34,47 @@ class PopularMovieViewModel @Inject constructor(
                     ApiParams.SORT_BY, ApiParams.POPULARITY_DESC)
         }
 
-        if (page == 1 && tempMovieList.isEmpty()) {
-            movieDao.getMoviePage(getNumberItemPerPage(), page)
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(object : DisposableMaybeObserver<List<Movie>>() {
-                        override fun onComplete() {
-
-                        }
-
-                        override fun onSuccess(t: List<Movie>) {
-                            tempMovieList.addAll(t)
-                            listItem.addAll(t)
-                        }
-
-                        override fun onError(e: Throwable) {
-
-                        }
-                    })
-        }
+//        if (page == 1 && tempMovieList.isEmpty()) {
+//            movieDao.getMoviePage(getNumberItemPerPage(), page)
+//                    .subscribeOn(Schedulers.io())
+//                    .observeOn(AndroidSchedulers.mainThread())
+//                    .subscribe(object : DisposableMaybeObserver<List<Movie>>() {
+//                        override fun onComplete() {
+//
+//                        }
+//
+//                        override fun onSuccess(t: List<Movie>) {
+//                            tempMovieList.addAll(t)
+//
+//                            val newList = listItem.value ?: ArrayList()
+//                            newList.addAll(t)
+//                            listItem.value = newList
+//                        }
+//
+//                        override fun onError(e: Throwable) {
+//
+//                        }
+//                    })
+//        }
 
         movieRepository.getMovieList(
                 hashMap).subscribe(object : DisposableSingleObserver<GetMovieListResponse>() {
             override fun onSuccess(response: GetMovieListResponse) {
-                currentPage = page
-                if (currentPage == 1) listItem.clear()
-                if (isRefreshing.value == true) {
-                    resetLoadMore()
-                }
+                currentPage.value = page
+                if (currentPage.value == 1) listItem.value?.clear()
+                if (isRefreshing.value == true) resetLoadMore()
 
-                listItem.removeAll(tempMovieList)
-                tempMovieList.clear()
+//                val newList = listItem.value ?: ArrayList()
+//                newList.removeAll(tempMovieList)
+//                listItem.value = newList
+//                tempMovieList.clear()
 
-                listItem.addAll(response.results?.toList() ?: listOf())
+                val newList2 = listItem.value ?: ArrayList()
+                newList2.addAll(response.results?.toList() ?: listOf())
+                listItem.value = newList2
                 movieRepository.insertDB(response.results?.toList() ?: listOf())
 
-                onLoadSuccess(response)
+                onLoadSuccess(response.results?.size ?: 0)
             }
 
             override fun onError(e: Throwable) {

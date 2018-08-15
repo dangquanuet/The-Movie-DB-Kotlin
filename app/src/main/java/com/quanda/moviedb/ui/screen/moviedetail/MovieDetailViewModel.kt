@@ -15,8 +15,6 @@ class MovieDetailViewModel @Inject constructor(
         private val movieDao: MovieDao
 ) : BaseViewModel() {
 
-    var navigator: MovieDetailNavigator? = null
-
     val movie = MutableLiveData<Movie>()
     val favoriteChanged = MutableLiveData<Boolean>().apply { value = false }
 

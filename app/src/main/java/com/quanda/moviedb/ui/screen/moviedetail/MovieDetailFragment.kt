@@ -23,7 +23,7 @@ import kotlinx.coroutines.experimental.withContext
 import kotlin.coroutines.experimental.CoroutineContext
 import kotlin.system.measureTimeMillis
 
-class MovieDetailFragment : BaseFragment<FragmentMovieDetailBinding, MovieDetailViewModel>(), MovieDetailNavigator {
+class MovieDetailFragment : BaseFragment<FragmentMovieDetailBinding, MovieDetailViewModel>() {
 
     companion object {
         const val MOVIE = "MOVIE"
@@ -42,11 +42,7 @@ class MovieDetailFragment : BaseFragment<FragmentMovieDetailBinding, MovieDetail
         get() = R.layout.fragment_movie_detail
 
     override val viewModel: MovieDetailViewModel
-        get() = ViewModelProviders.of(this, viewModelFactory)
-                .get(MovieDetailViewModel::class.java)
-                .apply {
-                    navigator = this@MovieDetailFragment
-                }
+        get() = ViewModelProviders.of(this, viewModelFactory).get(MovieDetailViewModel::class.java)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
