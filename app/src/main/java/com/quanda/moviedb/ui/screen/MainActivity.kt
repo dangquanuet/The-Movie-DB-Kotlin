@@ -24,4 +24,11 @@ class MainActivity : BaseActivity() {
                 .commit()
     }
 
+    override fun onBackPressed() {
+        val currentFragment = supportFragmentManager.findFragmentById(R.id.parent)
+        when (currentFragment) {
+            is MainFragment -> if (!currentFragment.onBack()) super.onBackPressed()
+            else -> super.onBackPressed()
+        }
+    }
 }

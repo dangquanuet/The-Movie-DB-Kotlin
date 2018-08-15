@@ -23,8 +23,7 @@ class PopularMovieAdapter(
 
     override fun createBinding(parent: ViewGroup, viewType: Int): ItemMovieBinding {
         return DataBindingUtil.inflate<ItemMovieBinding>(LayoutInflater.from(parent.context),
-                R.layout.item_movie,
-                parent, false).apply {
+                R.layout.item_movie, parent, false).apply {
             root.setOnClickListener {
                 item?.apply {
                     itemClickListener?.invoke(this)

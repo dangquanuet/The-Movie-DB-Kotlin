@@ -29,13 +29,12 @@ abstract class BaseViewModel(
     }
 
     open fun onLoadFail(e: Throwable) {
-        e.printStackTrace()
         showError(e)
         isLoading.value = false
     }
 
     open fun showError(e: Throwable) {
-//        Toast.makeText(mainApplication, e.message, Toast.LENGTH_SHORT).show()
+        errorMessage.value = e.message
     }
 
     fun onActivityDestroyed() {

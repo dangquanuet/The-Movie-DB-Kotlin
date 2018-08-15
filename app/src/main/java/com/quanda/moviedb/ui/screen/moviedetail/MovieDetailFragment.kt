@@ -27,6 +27,7 @@ class MovieDetailFragment : BaseFragment<FragmentMovieDetailBinding, MovieDetail
 
     companion object {
         const val MOVIE = "MOVIE"
+        const val TAG = "MovieDetailFragment"
 
         fun newInstance(movie: Movie) = MovieDetailFragment().apply {
             arguments = Bundle().apply {
@@ -44,26 +45,17 @@ class MovieDetailFragment : BaseFragment<FragmentMovieDetailBinding, MovieDetail
     override val viewModel: MovieDetailViewModel
         get() = ViewModelProviders.of(this, viewModelFactory).get(MovieDetailViewModel::class.java)
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
         viewBinding.apply {
-            viewModel = this@MovieDetailFragment.viewModel
             favoriteListener = View.OnClickListener { this@MovieDetailFragment.viewModel.favoriteMovie() }
         }
-
         arguments?.apply {
             getParcelable<Movie>(MOVIE)?.apply {
                 viewModel.updateNewMovie(this)
             }
         }
     }
-
-//    override fun onBackPressed() {
-//        if (viewModel.favoriteChanged.value == true) {
-//            setResult(Activity.RESULT_OK)
-//        }
-//        super.onBackPressed()
-//    }
 
     /*
     demo kotlin coroutine

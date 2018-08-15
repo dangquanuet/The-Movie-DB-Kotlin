@@ -6,9 +6,11 @@ import android.graphics.Color
 import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
 import com.quanda.moviedb.BR
+import com.quanda.moviedb.data.constants.MovieListType
 import com.quanda.moviedb.data.model.Movie
 import com.quanda.moviedb.databinding.FragmentLoadmoreRefreshBinding
 import com.quanda.moviedb.ui.base.fragment.BaseLoadMoreRefreshFragment
+import com.quanda.moviedb.ui.screen.moviedetail.MovieDetailFragment
 
 class PopularMovieFragment : BaseLoadMoreRefreshFragment<FragmentLoadmoreRefreshBinding, PopularMovieViewModel, Movie>(), PopularMovieNavigator {
 
@@ -31,7 +33,7 @@ class PopularMovieFragment : BaseLoadMoreRefreshFragment<FragmentLoadmoreRefresh
                 PopularMovieViewModel::class.java)
                 .apply {
                     navigator = this@PopularMovieFragment
-                    mode = arguments?.getInt(TYPE) ?: Type.POPULAR.type
+                    mode = arguments?.getInt(TYPE) ?: MovieListType.POPULAR.type
                 }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -52,11 +54,10 @@ class PopularMovieFragment : BaseLoadMoreRefreshFragment<FragmentLoadmoreRefresh
         }
     }
 
-    override fun goToMovieDetail(movie: Movie) {
-
-    }
-
-    enum class Type(val type: Int) {
-        POPULAR(0), TOP_RATED(1)
+    fun goToMovieDetail(movie: Movie) {
+        replaceChildFragment(containerViewId = viewBinding.parent.id,
+                fragment = MovieDetailFragment.newInstance(movie),
+                TAG = MovieDetailFragment.TAG,
+                addToBackStack = true)
     }
 }

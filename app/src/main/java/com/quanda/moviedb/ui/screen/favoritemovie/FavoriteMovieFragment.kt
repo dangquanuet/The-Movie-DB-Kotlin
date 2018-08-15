@@ -8,6 +8,7 @@ import android.support.v7.widget.GridLayoutManager
 import com.quanda.moviedb.data.model.Movie
 import com.quanda.moviedb.databinding.FragmentLoadmoreRefreshBinding
 import com.quanda.moviedb.ui.base.fragment.BaseLoadMoreRefreshFragment
+import com.quanda.moviedb.ui.screen.moviedetail.MovieDetailFragment
 import com.quanda.moviedb.ui.screen.popularmovie.PopularMovieAdapter
 
 class FavoriteMovieFragment : BaseLoadMoreRefreshFragment<FragmentLoadmoreRefreshBinding, FavoriteMovieViewModel, Movie>() {
@@ -40,7 +41,14 @@ class FavoriteMovieFragment : BaseLoadMoreRefreshFragment<FragmentLoadmoreRefres
         }
     }
 
-    fun goToMovieDetail(movie: Movie) {
+    fun loadData() {
+        viewModel.firstLoad()
+    }
 
+    fun goToMovieDetail(movie: Movie) {
+        replaceChildFragment(containerViewId = viewBinding.parent.id,
+                fragment = MovieDetailFragment.newInstance(movie),
+                TAG = MovieDetailFragment.TAG,
+                addToBackStack = true)
     }
 }

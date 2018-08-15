@@ -1,5 +1,6 @@
 package com.quanda.moviedb.ui.screen.popularmovie
 
+import com.quanda.moviedb.data.constants.MovieListType
 import com.quanda.moviedb.data.local.dao.MovieDao
 import com.quanda.moviedb.data.model.Movie
 import com.quanda.moviedb.data.remote.ApiParams
@@ -24,10 +25,10 @@ class PopularMovieViewModel @Inject constructor(
         val hashMap = HashMap<String, String>()
         hashMap.put(ApiParams.PAGE, page.toString())
         when (mode) {
-            PopularMovieFragment.Type.POPULAR.type -> hashMap.put(
+            MovieListType.POPULAR.type -> hashMap.put(
                     ApiParams.SORT_BY,
                     ApiParams.POPULARITY_DESC)
-            PopularMovieFragment.Type.TOP_RATED.type -> hashMap.put(
+            MovieListType.TOP_RATED.type -> hashMap.put(
                     ApiParams.SORT_BY,
                     ApiParams.VOTE_AVERAGE_DESC)
             else -> hashMap.put(

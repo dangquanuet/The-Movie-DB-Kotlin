@@ -1,8 +1,6 @@
 package com.quanda.moviedb.ui.screen.main
 
-import android.app.Activity
 import android.arch.lifecycle.ViewModelProviders
-import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
@@ -10,6 +8,7 @@ import com.aurelhubert.ahbottomnavigation.AHBottomNavigation
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationAdapter
 import com.quanda.moviedb.BR
 import com.quanda.moviedb.R
+import com.quanda.moviedb.data.constants.MovieListType
 import com.quanda.moviedb.databinding.FragmentMainBinding
 import com.quanda.moviedb.ui.base.fragment.BaseFragment
 import com.quanda.moviedb.ui.screen.favoritemovie.FavoriteMovieFragment
@@ -90,6 +89,11 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>(), MainNav
             }
         } else {
             fragmentTransaction.show(newFragment)
+
+            // refresh favorite movies
+            if (newFragment is FavoriteMovieFragment) {
+                newFragment.loadData()
+            }
         }
         currentPositionFragment = position
         fragmentTransaction.commit()
@@ -102,59 +106,32 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>(), MainNav
     fun newFragmentInstance(position: Int): Fragment {
         return when (position) {
             Tab.POPULAR.position -> PopularMovieFragment.newInstance(
-                    PopularMovieFragment.Type.POPULAR.type)
+                    MovieListType.POPULAR.type)
             Tab.TOP_RATED.position -> PopularMovieFragment.newInstance(
-                    PopularMovieFragment.Type.TOP_RATED.type)
+                    MovieListType.TOP_RATED.type)
             Tab.FAVORITE.position -> FavoriteMovieFragment.newInstance()
             Tab.PROFILE.position -> Fragment() // TODO
             else -> Fragment()
         }
     }
 
-//    override fun onBackPressed() {
-//        val fragment = supportFragmentManager.findFragmentById(R.id.frame_layout)
-//        if (fragment != null) {
-//            if (fragment.activity == null || fragment.activity!!.isFinishing) return
-//            val stackCount = fragment.childFragmentManager.backStackEntryCount
-//            if (stackCount <= 1) {
-//                fragment.activity?.finish()
-//            } else {
-//                fragment.childFragmentManager.popBackStackImmediate()
-//            }
-//        } else {
-//            super.onBackPressed()
-//        }
-//    }
+    override fun onBack(): Boolean {
+        val currentFragment = childFragmentManager.findFragmentByTag(
+                getTabFragmentTag(currentPositionFragment))
+        val stackCount = currentFragment.childFragmentManager.backStackEntryCount
+        if (stackCount > 0) {
+            currentFragment.childFragmentManager.popBackStack()
 
-    /*
-    override fun goToMovieDetail(movie: Movie) {
-        val bundle = Bundle()
-        bundle.putParcelable(BundleConstants.MOVIE, movie)
-        goToActivity(MovieDetailActivity::class.java, bundle)
-    }
-
-    override fun goToMovieDetailWithResult(movie: Movie) {
-        val bundle = Bundle()
-        bundle.putParcelable(BundleConstants.MOVIE, movie)
-        goToActivityForResult(MovieDetailActivity::class.java, bundle,
-                requestCode = CODE_MOVIE_DETAIL)
-    }
-    */
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        when (requestCode) {
-            CODE_MOVIE_DETAIL -> {
-                if (currentPositionFragment == Tab.FAVORITE.position && resultCode == Activity.RESULT_OK) {
-                    val fragment = childFragmentManager.findFragmentByTag(
-                            getTabFragmentTag(currentPositionFragment))
-                    if (fragment is FavoriteMovieFragment) {
-//                        fragment.loadData()
-                    }
-                }
+            // refresh favorite movies
+            if (currentFragment is FavoriteMovieFragment) {
+                currentFragment.loadData()
             }
-            else -> return
+
+            // handled in child
+            return true
         }
+        // not handle in child, parent will handle
+        return false
     }
 
     enum class Tab(val position: Int) {

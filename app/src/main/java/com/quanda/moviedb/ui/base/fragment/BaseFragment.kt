@@ -35,7 +35,7 @@ abstract class BaseFragment<ViewBinding : ViewDataBinding, ViewModel : BaseViewM
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
-    var loadingDialog: AlertDialog? = null
+//    var loadingDialog: AlertDialog? = null
 
     private var mAlertDialog: AlertDialog? = null
 
@@ -57,10 +57,10 @@ abstract class BaseFragment<ViewBinding : ViewDataBinding, ViewModel : BaseViewM
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        loadingDialog = DialogUtils.createLoadingDialog(context, false)
-        viewModel.isLoading.observe(this, Observer {
-            handleLoadingChanged(it == true)
-        })
+        mAlertDialog = DialogUtils.createLoadingDialog(context, false)
+//        viewModel.isLoading.observe(this, Observer {
+//            handleLoadingChanged(it == true)
+//        })
 
         viewModel.apply {
             isLoading.observe(this@BaseFragment, Observer {
@@ -86,12 +86,13 @@ abstract class BaseFragment<ViewBinding : ViewDataBinding, ViewModel : BaseViewM
     override fun onDestroy() {
         super.onDestroy()
         viewModel.isLoading.removeObservers(this)
+        viewModel.errorMessage.removeObservers(this)
         viewModel.onActivityDestroyed()
     }
 
     fun showLoading() {
         hideLoading()
-        mAlertDialog = DialogUtils.showLoadingDialog(activity)
+        mAlertDialog?.show()
     }
 
     fun hideLoading() {
@@ -100,19 +101,19 @@ abstract class BaseFragment<ViewBinding : ViewDataBinding, ViewModel : BaseViewM
         }
     }
 
-    fun showLoadingDialog() {
-        if (activity == null || activity!!.isFinishing || !isAdded) return
-        loadingDialog?.show()
-    }
+//    fun showLoadingDialog() {
+//        if (activity == null || activity!!.isFinishing || !isAdded) return
+//        loadingDialog?.show()
+//    }
+//
+//    fun hideLoadingDialog() {
+//        if (activity == null || activity!!.isFinishing || !isAdded) return
+//        loadingDialog?.dismiss()
+//    }
 
-    fun hideLoadingDialog() {
-        if (activity == null || activity!!.isFinishing || !isAdded) return
-        loadingDialog?.dismiss()
-    }
-
-    open fun handleLoadingChanged(isLoading: Boolean) {
-        if (isLoading) showLoadingDialog() else hideLoadingDialog()
-    }
+//    open fun handleLoadingChanged(isLoading: Boolean) {
+//        if (isLoading) showLoadingDialog() else hideLoadingDialog()
+//    }
 
     override fun onAttach(context: Context?) {
         performDependencyInjection()

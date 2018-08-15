@@ -1,16 +1,11 @@
 package com.quanda.moviedb.ui.base.fragment
 
 import android.databinding.ViewDataBinding
-import android.os.Bundle
 import com.quanda.moviedb.BR
 import com.quanda.moviedb.R
 import com.quanda.moviedb.ui.base.viewmodel.BaseLoadMoreRefreshViewModel
 
 abstract class BaseLoadMoreRefreshFragment<View : ViewDataBinding, ViewModel : BaseLoadMoreRefreshViewModel<Item>, Item> : BaseFragment<View, ViewModel>() {
-
-//    lateinit var adapter: RecyclerView.Adapter<RecyclerView.ViewHolder>
-//
-//    lateinit var layoutManager: RecyclerView.LayoutManager
 
     override val bindingVariable: Int
         get() = BR.viewModel
@@ -18,19 +13,7 @@ abstract class BaseLoadMoreRefreshFragment<View : ViewDataBinding, ViewModel : B
     override val layoutId: Int
         get() = R.layout.fragment_loadmore_refresh
 
-    override fun onViewCreated(view: android.view.View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-//        adapter = initAdapter()
-//        layoutManager = initLayoutManager()
-//        viewModel.listItem.addOnListChangedCallback(
-//                OnListChangedListener<Item>(adapter))
-    }
-
-//    abstract fun initAdapter(): RecyclerView.Adapter<RecyclerView.ViewHolder>
-//
-//    open fun initLayoutManager(): RecyclerView.LayoutManager = LinearLayoutManager(context)
-
-    override fun handleLoadingChanged(isLoading: Boolean) {
-        // implement if need
+    override fun handleShowLoading(isLoading: Boolean) {
+        // use progress bar
     }
 }
