@@ -6,7 +6,7 @@ import com.quanda.moviedb.data.model.Movie
 import com.quanda.moviedb.data.remote.ApiParams
 import com.quanda.moviedb.data.remote.response.GetMovieListResponse
 import com.quanda.moviedb.data.repository.MovieRepository
-import com.quanda.moviedb.ui.base.viewmodel.BaseLoadMoreRefreshViewModel
+import com.quanda.moviedb.ui.base.BaseLoadMoreRefreshViewModel
 import io.reactivex.observers.DisposableSingleObserver
 import javax.inject.Inject
 

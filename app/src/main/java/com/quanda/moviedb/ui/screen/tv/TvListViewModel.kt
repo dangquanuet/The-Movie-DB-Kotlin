@@ -3,7 +3,7 @@ package com.quanda.moviedb.ui.screen.tv
 import com.quanda.moviedb.data.model.Tv
 import com.quanda.moviedb.data.remote.ApiParams
 import com.quanda.moviedb.data.repository.impl.MovieRepositoryImpl
-import com.quanda.moviedb.ui.base.viewmodel.BaseLoadMoreRefreshViewModel
+import com.quanda.moviedb.ui.base.BaseLoadMoreRefreshViewModel
 import kotlinx.coroutines.experimental.android.UI
 import kotlinx.coroutines.experimental.async
 import javax.inject.Inject

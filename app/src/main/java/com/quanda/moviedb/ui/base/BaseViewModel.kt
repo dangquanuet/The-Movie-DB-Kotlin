@@ -1,4 +1,4 @@
-package com.quanda.moviedb.ui.base.viewmodel
+package com.quanda.moviedb.ui.base
 
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel

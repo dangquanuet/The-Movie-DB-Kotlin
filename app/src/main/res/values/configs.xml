@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--date time format-->
+    <!--yyyy-MM-dd default separator is "-", without suffix  -->
+    <!--HH:mm:ss default separator is ":", without suffix  -->
+    <string name="format_yyyy_MM_dd_T_HH_mm_ss_Z">yyyy-MM-dd\'T\'HH:mm:ss.SSSS</string>
+    <string name="format_yyyy_MM_dd_HH_mm_ss_Z">yyyy-MM-dd HH:mm:ss Z</string>
+    <string name="format_yyyy_MM_dd_HH_mm_ss">yyyy-MM-dd HH:mm:ss</string>
+
+    <string name="format_yyyy_MM_dd">yyyy-MM-dd</string>
+    <string name="format_yyyy_MM_dd_dot">yyyy.MM.dd</string>
+    <string name="format_yyyy_M_dot">yyyy.M</string>
+    <string name="format_yyyy_M_d_dot">yyyy.M.d</string>
+    <string name="format_yyyy_M_dd_dot">yyyy.M.dd</string>
+    <string name="format_yyyy_M_d">yyyy-M-d</string>
+    <string name="format_yyyyMMdd">yyyyMMdd</string>
+    <string name="format_yyyyMM">yyyyMM</string>
+    <string name="format_yyyy">yyyy</string>
+    <string name="format_MM">MM</string>
+    <string name="format_MMMM">MMMM</string>
+    <string name="format_dd_MM_yyyy">dd-MM-yyyy</string>
+    <string name="format_dd_MM_yyyy_slash">dd/MM/yyyy</string>
+
+    <string name="format_HH_mm_ss">HH:mm:ss</string>
+    <string name="format_HH_mm">HH:mm</string>
+    <string name="format_M_dd_EEE_dot">M.dd.EEE</string>
+    <string name="format_dd">dd</string>
+    <string name="format_HHmm">HHmm</string>
+
+</resources>

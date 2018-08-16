@@ -6,7 +6,7 @@ import android.util.Log
 import com.quanda.moviedb.BR
 import com.quanda.moviedb.R
 import com.quanda.moviedb.databinding.FragmentLoginBinding
-import com.quanda.moviedb.ui.base.fragment.BaseFragment
+import com.quanda.moviedb.ui.base.BaseFragment
 
 class LoginFragment : BaseFragment<FragmentLoginBinding, LoginViewModel>() {
 

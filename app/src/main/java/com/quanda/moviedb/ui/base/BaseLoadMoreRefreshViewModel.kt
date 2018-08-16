@@ -1,4 +1,4 @@
-package com.quanda.moviedb.ui.base.viewmodel
+package com.quanda.moviedb.ui.base
 
 import android.arch.lifecycle.MutableLiveData
 import android.support.v4.widget.SwipeRefreshLayout
@@ -36,8 +36,10 @@ abstract class BaseLoadMoreRefreshViewModel<Item>() : BaseViewModel() {
             && (listItem.value == null || listItem.value?.size == 0)
 
     fun firstLoad() {
-        isLoading.value = true
-        loadData(1)
+        if (isFirst()) {
+            isLoading.value = true
+            loadData(1)
+        }
     }
 
     fun refreshData() {

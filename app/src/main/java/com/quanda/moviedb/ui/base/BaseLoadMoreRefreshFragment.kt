@@ -1,9 +1,8 @@
-package com.quanda.moviedb.ui.base.fragment
+package com.quanda.moviedb.ui.base
 
 import android.databinding.ViewDataBinding
 import com.quanda.moviedb.BR
 import com.quanda.moviedb.R
-import com.quanda.moviedb.ui.base.viewmodel.BaseLoadMoreRefreshViewModel
 
 abstract class BaseLoadMoreRefreshFragment<View : ViewDataBinding, ViewModel : BaseLoadMoreRefreshViewModel<Item>, Item> : BaseFragment<View, ViewModel>() {
 

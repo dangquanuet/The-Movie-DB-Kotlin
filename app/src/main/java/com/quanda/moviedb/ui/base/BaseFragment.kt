@@ -1,4 +1,4 @@
-package com.quanda.moviedb.ui.base.fragment
+package com.quanda.moviedb.ui.base
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProvider
@@ -15,8 +15,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.quanda.moviedb.R
-import com.quanda.moviedb.ui.base.navigator.BaseNavigator
-import com.quanda.moviedb.ui.base.viewmodel.BaseViewModel
 import com.quanda.moviedb.utils.DialogUtils
 import dagger.android.support.AndroidSupportInjection
 import javax.inject.Inject
@@ -35,9 +33,7 @@ abstract class BaseFragment<ViewBinding : ViewDataBinding, ViewModel : BaseViewM
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
-//    var loadingDialog: AlertDialog? = null
-
-    private var mAlertDialog: AlertDialog? = null
+    var mAlertDialog: AlertDialog? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?): View? {
@@ -58,10 +54,6 @@ abstract class BaseFragment<ViewBinding : ViewDataBinding, ViewModel : BaseViewM
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         mAlertDialog = DialogUtils.createLoadingDialog(context, false)
-//        viewModel.isLoading.observe(this, Observer {
-//            handleLoadingChanged(it == true)
-//        })
-
         viewModel.apply {
             isLoading.observe(this@BaseFragment, Observer {
                 handleShowLoading(it == true)
@@ -100,20 +92,6 @@ abstract class BaseFragment<ViewBinding : ViewDataBinding, ViewModel : BaseViewM
             mAlertDialog?.cancel()
         }
     }
-
-//    fun showLoadingDialog() {
-//        if (activity == null || activity!!.isFinishing || !isAdded) return
-//        loadingDialog?.show()
-//    }
-//
-//    fun hideLoadingDialog() {
-//        if (activity == null || activity!!.isFinishing || !isAdded) return
-//        loadingDialog?.dismiss()
-//    }
-
-//    open fun handleLoadingChanged(isLoading: Boolean) {
-//        if (isLoading) showLoadingDialog() else hideLoadingDialog()
-//    }
 
     override fun onAttach(context: Context?) {
         performDependencyInjection()

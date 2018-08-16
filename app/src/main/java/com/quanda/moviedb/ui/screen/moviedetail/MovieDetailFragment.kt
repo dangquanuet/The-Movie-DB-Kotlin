@@ -10,7 +10,7 @@ import com.quanda.moviedb.BR
 import com.quanda.moviedb.R
 import com.quanda.moviedb.data.model.Movie
 import com.quanda.moviedb.databinding.FragmentMovieDetailBinding
-import com.quanda.moviedb.ui.base.fragment.BaseFragment
+import com.quanda.moviedb.ui.base.BaseFragment
 import com.quanda.moviedb.utils.logError
 import kotlinx.coroutines.experimental.CommonPool
 import kotlinx.coroutines.experimental.CoroutineExceptionHandler
