@@ -4,7 +4,7 @@ import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import com.quanda.moviedb.R
-import com.quanda.moviedb.ui.base.activity.BaseActivity
+import com.quanda.moviedb.ui.base.BaseActivity
 import com.quanda.moviedb.ui.screen.main.MainFragment
 import javax.inject.Inject
 

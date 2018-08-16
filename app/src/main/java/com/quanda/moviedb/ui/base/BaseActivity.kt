@@ -1,4 +1,4 @@
-package com.quanda.moviedb.ui.base.activity
+package com.quanda.moviedb.ui.base
 
 import dagger.android.support.DaggerAppCompatActivity
 

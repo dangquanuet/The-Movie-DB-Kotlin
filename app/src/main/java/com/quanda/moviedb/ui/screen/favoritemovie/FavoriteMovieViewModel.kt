@@ -2,7 +2,7 @@ package com.quanda.moviedb.ui.screen.favoritemovie
 
 import com.quanda.moviedb.data.local.dao.MovieDao
 import com.quanda.moviedb.data.model.Movie
-import com.quanda.moviedb.ui.base.viewmodel.BaseLoadMoreRefreshViewModel
+import com.quanda.moviedb.ui.base.BaseLoadMoreRefreshViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.observers.DisposableMaybeObserver
 import io.reactivex.schedulers.Schedulers

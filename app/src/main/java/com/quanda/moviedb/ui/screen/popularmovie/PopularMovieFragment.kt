@@ -9,7 +9,7 @@ import com.quanda.moviedb.BR
 import com.quanda.moviedb.data.constants.MovieListType
 import com.quanda.moviedb.data.model.Movie
 import com.quanda.moviedb.databinding.FragmentLoadmoreRefreshBinding
-import com.quanda.moviedb.ui.base.fragment.BaseLoadMoreRefreshFragment
+import com.quanda.moviedb.ui.base.BaseLoadMoreRefreshFragment
 import com.quanda.moviedb.ui.screen.moviedetail.MovieDetailFragment
 
 class PopularMovieFragment : BaseLoadMoreRefreshFragment<FragmentLoadmoreRefreshBinding, PopularMovieViewModel, Movie>(), PopularMovieNavigator {

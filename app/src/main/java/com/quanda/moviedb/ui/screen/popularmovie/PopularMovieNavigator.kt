@@ -1,7 +1,6 @@
 package com.quanda.moviedb.ui.screen.popularmovie
 
-import com.quanda.moviedb.data.model.Movie
-import com.quanda.moviedb.ui.base.navigator.BaseNavigator
+import com.quanda.moviedb.ui.base.BaseNavigator
 
 interface PopularMovieNavigator : BaseNavigator {
 

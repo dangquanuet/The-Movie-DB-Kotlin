@@ -6,7 +6,7 @@ import android.os.Bundle
 import com.quanda.moviedb.BR
 import com.quanda.moviedb.R
 import com.quanda.moviedb.databinding.FragmentPermisisonBinding
-import com.quanda.moviedb.ui.base.fragment.BaseFragment
+import com.quanda.moviedb.ui.base.BaseFragment
 
 
 class PermissionFragment : BaseFragment<FragmentPermisisonBinding, PermissionViewModel>(), PermissionNavigator {

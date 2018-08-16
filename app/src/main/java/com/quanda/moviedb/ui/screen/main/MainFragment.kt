@@ -10,7 +10,7 @@ import com.quanda.moviedb.BR
 import com.quanda.moviedb.R
 import com.quanda.moviedb.data.constants.MovieListType
 import com.quanda.moviedb.databinding.FragmentMainBinding
-import com.quanda.moviedb.ui.base.fragment.BaseFragment
+import com.quanda.moviedb.ui.base.BaseFragment
 import com.quanda.moviedb.ui.screen.favoritemovie.FavoriteMovieFragment
 import com.quanda.moviedb.ui.screen.popularmovie.PopularMovieFragment
 
@@ -19,7 +19,6 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>(), MainNav
     companion object {
         const val TAG = "MainFragment"
         const val FRAGMENT_TAG = "FRAGMENT_TAG"
-        const val CODE_MOVIE_DETAIL = 1000
 
         fun newInstance() = MainFragment()
     }

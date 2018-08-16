@@ -1,6 +1,6 @@
 package com.quanda.moviedb.ui.screen
 
-import com.quanda.moviedb.ui.base.navigator.BaseNavigator
+import com.quanda.moviedb.ui.base.BaseNavigator
 
 interface MainActivityNavigator : BaseNavigator {
 }

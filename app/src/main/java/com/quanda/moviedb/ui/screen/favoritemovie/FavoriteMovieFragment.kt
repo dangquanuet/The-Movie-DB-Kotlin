@@ -7,7 +7,7 @@ import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
 import com.quanda.moviedb.data.model.Movie
 import com.quanda.moviedb.databinding.FragmentLoadmoreRefreshBinding
-import com.quanda.moviedb.ui.base.fragment.BaseLoadMoreRefreshFragment
+import com.quanda.moviedb.ui.base.BaseLoadMoreRefreshFragment
 import com.quanda.moviedb.ui.screen.moviedetail.MovieDetailFragment
 import com.quanda.moviedb.ui.screen.popularmovie.PopularMovieAdapter
 

@@ -8,7 +8,7 @@ import android.support.v7.widget.GridLayoutManager
 import com.quanda.moviedb.BR
 import com.quanda.moviedb.data.model.Tv
 import com.quanda.moviedb.databinding.FragmentLoadmoreRefreshBinding
-import com.quanda.moviedb.ui.base.fragment.BaseLoadMoreRefreshFragment
+import com.quanda.moviedb.ui.base.BaseLoadMoreRefreshFragment
 
 class TvListFragment : BaseLoadMoreRefreshFragment<FragmentLoadmoreRefreshBinding, TvListViewModel, Tv>(), TvListNavigator {
 

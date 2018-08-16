@@ -6,7 +6,7 @@ import android.support.v4.util.PatternsCompat
 import android.text.TextUtils
 import com.quanda.moviedb.data.constants.Constants
 import com.quanda.moviedb.data.repository.UserRepository
-import com.quanda.moviedb.ui.base.viewmodel.BaseViewModel
+import com.quanda.moviedb.ui.base.BaseViewModel
 import javax.inject.Inject
 
 class LoginViewModel @Inject constructor(

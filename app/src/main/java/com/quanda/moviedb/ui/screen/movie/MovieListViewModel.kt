@@ -5,7 +5,7 @@ import com.quanda.moviedb.data.model.Movie
 import com.quanda.moviedb.data.remote.ApiParams
 import com.quanda.moviedb.data.remote.response.GetMovieListResponse
 import com.quanda.moviedb.data.repository.impl.MovieRepositoryImpl
-import com.quanda.moviedb.ui.base.viewmodel.BaseLoadMoreRefreshViewModel
+import com.quanda.moviedb.ui.base.BaseLoadMoreRefreshViewModel
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.observers.DisposableSingleObserver
