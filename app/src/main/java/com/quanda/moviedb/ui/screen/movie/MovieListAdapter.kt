@@ -1,17 +1,12 @@
 package com.quanda.moviedb.ui.screen.movie
 
-import android.databinding.DataBindingUtil
 import android.support.v7.util.DiffUtil
-import android.view.LayoutInflater
-import android.view.ViewGroup
 import com.quanda.moviedb.R
 import com.quanda.moviedb.data.model.Movie
 import com.quanda.moviedb.databinding.ItemMovieBinding
-import com.quanda.moviedb.ui.base.BaseRecyclerAdapter
+import com.quanda.moviedb.ui.base.BaseRecyclerAdapter2
 
-class MovieListAdapter(
-        val itemClickListener: ((Movie) -> Unit)? = null
-) : BaseRecyclerAdapter<Movie, ItemMovieBinding>(object : DiffUtil.ItemCallback<Movie>() {
+class MovieListAdapter : BaseRecyclerAdapter2<Movie, ItemMovieBinding>(object : DiffUtil.ItemCallback<Movie>() {
     override fun areItemsTheSame(oldItem: Movie, newItem: Movie): Boolean {
         return oldItem.id == newItem.id
     }
@@ -21,21 +16,17 @@ class MovieListAdapter(
     }
 }) {
 
-    override fun createBinding(parent: ViewGroup, viewType: Int): ItemMovieBinding {
-        return DataBindingUtil.inflate<ItemMovieBinding>(LayoutInflater.from(parent.context),
-                R.layout.item_movie,
-                parent, false).apply {
+    override fun getLayoutRes(viewType: Int): Int {
+        return R.layout.item_movie
+    }
+
+    override fun bindFirstTime(binding: ItemMovieBinding) {
+        binding.apply {
             root.setOnClickListener {
                 item?.apply {
                     itemClickListener?.invoke(this)
                 }
             }
-        }
-    }
-
-    override fun bind(binding: ItemMovieBinding, item: Movie) {
-        binding.apply {
-            this.item = item
         }
     }
 }
