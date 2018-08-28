@@ -13,13 +13,13 @@ import java.util.concurrent.Executors
 
 abstract class BaseRecyclerAdapter2<Item, ViewBinding : ViewDataBinding>(
         callBack: DiffUtil.ItemCallback<Item>
-) : ListAdapter<Item, BaseViewHolder2<Item, ViewBinding>>(
+) : ListAdapter<Item, BaseViewHolder2<ViewBinding>>(
         AsyncDifferConfig.Builder<Item>(callBack)
                 .setBackgroundThreadExecutor(Executors.newSingleThreadExecutor())
                 .build()
 ) {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder2<Item, ViewBinding> {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder2<ViewBinding> {
         return BaseViewHolder2(DataBindingUtil.inflate<ViewBinding>(
                 LayoutInflater.from(parent.context),
                 getLayoutRes(viewType),
@@ -28,7 +28,7 @@ abstract class BaseRecyclerAdapter2<Item, ViewBinding : ViewDataBinding>(
         })
     }
 
-    override fun onBindViewHolder(holder: BaseViewHolder2<Item, ViewBinding>, position: Int) {
+    override fun onBindViewHolder(holder: BaseViewHolder2<ViewBinding>, position: Int) {
         val item: Item = getItem(position)
         holder.binding.setVariable(BR.item, item)
         bindView(holder.binding, item)
@@ -54,5 +54,5 @@ abstract class BaseRecyclerAdapter2<Item, ViewBinding : ViewDataBinding>(
     protected open fun bindView(binding: ViewBinding, item: Item) {}
 }
 
-open class BaseViewHolder2<Item, ViewBinding : ViewDataBinding> constructor(
+open class BaseViewHolder2<ViewBinding : ViewDataBinding> constructor(
         val binding: ViewBinding) : RecyclerView.ViewHolder(binding.root)
