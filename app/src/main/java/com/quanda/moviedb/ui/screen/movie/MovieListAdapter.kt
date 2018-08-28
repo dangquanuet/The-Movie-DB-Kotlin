@@ -6,7 +6,9 @@ import com.quanda.moviedb.data.model.Movie
 import com.quanda.moviedb.databinding.ItemMovieBinding
 import com.quanda.moviedb.ui.base.BaseRecyclerAdapter2
 
-class MovieListAdapter : BaseRecyclerAdapter2<Movie, ItemMovieBinding>(object : DiffUtil.ItemCallback<Movie>() {
+class MovieListAdapter(
+        val itemClickListener: ((Movie) -> Unit)? = null
+) : BaseRecyclerAdapter2<Movie, ItemMovieBinding>(object : DiffUtil.ItemCallback<Movie>() {
     override fun areItemsTheSame(oldItem: Movie, newItem: Movie): Boolean {
         return oldItem.id == newItem.id
     }

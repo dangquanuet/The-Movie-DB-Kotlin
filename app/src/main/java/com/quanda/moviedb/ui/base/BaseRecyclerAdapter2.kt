@@ -12,8 +12,7 @@ import com.quanda.moviedb.BR
 import java.util.concurrent.Executors
 
 abstract class BaseRecyclerAdapter2<Item, ViewBinding : ViewDataBinding>(
-        callBack: DiffUtil.ItemCallback<Item>,
-        val itemClickListener: ((Item) -> Unit)? = null
+        callBack: DiffUtil.ItemCallback<Item>
 ) : ListAdapter<Item, BaseViewHolder2<Item, ViewBinding>>(
         AsyncDifferConfig.Builder<Item>(callBack)
                 .setBackgroundThreadExecutor(Executors.newSingleThreadExecutor())
