@@ -4,6 +4,7 @@ import android.app.Application
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.experimental.CoroutineCallAdapterFactory
 import com.quanda.moviedb.BuildConfig
 import com.quanda.moviedb.data.remote.ApiService
+import com.quanda.moviedb.data.remote.RxErrorHandlingCallAdapterFactory
 import dagger.Module
 import dagger.Provides
 import okhttp3.Cache
@@ -66,7 +67,8 @@ class ApiModule {
     @Provides
     @Singleton
     @Named("okHttp_client")
-    internal fun provideOkHttpClient(@Named("cache") cache: Cache,
+    internal fun provideOkHttpClient(
+            @Named("cache") cache: Cache,
             @Named("logging") logging: Interceptor,
             @Named("header") header: Interceptor): OkHttpClient {
         return OkHttpClient.Builder()
@@ -83,7 +85,8 @@ class ApiModule {
     @Named("app_retrofit")
     internal fun provideAppRetrofit(@Named("okHttp_client") okHttpClient: OkHttpClient): Retrofit {
         return Retrofit.Builder()
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+//                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .addCallAdapterFactory(RxErrorHandlingCallAdapterFactory.create())
                 .addCallAdapterFactory(CoroutineCallAdapterFactory.invoke())
                 .addConverterFactory(GsonConverterFactory.create())
                 .baseUrl(BuildConfig.BASE_URL)
