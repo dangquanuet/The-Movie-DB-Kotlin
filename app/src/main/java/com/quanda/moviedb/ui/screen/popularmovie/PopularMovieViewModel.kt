@@ -1,13 +1,12 @@
 package com.quanda.moviedb.ui.screen.popularmovie
 
+import android.arch.lifecycle.MutableLiveData
 import com.quanda.moviedb.data.constants.MovieListType
 import com.quanda.moviedb.data.local.dao.MovieDao
 import com.quanda.moviedb.data.model.Movie
 import com.quanda.moviedb.data.remote.ApiParams
-import com.quanda.moviedb.data.remote.response.GetMovieListResponse
 import com.quanda.moviedb.data.repository.MovieRepository
 import com.quanda.moviedb.ui.base.BaseLoadMoreRefreshViewModel
-import io.reactivex.observers.DisposableSingleObserver
 import javax.inject.Inject
 
 class PopularMovieViewModel @Inject constructor(
@@ -15,16 +14,14 @@ class PopularMovieViewModel @Inject constructor(
         val movieDao: MovieDao
 ) : BaseLoadMoreRefreshViewModel<Movie>() {
 
-    var navigator: PopularMovieNavigator? = null
-
-    var mode: Int = 0
+    var mode = MutableLiveData<Int>().apply { value = MovieListType.POPULAR.type }
 
 //    val tempMovieList = ObservableArrayList<Movie>()
 
     override fun loadData(page: Int) {
         val hashMap = HashMap<String, String>()
         hashMap.put(ApiParams.PAGE, page.toString())
-        when (mode) {
+        when (mode.value) {
             MovieListType.POPULAR.type -> hashMap.put(
                     ApiParams.SORT_BY,
                     ApiParams.POPULARITY_DESC)
@@ -58,29 +55,25 @@ class PopularMovieViewModel @Inject constructor(
 //                    })
 //        }
 
-        movieRepository.getMovieList(
-                hashMap).subscribe(object : DisposableSingleObserver<GetMovieListResponse>() {
-            override fun onSuccess(response: GetMovieListResponse) {
-                currentPage.value = page
-                if (currentPage.value == 1) listItem.value?.clear()
-                if (isRefreshing.value == true) resetLoadMore()
+        movieRepository.getMovieList(hashMap)
+                .subscribe({
+                    currentPage.value = page
+                    if (currentPage.value == 1) listItem.value?.clear()
+                    if (isRefreshing.value == true) resetLoadMore()
 
 //                val newList = listItem.value ?: ArrayList()
 //                newList.removeAll(tempMovieList)
 //                listItem.value = newList
 //                tempMovieList.clear()
 
-                val newList2 = listItem.value ?: ArrayList()
-                newList2.addAll(response.results?.toList() ?: listOf())
-                listItem.value = newList2
-                movieRepository.insertDB(response.results?.toList() ?: listOf())
+                    val newList2 = listItem.value ?: ArrayList()
+                    newList2.addAll(it.results ?: listOf())
+                    listItem.value = newList2
+                    movieRepository.insertDB(it.results ?: listOf())
 
-                onLoadSuccess(response.results?.size ?: 0)
-            }
-
-            override fun onError(e: Throwable) {
-                onLoadFail(e)
-            }
-        });
+                    onLoadSuccess(it.results?.size ?: 0)
+                }, {
+                    onLoadFail(it)
+                })
     }
 }

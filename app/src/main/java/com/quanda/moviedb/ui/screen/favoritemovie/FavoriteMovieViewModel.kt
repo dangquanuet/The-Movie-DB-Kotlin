@@ -4,7 +4,6 @@ import com.quanda.moviedb.data.local.dao.MovieDao
 import com.quanda.moviedb.data.model.Movie
 import com.quanda.moviedb.ui.base.BaseLoadMoreRefreshViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.observers.DisposableMaybeObserver
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
@@ -16,24 +15,17 @@ class FavoriteMovieViewModel @Inject constructor(
         movieDao.getFavorite(getNumberItemPerPage(), page)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(object : DisposableMaybeObserver<List<Movie>>() {
-                    override fun onSuccess(t: List<Movie>) {
-                        currentPage.value = page
-                        if (currentPage.value == 1) listItem.value = null
-                        if (isRefreshing.value == true) resetLoadMore()
-                        val newList = if (listItem.value != null) listItem.value else ArrayList()
-                        newList?.addAll(t)
-                        listItem.value = newList
-                        onLoadSuccess(t.size)
-                    }
-
-                    override fun onComplete() {
-                        onLoadSuccess(0)
-                    }
-
-                    override fun onError(e: Throwable) {
-                        onLoadFail(e)
-                    }
+                .subscribe({
+                    currentPage.value = page
+                    if (currentPage.value == 1) listItem.value?.clear()
+                    if (isRefreshing.value == true) resetLoadMore()
+                    val newList = listItem.value ?: ArrayList()
+                    newList.addAll(it)
+                    listItem.value = newList
+                    onLoadSuccess(it.size)
+                }, {
+                    onLoadFail(it)
                 })
     }
+
 }

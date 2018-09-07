@@ -12,7 +12,7 @@ import com.quanda.moviedb.databinding.FragmentLoadmoreRefreshBinding
 import com.quanda.moviedb.ui.base.BaseLoadMoreRefreshFragment
 import com.quanda.moviedb.ui.screen.moviedetail.MovieDetailFragment
 
-class PopularMovieFragment : BaseLoadMoreRefreshFragment<FragmentLoadmoreRefreshBinding, PopularMovieViewModel, Movie>(), PopularMovieNavigator {
+class PopularMovieFragment : BaseLoadMoreRefreshFragment<FragmentLoadmoreRefreshBinding, PopularMovieViewModel, Movie>() {
 
     companion object {
         const val TAG = "PopularMovieFragment"
@@ -32,8 +32,7 @@ class PopularMovieFragment : BaseLoadMoreRefreshFragment<FragmentLoadmoreRefresh
         get() = ViewModelProviders.of(this, viewModelFactory).get(
                 PopularMovieViewModel::class.java)
                 .apply {
-                    navigator = this@PopularMovieFragment
-                    mode = arguments?.getInt(TYPE) ?: MovieListType.POPULAR.type
+                    mode.value = arguments?.getInt(TYPE) ?: MovieListType.POPULAR.type
                 }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

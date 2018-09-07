@@ -5,20 +5,19 @@ import android.arch.lifecycle.MutableLiveData
 import android.support.v4.util.PatternsCompat
 import android.text.TextUtils
 import com.quanda.moviedb.data.constants.Constants
-import com.quanda.moviedb.data.repository.UserRepository
 import com.quanda.moviedb.ui.base.BaseViewModel
 import javax.inject.Inject
 
 class LoginViewModel @Inject constructor(
-        private val userRepository: UserRepository
+
 ) : BaseViewModel() {
 
     val email = MutableLiveData<String>()
     val password = MutableLiveData<String>()
     val formValid = MediatorLiveData<Boolean>().apply {
         value = false
-        addSource(email, { value = validateForm(email.value, password.value) })
-        addSource(password, { value = validateForm(email.value, password.value) })
+        addSource(email) { value = validateForm(email.value, password.value) }
+        addSource(password) { value = validateForm(email.value, password.value) }
     }
 
     private fun validateForm(email: String?, password: String?): Boolean = validateEmail(

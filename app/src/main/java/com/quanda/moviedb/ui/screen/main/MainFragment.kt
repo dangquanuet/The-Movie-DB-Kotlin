@@ -14,7 +14,7 @@ import com.quanda.moviedb.ui.base.BaseFragment
 import com.quanda.moviedb.ui.screen.favoritemovie.FavoriteMovieFragment
 import com.quanda.moviedb.ui.screen.popularmovie.PopularMovieFragment
 
-class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>(), MainNavigator {
+class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>() {
 
     companion object {
         const val TAG = "MainFragment"
@@ -30,10 +30,7 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>(), MainNav
         get() = R.layout.fragment_main
 
     override val viewModel: MainViewModel
-        get() = ViewModelProviders.of(this, viewModelFactory).get(
-                MainViewModel::class.java).apply {
-            navigator = this@MainFragment
-        }
+        get() = ViewModelProviders.of(this, viewModelFactory).get(MainViewModel::class.java)
 
     lateinit var bottomNavigation: AHBottomNavigation
 
@@ -133,7 +130,4 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>(), MainNav
         return false
     }
 
-    enum class Tab(val position: Int) {
-        POPULAR(0), TOP_RATED(1), FAVORITE(2), PROFILE(3)
-    }
 }

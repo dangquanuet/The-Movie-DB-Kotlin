@@ -12,8 +12,6 @@ class TvListViewModel @Inject constructor(
         private val movieRepository: MovieRepositoryImpl
 ) : BaseLoadMoreRefreshViewModel<Tv>() {
 
-    lateinit var navigator: TvListNavigator
-
     override fun loadData(page: Int) {
         val hashMap = HashMap<String, String>()
         hashMap.put(ApiParams.PAGE, page.toString())
@@ -22,10 +20,10 @@ class TvListViewModel @Inject constructor(
             try {
                 val response = movieRepository.getTvList(hashMap).await()
                 currentPage.value = page
-                if (currentPage.value == 1) listItem.value = null
+                if (currentPage.value == 1) listItem.value?.clear()
                 if (isRefreshing.value == true) resetLoadMore()
-                val newList = if (listItem.value != null) response.results else ArrayList()
-                newList?.addAll(response.results?.toList() ?: listOf())
+                val newList = response.results ?: ArrayList()
+                newList.addAll(response.results ?: listOf())
                 listItem.value = newList
                 onLoadSuccess(response.results?.size ?: 0)
             } catch (e: Throwable) {

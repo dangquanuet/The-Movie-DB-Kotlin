@@ -10,7 +10,7 @@ import com.quanda.moviedb.data.model.Tv
 import com.quanda.moviedb.databinding.FragmentLoadmoreRefreshBinding
 import com.quanda.moviedb.ui.base.BaseLoadMoreRefreshFragment
 
-class TvListFragment : BaseLoadMoreRefreshFragment<FragmentLoadmoreRefreshBinding, TvListViewModel, Tv>(), TvListNavigator {
+class TvListFragment : BaseLoadMoreRefreshFragment<FragmentLoadmoreRefreshBinding, TvListViewModel, Tv>() {
 
     companion object {
         const val TAG = "TvListFragment"

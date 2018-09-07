@@ -9,7 +9,7 @@ import com.quanda.moviedb.databinding.FragmentPermisisonBinding
 import com.quanda.moviedb.ui.base.BaseFragment
 
 
-class PermissionFragment : BaseFragment<FragmentPermisisonBinding, PermissionViewModel>(), PermissionNavigator {
+class PermissionFragment : BaseFragment<FragmentPermisisonBinding, PermissionViewModel>() {
 
     val permissions = arrayOf(Manifest.permission.CAMERA, Manifest.permission.READ_CONTACTS)
 
@@ -21,9 +21,6 @@ class PermissionFragment : BaseFragment<FragmentPermisisonBinding, PermissionVie
 
     override val viewModel: PermissionViewModel
         get() = ViewModelProviders.of(this, viewModelFactory).get(PermissionViewModel::class.java)
-                .apply {
-                    navigator = this@PermissionFragment
-                }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

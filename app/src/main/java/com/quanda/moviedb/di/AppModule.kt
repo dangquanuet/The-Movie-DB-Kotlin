@@ -3,6 +3,7 @@ package com.quanda.moviedb.di
 import android.app.Application
 import android.content.Context
 import android.content.res.Resources
+import com.quanda.moviedb.MainApplication
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -14,9 +15,9 @@ import javax.inject.Singleton
 ])
 class AppModule() {
 
-//    @Provides
-//    @Singleton
-//    fun provideApplication(application: Application): Application = application
+    @Provides
+    @Singleton
+    fun provideApplication(mainApplication: MainApplication): MainApplication = mainApplication
 
     @Provides
     @Singleton

@@ -6,7 +6,6 @@ import com.quanda.moviedb.data.model.Movie
 import com.quanda.moviedb.data.repository.impl.MovieRepositoryImpl
 import com.quanda.moviedb.ui.base.BaseViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.observers.DisposableMaybeObserver
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
@@ -22,21 +21,12 @@ class MovieDetailViewModel @Inject constructor(
         movieDao.getMovie(newMovie.id ?: "")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(object : DisposableMaybeObserver<Movie>() {
-                    override fun onSuccess(t: Movie) {
-                        newMovie.isFavorite = t.isFavorite
-                        movie.value = newMovie
-                    }
-
-                    override fun onComplete() {
-                        newMovie.isFavorite = false
-                        movie.value = newMovie
-                    }
-
-                    override fun onError(e: Throwable) {
-                        newMovie.isFavorite = false
-                        movie.value = newMovie
-                    }
+                .subscribe({
+                    newMovie.isFavorite = it.isFavorite
+                    movie.value = newMovie
+                }, {
+                    newMovie.isFavorite = false
+                    movie.value = newMovie
                 })
     }
 

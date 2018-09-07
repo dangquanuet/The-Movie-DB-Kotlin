@@ -1,8 +1,5 @@
 package com.quanda.moviedb.ui.screen.moviedetail
 
-import android.arch.lifecycle.Lifecycle
-import android.arch.lifecycle.LifecycleObserver
-import android.arch.lifecycle.OnLifecycleEvent
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.view.View
@@ -11,17 +8,6 @@ import com.quanda.moviedb.R
 import com.quanda.moviedb.data.model.Movie
 import com.quanda.moviedb.databinding.FragmentMovieDetailBinding
 import com.quanda.moviedb.ui.base.BaseFragment
-import com.quanda.moviedb.utils.logError
-import kotlinx.coroutines.experimental.CommonPool
-import kotlinx.coroutines.experimental.CoroutineExceptionHandler
-import kotlinx.coroutines.experimental.Job
-import kotlinx.coroutines.experimental.android.UI
-import kotlinx.coroutines.experimental.async
-import kotlinx.coroutines.experimental.delay
-import kotlinx.coroutines.experimental.launch
-import kotlinx.coroutines.experimental.withContext
-import kotlin.coroutines.experimental.CoroutineContext
-import kotlin.system.measureTimeMillis
 
 class MovieDetailFragment : BaseFragment<FragmentMovieDetailBinding, MovieDetailViewModel>() {
 
@@ -57,10 +43,11 @@ class MovieDetailFragment : BaseFragment<FragmentMovieDetailBinding, MovieDetail
         }
     }
 
-    /*
-    demo kotlin coroutine
-    */
+    /**
+     * demo kotlin coroutine
+     */
 
+    /*
     suspend fun doSomethingUsefulOne(): Int {
         delay(1000L) // pretend we are doing something useful here
         return 13
@@ -291,4 +278,5 @@ class MovieDetailFragment : BaseFragment<FragmentMovieDetailBinding, MovieDetail
         @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
         fun destroy() = cancel()
     }
+    */
 }
