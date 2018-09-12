@@ -1,36 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:bind="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    >
+    xmlns:tools="http://schemas.android.com/tools">
+
     <data>
+
         <variable
             name="favoriteListener"
-            type="android.view.View.OnClickListener"
-            />
+            type="android.view.View.OnClickListener" />
+
         <variable
             name="viewModel"
-            type="com.quanda.moviedb.ui.screen.moviedetail.MovieDetailViewModel"
-            />
+            type="com.quanda.moviedb.ui.screen.moviedetail.MovieDetailViewModel" />
     </data>
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        >
+        android:background="@color/black">
+
+        <android.support.v7.widget.AppCompatImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:alpha="0.4"
+            android:scaleType="centerCrop"
+            bind:loadImage="@{ viewModel.movie.poster_path }"
+            tools:src="@drawable/bg_default_image" />
 
         <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/black"
-            >
+            android:layout_height="match_parent">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:paddingBottom="@dimen/dp_16"
-                >
+                android:paddingBottom="@dimen/dp_16">
 
                 <android.support.v7.widget.AppCompatImageView
                     android:layout_width="match_parent"
@@ -40,8 +45,7 @@
                     bind:loadImage="@{ viewModel.movie.backdrop_path }"
                     bind:placeholder="@{ @drawable/ic_gallery }"
                     tools:scaleType="centerCrop"
-                    tools:src="@drawable/ic_gallery"
-                    />
+                    tools:src="@drawable/ic_gallery" />
 
                 <android.support.v7.widget.AppCompatTextView
                     android:layout_width="match_parent"
@@ -50,8 +54,7 @@
                     android:text="@{ viewModel.movie.title }"
                     android:textColor="@color/white"
                     android:textSize="@dimen/sp_20"
-                    tools:text="Title"
-                    />
+                    tools:text="Title" />
 
                 <android.support.v7.widget.AppCompatTextView
                     android:layout_width="match_parent"
@@ -60,8 +63,7 @@
                     android:text="@{ viewModel.movie.release_date }"
                     android:textColor="@color/white"
                     android:textSize="@dimen/sp_14"
-                    tools:text="Date"
-                    />
+                    tools:text="Date" />
 
                 <android.support.v7.widget.AppCompatTextView
                     android:layout_width="match_parent"
@@ -71,8 +73,7 @@
                     android:text="@{ String.valueOf(viewModel.movie.vote_average) }"
                     android:textColor="@color/white"
                     android:textSize="@dimen/sp_14"
-                    tools:text="Vote"
-                    />
+                    tools:text="Vote" />
 
                 <android.support.v7.widget.AppCompatTextView
                     android:layout_width="match_parent"
@@ -81,20 +82,18 @@
                     android:layout_marginTop="@dimen/dp_16"
                     android:text="Summary"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/sp_16"
-                    />
+                    android:textSize="@dimen/sp_16" />
 
                 <android.support.v7.widget.AppCompatTextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="@dimen/dp_16"
                     android:layout_marginStart="@dimen/dp_16"
                     android:layout_marginTop="@dimen/dp_10"
+                    android:layout_marginEnd="@dimen/dp_16"
                     android:text="@{ viewModel.movie.overview }"
                     android:textColor="@color/white"
                     android:textSize="@dimen/sp_14"
-                    tools:text="Determined to prove herself, Officer Judy Hopps, the first bunny on Zootopia's police force, jumps at the chance to crack her first case - even if it means partnering with scam-artist fox Nick Wilde to solve the mystery."
-                    />
+                    tools:text="Determined to prove herself, Officer Judy Hopps, the first bunny on Zootopia's police force, jumps at the chance to crack her first case - even if it means partnering with scam-artist fox Nick Wilde to solve the mystery." />
 
             </LinearLayout>
         </android.support.v4.widget.NestedScrollView>
@@ -102,13 +101,12 @@
         <android.support.design.widget.FloatingActionButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/dp_16"
             android:layout_marginEnd="@dimen/dp_16"
+            android:layout_marginBottom="@dimen/dp_16"
             android:onClick="@{ favoriteListener }"
             android:src="@{ viewModel.movie.isFavorite ? @drawable/ic_favorite_white_24dp : @drawable/ic_favorite_border_white_24dp }"
             bind:layout_constraintBottom_toBottomOf="parent"
             bind:layout_constraintEnd_toEndOf="parent"
-            tools:src="@drawable/ic_favorite_white_24dp"
-            />
+            tools:src="@drawable/ic_favorite_white_24dp" />
     </android.support.constraint.ConstraintLayout>
 </layout>
