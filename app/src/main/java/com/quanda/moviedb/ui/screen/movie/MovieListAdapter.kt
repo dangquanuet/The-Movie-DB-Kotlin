@@ -1,6 +1,6 @@
 package com.quanda.moviedb.ui.screen.movie
 
-import android.support.v7.util.DiffUtil
+import androidx.recyclerview.widget.DiffUtil
 import com.quanda.moviedb.R
 import com.quanda.moviedb.data.model.Movie
 import com.quanda.moviedb.databinding.ItemMovieBinding

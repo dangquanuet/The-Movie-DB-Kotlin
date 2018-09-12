@@ -1,6 +1,6 @@
 package com.quanda.moviedb.ui.screen.tv
 
-import android.support.v7.util.DiffUtil
+import androidx.recyclerview.widget.DiffUtil
 import com.quanda.moviedb.R
 import com.quanda.moviedb.data.model.Tv
 import com.quanda.moviedb.databinding.ItemTvBinding
@@ -9,11 +9,11 @@ import com.quanda.moviedb.ui.base.BaseRecyclerAdapter2
 class TvListAdapter(
         val itemClickListener: ((Tv) -> Unit)? = null
 ) : BaseRecyclerAdapter2<Tv, ItemTvBinding>(object : DiffUtil.ItemCallback<Tv>() {
-    override fun areItemsTheSame(oldItem: Tv?, newItem: Tv?): Boolean {
-        return oldItem?.id == newItem?.id
+    override fun areItemsTheSame(oldItem: Tv, newItem: Tv): Boolean {
+        return oldItem.id == newItem.id
     }
 
-    override fun areContentsTheSame(oldItem: Tv?, newItem: Tv?): Boolean {
+    override fun areContentsTheSame(oldItem: Tv, newItem: Tv): Boolean {
         return oldItem == newItem
     }
 }) {

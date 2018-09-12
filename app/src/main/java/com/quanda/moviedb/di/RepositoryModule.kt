@@ -1,6 +1,6 @@
 package com.quanda.moviedb.di
 
-import android.arch.persistence.room.Room
+import androidx.room.Room
 import android.content.Context
 import com.google.gson.Gson
 import com.quanda.moviedb.data.constants.Constants

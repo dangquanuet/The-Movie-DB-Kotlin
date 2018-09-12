@@ -4,8 +4,8 @@ import android.content.Context.MODE_PRIVATE
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.os.Build
-import android.support.v4.app.ActivityCompat
-import android.support.v7.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.appcompat.app.AppCompatActivity
 import com.quanda.moviedb.data.local.pref.SharedPreferenceApi.Companion.PREFS_NAME
 
 

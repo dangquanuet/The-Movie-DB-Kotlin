@@ -1,7 +1,7 @@
 package com.quanda.moviedb.ui.screen.permission
 
 import android.Manifest
-import android.arch.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
 import com.quanda.moviedb.BR
 import com.quanda.moviedb.R

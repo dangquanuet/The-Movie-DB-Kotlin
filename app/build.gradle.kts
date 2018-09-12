@@ -21,8 +21,8 @@ kotlin {
 }
 
 android {
-    compileSdkVersion(27)
-    buildToolsVersion = "27.0.3"
+    compileSdkVersion(28)
+    buildToolsVersion = "28.0.2"
 
     defaultConfig {
         applicationId = "com.quanda.moviedb"
@@ -104,12 +104,12 @@ android {
 
 dependencies {
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
-    implementation("com.android.support:appcompat-v7:27.1.1")
-    implementation("com.android.support:support-v4:27.1.1")
-    implementation("com.android.support.constraint:constraint-layout:1.1.3")
-    implementation("com.android.support:recyclerview-v7:27.1.1")
-    implementation("com.android.support:cardview-v7:27.1.1")
-    implementation("com.android.support:design:27.1.1")
+    implementation("androidx.appcompat:appcompat:1.0.0-rc02")
+    implementation("androidx.legacy:legacy-support-v4:1.0.0-rc02")
+    implementation("androidx.constraintlayout:constraintlayout:1.1.3")
+    implementation("androidx.recyclerview:recyclerview:1.0.0-rc02")
+    implementation("androidx.cardview:cardview:1.0.0-rc02")
+    implementation("com.google.android.material:material:1.0.0-rc01")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:${KotlinCompilerVersion.VERSION}")
 
     //Support ReactiveX android
@@ -151,21 +151,21 @@ dependencies {
     implementation("com.aurelhubert:ahbottomnavigation:2.1.0")
 
     // databinding compiler
-    kapt("com.android.databinding:compiler:3.1.4")
+    kapt("com.android.databinding:compiler:3.3.0-alpha09")
 
     // room
-    implementation("android.arch.persistence.room:runtime:1.1.1")
-    kapt("android.arch.persistence.room:compiler:1.1.1")
+    implementation("androidx.room:room-runtime:2.0.0-rc01")
+    kapt("androidx.room:room-compiler:2.0.0-rc01")
     // RxJava support for Room
-    implementation("android.arch.persistence.room:rxjava2:1.1.1")
+    implementation("androidx.room:room-rxjava2:2.0.0-rc01")
 
     // ViewModel and LiveData
-    implementation("android.arch.lifecycle:extensions:1.1.1")
-    kapt("android.arch.lifecycle:compiler:1.1.1")
+    implementation("androidx.lifecycle:lifecycle-extensions:2.0.0-rc01")
+    kapt("androidx.lifecycle:lifecycle-compiler:2.0.0-rc01")
     // Java8 support for Lifecycles
-    implementation("android.arch.lifecycle:common-java8:1.1.1")
+    implementation("androidx.lifecycle:lifecycle-common-java8:2.0.0-rc01")
     // ReactiveStreams support for LiveData
-    implementation("android.arch.lifecycle:reactivestreams:1.1.1")
+    implementation("androidx.lifecycle:lifecycle-reactivestreams:2.0.0-rc01")
 
     // unit test
     testImplementation("junit:junit:4.12")

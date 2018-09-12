@@ -1,6 +1,6 @@
 package com.quanda.moviedb.ui.screen.moviedetail
 
-import android.arch.lifecycle.MutableLiveData
+import androidx.lifecycle.MutableLiveData
 import com.quanda.moviedb.data.local.dao.MovieDao
 import com.quanda.moviedb.data.model.Movie
 import com.quanda.moviedb.data.repository.impl.MovieRepositoryImpl

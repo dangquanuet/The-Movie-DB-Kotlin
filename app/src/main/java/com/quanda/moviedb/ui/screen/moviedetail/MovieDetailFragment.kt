@@ -1,6 +1,6 @@
 package com.quanda.moviedb.ui.screen.moviedetail
 
-import android.arch.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.view.View
 import com.quanda.moviedb.BR

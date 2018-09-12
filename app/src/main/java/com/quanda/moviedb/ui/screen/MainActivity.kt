@@ -1,13 +1,16 @@
 package com.quanda.moviedb.ui.screen
 
-import android.arch.lifecycle.ViewModelProvider
-import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 import com.quanda.moviedb.R
 import com.quanda.moviedb.ui.base.BaseActivity
 import com.quanda.moviedb.ui.screen.main.MainFragment
 import javax.inject.Inject
 
+/**
+ * androidx.activity is not extend from appcompat activity
+ */
 class MainActivity : BaseActivity() {
 
     @Inject

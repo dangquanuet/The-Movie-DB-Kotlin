@@ -2,9 +2,9 @@ package com.quanda.moviedb.utils
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v7.app.AppCompatActivity
 import android.util.Log
+import androidx.fragment.app.Fragment
+import androidx.appcompat.app.AppCompatActivity
 
 // top level fun in kotlin = static fun in java
 // use for utils class

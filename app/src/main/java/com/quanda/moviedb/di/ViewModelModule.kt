@@ -1,7 +1,7 @@
 package com.quanda.moviedb.di
 
-import android.arch.lifecycle.ViewModel
-import android.arch.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.quanda.moviedb.ui.screen.MainActivityViewModel
 import com.quanda.moviedb.ui.screen.favoritemovie.FavoriteMovieViewModel
 import com.quanda.moviedb.ui.screen.login.LoginViewModel

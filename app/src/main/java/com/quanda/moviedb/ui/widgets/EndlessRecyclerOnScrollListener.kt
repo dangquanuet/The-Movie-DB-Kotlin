@@ -1,8 +1,8 @@
 package com.quanda.moviedb.ui.widgets
 
-import android.support.v7.widget.GridLayoutManager
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.quanda.moviedb.data.constants.Constants
 
 abstract class EndlessRecyclerOnScrollListener(threshold: Int) : RecyclerView.OnScrollListener() {
@@ -23,10 +23,10 @@ abstract class EndlessRecyclerOnScrollListener(threshold: Int) : RecyclerView.On
         }
     }
 
-    override fun onScrolled(recycler: RecyclerView?, dx: Int, dy: Int) {
+    override fun onScrolled(recycler: RecyclerView, dx: Int, dy: Int) {
         super.onScrolled(recycler, dx, dy)
-        mVisibleItemCount = recycler?.childCount!!
-        mTotalItemCount = recycler.layoutManager.itemCount
+        mVisibleItemCount = recycler.childCount
+        mTotalItemCount = recycler.layoutManager?.itemCount ?: 0
         if (recycler.layoutManager is LinearLayoutManager) {
             mFirstVisibleItem = (recycler.layoutManager as LinearLayoutManager).findFirstVisibleItemPosition()
         } else if (recycler.layoutManager is GridLayoutManager) {

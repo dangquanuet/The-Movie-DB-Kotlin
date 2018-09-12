@@ -1,13 +1,13 @@
 package com.quanda.moviedb.utils
 
 import android.content.res.ColorStateList
-import android.databinding.BindingAdapter
+import androidx.databinding.BindingAdapter
 import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.SystemClock
-import android.support.annotation.DrawableRes
-import android.support.v4.widget.SwipeRefreshLayout
-import android.support.v7.widget.RecyclerView
+import androidx.annotation.DrawableRes
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import androidx.recyclerview.widget.RecyclerView
 import android.text.TextUtils
 import android.view.View
 import android.webkit.WebView
@@ -18,7 +18,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.signature.ObjectKey
 import com.quanda.moviedb.BuildConfig
-import com.quanda.moviedb.GlideApp
+//import com.quanda.moviedb.GlideApp
 import com.quanda.moviedb.data.constants.Constants
 import java.io.File
 
@@ -65,7 +65,9 @@ fun ImageView.loadImage(url: String? = "", placeHolder: Drawable?,
         return
     }
     val urlWithHost = (if (isLarge) BuildConfig.LARGE_IMAGE_URL else BuildConfig.SMALL_IMAGE_URL) + url
-    val requestBuilder = GlideApp.with(context).load(urlWithHost)
+    // disable gradle load fail log
+//    val requestBuilder = GlideApp.with(context).load(urlWithHost)
+    val requestBuilder = Glide.with(context).load(urlWithHost)
     val requestOptions = RequestOptions().diskCacheStrategy(
             if (isCacheSource) DiskCacheStrategy.DATA else DiskCacheStrategy.RESOURCE)
             .placeholder(placeHolder)

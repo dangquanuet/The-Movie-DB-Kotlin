@@ -12,7 +12,7 @@ class FavoriteMovieViewModel @Inject constructor(
 ) : BaseLoadMoreRefreshViewModel<Movie>() {
 
     override fun loadData(page: Int) {
-        movieDao.getFavorite(getNumberItemPerPage(), page)
+        addDisposable(movieDao.getFavorite(getNumberItemPerPage(), page)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
@@ -25,7 +25,7 @@ class FavoriteMovieViewModel @Inject constructor(
                     onLoadSuccess(it.size)
                 }, {
                     onLoadFail(it)
-                })
+                }))
     }
 
 }

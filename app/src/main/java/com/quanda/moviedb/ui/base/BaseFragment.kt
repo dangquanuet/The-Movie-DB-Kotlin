@@ -1,25 +1,28 @@
 package com.quanda.moviedb.ui.base
 
-import android.arch.lifecycle.Observer
-import android.arch.lifecycle.ViewModelProvider
-import android.content.Context
-import android.databinding.DataBindingUtil
-import android.databinding.ViewDataBinding
 import android.os.Bundle
-import android.support.annotation.LayoutRes
-import android.support.v4.app.DialogFragment
-import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentTransaction
-import android.support.v7.app.AlertDialog
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.LayoutRes
+import androidx.appcompat.app.AlertDialog
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
+import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.quanda.moviedb.R
 import com.quanda.moviedb.utils.DialogUtils
-import dagger.android.support.AndroidSupportInjection
+import dagger.android.support.DaggerFragment
 import javax.inject.Inject
 
-abstract class BaseFragment<ViewBinding : ViewDataBinding, ViewModel : BaseViewModel> : Fragment(), BaseNavigator {
+/**
+ * androidx.fragment is not extend from support fragment v4
+ */
+
+abstract class BaseFragment<ViewBinding : ViewDataBinding, ViewModel : BaseViewModel> : DaggerFragment(), BaseNavigator {
 
     abstract val bindingVariable: Int
 
@@ -36,7 +39,7 @@ abstract class BaseFragment<ViewBinding : ViewDataBinding, ViewModel : BaseViewM
     var mAlertDialog: AlertDialog? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-            savedInstanceState: Bundle?): View? {
+                              savedInstanceState: Bundle?): View? {
         viewBinding = DataBindingUtil.inflate(inflater, layoutId, container, false)
         return viewBinding.root
     }
@@ -93,16 +96,6 @@ abstract class BaseFragment<ViewBinding : ViewDataBinding, ViewModel : BaseViewM
         }
     }
 
-    override fun onAttach(context: Context?) {
-        performDependencyInjection()
-        super.onAttach(context)
-    }
-
-    private fun performDependencyInjection() {
-        AndroidSupportInjection.inject(this)
-    }
-
-
     /**
      * fragment transaction
      */
@@ -116,7 +109,7 @@ abstract class BaseFragment<ViewBinding : ViewDataBinding, ViewModel : BaseViewM
     }
 
     fun replaceFragment(fragment: Fragment, TAG: String?, addToBackStack: Boolean = false,
-            transit: Int = -1) {
+                        transit: Int = -1) {
         activity?.supportFragmentManager?.beginTransaction()
                 ?.replace(R.id.container, fragment, TAG)?.apply {
                     commitTransaction(this, addToBackStack, transit)
@@ -124,22 +117,22 @@ abstract class BaseFragment<ViewBinding : ViewDataBinding, ViewModel : BaseViewM
     }
 
     fun replaceChildFragment(parentFragment: Fragment = this, containerViewId: Int,
-            fragment: Fragment, TAG: String?, addToBackStack: Boolean = false, transit: Int = -1) {
+                             fragment: Fragment, TAG: String?, addToBackStack: Boolean = false, transit: Int = -1) {
         val transaction = parentFragment.childFragmentManager.beginTransaction().replace(
                 containerViewId, fragment, TAG)
         commitTransaction(transaction, addToBackStack, transit)
     }
 
     fun addChildFragment(parentFragment: Fragment = this, containerViewId: Int,
-            targetFragment: Fragment, TAG: String?, addToBackStack: Boolean = false,
-            transit: Int = -1) {
+                         targetFragment: Fragment, TAG: String?, addToBackStack: Boolean = false,
+                         transit: Int = -1) {
         val transaction = parentFragment.childFragmentManager.beginTransaction().add(
                 containerViewId, targetFragment, TAG)
         commitTransaction(transaction, addToBackStack, transit)
     }
 
     fun showDialogFragment(dialogFragment: DialogFragment, TAG: String?,
-            addToBackStack: Boolean = false, transit: Int = -1) {
+                           addToBackStack: Boolean = false, transit: Int = FragmentTransaction.TRANSIT_NONE) {
         val transaction = activity?.supportFragmentManager?.beginTransaction()
         if (addToBackStack) transaction?.addToBackStack(TAG)
         if (transit != -1) transaction?.setTransition(transit)
@@ -147,7 +140,7 @@ abstract class BaseFragment<ViewBinding : ViewDataBinding, ViewModel : BaseViewM
     }
 
     private fun commitTransaction(transaction: FragmentTransaction, addToBackStack: Boolean = false,
-            transit: Int = -1) {
+                                  transit: Int = FragmentTransaction.TRANSIT_NONE) {
         if (addToBackStack) transaction.addToBackStack(null)
         if (transit != -1) transaction.setTransition(transit)
         transaction.commit()

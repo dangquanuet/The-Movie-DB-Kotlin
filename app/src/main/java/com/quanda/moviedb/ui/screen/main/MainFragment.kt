@@ -1,9 +1,9 @@
 package com.quanda.moviedb.ui.screen.main
 
-import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v4.content.ContextCompat
+import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProviders
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationAdapter
 import com.quanda.moviedb.BR
@@ -114,8 +114,8 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>() {
     override fun onBack(): Boolean {
         val currentFragment = childFragmentManager.findFragmentByTag(
                 getTabFragmentTag(currentPositionFragment))
-        val stackCount = currentFragment.childFragmentManager.backStackEntryCount
-        if (stackCount > 0) {
+        val stackCount = currentFragment?.childFragmentManager?.backStackEntryCount
+        if (stackCount != null && stackCount > 0) {
             currentFragment.childFragmentManager.popBackStack()
 
             // refresh favorite movies
