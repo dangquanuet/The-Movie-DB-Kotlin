@@ -38,7 +38,7 @@ class MovieDetailFragment : BaseFragment<FragmentMovieDetailBinding, MovieDetail
         }
         arguments?.apply {
             getParcelable<Movie>(MOVIE)?.apply {
-                viewModel.updateNewMovie(this)
+                viewModel.movie.value = this
             }
         }
     }
