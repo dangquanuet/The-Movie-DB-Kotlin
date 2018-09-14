@@ -1,26 +1,20 @@
 package com.quanda.moviedb.di
 
-import android.app.Application
 import com.quanda.moviedb.MainApplication
-import dagger.BindsInstance
 import dagger.Component
-import dagger.android.AndroidInjectionModule
+import dagger.android.AndroidInjector
+import dagger.android.support.AndroidSupportInjectionModule
 import javax.inject.Singleton
 
 @Singleton
-@Component(modules = arrayOf(
-        AndroidInjectionModule::class,
-        AppModule::class,
-        MainActivityModule::class
-))
-interface AppComponent {
+@Component(modules = [
+    AndroidSupportInjectionModule::class,
+    AppModule::class,
+    MainActivityModule::class
+])
+interface AppComponent : AndroidInjector<MainApplication> {
+
     @Component.Builder
-    interface Builder {
-        @BindsInstance
-        fun application(application: Application): Builder
+    abstract class Builder : AndroidInjector.Builder<MainApplication>()
 
-        fun build(): AppComponent
-    }
-
-    fun inject(mainApplication: MainApplication)
 }
