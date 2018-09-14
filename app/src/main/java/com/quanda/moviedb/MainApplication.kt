@@ -1,26 +1,14 @@
 package com.quanda.moviedb
 
-import android.app.Activity
-import android.app.Application
 import com.quanda.moviedb.di.DaggerAppComponent
-import dagger.android.DispatchingAndroidInjector
-import dagger.android.HasActivityInjector
-import javax.inject.Inject
+import dagger.android.AndroidInjector
+import dagger.android.support.DaggerApplication
 
-class MainApplication : Application(), HasActivityInjector {
 
-    override fun activityInjector() = dispatchingAndroidInjector
+class MainApplication : DaggerApplication() {
 
-    override fun onCreate() {
-        super.onCreate()
-
-        DaggerAppComponent.builder()
-                .application(this)
-                .build()
-                .inject(this)
+    override fun applicationInjector(): AndroidInjector<out MainApplication> {
+        return DaggerAppComponent.builder().create(this)
     }
-
-    @Inject
-    lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Activity>
 
 }

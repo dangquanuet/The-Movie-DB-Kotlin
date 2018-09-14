@@ -17,9 +17,10 @@ import android.view.ViewGroup
 import com.quanda.moviedb.R
 import com.quanda.moviedb.utils.DialogUtils
 import dagger.android.support.AndroidSupportInjection
+import dagger.android.support.DaggerFragment
 import javax.inject.Inject
 
-abstract class BaseFragment<ViewBinding : ViewDataBinding, ViewModel : BaseViewModel> : Fragment(), BaseNavigator {
+abstract class BaseFragment<ViewBinding : ViewDataBinding, ViewModel : BaseViewModel> : DaggerFragment(), BaseNavigator {
 
     abstract val bindingVariable: Int
 
@@ -92,16 +93,6 @@ abstract class BaseFragment<ViewBinding : ViewDataBinding, ViewModel : BaseViewM
             mAlertDialog?.cancel()
         }
     }
-
-    override fun onAttach(context: Context?) {
-        performDependencyInjection()
-        super.onAttach(context)
-    }
-
-    private fun performDependencyInjection() {
-        AndroidSupportInjection.inject(this)
-    }
-
 
     /**
      * fragment transaction

@@ -136,16 +136,13 @@ dependencies {
     }
     kapt("com.github.bumptech.glide:compiler:4.7.1")
 
-    //dagger 2 core
+    // dagger 2 core
     implementation("com.google.dagger:dagger:2.16")
     kapt("com.google.dagger:dagger-compiler:2.16")
-    compileOnly("javax.annotation:jsr250-api:1.0")
-    implementation("javax.inject:javax.inject:1")
 
     // dagger 2 android
-    implementation("com.google.dagger:dagger-android:2.16")
-    implementation("com.google.dagger:dagger-android-support:2.16")
     kapt("com.google.dagger:dagger-android-processor:2.16")
+    implementation("com.google.dagger:dagger-android-support:2.16")
 
     // bottom navigation
     implementation("com.aurelhubert:ahbottomnavigation:2.1.0")

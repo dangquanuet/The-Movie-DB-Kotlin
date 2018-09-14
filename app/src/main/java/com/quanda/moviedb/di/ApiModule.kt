@@ -1,8 +1,8 @@
 package com.quanda.moviedb.di
 
-import android.app.Application
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.experimental.CoroutineCallAdapterFactory
 import com.quanda.moviedb.BuildConfig
+import com.quanda.moviedb.MainApplication
 import com.quanda.moviedb.data.remote.ApiService
 import com.quanda.moviedb.data.remote.RxErrorHandlingCallAdapterFactory
 import dagger.Module
@@ -29,7 +29,7 @@ class ApiModule {
     @Provides
     @Singleton
     @Named("cache")
-    internal fun provideOkHttpCache(application: Application): Cache {
+    internal fun provideOkHttpCache(application: MainApplication): Cache {
         val size = (10 * 1024 * 1024).toLong() // 10 Mb
         return Cache(application.cacheDir, size)
     }
