@@ -20,7 +20,7 @@ import dagger.android.support.AndroidSupportInjection
 import dagger.android.support.DaggerFragment
 import javax.inject.Inject
 
-abstract class BaseFragment<ViewBinding : ViewDataBinding, ViewModel : BaseViewModel> : DaggerFragment(), BaseNavigator {
+abstract class BaseFragment<ViewBinding : ViewDataBinding, ViewModel : BaseViewModel> : DaggerFragment() {
 
     abstract val bindingVariable: Int
 
@@ -148,7 +148,7 @@ abstract class BaseFragment<ViewBinding : ViewDataBinding, ViewModel : BaseViewM
         parentFragment.childFragmentManager.popBackStack()
     }
 
-    override fun onBack(): Boolean {
+    open fun onBack(): Boolean {
         return false
     }
 }

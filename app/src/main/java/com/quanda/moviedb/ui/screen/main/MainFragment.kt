@@ -114,8 +114,8 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>() {
     override fun onBack(): Boolean {
         val currentFragment = childFragmentManager.findFragmentByTag(
                 getTabFragmentTag(currentPositionFragment))
-        val stackCount = currentFragment.childFragmentManager.backStackEntryCount
-        if (stackCount > 0) {
+        val stackCount = currentFragment?.childFragmentManager?.backStackEntryCount
+        if (stackCount != null && stackCount > 0) {
             currentFragment.childFragmentManager.popBackStack()
 
             // refresh favorite movies

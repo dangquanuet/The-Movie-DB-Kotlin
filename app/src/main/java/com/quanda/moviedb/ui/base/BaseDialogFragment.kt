@@ -26,7 +26,7 @@ abstract class BaseDialogFragment<T : ViewDataBinding> : DialogFragment() {
         super.onStart()
         dialog.apply {
             setCancelable(false)
-            window.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         }
     }
 }

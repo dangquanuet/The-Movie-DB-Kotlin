@@ -21,12 +21,11 @@ kotlin {
 }
 
 android {
-    compileSdkVersion(27)
-    buildToolsVersion = "27.0.3"
 
     defaultConfig {
         applicationId = "com.quanda.moviedb"
         minSdkVersion(19)
+        compileSdkVersion(28)
         targetSdkVersion(28)
         testInstrumentationRunner = "android.support.test.runner.AndroidJUnitRunner"
     }
@@ -103,13 +102,13 @@ android {
 }
 
 dependencies {
-    implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
-    implementation("com.android.support:appcompat-v7:27.1.1")
-    implementation("com.android.support:support-v4:27.1.1")
+//    implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
+    implementation("com.android.support:appcompat-v7:28.0.0-rc02")
+    implementation("com.android.support:support-v4:28.0.0-rc02")
     implementation("com.android.support.constraint:constraint-layout:1.1.3")
-    implementation("com.android.support:recyclerview-v7:27.1.1")
-    implementation("com.android.support:cardview-v7:27.1.1")
-    implementation("com.android.support:design:27.1.1")
+    implementation("com.android.support:recyclerview-v7:28.0.0-rc02")
+    implementation("com.android.support:cardview-v7:28.0.0-rc02")
+    implementation("com.android.support:design:28.0.0-rc02")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:${KotlinCompilerVersion.VERSION}")
 
     //Support ReactiveX android
@@ -128,7 +127,8 @@ dependencies {
     implementation("com.squareup.retrofit2:converter-gson:2.4.0")
     implementation("com.squareup.okhttp3:logging-interceptor:3.9.1")
     implementation("com.squareup.retrofit2:adapter-rxjava2:2.4.0")
-    implementation("com.jakewharton.retrofit:retrofit2-kotlin-coroutines-experimental-adapter:1.0.0")
+    implementation(
+            "com.jakewharton.retrofit:retrofit2-kotlin-coroutines-experimental-adapter:1.0.0")
 
     //Glide library load image
     implementation("com.github.bumptech.glide:glide:4.7.1") {

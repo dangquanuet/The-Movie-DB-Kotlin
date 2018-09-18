@@ -23,10 +23,10 @@ abstract class EndlessRecyclerOnScrollListener(threshold: Int) : RecyclerView.On
         }
     }
 
-    override fun onScrolled(recycler: RecyclerView?, dx: Int, dy: Int) {
+    override fun onScrolled(recycler: RecyclerView, dx: Int, dy: Int) {
         super.onScrolled(recycler, dx, dy)
-        mVisibleItemCount = recycler?.childCount!!
-        mTotalItemCount = recycler.layoutManager.itemCount
+        mVisibleItemCount = recycler.childCount
+        mTotalItemCount = recycler.layoutManager?.itemCount ?: 0
         if (recycler.layoutManager is LinearLayoutManager) {
             mFirstVisibleItem = (recycler.layoutManager as LinearLayoutManager).findFirstVisibleItemPosition()
         } else if (recycler.layoutManager is GridLayoutManager) {
