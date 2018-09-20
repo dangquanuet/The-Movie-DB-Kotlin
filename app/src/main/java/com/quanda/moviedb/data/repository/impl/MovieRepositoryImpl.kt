@@ -14,8 +14,9 @@ import io.reactivex.schedulers.Schedulers
 import kotlinx.coroutines.experimental.Deferred
 import kotlinx.coroutines.experimental.android.UI
 import kotlinx.coroutines.experimental.async
+import javax.inject.Inject
 
-class MovieRepositoryImpl constructor(
+class MovieRepositoryImpl @Inject constructor(
         val apiService: ApiService,
         val movieDao: MovieDao
 ) : MovieRepository {
@@ -31,7 +32,7 @@ class MovieRepositoryImpl constructor(
     }
 
     override fun getTvList(hashMap: HashMap<String, String>, success: (GetTvListResponse) -> Unit,
-                           fail: (Throwable) -> Unit) {
+            fail: (Throwable) -> Unit) {
         async(UI) {
             try {
                 success(apiService.getTvList(hashMap).await())

@@ -5,8 +5,9 @@ import com.quanda.moviedb.data.model.Movie
 import com.quanda.moviedb.ui.base.BaseLoadMoreRefreshViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import javax.inject.Inject
 
-class FavoriteMovieViewModel constructor(
+class FavoriteMovieViewModel @Inject constructor(
         private val movieDao: MovieDao
 ) : BaseLoadMoreRefreshViewModel<Movie>() {
 

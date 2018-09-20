@@ -5,8 +5,9 @@ import com.quanda.moviedb.data.remote.response.GetMovieListResponse
 import com.quanda.moviedb.data.remote.response.GetTvListResponse
 import io.reactivex.Single
 import kotlinx.coroutines.experimental.Deferred
+import javax.inject.Inject
 
-class MockApi : ApiService {
+class MockApi @Inject constructor() : ApiService {
 
     override fun getMovieList(hashMap: HashMap<String, String>): Single<GetMovieListResponse> {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.

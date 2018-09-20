@@ -1,6 +1,7 @@
 package com.quanda.moviedb.ui.screen.favoritemovie
 
 import android.arch.lifecycle.Observer
+import android.arch.lifecycle.ViewModelProviders
 import android.graphics.Color
 import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
@@ -9,7 +10,6 @@ import com.quanda.moviedb.databinding.FragmentLoadmoreRefreshBinding
 import com.quanda.moviedb.ui.base.BaseLoadMoreRefreshFragment
 import com.quanda.moviedb.ui.screen.moviedetail.MovieDetailFragment
 import com.quanda.moviedb.ui.screen.popularmovie.PopularMovieAdapter
-import org.koin.android.viewmodel.ext.android.viewModel
 
 class FavoriteMovieFragment : BaseLoadMoreRefreshFragment<FragmentLoadmoreRefreshBinding, FavoriteMovieViewModel, Movie>() {
 
@@ -19,7 +19,9 @@ class FavoriteMovieFragment : BaseLoadMoreRefreshFragment<FragmentLoadmoreRefres
         fun newInstance() = FavoriteMovieFragment()
     }
 
-    override val viewModel by viewModel<FavoriteMovieViewModel>()
+    override val viewModel: FavoriteMovieViewModel
+        get() = ViewModelProviders.of(this, viewModelFactory).get(
+                FavoriteMovieViewModel::class.java)
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)

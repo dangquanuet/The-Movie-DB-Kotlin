@@ -1,6 +1,8 @@
 package com.quanda.moviedb.ui.base
 
 import android.arch.lifecycle.Observer
+import android.arch.lifecycle.ViewModelProvider
+import android.content.Context
 import android.databinding.DataBindingUtil
 import android.databinding.ViewDataBinding
 import android.os.Bundle
@@ -14,8 +16,11 @@ import android.view.View
 import android.view.ViewGroup
 import com.quanda.moviedb.R
 import com.quanda.moviedb.utils.DialogUtils
+import dagger.android.support.AndroidSupportInjection
+import dagger.android.support.DaggerFragment
+import javax.inject.Inject
 
-abstract class BaseFragment<ViewBinding : ViewDataBinding, ViewModel : BaseViewModel> : Fragment() {
+abstract class BaseFragment<ViewBinding : ViewDataBinding, ViewModel : BaseViewModel> : DaggerFragment() {
 
     abstract val bindingVariable: Int
 
@@ -26,9 +31,13 @@ abstract class BaseFragment<ViewBinding : ViewDataBinding, ViewModel : BaseViewM
     @get:LayoutRes
     abstract val layoutId: Int
 
+    @Inject
+    lateinit var viewModelFactory: ViewModelProvider.Factory
+
     var mAlertDialog: AlertDialog? = null
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
+            savedInstanceState: Bundle?): View? {
         viewBinding = DataBindingUtil.inflate(inflater, layoutId, container, false)
         return viewBinding.root
     }
@@ -98,7 +107,7 @@ abstract class BaseFragment<ViewBinding : ViewDataBinding, ViewModel : BaseViewM
     }
 
     fun replaceFragment(fragment: Fragment, TAG: String?, addToBackStack: Boolean = false,
-                        transit: Int = -1) {
+            transit: Int = -1) {
         activity?.supportFragmentManager?.beginTransaction()
                 ?.replace(R.id.container, fragment, TAG)?.apply {
                     commitTransaction(this, addToBackStack, transit)
@@ -106,22 +115,22 @@ abstract class BaseFragment<ViewBinding : ViewDataBinding, ViewModel : BaseViewM
     }
 
     fun replaceChildFragment(parentFragment: Fragment = this, containerViewId: Int,
-                             fragment: Fragment, TAG: String?, addToBackStack: Boolean = false, transit: Int = -1) {
+            fragment: Fragment, TAG: String?, addToBackStack: Boolean = false, transit: Int = -1) {
         val transaction = parentFragment.childFragmentManager.beginTransaction().replace(
                 containerViewId, fragment, TAG)
         commitTransaction(transaction, addToBackStack, transit)
     }
 
     fun addChildFragment(parentFragment: Fragment = this, containerViewId: Int,
-                         targetFragment: Fragment, TAG: String?, addToBackStack: Boolean = false,
-                         transit: Int = -1) {
+            targetFragment: Fragment, TAG: String?, addToBackStack: Boolean = false,
+            transit: Int = -1) {
         val transaction = parentFragment.childFragmentManager.beginTransaction().add(
                 containerViewId, targetFragment, TAG)
         commitTransaction(transaction, addToBackStack, transit)
     }
 
     fun showDialogFragment(dialogFragment: DialogFragment, TAG: String?,
-                           addToBackStack: Boolean = false, transit: Int = -1) {
+            addToBackStack: Boolean = false, transit: Int = -1) {
         val transaction = activity?.supportFragmentManager?.beginTransaction()
         if (addToBackStack) transaction?.addToBackStack(TAG)
         if (transit != -1) transaction?.setTransition(transit)
@@ -129,7 +138,7 @@ abstract class BaseFragment<ViewBinding : ViewDataBinding, ViewModel : BaseViewM
     }
 
     private fun commitTransaction(transaction: FragmentTransaction, addToBackStack: Boolean = false,
-                                  transit: Int = -1) {
+            transit: Int = -1) {
         if (addToBackStack) transaction.addToBackStack(null)
         if (transit != -1) transaction.setTransition(transit)
         transaction.commit()

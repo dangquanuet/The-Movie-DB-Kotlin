@@ -1,12 +1,12 @@
 package com.quanda.moviedb.ui.screen.permission
 
 import android.Manifest
+import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import com.quanda.moviedb.BR
 import com.quanda.moviedb.R
 import com.quanda.moviedb.databinding.FragmentPermisisonBinding
 import com.quanda.moviedb.ui.base.BaseFragment
-import org.koin.android.viewmodel.ext.android.viewModel
 
 
 class PermissionFragment : BaseFragment<FragmentPermisisonBinding, PermissionViewModel>() {
@@ -19,7 +19,8 @@ class PermissionFragment : BaseFragment<FragmentPermisisonBinding, PermissionVie
     override val layoutId: Int
         get() = R.layout.fragment_permisison
 
-    override val viewModel by viewModel<PermissionViewModel>()
+    override val viewModel: PermissionViewModel
+        get() = ViewModelProviders.of(this, viewModelFactory).get(PermissionViewModel::class.java)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

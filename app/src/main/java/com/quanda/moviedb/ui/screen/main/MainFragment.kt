@@ -1,5 +1,6 @@
 package com.quanda.moviedb.ui.screen.main
 
+import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
@@ -12,7 +13,6 @@ import com.quanda.moviedb.databinding.FragmentMainBinding
 import com.quanda.moviedb.ui.base.BaseFragment
 import com.quanda.moviedb.ui.screen.favoritemovie.FavoriteMovieFragment
 import com.quanda.moviedb.ui.screen.popularmovie.PopularMovieFragment
-import org.koin.android.viewmodel.ext.android.viewModel
 
 class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>() {
 
@@ -29,7 +29,8 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>() {
     override val layoutId: Int
         get() = R.layout.fragment_main
 
-    override val viewModel by viewModel<MainViewModel>()
+    override val viewModel: MainViewModel
+        get() = ViewModelProviders.of(this, viewModelFactory).get(MainViewModel::class.java)
 
     lateinit var bottomNavigation: AHBottomNavigation
 

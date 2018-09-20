@@ -1,8 +1,10 @@
 package com.quanda.moviedb.ui.screen.main
 
 import com.quanda.moviedb.ui.base.BaseViewModel
+import javax.inject.Inject
 
-class MainViewModel : BaseViewModel() {
+class MainViewModel @Inject constructor(
+) : BaseViewModel() {
 
     /**
      * test rx java2

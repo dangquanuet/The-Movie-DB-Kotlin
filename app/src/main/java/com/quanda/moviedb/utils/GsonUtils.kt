@@ -4,7 +4,9 @@ import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.google.gson.JsonSyntaxException
 import java.util.*
+import javax.inject.Singleton
 
+@Singleton
 class GsonUtils {
 
     init {

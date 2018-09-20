@@ -1,102 +1,117 @@
 package com.quanda.moviedb.di
 
-import android.content.Context
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.experimental.CoroutineCallAdapterFactory
 import com.quanda.moviedb.BuildConfig
+import com.quanda.moviedb.MainApplication
 import com.quanda.moviedb.data.remote.ApiService
 import com.quanda.moviedb.data.remote.RxErrorHandlingCallAdapterFactory
-import com.quanda.moviedb.di.Properties.GOOGLE_MAP_APIS_BASE_URL
-import com.quanda.moviedb.di.Properties.TIME_OUT
+import dagger.Module
+import dagger.Provides
 import okhttp3.Cache
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
-import org.koin.dsl.module.module
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
+import javax.inject.Named
+import javax.inject.Singleton
 
-val networkModule = module(override = true) {
-    single { createOkHttpCache(get()) }
-    single { createLoggingInterceptor() }
-    single { createHeaderInterceptor() }
-    single { createOkHttpClient(get(), get(), get()) }
-    single { createAppRetrofit(get()) }
-    single { createApiService(get()) }
-}
+@Module
+class ApiModule {
 
-object Properties {
-    const val TIME_OUT = 10
-    const val GOOGLE_MAP_APIS_BASE_URL = "https://maps.googleapis.com"
-}
+    companion object {
+        const val TIME_OUT = 10
+        const val GOOGLE_MAP_APIS_BASE_URL = "https://maps.googleapis.com"
+    }
 
-fun createOkHttpCache(context: Context): Cache {
-    val size = (10 * 1024 * 1024).toLong() // 10 Mb
-    return Cache(context.cacheDir, size)
-}
+    @Provides
+    @Singleton
+    @Named("cache")
+    internal fun provideOkHttpCache(application: MainApplication): Cache {
+        val size = (10 * 1024 * 1024).toLong() // 10 Mb
+        return Cache(application.cacheDir, size)
+    }
 
-fun createLoggingInterceptor(): Interceptor {
-    val logging = HttpLoggingInterceptor()
-    logging.level = if (BuildConfig.DEBUG) HttpLoggingInterceptor.Level.BODY
-    else HttpLoggingInterceptor.Level.NONE
-    return logging
-}
+    @Provides
+    @Singleton
+    @Named("logging")
+    internal fun provideLoggingInterceptor(): Interceptor {
+        val logging = HttpLoggingInterceptor()
+        logging.level = if (BuildConfig.DEBUG) HttpLoggingInterceptor.Level.BODY
+        else HttpLoggingInterceptor.Level.NONE
+        return logging
+    }
 
-fun createHeaderInterceptor(): Interceptor {
-    return Interceptor { chain ->
-        val request = chain.request()
-        val newUrl = request.url().newBuilder()
-                .addQueryParameter("api_key", BuildConfig.TMBD_API_KEY)
-                .build()
-        val newRequest = request.newBuilder()
-                .url(newUrl)
-                .header("Content-Type", "application/json")
+    @Provides
+    @Singleton
+    @Named("header")
+    internal fun provideHeaderInterceptor(): Interceptor {
+        return Interceptor { chain ->
+            val request = chain.request()
+            val newUrl = request.url().newBuilder()
+                    .addQueryParameter("api_key", BuildConfig.TMBD_API_KEY)
+                    .build()
+            val newRequest = request.newBuilder()
+                    .url(newUrl)
+                    .header("Content-Type", "application/json")
 //                    .header("X-App-Secret", "EZ1hEQ2NOUpT-tBUgw2ADQ")
 //                    .header("Authorization", UserDataManager.getAccessToken())
-                .method(request.method(), request.body())
-                .build()
-        chain.proceed(newRequest)
+                    .method(request.method(), request.body())
+                    .build()
+            chain.proceed(newRequest)
+        }
     }
-}
 
-fun createOkHttpClient(
-        cache: Cache,
-        logging: Interceptor,
-        header: Interceptor): OkHttpClient {
-    return OkHttpClient.Builder()
-            .cache(cache)
-            .connectTimeout(TIME_OUT.toLong(), TimeUnit.SECONDS)
-            .readTimeout(TIME_OUT.toLong(), TimeUnit.SECONDS)
-            .addInterceptor(header)
-            .addInterceptor(logging)
-            .build()
-}
+    @Provides
+    @Singleton
+    @Named("okHttp_client")
+    internal fun provideOkHttpClient(
+            @Named("cache") cache: Cache,
+            @Named("logging") logging: Interceptor,
+            @Named("header") header: Interceptor): OkHttpClient {
+        return OkHttpClient.Builder()
+                .cache(cache)
+                .connectTimeout(TIME_OUT.toLong(), TimeUnit.SECONDS)
+                .readTimeout(TIME_OUT.toLong(), TimeUnit.SECONDS)
+                .addInterceptor(header)
+                .addInterceptor(logging)
+                .build()
+    }
 
-fun createAppRetrofit(okHttpClient: OkHttpClient): Retrofit {
-    return Retrofit.Builder()
+    @Provides
+    @Singleton
+    @Named("app_retrofit")
+    internal fun provideAppRetrofit(@Named("okHttp_client") okHttpClient: OkHttpClient): Retrofit {
+        return Retrofit.Builder()
 //                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-            .addCallAdapterFactory(RxErrorHandlingCallAdapterFactory.create())
-            .addCallAdapterFactory(CoroutineCallAdapterFactory.invoke())
-            .addConverterFactory(GsonConverterFactory.create())
-            .baseUrl(BuildConfig.BASE_URL)
-            .client(okHttpClient)
-            .build()
-}
+                .addCallAdapterFactory(RxErrorHandlingCallAdapterFactory.create())
+                .addCallAdapterFactory(CoroutineCallAdapterFactory.invoke())
+                .addConverterFactory(GsonConverterFactory.create())
+                .baseUrl(BuildConfig.BASE_URL)
+                .client(okHttpClient)
+                .build()
+    }
 
-fun createMapRetrofit(okHttpClient: OkHttpClient): Retrofit {
-    return Retrofit.Builder()
-            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-            .addCallAdapterFactory(CoroutineCallAdapterFactory.invoke())
-            .addConverterFactory(GsonConverterFactory.create())
-            .baseUrl(GOOGLE_MAP_APIS_BASE_URL)
-            .client(okHttpClient)
-            .build()
-}
+    @Provides
+    @Singleton
+    @Named("map_retrofit")
+    internal fun provideMapRetrofit(okHttpClient: OkHttpClient): Retrofit {
+        return Retrofit.Builder()
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .addCallAdapterFactory(CoroutineCallAdapterFactory.invoke())
+                .addConverterFactory(GsonConverterFactory.create())
+                .baseUrl(GOOGLE_MAP_APIS_BASE_URL)
+                .client(okHttpClient)
+                .build()
+    }
 
-fun createApiService(retrofit: Retrofit): ApiService {
-    return retrofit.create(ApiService::class.java)
-}
+    @Provides
+    @Singleton
+    internal fun provideApiService(@Named("app_retrofit") retrofit: Retrofit): ApiService {
+        return retrofit.create(ApiService::class.java)
+    }
 
 //    @Provides
 //    @Singleton
@@ -115,3 +130,4 @@ fun createApiService(retrofit: Retrofit): ApiService {
 //    internal fun provideMapService(@Named("map_retrofit") retrofit: Retrofit): GoogleMapsApi {
 //        return retrofit.create(GoogleMapsApi::class.java!!)
 //    }
+}
