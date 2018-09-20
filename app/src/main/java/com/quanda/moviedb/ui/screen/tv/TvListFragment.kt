@@ -1,7 +1,6 @@
 package com.quanda.moviedb.ui.screen.tv
 
 import android.arch.lifecycle.Observer
-import android.arch.lifecycle.ViewModelProviders
 import android.graphics.Color
 import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
@@ -9,6 +8,7 @@ import com.quanda.moviedb.BR
 import com.quanda.moviedb.data.model.Tv
 import com.quanda.moviedb.databinding.FragmentLoadmoreRefreshBinding
 import com.quanda.moviedb.ui.base.BaseLoadMoreRefreshFragment
+import org.koin.android.viewmodel.ext.android.viewModel
 
 class TvListFragment : BaseLoadMoreRefreshFragment<FragmentLoadmoreRefreshBinding, TvListViewModel, Tv>() {
 
@@ -21,9 +21,7 @@ class TvListFragment : BaseLoadMoreRefreshFragment<FragmentLoadmoreRefreshBindin
     override val bindingVariable: Int
         get() = BR.viewModel
 
-    override val viewModel: TvListViewModel
-        get() = ViewModelProviders.of(this, viewModelFactory)
-                .get(TvListViewModel::class.java)
+    override val viewModel by viewModel<TvListViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
