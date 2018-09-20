@@ -1,5 +1,6 @@
 package com.quanda.moviedb.ui.screen.moviedetail
 
+import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.view.View
 import com.quanda.moviedb.BR
@@ -7,7 +8,6 @@ import com.quanda.moviedb.R
 import com.quanda.moviedb.data.model.Movie
 import com.quanda.moviedb.databinding.FragmentMovieDetailBinding
 import com.quanda.moviedb.ui.base.BaseFragment
-import org.koin.android.viewmodel.ext.android.viewModel
 
 class MovieDetailFragment : BaseFragment<FragmentMovieDetailBinding, MovieDetailViewModel>() {
 
@@ -28,7 +28,8 @@ class MovieDetailFragment : BaseFragment<FragmentMovieDetailBinding, MovieDetail
     override val layoutId: Int
         get() = R.layout.fragment_movie_detail
 
-    override val viewModel by viewModel<MovieDetailViewModel>()
+    override val viewModel: MovieDetailViewModel
+        get() = ViewModelProviders.of(this, viewModelFactory).get(MovieDetailViewModel::class.java)
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)

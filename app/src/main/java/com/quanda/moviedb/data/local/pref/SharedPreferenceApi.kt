@@ -3,8 +3,10 @@ package com.quanda.moviedb.data.local.pref
 import android.content.Context
 import android.content.SharedPreferences
 import com.quanda.moviedb.utils.GsonUtils
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class SharedPreferenceApi constructor(context: Context) {
+class SharedPreferenceApi @Inject constructor(context: Context) {
 
     companion object {
         const val PREFS_NAME = "MovieDBSharedPreferences"

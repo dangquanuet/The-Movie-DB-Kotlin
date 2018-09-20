@@ -132,12 +132,13 @@ dependencies {
     }
     kapt("com.github.bumptech.glide:compiler:4.8.0")
 
-    // Koin for Kotlin
-    implementation("org.koin:koin-core:1.0.0")
-    // Koin for Android
-    implementation("org.koin:koin-android:1.0.0")
-    // Koin Android ViewModel feature
-    implementation("org.koin:koin-android-viewmodel:1.0.0")
+    // dagger 2 core
+    implementation("com.google.dagger:dagger:2.16")
+    kapt("com.google.dagger:dagger-compiler:2.16")
+
+    // dagger 2 android
+    kapt("com.google.dagger:dagger-android-processor:2.16")
+    implementation("com.google.dagger:dagger-android-support:2.16")
 
     // bottom navigation
     implementation("com.aurelhubert:ahbottomnavigation:2.1.0")

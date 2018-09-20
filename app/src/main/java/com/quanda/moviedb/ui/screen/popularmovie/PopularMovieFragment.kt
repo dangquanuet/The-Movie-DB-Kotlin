@@ -1,6 +1,7 @@
 package com.quanda.moviedb.ui.screen.popularmovie
 
 import android.arch.lifecycle.Observer
+import android.arch.lifecycle.ViewModelProviders
 import android.graphics.Color
 import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
@@ -10,7 +11,6 @@ import com.quanda.moviedb.data.model.Movie
 import com.quanda.moviedb.databinding.FragmentLoadmoreRefreshBinding
 import com.quanda.moviedb.ui.base.BaseLoadMoreRefreshFragment
 import com.quanda.moviedb.ui.screen.moviedetail.MovieDetailFragment
-import org.koin.android.viewmodel.ext.android.viewModel
 
 class PopularMovieFragment : BaseLoadMoreRefreshFragment<FragmentLoadmoreRefreshBinding, PopularMovieViewModel, Movie>() {
 
@@ -28,16 +28,15 @@ class PopularMovieFragment : BaseLoadMoreRefreshFragment<FragmentLoadmoreRefresh
     override val bindingVariable: Int
         get() = BR.viewModel
 
-    override val viewModel by viewModel<PopularMovieViewModel>()
-
-    // user this for share viewModel between activity and fragment
-//    override val viewModel by sharedViewModel<MainActivityViewModel>()
+    override val viewModel: PopularMovieViewModel
+        get() = ViewModelProviders.of(this, viewModelFactory).get(
+                PopularMovieViewModel::class.java)
+                .apply {
+                    mode.value = arguments?.getInt(TYPE) ?: MovieListType.POPULAR.type
+                }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel.apply {
-            mode.value = arguments?.getInt(TYPE) ?: MovieListType.POPULAR.type
-        }
         val adapter = PopularMovieAdapter(itemClickListener = { goToMovieDetail(it) })
         viewBinding.apply {
             root.setBackgroundColor(Color.BLACK)

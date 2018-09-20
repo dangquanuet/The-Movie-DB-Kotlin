@@ -11,7 +11,9 @@ import java.net.SocketTimeoutException
 import java.net.UnknownHostException
 import kotlin.coroutines.experimental.CoroutineContext
 
-abstract class BaseViewModel : ViewModel() {
+abstract class BaseViewModel(
+
+) : ViewModel() {
 
     val isLoading = MutableLiveData<Boolean>().apply { value = false }
     val errorMessage = MutableLiveData<String>()

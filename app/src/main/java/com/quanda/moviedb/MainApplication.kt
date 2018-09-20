@@ -1,27 +1,14 @@
 package com.quanda.moviedb
 
-import android.app.Application
-import com.quanda.moviedb.di.appModule
-import com.quanda.moviedb.di.networkModule
-import com.quanda.moviedb.di.repositoryModule
-import com.quanda.moviedb.di.viewModelModule
-import org.koin.android.ext.android.startKoin
+import com.quanda.moviedb.di.DaggerAppComponent
+import dagger.android.AndroidInjector
+import dagger.android.support.DaggerApplication
 
-class MainApplication : Application() {
 
-    companion object {
-        var self: MainApplication? = null
-    }
+class MainApplication : DaggerApplication() {
 
-    override fun onCreate() {
-        super.onCreate()
-        self = this
-        startKoin(this, listOf(
-                appModule,
-                networkModule,
-                repositoryModule,
-                viewModelModule
-        ))
+    override fun applicationInjector(): AndroidInjector<out MainApplication> {
+        return DaggerAppComponent.builder().create(this)
     }
 
 }
