@@ -6,9 +6,8 @@ import com.quanda.moviedb.data.repository.impl.MovieRepositoryImpl
 import com.quanda.moviedb.ui.base.BaseLoadMoreRefreshViewModel
 import kotlinx.coroutines.experimental.android.UI
 import kotlinx.coroutines.experimental.async
-import javax.inject.Inject
 
-class TvListViewModel @Inject constructor(
+class TvListViewModel constructor(
         private val movieRepository: MovieRepositoryImpl
 ) : BaseLoadMoreRefreshViewModel<Tv>() {
 

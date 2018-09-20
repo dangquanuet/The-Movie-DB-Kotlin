@@ -2,9 +2,8 @@ package com.quanda.moviedb.data.local.pref
 
 import android.content.Context
 import com.google.gson.Gson
-import javax.inject.Inject
 
-class AppPrefs @Inject constructor(
+class AppPrefs constructor(
         context: Context, val gson: Gson
 ) : PrefHelper {
 

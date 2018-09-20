@@ -1,6 +1,6 @@
 package com.quanda.moviedb.ui.base
 
-import dagger.android.support.DaggerAppCompatActivity
+import android.support.v7.app.AppCompatActivity
 
-abstract class BaseActivity : DaggerAppCompatActivity() {
+abstract class BaseActivity : AppCompatActivity() {
 }

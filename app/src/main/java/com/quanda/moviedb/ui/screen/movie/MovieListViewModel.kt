@@ -5,9 +5,8 @@ import com.quanda.moviedb.data.model.Movie
 import com.quanda.moviedb.data.remote.ApiParams
 import com.quanda.moviedb.data.repository.impl.MovieRepositoryImpl
 import com.quanda.moviedb.ui.base.BaseLoadMoreRefreshViewModel
-import javax.inject.Inject
 
-class MovieListViewModel @Inject constructor(
+class MovieListViewModel constructor(
         private val movieRepository: MovieRepositoryImpl,
         private val mainApplication: MainApplication
 ) : BaseLoadMoreRefreshViewModel<Movie>() {
