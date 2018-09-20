@@ -58,8 +58,6 @@ android {
         }
     }
 
-//    packagingOptions.exclude("META-INF/main.kotlin_module")
-
     compileOptions {
         setTargetCompatibility(1.8)
         setSourceCompatibility(1.8)
@@ -102,7 +100,6 @@ android {
 }
 
 dependencies {
-//    implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
     implementation("com.android.support:appcompat-v7:28.0.0-rc02")
     implementation("com.android.support:support-v4:28.0.0-rc02")
     implementation("com.android.support.constraint:constraint-layout:1.1.3")
@@ -127,14 +124,13 @@ dependencies {
     implementation("com.squareup.retrofit2:converter-gson:2.4.0")
     implementation("com.squareup.okhttp3:logging-interceptor:3.9.1")
     implementation("com.squareup.retrofit2:adapter-rxjava2:2.4.0")
-    implementation(
-            "com.jakewharton.retrofit:retrofit2-kotlin-coroutines-experimental-adapter:1.0.0")
+    implementation("com.jakewharton.retrofit:retrofit2-kotlin-coroutines-experimental-adapter:1.0.0")
 
     //Glide library load image
     implementation("com.github.bumptech.glide:glide:4.7.1") {
         exclude("module", "support-annotations")
     }
-    kapt("com.github.bumptech.glide:compiler:4.7.1")
+    kapt("com.github.bumptech.glide:compiler:4.8.0")
 
     // dagger 2 core
     implementation("com.google.dagger:dagger:2.16")
