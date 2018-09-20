@@ -7,9 +7,8 @@ import com.quanda.moviedb.data.repository.impl.MovieRepositoryImpl
 import com.quanda.moviedb.ui.base.BaseViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import javax.inject.Inject
 
-class MovieDetailViewModel @Inject constructor(
+class MovieDetailViewModel constructor(
         private val movieRepository: MovieRepositoryImpl,
         private val movieDao: MovieDao
 ) : BaseViewModel() {

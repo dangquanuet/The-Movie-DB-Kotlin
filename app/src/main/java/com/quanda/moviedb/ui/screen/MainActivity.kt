@@ -1,20 +1,14 @@
 package com.quanda.moviedb.ui.screen
 
-import android.arch.lifecycle.ViewModelProvider
-import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import com.quanda.moviedb.R
 import com.quanda.moviedb.ui.base.BaseActivity
 import com.quanda.moviedb.ui.screen.main.MainFragment
-import javax.inject.Inject
+import org.koin.android.viewmodel.ext.android.viewModel
 
 class MainActivity : BaseActivity() {
 
-    @Inject
-    lateinit var viewModelFactory: ViewModelProvider.Factory
-
-    val viewModel: MainActivityViewModel
-        get() = ViewModelProviders.of(this, viewModelFactory).get(MainActivityViewModel::class.java)
+    val viewModel by viewModel<MainActivityViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
