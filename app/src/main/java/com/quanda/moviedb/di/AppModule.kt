@@ -9,3 +9,15 @@ val appModule = module(override = true) {
 }
 
 fun createResources(application: MainApplication): Resources = application.resources
+
+/* naming a definition
+val myModule = module {
+    single<Service>("default") { ServiceImpl() }
+    single<Service>("test") { ServiceImpl() }
+
+    // Will match types ServiceImp & Service
+    single { ServiceImp() } bind Service::class
+}
+
+val service : Service by inject(name = "default")
+ */

@@ -16,7 +16,6 @@ import org.koin.dsl.module.module
 val repositoryModule = module(override = true) {
     single { createDatabaseName() }
     single { createAppDatabase(get(), get()) }
-    single { createAppDatabase(get(), get()) }
     single { createMovieDao(get()) }
     single<PrefHelper> { AppPrefs(get(), get()) }
     single { Gson() }
