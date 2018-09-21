@@ -1,7 +1,7 @@
 package com.quanda.moviedb.ui.base
 
-import android.arch.lifecycle.MutableLiveData
-import android.support.v4.widget.SwipeRefreshLayout
+import androidx.lifecycle.MutableLiveData
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.quanda.moviedb.data.constants.Constants
 import com.quanda.moviedb.ui.widgets.EndlessRecyclerOnScrollListener
 

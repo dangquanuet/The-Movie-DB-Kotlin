@@ -14,7 +14,7 @@ interface MovieRepository {
     fun getTvList(hashMap: HashMap<String, String> = HashMap()): Deferred<GetTvListResponse>
 
     fun getTvList(hashMap: HashMap<String, String>, success: (GetTvListResponse) -> Unit,
-            fail: (Throwable) -> Unit)
+                  fail: (Throwable) -> Unit)
 
     fun getTvList2(hashMap: HashMap<String, String> = HashMap()): Result<GetTvListResponse>
 

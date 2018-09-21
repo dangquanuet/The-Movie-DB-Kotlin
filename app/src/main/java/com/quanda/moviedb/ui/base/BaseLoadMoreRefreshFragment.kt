@@ -1,6 +1,6 @@
 package com.quanda.moviedb.ui.base
 
-import android.databinding.ViewDataBinding
+import androidx.databinding.ViewDataBinding
 import com.quanda.moviedb.BR
 import com.quanda.moviedb.R
 

@@ -4,7 +4,7 @@ import android.os.Bundle
 import com.quanda.moviedb.R
 import com.quanda.moviedb.ui.base.BaseActivity
 import com.quanda.moviedb.ui.screen.main.MainFragment
-import org.koin.android.viewmodel.ext.android.viewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : BaseActivity() {
 

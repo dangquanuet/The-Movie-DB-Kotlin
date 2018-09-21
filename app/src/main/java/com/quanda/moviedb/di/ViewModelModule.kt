@@ -7,7 +7,7 @@ import com.quanda.moviedb.ui.screen.main.MainViewModel
 import com.quanda.moviedb.ui.screen.moviedetail.MovieDetailViewModel
 import com.quanda.moviedb.ui.screen.popularmovie.PopularMovieViewModel
 import com.quanda.moviedb.ui.screen.tv.TvListViewModel
-import org.koin.android.viewmodel.ext.koin.viewModel
+import org.koin.androidx.viewmodel.ext.koin.viewModel
 import org.koin.dsl.module.module
 
 val viewModelModule = module(override = true) {

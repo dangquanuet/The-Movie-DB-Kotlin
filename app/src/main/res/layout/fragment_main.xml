@@ -2,12 +2,15 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
+
     <data>
+
         <variable
             name="viewModel"
             type="com.quanda.moviedb.ui.screen.main.MainViewModel" />
     </data>
-    <android.support.constraint.ConstraintLayout
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/parent"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -19,8 +22,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            tools:layout_height="@dimen/dp_48"
-            />
+            tools:layout_height="@dimen/dp_48" />
 
         <FrameLayout
             android:id="@+id/frame_layout"
@@ -29,8 +31,7 @@
             app:layout_constraintBottom_toTopOf="@id/bottom_navigation"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            />
+            app:layout_constraintTop_toTopOf="parent" />
 
-    </android.support.constraint.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

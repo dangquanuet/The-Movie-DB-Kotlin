@@ -1,18 +1,18 @@
 package com.quanda.moviedb.utils
 
 import android.content.res.ColorStateList
-import android.databinding.BindingAdapter
 import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.SystemClock
-import android.support.annotation.DrawableRes
-import android.support.v4.widget.SwipeRefreshLayout
-import android.support.v7.widget.RecyclerView
 import android.text.TextUtils
 import android.view.View
 import android.webkit.WebView
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.annotation.DrawableRes
+import androidx.databinding.BindingAdapter
+import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
@@ -58,8 +58,8 @@ fun ImageView.loadImage(imageName: String?) {
         value = ["loadImage", "placeholder", "centerCrop", "fitCenter", "circleCrop", "cacheSource", "animation", "large"],
         requireAll = false)
 fun ImageView.loadImage(url: String? = "", placeHolder: Drawable?,
-        centerCrop: Boolean = false, fitCenter: Boolean = false, circleCrop: Boolean = false,
-        isCacheSource: Boolean = false, animation: Boolean = false, isLarge: Boolean = false) {
+                        centerCrop: Boolean = false, fitCenter: Boolean = false, circleCrop: Boolean = false,
+                        isCacheSource: Boolean = false, animation: Boolean = false, isLarge: Boolean = false) {
     if (TextUtils.isEmpty(url)) {
         setImageDrawable(placeHolder)
         return

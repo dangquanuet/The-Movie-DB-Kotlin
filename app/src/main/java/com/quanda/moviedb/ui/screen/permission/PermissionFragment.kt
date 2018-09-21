@@ -6,7 +6,7 @@ import com.quanda.moviedb.BR
 import com.quanda.moviedb.R
 import com.quanda.moviedb.databinding.FragmentPermisisonBinding
 import com.quanda.moviedb.ui.base.BaseFragment
-import org.koin.android.viewmodel.ext.android.viewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class PermissionFragment : BaseFragment<FragmentPermisisonBinding, PermissionViewModel>() {

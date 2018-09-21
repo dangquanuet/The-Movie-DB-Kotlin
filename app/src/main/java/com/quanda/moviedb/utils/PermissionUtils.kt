@@ -4,8 +4,8 @@ import android.content.Context.MODE_PRIVATE
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.os.Build
-import android.support.v4.app.ActivityCompat
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 import com.quanda.moviedb.data.local.pref.SharedPreferenceApi.Companion.PREFS_NAME
 
 
@@ -122,7 +122,7 @@ fun AppCompatActivity.shouldShowRequestPermissionsRationale(permissions: Array<S
  * request multiple permissions
  */
 fun AppCompatActivity.requestPermissions(permissions: Array<String>,
-        listener: PermissionAskListener) {
+                                         listener: PermissionAskListener) {
     /*
     * If permissions is not granted
     * */

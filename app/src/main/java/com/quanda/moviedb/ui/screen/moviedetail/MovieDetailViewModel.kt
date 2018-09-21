@@ -1,6 +1,6 @@
 package com.quanda.moviedb.ui.screen.moviedetail
 
-import android.arch.lifecycle.MutableLiveData
+import androidx.lifecycle.MutableLiveData
 import com.quanda.moviedb.data.local.dao.MovieDao
 import com.quanda.moviedb.data.model.Movie
 import com.quanda.moviedb.data.repository.MovieRepository
@@ -17,7 +17,7 @@ class MovieDetailViewModel constructor(
     val favoriteChanged = MutableLiveData<Boolean>().apply { value = false }
 
     fun updateNewMovie(newMovie: Movie) {
-        movieDao.getMovie(newMovie.id ?: "")
+        movieDao.getMovie(newMovie.id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({

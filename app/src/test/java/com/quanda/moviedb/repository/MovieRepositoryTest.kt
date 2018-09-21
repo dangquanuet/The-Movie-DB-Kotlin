@@ -1,6 +1,6 @@
 package com.quanda.moviedb.repository
 
-import android.arch.core.executor.testing.InstantTaskExecutorRule
+import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.quanda.moviedb.RxImmediateSchedulerRule
 import com.quanda.moviedb.data.local.dao.MovieDao
 import com.quanda.moviedb.data.model.Movie

@@ -2,9 +2,9 @@ package com.quanda.moviedb.utils
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v7.app.AppCompatActivity
 import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 
 // top level fun in kotlin = static fun in java
 // use for utils class
@@ -18,7 +18,7 @@ fun AppCompatActivity.goToActivity(activity: Class<*>, bundle: Bundle? = null, f
 }
 
 fun AppCompatActivity.goToActivityForResult(activity: Class<*>, bundle: Bundle? = null,
-        flag: Int = 0, requestCode: Int) {
+                                            flag: Int = 0, requestCode: Int) {
     startActivityForResult(Intent(this, activity).apply {
         if (flag != 0) flags = flag
         if (bundle != null) putExtras(bundle)
