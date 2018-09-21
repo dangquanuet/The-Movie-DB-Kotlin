@@ -1,9 +1,9 @@
 package com.quanda.moviedb.ui.screen.login
 
-import android.arch.lifecycle.MediatorLiveData
-import android.arch.lifecycle.MutableLiveData
-import android.support.v4.util.PatternsCompat
 import android.text.TextUtils
+import androidx.core.util.PatternsCompat
+import androidx.lifecycle.MediatorLiveData
+import androidx.lifecycle.MutableLiveData
 import com.quanda.moviedb.data.constants.Constants
 import com.quanda.moviedb.ui.base.BaseViewModel
 

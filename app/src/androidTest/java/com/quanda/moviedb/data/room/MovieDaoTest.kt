@@ -1,8 +1,8 @@
 package com.quanda.moviedb.data.room
 
-import android.arch.persistence.room.Room
-import android.support.test.InstrumentationRegistry
-import android.support.test.runner.AndroidJUnit4
+import androidx.room.Room
+import androidx.test.InstrumentationRegistry
+import androidx.test.runner.AndroidJUnit4
 import com.quanda.moviedb.data.model.Movie
 import com.quanda.moviedb.data.local.dao.MovieDao
 import com.quanda.moviedb.data.local.db.AppDatabase

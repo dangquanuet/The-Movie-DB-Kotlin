@@ -1,6 +1,6 @@
 package com.quanda.moviedb.ui.screen.popularmovie
 
-import android.arch.lifecycle.MutableLiveData
+import androidx.lifecycle.MutableLiveData
 import com.quanda.moviedb.data.constants.MovieListType
 import com.quanda.moviedb.data.local.dao.MovieDao
 import com.quanda.moviedb.data.model.Movie

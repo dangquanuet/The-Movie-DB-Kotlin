@@ -1,8 +1,8 @@
 package com.quanda.moviedb.ui.screen.main
 
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v4.content.ContextCompat
+import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationAdapter
 import com.quanda.moviedb.BR
@@ -12,7 +12,7 @@ import com.quanda.moviedb.databinding.FragmentMainBinding
 import com.quanda.moviedb.ui.base.BaseFragment
 import com.quanda.moviedb.ui.screen.favoritemovie.FavoriteMovieFragment
 import com.quanda.moviedb.ui.screen.popularmovie.PopularMovieFragment
-import org.koin.android.viewmodel.ext.android.viewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>() {
 

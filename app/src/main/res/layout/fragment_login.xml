@@ -1,24 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    >
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
     <data>
-        <variable
-            name="view"
-            type="com.quanda.moviedb.ui.screen.login.LoginFragment"
-            />
+
         <variable
             name="viewModel"
-            type="com.quanda.moviedb.ui.screen.login.LoginViewModel"
-            />
+            type="com.quanda.moviedb.ui.screen.login.LoginViewModel" />
     </data>
-    <android.support.constraint.ConstraintLayout
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="@dimen/dp_16"
-        >
+        android:padding="@dimen/dp_16">
 
-        <android.support.v7.widget.AppCompatEditText
+        <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/edt_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -29,10 +25,9 @@
             android:text="@={ viewModel.email }"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.3"
-            />
+            app:layout_constraintVertical_bias="0.3" />
 
-        <android.support.v7.widget.AppCompatEditText
+        <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/edt_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -42,19 +37,17 @@
             android:maxLines="1"
             android:singleLine="true"
             android:text="@={ viewModel.password }"
-            app:layout_constraintTop_toBottomOf="@id/edt_email"
-            />
+            app:layout_constraintTop_toBottomOf="@id/edt_email" />
 
-        <android.support.v7.widget.AppCompatButton
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/button_login"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp_16"
-            android:enabled="@{ viewModel.formValid }"
+            android:enabled="@{ safeUnbox(viewModel.formValid) }"
             android:onClick="@{ () -> viewModel.clickLogin() }"
             android:text="@string/login_button_login"
-            app:layout_constraintTop_toBottomOf="@id/edt_password"
-            />
+            app:layout_constraintTop_toBottomOf="@id/edt_password" />
 
-    </android.support.constraint.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -2,28 +2,28 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:bind="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    >
+    xmlns:tools="http://schemas.android.com/tools">
+
     <data>
+
         <variable
             name="item"
             type="com.quanda.moviedb.data.model.Tv" />
     </data>
-    <android.support.constraint.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_280"
-        >
 
-        <android.support.v7.widget.AppCompatImageView
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_280">
+
+        <androidx.appcompat.widget.AppCompatImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             bind:cacheSource="@{ true }"
             bind:centerCrop="@{ true }"
             bind:loadImage="@{ item.poster_path }"
-            tools:src="@drawable/bg_default_image"
-            />
+            tools:src="@drawable/bg_default_image" />
 
-        <android.support.v7.widget.AppCompatTextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/black_50"
@@ -37,8 +37,7 @@
             android:textColor="@android:color/white"
             android:textSize="@dimen/sp_16"
             app:layout_constraintBottom_toBottomOf="parent"
-            tools:text="Title"
-            />
+            tools:text="Title" />
 
-    </android.support.constraint.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

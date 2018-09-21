@@ -1,16 +1,16 @@
 package com.quanda.moviedb.ui.screen.popularmovie
 
-import android.arch.lifecycle.Observer
 import android.graphics.Color
 import android.os.Bundle
-import android.support.v7.widget.GridLayoutManager
+import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.GridLayoutManager
 import com.quanda.moviedb.BR
 import com.quanda.moviedb.data.constants.MovieListType
 import com.quanda.moviedb.data.model.Movie
 import com.quanda.moviedb.databinding.FragmentLoadmoreRefreshBinding
 import com.quanda.moviedb.ui.base.BaseLoadMoreRefreshFragment
 import com.quanda.moviedb.ui.screen.moviedetail.MovieDetailFragment
-import org.koin.android.viewmodel.ext.android.viewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class PopularMovieFragment : BaseLoadMoreRefreshFragment<FragmentLoadmoreRefreshBinding, PopularMovieViewModel, Movie>() {
 
