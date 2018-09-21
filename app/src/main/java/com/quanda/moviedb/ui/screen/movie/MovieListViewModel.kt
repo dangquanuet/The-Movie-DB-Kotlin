@@ -3,11 +3,11 @@ package com.quanda.moviedb.ui.screen.movie
 import com.quanda.moviedb.MainApplication
 import com.quanda.moviedb.data.model.Movie
 import com.quanda.moviedb.data.remote.ApiParams
-import com.quanda.moviedb.data.repository.impl.MovieRepositoryImpl
+import com.quanda.moviedb.data.repository.MovieRepository
 import com.quanda.moviedb.ui.base.BaseLoadMoreRefreshViewModel
 
 class MovieListViewModel constructor(
-        private val movieRepository: MovieRepositoryImpl,
+        private val movieRepository: MovieRepository,
         private val mainApplication: MainApplication
 ) : BaseLoadMoreRefreshViewModel<Movie>() {
 

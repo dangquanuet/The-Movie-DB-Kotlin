@@ -2,13 +2,13 @@ package com.quanda.moviedb.ui.screen.tv
 
 import com.quanda.moviedb.data.model.Tv
 import com.quanda.moviedb.data.remote.ApiParams
-import com.quanda.moviedb.data.repository.impl.MovieRepositoryImpl
+import com.quanda.moviedb.data.repository.MovieRepository
 import com.quanda.moviedb.ui.base.BaseLoadMoreRefreshViewModel
 import kotlinx.coroutines.experimental.android.UI
 import kotlinx.coroutines.experimental.async
 
 class TvListViewModel constructor(
-        private val movieRepository: MovieRepositoryImpl
+        private val movieRepository: MovieRepository
 ) : BaseLoadMoreRefreshViewModel<Tv>() {
 
     override fun loadData(page: Int) {
