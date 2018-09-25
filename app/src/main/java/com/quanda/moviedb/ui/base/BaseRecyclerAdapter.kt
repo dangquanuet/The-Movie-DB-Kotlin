@@ -13,14 +13,14 @@ import java.util.concurrent.Executors
 
 abstract class BaseRecyclerAdapter2<Item, ViewBinding : ViewDataBinding>(
         callBack: DiffUtil.ItemCallback<Item>
-) : ListAdapter<Item, BaseViewHolder2<ViewBinding>>(
+) : ListAdapter<Item, BaseViewHolder<ViewBinding>>(
         AsyncDifferConfig.Builder<Item>(callBack)
                 .setBackgroundThreadExecutor(Executors.newSingleThreadExecutor())
                 .build()
 ) {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder2<ViewBinding> {
-        return BaseViewHolder2(DataBindingUtil.inflate<ViewBinding>(
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<ViewBinding> {
+        return BaseViewHolder(DataBindingUtil.inflate<ViewBinding>(
                 LayoutInflater.from(parent.context),
                 getLayoutRes(viewType),
                 parent, false).apply {
@@ -28,10 +28,14 @@ abstract class BaseRecyclerAdapter2<Item, ViewBinding : ViewDataBinding>(
         })
     }
 
-    override fun onBindViewHolder(holder: BaseViewHolder2<ViewBinding>, position: Int) {
-        val item: Item = getItem(position)
-        holder.binding.setVariable(BR.item, item)
-        bindView(holder.binding, item)
+    override fun onBindViewHolder(holder: BaseViewHolder<ViewBinding>, position: Int) {
+        try {
+            val item: Item = getItem(position)
+            holder.binding.setVariable(BR.item, item)
+            bindView(holder.binding, item, position)
+        } catch (e: IndexOutOfBoundsException) {
+            bind(holder.binding, position)
+        }
         holder.binding.executePendingBindings()
     }
 
@@ -51,8 +55,10 @@ abstract class BaseRecyclerAdapter2<Item, ViewBinding : ViewDataBinding>(
      * override if need
      * bind view
      */
-    protected open fun bindView(binding: ViewBinding, item: Item) {}
+    protected open fun bindView(binding: ViewBinding, item: Item, position: Int) {}
+
+    protected open fun bind(binding: ViewBinding, position: Int) {}
 }
 
-open class BaseViewHolder2<ViewBinding : ViewDataBinding> constructor(
+open class BaseViewHolder<ViewBinding : ViewDataBinding> constructor(
         val binding: ViewBinding) : RecyclerView.ViewHolder(binding.root)

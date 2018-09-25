@@ -32,7 +32,7 @@ class PopularMovieAdapter(
         }
     }
 
-    override fun bindView(binding: ItemMovieBinding, item: Movie) {
+    override fun bindView(binding: ItemMovieBinding, item: Movie, position: Int) {
         binding.apply {
             this.item = item
         }
