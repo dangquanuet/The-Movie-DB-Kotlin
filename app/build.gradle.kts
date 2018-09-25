@@ -100,12 +100,12 @@ android {
 }
 
 dependencies {
-    implementation("androidx.appcompat:appcompat:1.0.0-rc02")
-    implementation("androidx.legacy:legacy-support-v4:1.0.0-rc02")
+    implementation("androidx.appcompat:appcompat:1.0.0")
+    implementation("androidx.legacy:legacy-support-v4:1.0.0")
     implementation("androidx.constraintlayout:constraintlayout:1.1.3")
-    implementation("androidx.recyclerview:recyclerview:1.0.0-rc02")
-    implementation("androidx.cardview:cardview:1.0.0-rc02")
-    implementation("com.google.android.material:material:1.0.0-rc02")
+    implementation("androidx.recyclerview:recyclerview:1.0.0")
+    implementation("androidx.cardview:cardview:1.0.0")
+    implementation("com.google.android.material:material:1.0.0")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:${KotlinCompilerVersion.VERSION}")
 
     //Support ReactiveX android
@@ -152,12 +152,12 @@ dependencies {
     implementation("androidx.room:room-rxjava2:2.0.0-rc01")
 
     // ViewModel and LiveData
-    implementation("androidx.lifecycle:lifecycle-extensions:2.0.0-rc01")
-    kapt("androidx.lifecycle:lifecycle-compiler:2.0.0-rc01")
+    implementation("androidx.lifecycle:lifecycle-extensions:2.0.0")
+    kapt("androidx.lifecycle:lifecycle-compiler:2.0.0")
     // Java8 support for Lifecycles
-    implementation("androidx.lifecycle:lifecycle-common-java8:2.0.0-rc01")
+    implementation("androidx.lifecycle:lifecycle-common-java8:2.0.0")
     // ReactiveStreams support for LiveData
-    implementation("androidx.lifecycle:lifecycle-reactivestreams:2.0.0-rc01")
+    implementation("androidx.lifecycle:lifecycle-reactivestreams:2.0.0")
 
     // unit test
     testImplementation("junit:junit:4.12")
