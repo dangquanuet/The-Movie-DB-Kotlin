@@ -22,7 +22,13 @@ class MainActivity : BaseActivity() {
         val currentFragment = supportFragmentManager.findFragmentById(R.id.parent)
         when (currentFragment) {
             is MainFragment -> if (!currentFragment.onBack()) super.onBackPressed()
-            else -> super.onBackPressed()
+            else -> {
+                if (currentFragment != null && currentFragment.childFragmentManager.backStackEntryCount >= 1) {
+                    currentFragment.childFragmentManager.popBackStack()
+                } else {
+                    super.onBackPressed()
+                }
+            }
         }
     }
 }
