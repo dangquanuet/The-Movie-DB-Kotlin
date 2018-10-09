@@ -7,7 +7,7 @@ import com.quanda.moviedb.databinding.ItemTvBinding
 import com.quanda.moviedb.ui.base.BaseRecyclerAdapter2
 
 class TvListAdapter(
-        val itemClickListener: ((Tv) -> Unit)? = null
+        val itemClickListener: (Tv) -> Unit = {}
 ) : BaseRecyclerAdapter2<Tv, ItemTvBinding>(object : DiffUtil.ItemCallback<Tv>() {
     override fun areItemsTheSame(oldItem: Tv, newItem: Tv): Boolean {
         return oldItem.id == newItem.id
@@ -26,7 +26,7 @@ class TvListAdapter(
         binding.apply {
             root.setOnClickListener {
                 item?.apply {
-                    itemClickListener?.invoke(this)
+                    itemClickListener(this)
                 }
             }
         }
@@ -34,7 +34,7 @@ class TvListAdapter(
 
     override fun bindView(binding: ItemTvBinding, item: Tv, position: Int) {
         binding.apply {
-            this.item = item
+
         }
     }
 }

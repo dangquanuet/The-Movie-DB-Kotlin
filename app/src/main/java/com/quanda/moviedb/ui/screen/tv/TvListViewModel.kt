@@ -4,6 +4,7 @@ import com.quanda.moviedb.data.model.Tv
 import com.quanda.moviedb.data.remote.ApiParams
 import com.quanda.moviedb.data.repository.MovieRepository
 import com.quanda.moviedb.ui.base.BaseLoadMoreRefreshViewModel
+import kotlinx.android.synthetic.main.fragment_loadmore_refresh.view.*
 import kotlinx.coroutines.experimental.android.UI
 import kotlinx.coroutines.experimental.async
 
@@ -17,26 +18,15 @@ class TvListViewModel constructor(
 
         async(UI) {
             try {
-                val response = movieRepository.getTvList(hashMap).await()
-                currentPage.value = page
-                if (currentPage.value == 1) listItem.value?.clear()
-                if (isRefreshing.value == true) resetLoadMore()
-                val newList = response.results ?: ArrayList()
-                newList.addAll(response.results ?: listOf())
-                listItem.value = newList
-                onLoadSuccess(response.results?.size ?: 0)
+                onLoadSuccess(page, movieRepository.getTvList(hashMap).await().results)
             } catch (e: Throwable) {
                 onLoadFail(e)
             }
         }
 
         /*
-        movieRepository.getTvList(hashMap, { response ->
-            currentPage = page
-            if (currentPage == 1) listItem.clear()
-            if (isRefreshing.value == true) resetLoadMore()
-            listItem.addAll(response.results)
-            onLoadSuccess(response)
+        movieRepository.getTvList(hashMap, {
+            onLoadSuccess(page, it.results)
         }, { e ->
             onLoadFail(e)
         })
@@ -51,7 +41,7 @@ class TvListViewModel constructor(
                 if (currentPage == 1) listItem.clear()
                 if (isRefreshing.value == true) resetLoadMore()
                 listItem.addAll(response.results)
-                onLoadSuccess(response)
+                onLoadSuccess(page, response)
             }
             is Result.Error -> {
                 onLoadFail(result.error)

@@ -17,7 +17,7 @@ class MovieDetailViewModel constructor(
     val favoriteChanged = MutableLiveData<Boolean>().apply { value = false }
 
     fun updateNewMovie(newMovie: Movie) {
-        movieDao.getMovie(newMovie.id)
+        addDisposable(movieDao.getMovie(newMovie.id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
@@ -26,7 +26,7 @@ class MovieDetailViewModel constructor(
                 }, {
                     newMovie.isFavorite = false
                     movie.value = newMovie
-                })
+                }))
     }
 
     fun favoriteMovie() {

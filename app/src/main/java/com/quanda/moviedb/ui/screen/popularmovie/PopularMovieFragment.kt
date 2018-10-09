@@ -35,10 +35,15 @@ class PopularMovieFragment : BaseLoadMoreRefreshFragment<FragmentLoadmoreRefresh
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+
         viewModel.apply {
             mode.value = arguments?.getInt(TYPE) ?: MovieListType.POPULAR.type
         }
-        val adapter = PopularMovieAdapter(itemClickListener = { goToMovieDetail(it) })
+
+        val adapter = PopularMovieAdapter(
+                itemClickListener = { goToMovieDetail(it) }
+        )
+
         viewBinding.apply {
             root.setBackgroundColor(Color.BLACK)
             recyclerView.apply {
@@ -46,6 +51,7 @@ class PopularMovieFragment : BaseLoadMoreRefreshFragment<FragmentLoadmoreRefresh
                 this.adapter = adapter
             }
         }
+
         viewModel.apply {
             listItem.observe(this@PopularMovieFragment, Observer {
                 adapter.submitList(it)
@@ -55,7 +61,8 @@ class PopularMovieFragment : BaseLoadMoreRefreshFragment<FragmentLoadmoreRefresh
     }
 
     fun goToMovieDetail(movie: Movie) {
-        replaceChildFragment(containerViewId = viewBinding.parent.id,
+        replaceChildFragment(
+                containerViewId = viewBinding.parent.id,
                 fragment = MovieDetailFragment.newInstance(movie),
                 TAG = MovieDetailFragment.TAG,
                 addToBackStack = true)

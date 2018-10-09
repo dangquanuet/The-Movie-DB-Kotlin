@@ -59,15 +59,23 @@ abstract class BaseLoadMoreRefreshViewModel<Item>() : BaseViewModel() {
         isLastPage.value = false
     }
 
-    fun onLoadSuccess(listSize: Int) {
-        isLastPage.value = listSize < getNumberItemPerPage()
+    fun onLoadSuccess(page: Int, items: List<Item>?) {
+        currentPage.value = page
+        if (currentPage.value == 1) listItem.value?.clear()
+        if (isRefreshing.value == true) resetLoadMore()
+
+        val newList = listItem.value ?: ArrayList()
+        newList.addAll(items ?: listOf())
+        listItem.value = newList
+
+        isLastPage.value = items?.size ?: 0 < getNumberItemPerPage()
         isLoading.value = false
         isRefreshing.value = false
         isLoadMore.value = false
     }
 
-    override fun onLoadFail(e: Throwable) {
-        super.onLoadFail(e)
+    override fun onLoadFail(throwable: Throwable) {
+        super.onLoadFail(throwable)
         isRefreshing.value = false
         isLoadMore.value = false
     }

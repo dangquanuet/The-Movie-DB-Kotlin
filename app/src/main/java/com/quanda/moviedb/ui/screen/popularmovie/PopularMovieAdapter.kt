@@ -7,7 +7,7 @@ import com.quanda.moviedb.databinding.ItemMovieBinding
 import com.quanda.moviedb.ui.base.BaseRecyclerAdapter2
 
 class PopularMovieAdapter(
-        val itemClickListener: ((Movie) -> Unit)? = null
+        val itemClickListener: (Movie) -> Unit = {}
 ) : BaseRecyclerAdapter2<Movie, ItemMovieBinding>(object : DiffUtil.ItemCallback<Movie>() {
     override fun areItemsTheSame(oldItem: Movie, newItem: Movie): Boolean {
         return oldItem.id == newItem.id
@@ -26,15 +26,10 @@ class PopularMovieAdapter(
         binding.apply {
             root.setOnClickListener {
                 item?.apply {
-                    itemClickListener?.invoke(this)
+                    itemClickListener(this)
                 }
             }
         }
     }
 
-    override fun bindView(binding: ItemMovieBinding, item: Movie, position: Int) {
-        binding.apply {
-            this.item = item
-        }
-    }
 }

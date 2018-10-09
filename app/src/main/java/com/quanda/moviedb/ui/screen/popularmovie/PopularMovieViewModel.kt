@@ -16,8 +16,6 @@ class PopularMovieViewModel constructor(
 
     var mode = MutableLiveData<Int>().apply { value = MovieListType.POPULAR.type }
 
-//    val tempMovieList = ObservableArrayList<Movie>()
-
     override fun loadData(page: Int) {
         val hashMap = HashMap<String, String>()
         hashMap.put(ApiParams.PAGE, page.toString())
@@ -32,48 +30,11 @@ class PopularMovieViewModel constructor(
                     ApiParams.SORT_BY, ApiParams.POPULARITY_DESC)
         }
 
-//        if (page == 1 && tempMovieList.isEmpty()) {
-//            movieDao.getMoviePage(getNumberItemPerPage(), page)
-//                    .subscribeOn(Schedulers.io())
-//                    .observeOn(AndroidSchedulers.mainThread())
-//                    .subscribe(object : DisposableMaybeObserver<List<Movie>>() {
-//                        override fun onComplete() {
-//
-//                        }
-//
-//                        override fun onSuccess(t: List<Movie>) {
-//                            tempMovieList.addAll(t)
-//
-//                            val newList = listItem.value ?: ArrayList()
-//                            newList.addAll(t)
-//                            listItem.value = newList
-//                        }
-//
-//                        override fun onError(e: Throwable) {
-//
-//                        }
-//                    })
-//        }
-
-        movieRepository.getMovieList(hashMap)
+        addDisposable(movieRepository.getMovieList(hashMap)
                 .subscribe({
-                    currentPage.value = page
-                    if (currentPage.value == 1) listItem.value?.clear()
-                    if (isRefreshing.value == true) resetLoadMore()
-
-//                val newList = listItem.value ?: ArrayList()
-//                newList.removeAll(tempMovieList)
-//                listItem.value = newList
-//                tempMovieList.clear()
-
-                    val newList2 = listItem.value ?: ArrayList()
-                    newList2.addAll(it.results ?: listOf())
-                    listItem.value = newList2
-                    movieRepository.insertDB(it.results ?: listOf())
-
-                    onLoadSuccess(it.results?.size ?: 0)
+                    onLoadSuccess(page, it.results)
                 }, {
                     onLoadFail(it)
-                })
+                }))
     }
 }

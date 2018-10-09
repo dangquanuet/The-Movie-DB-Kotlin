@@ -1,6 +1,5 @@
 package com.quanda.moviedb.data.repository.impl
 
-import android.util.Log
 import com.quanda.moviedb.data.local.dao.MovieDao
 import com.quanda.moviedb.data.model.Movie
 import com.quanda.moviedb.data.remote.ApiService
@@ -20,19 +19,26 @@ class MovieRepositoryImpl constructor(
         val movieDao: MovieDao
 ) : MovieRepository {
 
-    override fun getMovieList(hashMap: HashMap<String, String>): Single<GetMovieListResponse> {
+    override fun getMovieList(
+            hashMap: HashMap<String, String>
+    ): Single<GetMovieListResponse> {
         return apiService.getMovieList(hashMap)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
     }
 
-    override fun getTvList(hashMap: HashMap<String, String>): Deferred<GetTvListResponse> {
+    override fun getTvList(
+            hashMap: HashMap<String, String>
+    ): Deferred<GetTvListResponse> {
         return apiService.getTvList(hashMap)
     }
 
-    override fun getTvList(hashMap: HashMap<String, String>, success: (GetTvListResponse) -> Unit,
-                           fail: (Throwable) -> Unit) {
-        async(UI) {
+    override fun getTvList(
+            hashMap: HashMap<String, String>,
+            success: (GetTvListResponse) -> Unit,
+            fail: (Throwable) -> Unit
+    ): Deferred<Unit?> {
+        return async(UI) {
             try {
                 success(apiService.getTvList(hashMap).await())
             } catch (e: Throwable) {
@@ -41,7 +47,9 @@ class MovieRepositoryImpl constructor(
         }
     }
 
-    override fun getTvList2(hashMap: HashMap<String, String>): Result<GetTvListResponse> {
+    override fun getTvList2(
+            hashMap: HashMap<String, String>
+    ): Result<GetTvListResponse> {
         lateinit var result: Result<GetTvListResponse>
         async(UI) {
             try {
@@ -53,22 +61,28 @@ class MovieRepositoryImpl constructor(
         return result
     }
 
-    override fun insertDB(list: List<Movie>) {
-        async {
+    override fun insertDB(
+            list: List<Movie>,
+            fail: (Throwable) -> Unit
+    ): Deferred<Unit> {
+        return async {
             try {
                 movieDao.insert(list)
             } catch (e: Throwable) {
-                Log.e("MovieRepository", e.toString())
+                fail(e)
             }
         }
     }
 
-    override fun updateDB(movie: Movie) {
-        async {
+    override fun updateDB(
+            movie: Movie,
+            fail: (Throwable) -> Unit
+    ): Deferred<Unit> {
+        return async {
             try {
                 movieDao.update(movie)
             } catch (e: Throwable) {
-                Log.e("MovieRepository", e.toString())
+                fail(e)
             }
         }
     }

@@ -11,20 +11,14 @@ class FavoriteMovieViewModel constructor(
 ) : BaseLoadMoreRefreshViewModel<Movie>() {
 
     override fun loadData(page: Int) {
-        movieDao.getFavorite(getNumberItemPerPage(), page)
+        addDisposable(movieDao.getFavorite(getNumberItemPerPage(), page)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
-                    currentPage.value = page
-                    if (currentPage.value == 1) listItem.value?.clear()
-                    if (isRefreshing.value == true) resetLoadMore()
-                    val newList = listItem.value ?: ArrayList()
-                    newList.addAll(it)
-                    listItem.value = newList
-                    onLoadSuccess(it.size)
+                    onLoadSuccess(page, it)
                 }, {
                     onLoadFail(it)
-                })
+                }))
     }
 
 }

@@ -23,9 +23,11 @@ class TvListFragment : BaseLoadMoreRefreshFragment<FragmentLoadmoreRefreshBindin
 
     override val viewModel by viewModel<TvListViewModel>()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        val adapter = TvListAdapter(itemClickListener = { goToTvDetail(it) })
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        val adapter = TvListAdapter(
+                itemClickListener = { goToTvDetail(it) }
+        )
         viewBinding.apply {
             root.setBackgroundColor(Color.BLACK)
             recyclerView.apply {
@@ -40,6 +42,7 @@ class TvListFragment : BaseLoadMoreRefreshFragment<FragmentLoadmoreRefreshBindin
             firstLoad()
         }
     }
+
 
     fun goToTvDetail(tv: Tv) {
 
