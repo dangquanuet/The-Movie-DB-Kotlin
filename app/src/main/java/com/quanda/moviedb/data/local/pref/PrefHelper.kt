@@ -4,6 +4,8 @@ interface PrefHelper {
 
     fun isFirstRun(): Boolean
 
+    fun clear(key: String)
+
     fun clear()
 
 }

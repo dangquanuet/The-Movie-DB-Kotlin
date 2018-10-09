@@ -4,7 +4,8 @@ import android.content.Context
 import com.google.gson.Gson
 
 class AppPrefs constructor(
-        context: Context, val gson: Gson
+        context: Context,
+        val gson: Gson
 ) : PrefHelper {
 
     var sharedPreferences = context.getSharedPreferences(context.packageName,
@@ -21,6 +22,10 @@ class AppPrefs constructor(
         }
 
         return first
+    }
+
+    override fun clear(key: String) {
+        sharedPreferences.edit().clear().apply()
     }
 
     override fun clear() {

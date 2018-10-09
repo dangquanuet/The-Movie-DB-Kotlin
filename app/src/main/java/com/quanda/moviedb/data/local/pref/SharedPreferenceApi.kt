@@ -1,21 +1,15 @@
 package com.quanda.moviedb.data.local.pref
 
 import android.content.Context
-import android.content.SharedPreferences
 import com.quanda.moviedb.utils.GsonUtils
 
 class SharedPreferenceApi constructor(context: Context) {
 
     companion object {
-        const val PREFS_NAME = "MovieDBSharedPreferences"
+
     }
 
-    private var sharedPreferences: SharedPreferences
-
-    init {
-        sharedPreferences = context.getSharedPreferences(
-                PREFS_NAME, Context.MODE_PRIVATE)
-    }
+    private var sharedPreferences = context.getSharedPreferences(context.packageName, Context.MODE_PRIVATE)
 
     /**
      * Java way

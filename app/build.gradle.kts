@@ -146,10 +146,10 @@ dependencies {
     kapt("com.android.databinding:compiler:3.3.0-alpha11")
 
     // room
-    implementation("androidx.room:room-runtime:2.0.0-rc01")
-    kapt("androidx.room:room-compiler:2.0.0-rc01")
+    implementation("androidx.room:room-runtime:2.0.0")
+    kapt("androidx.room:room-compiler:2.0.0")
     // RxJava support for Room
-    implementation("androidx.room:room-rxjava2:2.0.0-rc01")
+    implementation("androidx.room:room-rxjava2:2.0.0")
 
     // ViewModel and LiveData
     implementation("androidx.lifecycle:lifecycle-extensions:2.0.0")
