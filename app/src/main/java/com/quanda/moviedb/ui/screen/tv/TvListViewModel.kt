@@ -4,7 +4,6 @@ import com.quanda.moviedb.data.model.Tv
 import com.quanda.moviedb.data.remote.ApiParams
 import com.quanda.moviedb.data.repository.MovieRepository
 import com.quanda.moviedb.ui.base.BaseLoadMoreRefreshViewModel
-import kotlinx.android.synthetic.main.fragment_loadmore_refresh.view.*
 import kotlinx.coroutines.experimental.android.UI
 import kotlinx.coroutines.experimental.async
 

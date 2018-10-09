@@ -17,7 +17,7 @@ abstract class BaseViewModel : ViewModel() {
     val errorMessage = MutableLiveData<String>()
 
     // rx
-    val compoDisposable = CompositeDisposable()
+    val compositeDisposable = CompositeDisposable()
 
     // coroutines
     val parentJob = Job()
@@ -26,7 +26,7 @@ abstract class BaseViewModel : ViewModel() {
     }
 
     fun addDisposable(disposable: Disposable) {
-        compoDisposable.add(disposable)
+        compositeDisposable.add(disposable)
     }
 
     open fun onLoadFail(throwable: Throwable) {
@@ -65,7 +65,7 @@ abstract class BaseViewModel : ViewModel() {
     }
 
     fun onActivityDestroyed() {
-        compoDisposable.clear()
+        compositeDisposable.clear()
         parentJob.cancel()
     }
 }
