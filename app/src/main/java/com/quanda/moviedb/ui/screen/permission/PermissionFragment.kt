@@ -2,7 +2,6 @@ package com.quanda.moviedb.ui.screen.permission
 
 import android.Manifest
 import android.os.Bundle
-import com.quanda.moviedb.BR
 import com.quanda.moviedb.R
 import com.quanda.moviedb.databinding.FragmentPermisisonBinding
 import com.quanda.moviedb.ui.base.BaseFragment
@@ -12,9 +11,6 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class PermissionFragment : BaseFragment<FragmentPermisisonBinding, PermissionViewModel>() {
 
     val permissions = arrayOf(Manifest.permission.CAMERA, Manifest.permission.READ_CONTACTS)
-
-    override val bindingVariable: Int
-        get() = BR.viewModel
 
     override val layoutId: Int
         get() = R.layout.fragment_permisison

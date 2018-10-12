@@ -5,7 +5,6 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationAdapter
-import com.quanda.moviedb.BR
 import com.quanda.moviedb.R
 import com.quanda.moviedb.data.constants.MovieListType
 import com.quanda.moviedb.databinding.FragmentMainBinding
@@ -22,9 +21,6 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>() {
 
         fun newInstance() = MainFragment()
     }
-
-    override val bindingVariable: Int
-        get() = BR.viewModel
 
     override val layoutId: Int
         get() = R.layout.fragment_main

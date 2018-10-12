@@ -4,7 +4,6 @@ import android.graphics.Color
 import android.os.Bundle
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
-import com.quanda.moviedb.BR
 import com.quanda.moviedb.data.model.Tv
 import com.quanda.moviedb.databinding.FragmentLoadmoreRefreshBinding
 import com.quanda.moviedb.ui.base.BaseLoadMoreRefreshFragment
@@ -17,9 +16,6 @@ class TvListFragment : BaseLoadMoreRefreshFragment<FragmentLoadmoreRefreshBindin
 
         fun newInstance() = TvListFragment()
     }
-
-    override val bindingVariable: Int
-        get() = BR.viewModel
 
     override val viewModel by viewModel<TvListViewModel>()
 

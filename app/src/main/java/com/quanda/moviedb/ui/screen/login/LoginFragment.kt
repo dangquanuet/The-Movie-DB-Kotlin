@@ -1,7 +1,6 @@
 package com.quanda.moviedb.ui.screen.login
 
 import android.util.Log
-import com.quanda.moviedb.BR
 import com.quanda.moviedb.R
 import com.quanda.moviedb.databinding.FragmentLoginBinding
 import com.quanda.moviedb.ui.base.BaseFragment
@@ -14,9 +13,6 @@ class LoginFragment : BaseFragment<FragmentLoginBinding, LoginViewModel>() {
 
         fun newInstance() = LoginFragment()
     }
-
-    override val bindingVariable: Int
-        get() = BR.viewModel
 
     override val layoutId: Int
         get() = R.layout.fragment_login

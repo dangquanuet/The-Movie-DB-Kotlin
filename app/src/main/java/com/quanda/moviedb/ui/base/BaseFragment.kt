@@ -12,12 +12,11 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.Observer
+import com.quanda.moviedb.BR
 import com.quanda.moviedb.R
 import com.quanda.moviedb.utils.DialogUtils
 
 abstract class BaseFragment<ViewBinding : ViewDataBinding, ViewModel : BaseViewModel> : Fragment() {
-
-    abstract val bindingVariable: Int
 
     lateinit var viewBinding: ViewBinding
 
@@ -36,7 +35,7 @@ abstract class BaseFragment<ViewBinding : ViewDataBinding, ViewModel : BaseViewM
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewBinding.apply {
-            setVariable(bindingVariable, viewModel)
+            setVariable(BR.viewModel, viewModel)
             root.isClickable = true
             setLifecycleOwner(this@BaseFragment)
             executePendingBindings()

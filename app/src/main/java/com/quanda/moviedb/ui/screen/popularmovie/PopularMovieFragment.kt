@@ -4,7 +4,6 @@ import android.graphics.Color
 import android.os.Bundle
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
-import com.quanda.moviedb.BR
 import com.quanda.moviedb.data.constants.MovieListType
 import com.quanda.moviedb.data.model.Movie
 import com.quanda.moviedb.databinding.FragmentLoadmoreRefreshBinding
@@ -24,9 +23,6 @@ class PopularMovieFragment : BaseLoadMoreRefreshFragment<FragmentLoadmoreRefresh
             }
         }
     }
-
-    override val bindingVariable: Int
-        get() = BR.viewModel
 
     override val viewModel by viewModel<PopularMovieViewModel>()
 

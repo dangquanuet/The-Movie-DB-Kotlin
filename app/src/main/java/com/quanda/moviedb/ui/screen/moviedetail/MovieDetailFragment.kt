@@ -2,7 +2,6 @@ package com.quanda.moviedb.ui.screen.moviedetail
 
 import android.os.Bundle
 import android.view.View
-import com.quanda.moviedb.BR
 import com.quanda.moviedb.R
 import com.quanda.moviedb.data.model.Movie
 import com.quanda.moviedb.databinding.FragmentMovieDetailBinding
@@ -21,9 +20,6 @@ class MovieDetailFragment : BaseFragment<FragmentMovieDetailBinding, MovieDetail
             }
         }
     }
-
-    override val bindingVariable: Int
-        get() = BR.viewModel
 
     override val layoutId: Int
         get() = R.layout.fragment_movie_detail
