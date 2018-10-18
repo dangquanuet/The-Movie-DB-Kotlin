@@ -18,7 +18,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.signature.ObjectKey
 import com.quanda.moviedb.BuildConfig
-import com.quanda.moviedb.GlideApp
+import com.quanda.moviedb.ui.widgets.GlideApp
 import com.quanda.moviedb.data.constants.Constants
 import java.io.File
 

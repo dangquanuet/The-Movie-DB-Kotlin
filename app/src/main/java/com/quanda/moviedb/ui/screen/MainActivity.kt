@@ -13,9 +13,11 @@ class MainActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        supportFragmentManager.beginTransaction()
-                .replace(R.id.parent, MainFragment.newInstance(), MainFragment.TAG)
-                .commit()
+        if (savedInstanceState == null) {
+            supportFragmentManager.beginTransaction()
+                    .replace(R.id.parent, MainFragment.newInstance(), MainFragment.TAG)
+                    .commit()
+        }
     }
 
     override fun onBackPressed() {

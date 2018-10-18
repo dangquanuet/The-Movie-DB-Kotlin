@@ -10,6 +10,13 @@ val appModule = module(override = true) {
 
 fun createResources(application: MainApplication): Resources = application.resources
 
+val modules = listOf(
+        appModule,
+        networkModule,
+        repositoryModule,
+        viewModelModule
+)
+
 /* naming a definition
 val myModule = module {
     single<Service>("default") { ServiceImpl() }
