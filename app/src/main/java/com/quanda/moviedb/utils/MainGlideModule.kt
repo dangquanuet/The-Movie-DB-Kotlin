@@ -1,4 +1,4 @@
-package com.quanda.moviedb.ui.widgets
+package com.quanda.moviedb.utils
 
 import android.content.Context
 import android.util.Log
