@@ -19,9 +19,9 @@ import java.util.concurrent.TimeUnit
 
 val networkModule = module(override = true) {
     single { createOkHttpCache(get()) }
-    single { createLoggingInterceptor() }
-    single { createHeaderInterceptor() }
-    single { createOkHttpClient(get(), get(), get()) }
+    single(name = "logging") { createLoggingInterceptor() }
+    single(name = "header") { createHeaderInterceptor() }
+    single { createOkHttpClient(get(), get(name = "logging"), get(name = "header")) }
     single { createAppRetrofit(get()) }
     single { createApiService(get()) }
 }
