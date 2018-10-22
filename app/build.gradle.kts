@@ -113,8 +113,8 @@ dependencies {
     implementation("io.reactivex.rxjava2:rxandroid:2.1.0")
 
     // coroutines
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:0.22.5")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:0.22.5")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:0.26.0")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:0.26.0")
 
     //Using this for parse json data to object
     implementation("com.google.code.gson:gson:2.8.5")
@@ -122,7 +122,7 @@ dependencies {
     //Using retrofit library for connect api v4.data.source.remote.service
     implementation("com.squareup.retrofit2:retrofit:2.4.0")
     implementation("com.squareup.retrofit2:converter-gson:2.4.0")
-    implementation("com.squareup.okhttp3:logging-interceptor:3.9.1")
+    implementation("com.squareup.okhttp3:logging-interceptor:3.10.0")
     implementation("com.squareup.retrofit2:adapter-rxjava2:2.4.0")
     implementation("com.jakewharton.retrofit:retrofit2-kotlin-coroutines-experimental-adapter:1.0.0")
 
