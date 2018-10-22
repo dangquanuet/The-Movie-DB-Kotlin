@@ -58,17 +58,6 @@ android {
         }
     }
 
-    compileOptions {
-        setTargetCompatibility(1.8)
-        setSourceCompatibility(1.8)
-    }
-
-    dataBinding {
-        isEnabled = true
-    }
-
-    flavorDimensions("default")
-
     productFlavors {
         create("dev") {
             versionCode = 1
@@ -90,13 +79,36 @@ android {
         buildConfigField("String", "ORIGINAL_IMAGE_URL", "\"https://image.tmdb.org/t/p/original\"")
         buildConfigField("String", "TMBD_API_KEY", "\"2cdf3a5c7cf412421485f89ace91e373\"")
 
-        when (this.name) {
+        when (name) {
             "dev" -> {
             }
             "prd" -> {
             }
         }
     }
+
+    variantFilter {
+        // 'dev' flavor is only available for debug build
+        if (buildType.name != "debug" && flavors[0].name == "dev") {
+            setIgnore(true)
+        }
+        // 'prd' flavor is only available for release build
+        if (buildType.name != "release" && flavors[0].name == "prd") {
+            setIgnore(true)
+        }
+    }
+
+    flavorDimensions("default")
+
+    compileOptions {
+        setTargetCompatibility(1.8)
+        setSourceCompatibility(1.8)
+    }
+
+    dataBinding {
+        isEnabled = true
+    }
+
 }
 
 dependencies {
