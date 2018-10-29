@@ -4,7 +4,7 @@ import android.content.res.Resources
 import com.quanda.moviedb.MainApplication
 import org.koin.dsl.module.module
 
-val appModule = module(override = true) {
+val appModule = module {
     single { createResources(get()) }
 }
 

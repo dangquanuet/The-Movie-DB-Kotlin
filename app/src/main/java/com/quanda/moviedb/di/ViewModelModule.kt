@@ -10,7 +10,7 @@ import com.quanda.moviedb.ui.screen.tv.TvListViewModel
 import org.koin.androidx.viewmodel.experimental.builder.viewModel
 import org.koin.dsl.module.module
 
-val viewModelModule = module(override = true) {
+val viewModelModule = module {
     viewModel<MainActivityViewModel>()
     viewModel<MainViewModel>()
     viewModel<FavoriteMovieViewModel>()

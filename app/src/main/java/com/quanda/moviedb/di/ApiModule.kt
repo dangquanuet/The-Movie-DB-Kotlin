@@ -17,7 +17,7 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
-val networkModule = module(override = true) {
+val networkModule = module {
     single { createOkHttpCache(get()) }
     single(name = "logging") { createLoggingInterceptor() }
     single(name = "header") { createHeaderInterceptor() }

@@ -12,13 +12,14 @@ import com.quanda.moviedb.data.repository.UserRepository
 import com.quanda.moviedb.data.repository.impl.MovieRepositoryImpl
 import com.quanda.moviedb.data.repository.impl.UserRepositoryImpl
 import org.koin.dsl.module.module
+import org.koin.experimental.builder.single
 
-val repositoryModule = module(override = true) {
+val repositoryModule = module {
     single { createDatabaseName() }
     single { createAppDatabase(get(), get()) }
     single { createMovieDao(get()) }
     single<PrefHelper> { AppPrefs(get(), get()) }
-    single { Gson() }
+    single<Gson>()
     single<UserRepository> { UserRepositoryImpl() }
     single<MovieRepository> { MovieRepositoryImpl(get(), get()) }
 }
