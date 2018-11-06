@@ -39,7 +39,7 @@ class FavoriteMovieFragment : BaseLoadMoreRefreshFragment<FragmentLoadmoreRefres
         }
 
         viewModel.apply {
-            listItem.observe(this@FavoriteMovieFragment, Observer {
+            listItem.observe(viewLifecycleOwner, Observer {
                 adapter.submitList(it)
             })
             firstLoad()

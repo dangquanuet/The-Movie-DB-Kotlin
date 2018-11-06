@@ -11,6 +11,7 @@ import com.quanda.moviedb.databinding.FragmentMainBinding
 import com.quanda.moviedb.ui.base.BaseFragment
 import com.quanda.moviedb.ui.screen.favoritemovie.FavoriteMovieFragment
 import com.quanda.moviedb.ui.screen.popularmovie.PopularMovieFragment
+import kotlinx.android.synthetic.main.fragment_main.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>() {
@@ -27,23 +28,18 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>() {
 
     override val viewModel by viewModel<MainViewModel>()
 
-    lateinit var bottomNavigation: AHBottomNavigation
-
     var currentPositionFragment = Tab.POPULAR.position
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewBinding.viewModel = viewModel
         initBottomNavigation()
     }
 
     fun initBottomNavigation() {
-        bottomNavigation = viewBinding.bottomNavigation
-        val bottomNavigationAdapter = AHBottomNavigationAdapter(activity,
-                R.menu.menu_bottom_navigation)
-        bottomNavigationAdapter.setupWithBottomNavigation(bottomNavigation)
-
-        bottomNavigation.apply {
+        bottom_navigation.apply {
+            AHBottomNavigationAdapter(
+                activity, R.menu.menu_bottom_navigation
+            ).setupWithBottomNavigation(this)
             titleState = AHBottomNavigation.TitleState.ALWAYS_SHOW
             defaultBackgroundColor = ContextCompat.getColor(context, R.color.white)
 
@@ -97,9 +93,11 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>() {
     fun newFragmentInstance(position: Int): Fragment {
         return when (position) {
             Tab.POPULAR.position -> PopularMovieFragment.newInstance(
-                    MovieListType.POPULAR.type)
+                MovieListType.POPULAR.type
+            )
             Tab.TOP_RATED.position -> PopularMovieFragment.newInstance(
-                    MovieListType.TOP_RATED.type)
+                MovieListType.TOP_RATED.type
+            )
             Tab.FAVORITE.position -> FavoriteMovieFragment.newInstance()
             Tab.PROFILE.position -> Fragment() // TODO
             else -> Fragment()
@@ -108,7 +106,8 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>() {
 
     override fun onBack(): Boolean {
         val currentFragment = childFragmentManager.findFragmentByTag(
-                getTabFragmentTag(currentPositionFragment))
+            getTabFragmentTag(currentPositionFragment)
+        )
         val stackCount = currentFragment?.childFragmentManager?.backStackEntryCount
         if (stackCount != null && stackCount > 0) {
             currentFragment.childFragmentManager.popBackStack()

@@ -35,7 +35,7 @@ class TvListFragment : BaseLoadMoreRefreshFragment<FragmentLoadmoreRefreshBindin
         }
 
         viewModel.apply {
-            listItem.observe(this@TvListFragment, Observer {
+            listItem.observe(viewLifecycleOwner, Observer {
                 adapter.submitList(it)
             })
             firstLoad()

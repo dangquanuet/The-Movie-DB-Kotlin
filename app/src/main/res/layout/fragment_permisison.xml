@@ -5,10 +5,6 @@
     <data>
 
         <variable
-            name="view"
-            type="com.quanda.moviedb.ui.screen.permission.PermissionFragment" />
-
-        <variable
             name="viewModel"
             type="com.quanda.moviedb.ui.screen.permission.PermissionViewModel" />
     </data>
@@ -22,7 +18,6 @@
             android:id="@+id/button_1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="@{ () -> view.case1() }"
             android:text="Normal Single Permission" />
 
         <androidx.appcompat.widget.AppCompatButton
@@ -30,7 +25,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp_16"
-            android:onClick="@{ () -> view.case2() }"
             android:text="Simple Single Permission"
             app:layout_constraintTop_toBottomOf="@id/button_1" />
 
@@ -39,7 +33,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp_16"
-            android:onClick="@{ () -> view.case3() }"
             android:text="Normal Multiple Permissions"
             app:layout_constraintTop_toBottomOf="@id/button_2" />
 
@@ -48,7 +41,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp_16"
-            android:onClick="@{ () -> view.case4() }"
             android:text="Simple Multiple Permissions"
             app:layout_constraintTop_toBottomOf="@id/button_3" />
 

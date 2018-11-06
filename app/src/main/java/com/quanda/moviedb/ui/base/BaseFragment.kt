@@ -37,7 +37,7 @@ abstract class BaseFragment<ViewBinding : ViewDataBinding, ViewModel : BaseViewM
         viewBinding.apply {
             setVariable(BR.viewModel, viewModel)
             root.isClickable = true
-            setLifecycleOwner(this@BaseFragment)
+            setLifecycleOwner(viewLifecycleOwner)
             executePendingBindings()
         }
     }
@@ -46,10 +46,10 @@ abstract class BaseFragment<ViewBinding : ViewDataBinding, ViewModel : BaseViewM
         super.onActivityCreated(savedInstanceState)
         mAlertDialog = DialogUtils.createLoadingDialog(context, false)
         viewModel.apply {
-            isLoading.observe(this@BaseFragment, Observer {
+            isLoading.observe(viewLifecycleOwner, Observer {
                 handleShowLoading(it == true)
             })
-            errorMessage.observe(this@BaseFragment, Observer {
+            errorMessage.observe(viewLifecycleOwner, Observer {
                 hideLoading()
                 if (it != null && it.isNotBlank()) {
                     handleShowErrorMessage(it)

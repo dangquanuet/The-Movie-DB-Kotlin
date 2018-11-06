@@ -49,7 +49,7 @@ class PopularMovieFragment : BaseLoadMoreRefreshFragment<FragmentLoadmoreRefresh
         }
 
         viewModel.apply {
-            listItem.observe(this@PopularMovieFragment, Observer {
+            listItem.observe(viewLifecycleOwner, Observer {
                 adapter.submitList(it)
             })
             firstLoad()

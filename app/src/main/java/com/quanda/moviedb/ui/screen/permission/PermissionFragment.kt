@@ -5,6 +5,7 @@ import android.os.Bundle
 import com.quanda.moviedb.R
 import com.quanda.moviedb.databinding.FragmentPermisisonBinding
 import com.quanda.moviedb.ui.base.BaseFragment
+import kotlinx.android.synthetic.main.fragment_permisison.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
@@ -19,10 +20,10 @@ class PermissionFragment : BaseFragment<FragmentPermisisonBinding, PermissionVie
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewBinding.apply {
-            view = this@PermissionFragment
-            viewModel = this@PermissionFragment.viewModel
-        }
+        button_1.setOnClickListener { case1() }
+        button_2.setOnClickListener { case2() }
+        button_3.setOnClickListener { case3() }
+        button_4.setOnClickListener { case4() }
     }
 
     fun case1() {}
