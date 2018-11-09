@@ -21,9 +21,10 @@ abstract class BaseLoadMoreRefreshViewModel<Item>() : BaseViewModel() {
     val onScrollListener = object : EndlessRecyclerOnScrollListener(getLoadMoreThreshold()) {
         override fun onLoadMore() {
             if (isLoading.value == true
-                    || isRefreshing.value == true
-                    || isLoadMore.value == true
-                    || isLastPage.value == true) return
+                || isRefreshing.value == true
+                || isLoadMore.value == true
+                || isLastPage.value == true
+            ) return
             isLoadMore.value = true
             loadMore()
         }

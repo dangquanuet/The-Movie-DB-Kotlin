@@ -15,28 +15,28 @@ import kotlinx.coroutines.experimental.android.UI
 import kotlinx.coroutines.experimental.async
 
 class MovieRepositoryImpl constructor(
-        val apiService: ApiService,
-        val movieDao: MovieDao
+    private val apiService: ApiService,
+    private val movieDao: MovieDao
 ) : MovieRepository {
 
     override fun getMovieList(
-            hashMap: HashMap<String, String>
+        hashMap: HashMap<String, String>
     ): Single<GetMovieListResponse> {
         return apiService.getMovieList(hashMap)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
     }
 
     override fun getTvList(
-            hashMap: HashMap<String, String>
+        hashMap: HashMap<String, String>
     ): Deferred<GetTvListResponse> {
         return apiService.getTvList(hashMap)
     }
 
     override fun getTvList(
-            hashMap: HashMap<String, String>,
-            success: (GetTvListResponse) -> Unit,
-            fail: (Throwable) -> Unit
+        hashMap: HashMap<String, String>,
+        success: (GetTvListResponse) -> Unit,
+        fail: (Throwable) -> Unit
     ): Deferred<Unit?> {
         return async(UI) {
             try {
@@ -48,7 +48,7 @@ class MovieRepositoryImpl constructor(
     }
 
     override fun getTvList2(
-            hashMap: HashMap<String, String>
+        hashMap: HashMap<String, String>
     ): Result<GetTvListResponse> {
         lateinit var result: Result<GetTvListResponse>
         async(UI) {
@@ -62,8 +62,8 @@ class MovieRepositoryImpl constructor(
     }
 
     override fun insertDB(
-            list: List<Movie>,
-            fail: (Throwable) -> Unit
+        list: List<Movie>,
+        fail: (Throwable) -> Unit
     ): Deferred<Unit> {
         return async {
             try {
@@ -75,8 +75,8 @@ class MovieRepositoryImpl constructor(
     }
 
     override fun updateDB(
-            movie: Movie,
-            fail: (Throwable) -> Unit
+        movie: Movie,
+        fail: (Throwable) -> Unit
     ): Deferred<Unit> {
         return async {
             try {

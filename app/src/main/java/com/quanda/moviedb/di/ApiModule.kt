@@ -47,51 +47,52 @@ fun createHeaderInterceptor(): Interceptor {
     return Interceptor { chain ->
         val request = chain.request()
         val newUrl = request.url().newBuilder()
-                .addQueryParameter("api_key", BuildConfig.TMBD_API_KEY)
-                .build()
+            .addQueryParameter("api_key", BuildConfig.TMBD_API_KEY)
+            .build()
         val newRequest = request.newBuilder()
-                .url(newUrl)
-                .header("Content-Type", "application/json")
+            .url(newUrl)
+            .header("Content-Type", "application/json")
 //                    .header("X-App-Secret", "EZ1hEQ2NOUpT-tBUgw2ADQ")
 //                    .header("Authorization", UserDataManager.getAccessToken())
-                .method(request.method(), request.body())
-                .build()
+            .method(request.method(), request.body())
+            .build()
         chain.proceed(newRequest)
     }
 }
 
 fun createOkHttpClient(
-        cache: Cache,
-        logging: Interceptor,
-        header: Interceptor): OkHttpClient {
+    cache: Cache,
+    logging: Interceptor,
+    header: Interceptor
+): OkHttpClient {
     return OkHttpClient.Builder()
-            .cache(cache)
-            .connectTimeout(TIME_OUT.toLong(), TimeUnit.SECONDS)
-            .readTimeout(TIME_OUT.toLong(), TimeUnit.SECONDS)
-            .addInterceptor(header)
-            .addInterceptor(logging)
-            .build()
+        .cache(cache)
+        .connectTimeout(TIME_OUT.toLong(), TimeUnit.SECONDS)
+        .readTimeout(TIME_OUT.toLong(), TimeUnit.SECONDS)
+        .addInterceptor(header)
+        .addInterceptor(logging)
+        .build()
 }
 
 fun createAppRetrofit(okHttpClient: OkHttpClient): Retrofit {
     return Retrofit.Builder()
 //                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-            .addCallAdapterFactory(RxErrorHandlingCallAdapterFactory.create())
-            .addCallAdapterFactory(CoroutineCallAdapterFactory.invoke())
-            .addConverterFactory(GsonConverterFactory.create())
-            .baseUrl(BuildConfig.BASE_URL)
-            .client(okHttpClient)
-            .build()
+        .addCallAdapterFactory(RxErrorHandlingCallAdapterFactory.create())
+        .addCallAdapterFactory(CoroutineCallAdapterFactory.invoke())
+        .addConverterFactory(GsonConverterFactory.create())
+        .baseUrl(BuildConfig.BASE_URL)
+        .client(okHttpClient)
+        .build()
 }
 
 fun createMapRetrofit(okHttpClient: OkHttpClient): Retrofit {
     return Retrofit.Builder()
-            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-            .addCallAdapterFactory(CoroutineCallAdapterFactory.invoke())
-            .addConverterFactory(GsonConverterFactory.create())
-            .baseUrl(GOOGLE_MAP_APIS_BASE_URL)
-            .client(okHttpClient)
-            .build()
+        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+        .addCallAdapterFactory(CoroutineCallAdapterFactory.invoke())
+        .addConverterFactory(GsonConverterFactory.create())
+        .baseUrl(GOOGLE_MAP_APIS_BASE_URL)
+        .client(okHttpClient)
+        .build()
 }
 
 fun createApiService(retrofit: Retrofit): ApiService {

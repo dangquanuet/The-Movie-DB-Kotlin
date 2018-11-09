@@ -4,12 +4,14 @@ import android.content.Context
 import com.google.gson.Gson
 
 class AppPrefs constructor(
-        context: Context,
-        val gson: Gson
+    context: Context,
+    val gson: Gson
 ) : PrefHelper {
 
-    var sharedPreferences = context.getSharedPreferences(context.packageName,
-            Context.MODE_PRIVATE)
+    var sharedPreferences = context.getSharedPreferences(
+        context.packageName,
+        Context.MODE_PRIVATE
+    )
 
     companion object {
         private const val FIRST_RUN = "first_run"

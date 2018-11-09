@@ -8,7 +8,7 @@ import kotlinx.coroutines.experimental.android.UI
 import kotlinx.coroutines.experimental.async
 
 class TvListViewModel constructor(
-        private val movieRepository: MovieRepository
+    private val movieRepository: MovieRepository
 ) : BaseLoadMoreRefreshViewModel<Tv>() {
 
     override fun loadData(page: Int) {

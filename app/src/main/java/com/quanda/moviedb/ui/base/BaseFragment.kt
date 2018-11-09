@@ -25,9 +25,14 @@ abstract class BaseFragment<ViewBinding : ViewDataBinding, ViewModel : BaseViewM
     @get:LayoutRes
     abstract val layoutId: Int
 
-    var mAlertDialog: AlertDialog? = null
+    var loadingDialog: AlertDialog? = null
+    var messageDialog: AlertDialog? = null
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         viewBinding = DataBindingUtil.inflate(inflater, layoutId, container, false)
         return viewBinding.root
     }
@@ -44,7 +49,7 @@ abstract class BaseFragment<ViewBinding : ViewDataBinding, ViewModel : BaseViewM
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        mAlertDialog = DialogUtils.createLoadingDialog(context, false)
+        loadingDialog = DialogUtils.createLoadingDialog(context, false)
         viewModel.apply {
             isLoading.observe(viewLifecycleOwner, Observer {
                 handleShowLoading(it == true)
@@ -63,7 +68,11 @@ abstract class BaseFragment<ViewBinding : ViewDataBinding, ViewModel : BaseViewM
     }
 
     fun handleShowErrorMessage(message: String) {
-        DialogUtils.showMessage(context, message = message, textPositive = getString(R.string.ok))
+        messageDialog = DialogUtils.showMessage(
+            context,
+            message = message,
+            textPositive = getString(R.string.ok)
+        )
     }
 
     override fun onDestroy() {
@@ -75,13 +84,18 @@ abstract class BaseFragment<ViewBinding : ViewDataBinding, ViewModel : BaseViewM
 
     fun showLoading() {
         hideLoading()
-        mAlertDialog?.show()
+        loadingDialog?.show()
     }
 
     fun hideLoading() {
-        if (mAlertDialog != null && mAlertDialog!!.isShowing) {
-            mAlertDialog?.cancel()
+        if (loadingDialog != null && loadingDialog!!.isShowing) {
+            loadingDialog?.cancel()
         }
+    }
+
+    override fun onPause() {
+        messageDialog?.dismiss()
+        super.onPause()
     }
 
     /**
@@ -96,39 +110,60 @@ abstract class BaseFragment<ViewBinding : ViewDataBinding, ViewModel : BaseViewM
         return parentFragment.childFragmentManager.findFragmentByTag(TAG)
     }
 
-    fun replaceFragment(fragment: Fragment, TAG: String?, addToBackStack: Boolean = false,
-                        transit: Int = -1) {
+    fun addFragment(
+        fragment: Fragment, TAG: String?, addToBackStack: Boolean = false,
+        transit: Int = -1
+    ) {
         activity?.supportFragmentManager?.beginTransaction()
-                ?.replace(R.id.container, fragment, TAG)?.apply {
-                    commitTransaction(this, addToBackStack, transit)
-                }?.commit()
+            ?.add(R.id.container, fragment, TAG)?.apply {
+                commitTransaction(this, addToBackStack, transit)
+            }?.commit()
     }
 
-    fun replaceChildFragment(parentFragment: Fragment = this, containerViewId: Int,
-                             fragment: Fragment, TAG: String?, addToBackStack: Boolean = false, transit: Int = -1) {
+    fun replaceFragment(
+        fragment: Fragment, TAG: String?, addToBackStack: Boolean = false,
+        transit: Int = -1
+    ) {
+        activity?.supportFragmentManager?.beginTransaction()
+            ?.replace(R.id.container, fragment, TAG)?.apply {
+                commitTransaction(this, addToBackStack, transit)
+            }?.commit()
+    }
+
+    fun replaceChildFragment(
+        parentFragment: Fragment = this, containerViewId: Int,
+        fragment: Fragment, TAG: String?, addToBackStack: Boolean = false, transit: Int = -1
+    ) {
         val transaction = parentFragment.childFragmentManager.beginTransaction().replace(
-                containerViewId, fragment, TAG)
+            containerViewId, fragment, TAG
+        )
         commitTransaction(transaction, addToBackStack, transit)
     }
 
-    fun addChildFragment(parentFragment: Fragment = this, containerViewId: Int,
-                         targetFragment: Fragment, TAG: String?, addToBackStack: Boolean = false,
-                         transit: Int = -1) {
+    fun addChildFragment(
+        parentFragment: Fragment = this, containerViewId: Int,
+        fragment: Fragment, TAG: String?, addToBackStack: Boolean = false, transit: Int = -1
+    ) {
         val transaction = parentFragment.childFragmentManager.beginTransaction().add(
-                containerViewId, targetFragment, TAG)
+            containerViewId, fragment, TAG
+        )
         commitTransaction(transaction, addToBackStack, transit)
     }
 
-    fun showDialogFragment(dialogFragment: DialogFragment, TAG: String?,
-                           addToBackStack: Boolean = false, transit: Int = -1) {
+    fun showDialogFragment(
+        dialogFragment: DialogFragment, TAG: String?,
+        addToBackStack: Boolean = false, transit: Int = -1
+    ) {
         val transaction = activity?.supportFragmentManager?.beginTransaction()
         if (addToBackStack) transaction?.addToBackStack(TAG)
         if (transit != -1) transaction?.setTransition(transit)
         dialogFragment.show(transaction, TAG)
     }
 
-    private fun commitTransaction(transaction: FragmentTransaction, addToBackStack: Boolean = false,
-                                  transit: Int = -1) {
+    private fun commitTransaction(
+        transaction: FragmentTransaction, addToBackStack: Boolean = false,
+        transit: Int = -1
+    ) {
         if (addToBackStack) transaction.addToBackStack(null)
         if (transit != -1) transaction.setTransition(transit)
         transaction.commit()

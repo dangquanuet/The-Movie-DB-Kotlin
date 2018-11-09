@@ -15,8 +15,8 @@ class MainActivity : BaseActivity() {
         setContentView(R.layout.activity_main)
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
-                    .replace(R.id.parent, MainFragment.newInstance(), MainFragment.TAG)
-                    .commit()
+                .replace(R.id.parent, MainFragment.newInstance(), MainFragment.TAG)
+                .commit()
         }
     }
 

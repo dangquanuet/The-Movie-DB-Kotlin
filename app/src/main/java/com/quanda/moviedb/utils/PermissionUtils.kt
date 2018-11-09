@@ -10,13 +10,15 @@ import androidx.core.app.ActivityCompat
 
 fun AppCompatActivity.firstTimeAskingPermission(permission: String, isFirstTime: Boolean) {
     val sharedPreference: SharedPreferences = this.getSharedPreferences(
-            packageName, MODE_PRIVATE)
+        packageName, MODE_PRIVATE
+    )
     sharedPreference.edit().putBoolean(permission, isFirstTime).apply()
 }
 
 fun AppCompatActivity.firstTimeAskingPermissions(permissions: Array<String>, isFirstTime: Boolean) {
     val sharedPreference: SharedPreferences = this.getSharedPreferences(
-            packageName, MODE_PRIVATE)
+        packageName, MODE_PRIVATE
+    )
     for (permission in permissions) {
         sharedPreference.edit().putBoolean(permission, isFirstTime).apply()
     }
@@ -29,7 +31,8 @@ fun AppCompatActivity.isFirstTimeAskingPermission(permission: String): Boolean {
 
 fun AppCompatActivity.isFirstTimeAskingPermissions(permissions: Array<String>): Boolean {
     val sharedPreference: SharedPreferences = this.getSharedPreferences(
-            packageName, MODE_PRIVATE)
+        packageName, MODE_PRIVATE
+    )
     for (permission in permissions) {
         if (sharedPreference.getBoolean(permission, true)) {
             return true
@@ -48,7 +51,8 @@ fun AppCompatActivity.shouldAskPermission(): Boolean {
 fun AppCompatActivity.shouldAskPermission(permission: String): Boolean {
     if (shouldAskPermission()) {
         if (ActivityCompat.checkSelfPermission(this, permission)
-                != PackageManager.PERMISSION_GRANTED) {
+            != PackageManager.PERMISSION_GRANTED
+        ) {
             return true
         }
     }
@@ -100,7 +104,8 @@ fun AppCompatActivity.shouldAskPermissions(permissions: Array<String>): Boolean 
     if (shouldAskPermission()) {
         for (permission in permissions) {
             if (ActivityCompat.checkSelfPermission(this, permission)
-                    != PackageManager.PERMISSION_GRANTED) {
+                != PackageManager.PERMISSION_GRANTED
+            ) {
                 return true
             }
         }
@@ -120,8 +125,10 @@ fun AppCompatActivity.shouldShowRequestPermissionsRationale(permissions: Array<S
 /**
  * request multiple permissions
  */
-fun AppCompatActivity.requestPermissions(permissions: Array<String>,
-                                         listener: PermissionAskListener) {
+fun AppCompatActivity.requestPermissions(
+    permissions: Array<String>,
+    listener: PermissionAskListener
+) {
     /*
     * If permissions is not granted
     * */

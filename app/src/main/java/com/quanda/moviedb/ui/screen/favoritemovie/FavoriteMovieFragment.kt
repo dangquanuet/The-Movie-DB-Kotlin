@@ -9,9 +9,11 @@ import com.quanda.moviedb.databinding.FragmentLoadmoreRefreshBinding
 import com.quanda.moviedb.ui.base.BaseLoadMoreRefreshFragment
 import com.quanda.moviedb.ui.screen.moviedetail.MovieDetailFragment
 import com.quanda.moviedb.ui.screen.popularmovie.PopularMovieAdapter
+import kotlinx.android.synthetic.main.fragment_loadmore_refresh.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class FavoriteMovieFragment : BaseLoadMoreRefreshFragment<FragmentLoadmoreRefreshBinding, FavoriteMovieViewModel, Movie>() {
+class FavoriteMovieFragment :
+    BaseLoadMoreRefreshFragment<FragmentLoadmoreRefreshBinding, FavoriteMovieViewModel, Movie>() {
 
     companion object {
         const val TAG = "FavoriteMovieFragment"
@@ -25,17 +27,15 @@ class FavoriteMovieFragment : BaseLoadMoreRefreshFragment<FragmentLoadmoreRefres
         super.onActivityCreated(savedInstanceState)
 
         val adapter = PopularMovieAdapter(
-                itemClickListener = {
-                    goToMovieDetail(it)
-                }
+            itemClickListener = {
+                goToMovieDetail(it)
+            }
         )
 
-        viewBinding.apply {
-            root.setBackgroundColor(Color.BLACK)
-            recyclerView.apply {
-                layoutManager = GridLayoutManager(context, 2)
-                this.adapter = adapter
-            }
+        container.setBackgroundColor(Color.BLACK)
+        recycler_view.apply {
+            layoutManager = GridLayoutManager(context, 2)
+            this.adapter = adapter
         }
 
         viewModel.apply {
@@ -51,10 +51,11 @@ class FavoriteMovieFragment : BaseLoadMoreRefreshFragment<FragmentLoadmoreRefres
     }
 
     fun goToMovieDetail(movie: Movie) {
-        replaceChildFragment(
-                containerViewId = viewBinding.parent.id,
-                fragment = MovieDetailFragment.newInstance(movie),
-                TAG = MovieDetailFragment.TAG,
-                addToBackStack = true)
+        addChildFragment(
+            containerViewId = container.id,
+            fragment = MovieDetailFragment.newInstance(movie),
+            TAG = MovieDetailFragment.TAG,
+            addToBackStack = true
+        )
     }
 }

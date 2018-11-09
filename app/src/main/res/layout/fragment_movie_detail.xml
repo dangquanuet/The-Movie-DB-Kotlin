@@ -6,10 +6,6 @@
     <data>
 
         <variable
-            name="favoriteListener"
-            type="android.view.View.OnClickListener" />
-
-        <variable
             name="viewModel"
             type="com.quanda.moviedb.ui.screen.moviedetail.MovieDetailViewModel" />
     </data>
@@ -99,11 +95,11 @@
         </androidx.core.widget.NestedScrollView>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/button_favorite"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/dp_16"
             android:layout_marginBottom="@dimen/dp_16"
-            android:onClick="@{ favoriteListener }"
             android:src="@{ viewModel.movie.isFavorite ? @drawable/ic_favorite_white_24dp : @drawable/ic_favorite_border_white_24dp }"
             bind:layout_constraintBottom_toBottomOf="parent"
             bind:layout_constraintEnd_toEndOf="parent"

@@ -17,8 +17,8 @@ class LoginViewModel : BaseViewModel() {
         addSource(password) { value = validateForm(email.value, password.value) }
     }
 
-    private fun validateForm(email: String?, password: String?): Boolean = validateEmail(
-            email) && validatePassword(password)
+    private fun validateForm(email: String?, password: String?): Boolean =
+        validateEmail(email) && validatePassword(password)
 
     private fun validateEmail(email: String?): Boolean = email != null
             && !TextUtils.isEmpty(email.trim())

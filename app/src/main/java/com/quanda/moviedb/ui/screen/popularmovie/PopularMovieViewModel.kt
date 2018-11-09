@@ -1,5 +1,6 @@
 package com.quanda.moviedb.ui.screen.popularmovie
 
+import android.content.res.Resources
 import androidx.lifecycle.MutableLiveData
 import com.quanda.moviedb.data.constants.MovieListType
 import com.quanda.moviedb.data.local.dao.MovieDao
@@ -10,8 +11,9 @@ import com.quanda.moviedb.ui.base.BaseLoadMoreRefreshViewModel
 
 
 class PopularMovieViewModel constructor(
-        val movieRepository: MovieRepository,
-        val movieDao: MovieDao
+    val resources: Resources,
+    val movieRepository: MovieRepository,
+    val movieDao: MovieDao
 ) : BaseLoadMoreRefreshViewModel<Movie>() {
 
     var mode = MutableLiveData<Int>().apply { value = MovieListType.POPULAR.type }
@@ -21,20 +23,25 @@ class PopularMovieViewModel constructor(
         hashMap.put(ApiParams.PAGE, page.toString())
         when (mode.value) {
             MovieListType.POPULAR.type -> hashMap.put(
-                    ApiParams.SORT_BY,
-                    ApiParams.POPULARITY_DESC)
+                ApiParams.SORT_BY,
+                ApiParams.POPULARITY_DESC
+            )
             MovieListType.TOP_RATED.type -> hashMap.put(
-                    ApiParams.SORT_BY,
-                    ApiParams.VOTE_AVERAGE_DESC)
+                ApiParams.SORT_BY,
+                ApiParams.VOTE_AVERAGE_DESC
+            )
             else -> hashMap.put(
-                    ApiParams.SORT_BY, ApiParams.POPULARITY_DESC)
+                ApiParams.SORT_BY, ApiParams.POPULARITY_DESC
+            )
         }
 
-        addDisposable(movieRepository.getMovieList(hashMap)
+        addDisposable(
+            movieRepository.getMovieList(hashMap)
                 .subscribe({
                     onLoadSuccess(page, it.results)
                 }, {
                     onLoadFail(it)
-                }))
+                })
+        )
     }
 }

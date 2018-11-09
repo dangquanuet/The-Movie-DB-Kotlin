@@ -1,20 +1,17 @@
 package com.quanda.moviedb.di
 
-import android.content.res.Resources
-import com.quanda.moviedb.MainApplication
+import org.koin.android.ext.koin.androidApplication
 import org.koin.dsl.module.module
 
 val appModule = module {
-    single { createResources(get()) }
+    single { androidApplication().resources }
 }
 
-fun createResources(application: MainApplication): Resources = application.resources
-
 val modules = listOf(
-        appModule,
-        networkModule,
-        repositoryModule,
-        viewModelModule
+    appModule,
+    networkModule,
+    repositoryModule,
+    viewModelModule
 )
 
 /* naming a definition

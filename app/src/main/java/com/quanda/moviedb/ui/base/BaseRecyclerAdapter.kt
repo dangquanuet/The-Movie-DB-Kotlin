@@ -12,18 +12,19 @@ import com.quanda.moviedb.BR
 import java.util.concurrent.Executors
 
 abstract class BaseRecyclerAdapter2<Item, ViewBinding : ViewDataBinding>(
-        callBack: DiffUtil.ItemCallback<Item>
+    callBack: DiffUtil.ItemCallback<Item>
 ) : ListAdapter<Item, BaseViewHolder<ViewBinding>>(
-        AsyncDifferConfig.Builder<Item>(callBack)
-                .setBackgroundThreadExecutor(Executors.newSingleThreadExecutor())
-                .build()
+    AsyncDifferConfig.Builder<Item>(callBack)
+        .setBackgroundThreadExecutor(Executors.newSingleThreadExecutor())
+        .build()
 ) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<ViewBinding> {
         return BaseViewHolder(DataBindingUtil.inflate<ViewBinding>(
-                LayoutInflater.from(parent.context),
-                getLayoutRes(viewType),
-                parent, false).apply {
+            LayoutInflater.from(parent.context),
+            getLayoutRes(viewType),
+            parent, false
+        ).apply {
             bindFirstTime(this)
         })
     }
@@ -61,4 +62,5 @@ abstract class BaseRecyclerAdapter2<Item, ViewBinding : ViewDataBinding>(
 }
 
 open class BaseViewHolder<ViewBinding : ViewDataBinding> constructor(
-        val binding: ViewBinding) : RecyclerView.ViewHolder(binding.root)
+    val binding: ViewBinding
+) : RecyclerView.ViewHolder(binding.root)

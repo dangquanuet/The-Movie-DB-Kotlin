@@ -9,8 +9,8 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
 class MovieDetailViewModel constructor(
-        private val movieRepository: MovieRepository,
-        private val movieDao: MovieDao
+    private val movieRepository: MovieRepository,
+    private val movieDao: MovieDao
 ) : BaseViewModel() {
 
     val movie = MutableLiveData<Movie>()
@@ -18,15 +18,16 @@ class MovieDetailViewModel constructor(
 
     fun updateNewMovie(newMovie: Movie) {
         addDisposable(movieDao.getMovie(newMovie.id)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({
-                    newMovie.isFavorite = it.isFavorite
-                    movie.value = newMovie
-                }, {
-                    newMovie.isFavorite = false
-                    movie.value = newMovie
-                }))
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                newMovie.isFavorite = it.isFavorite
+                movie.value = newMovie
+            }, {
+                newMovie.isFavorite = false
+                movie.value = newMovie
+            })
+        )
     }
 
     fun favoriteMovie() {

@@ -28,9 +28,11 @@ abstract class EndlessRecyclerOnScrollListener(threshold: Int) : RecyclerView.On
         mVisibleItemCount = recycler.childCount
         mTotalItemCount = recycler.layoutManager?.itemCount ?: 0
         if (recycler.layoutManager is LinearLayoutManager) {
-            mFirstVisibleItem = (recycler.layoutManager as LinearLayoutManager).findFirstVisibleItemPosition()
+            mFirstVisibleItem =
+                    (recycler.layoutManager as LinearLayoutManager).findFirstVisibleItemPosition()
         } else if (recycler.layoutManager is GridLayoutManager) {
-            mFirstVisibleItem = (recycler.layoutManager as GridLayoutManager).findFirstVisibleItemPosition()
+            mFirstVisibleItem =
+                    (recycler.layoutManager as GridLayoutManager).findFirstVisibleItemPosition()
         } else {
             throw RuntimeException("Un support this kind of LayoutManager ")
         }
@@ -40,7 +42,8 @@ abstract class EndlessRecyclerOnScrollListener(threshold: Int) : RecyclerView.On
         }
 
         if (!isLoading && mTotalItemCount -
-                mVisibleItemCount <= mFirstVisibleItem + mNumberThreshold) {
+            mVisibleItemCount <= mFirstVisibleItem + mNumberThreshold
+        ) {
             // End has been reached
             onLoadMore()
             isLoading = true

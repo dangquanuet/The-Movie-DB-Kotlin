@@ -35,7 +35,7 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>() {
         initBottomNavigation()
     }
 
-    fun initBottomNavigation() {
+    private fun initBottomNavigation() {
         bottom_navigation.apply {
             AHBottomNavigationAdapter(
                 activity, R.menu.menu_bottom_navigation
@@ -44,17 +44,13 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>() {
             defaultBackgroundColor = ContextCompat.getColor(context, R.color.white)
 
             setOnTabSelectedListener { position, wasSelected ->
-                if (position == Tab.PROFILE.position) { // TODO check login
-                    //                    goToActivity(LoginActivity::class.java)
-//                    goToActivity(TvListActivity::class.java)
-                }
                 onClickBottomNavigationItem(position)
             }
             currentItem = Tab.POPULAR.position
         }
     }
 
-    fun onClickBottomNavigationItem(position: Int): Boolean {
+    private fun onClickBottomNavigationItem(position: Int): Boolean {
         val currentTag = getTabFragmentTag(currentPositionFragment)
         val newTag = getTabFragmentTag(position)
 

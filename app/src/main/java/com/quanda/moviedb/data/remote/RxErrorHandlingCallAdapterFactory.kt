@@ -2,17 +2,9 @@ package com.quanda.moviedb.data.remote
 
 import com.google.gson.Gson
 import com.google.gson.annotations.SerializedName
-import io.reactivex.Completable
-import io.reactivex.Observable
-import io.reactivex.ObservableSource
-import io.reactivex.Single
-import io.reactivex.SingleSource
+import io.reactivex.*
 import io.reactivex.functions.Function
-import retrofit2.Call
-import retrofit2.CallAdapter
-import retrofit2.HttpException
-import retrofit2.Response
-import retrofit2.Retrofit
+import retrofit2.*
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import java.io.IOException
 import java.lang.reflect.Type
@@ -26,14 +18,21 @@ class RxErrorHandlingCallAdapterFactory : CallAdapter.Factory() {
 
     private val instance = RxJava2CallAdapterFactory.create()
 
-    override fun get(returnType: Type, annotations: Array<Annotation>, retrofit: Retrofit): CallAdapter<*, *>? {
-        return RxCallAdapterWrapper(retrofit, instance.get(returnType, annotations, retrofit) as CallAdapter<Any, Any>)
+    override fun get(
+        returnType: Type,
+        annotations: Array<Annotation>,
+        retrofit: Retrofit
+    ): CallAdapter<*, *>? {
+        return RxCallAdapterWrapper(
+            retrofit,
+            instance.get(returnType, annotations, retrofit) as CallAdapter<Any, Any>
+        )
     }
 }
 
 class RxCallAdapterWrapper<R>(
-        private val retrofit: Retrofit,
-        private val wrapped: CallAdapter<R, Any>
+    private val retrofit: Retrofit,
+    private val wrapped: CallAdapter<R, Any>
 ) : CallAdapter<R, Any> {
 
     override fun responseType(): Type {
@@ -70,7 +69,11 @@ class RxCallAdapterWrapper<R>(
             // We had non-200 http error
             is HttpException -> {
                 val response = throwable.response()
-                RetrofitException.httpError(response.raw().request().url().toString(), response, retrofit)
+                RetrofitException.httpError(
+                    response.raw().request().url().toString(),
+                    response,
+                    retrofit
+                )
             }
             // A network error happened
             is IOException -> {
@@ -96,7 +99,8 @@ class RxCallAdapterWrapper<R>(
                 }
                 try {
                     val errorResponse = response.errorBody()!!.string()
-                    val baseErrorResponse = Gson().fromJson(errorResponse, BaseErrorResponse::class.java)
+                    val baseErrorResponse =
+                        Gson().fromJson(errorResponse, BaseErrorResponse::class.java)
                     return if (baseErrorResponse != null) {
                         //Get error data from Server
                         baseErrorResponse.code = throwable.code()
@@ -117,15 +121,15 @@ class RxCallAdapterWrapper<R>(
 }
 
 class RetrofitException constructor(
-        message: String? = null,
-        /** The request URL which produced the error.  */
-        val url: String? = null,
-        /** Response object containing status code, headers, body, etc.  */
-        val response: Response<*>? = null,
-        /** The event kind which triggered this error.  */
-        val kind: Kind, exception: Throwable? = null,
-        /** The Retrofit this request was executed on  */
-        val retrofit: Retrofit? = null
+    message: String? = null,
+    /** The request URL which produced the error.  */
+    val url: String? = null,
+    /** Response object containing status code, headers, body, etc.  */
+    val response: Response<*>? = null,
+    /** The event kind which triggered this error.  */
+    val kind: Kind, exception: Throwable? = null,
+    /** The Retrofit this request was executed on  */
+    val retrofit: Retrofit? = null
 ) : RuntimeException(message, exception) {
 
     /** Identifies the event kind which triggered a [RetrofitException].  */
@@ -152,7 +156,8 @@ class RetrofitException constructor(
         if (response == null || response.errorBody() == null || retrofit == null) {
             return null
         }
-        return retrofit.responseBodyConverter<T>(type, arrayOfNulls(0)).convert(response.errorBody()!!)
+        return retrofit.responseBodyConverter<T>(type, arrayOfNulls(0))
+            .convert(response.errorBody()!!)
     }
 
     companion object {
@@ -166,7 +171,14 @@ class RetrofitException constructor(
         }
 
         fun unexpectedError(exception: Throwable): RetrofitException {
-            return RetrofitException(exception.message, null, null, Kind.UNEXPECTED, exception, null)
+            return RetrofitException(
+                exception.message,
+                null,
+                null,
+                Kind.UNEXPECTED,
+                exception,
+                null
+            )
         }
     }
 }
@@ -179,7 +191,8 @@ class BaseException : RuntimeException {
 
     val serverErrorCode: Int
         get() = if (errorResponse != null
-                && errorResponse!!.code != null) errorResponse!!.code!! else -1
+            && errorResponse!!.code != null
+        ) errorResponse!!.code!! else -1
 
     constructor(type: Int, cause: Throwable) : super(cause.message, cause) {
         this.errorType = type
@@ -198,17 +211,19 @@ class BaseException : RuntimeException {
     override val message: String?
         get() = when (errorType) {
             SERVER -> if (errorResponse != null
-                    && errorResponse!!.errors != null
-                    && errorResponse!!.errors!!.isNotEmpty()
-                    && errorResponse!!.errors!!.get(0).name != null
-                    && errorResponse!!.errors!!.get(0).name!!.isNotEmpty()) {
+                && errorResponse!!.errors != null
+                && errorResponse!!.errors!!.isNotEmpty()
+                && errorResponse!!.errors!!.get(0).name != null
+                && errorResponse!!.errors!!.get(0).name!!.isNotEmpty()
+            ) {
                 errorResponse!!.errors!!.get(0).name!!.get(0)
             } else null
 
             NETWORK -> getNetworkErrorMessage(cause)
 
             HTTP -> if (response != null
-                    && response!!.message().isNotEmpty()) {
+                && response!!.message().isNotEmpty()
+            ) {
                 response!!.message()
             } else null
 
@@ -262,11 +277,11 @@ class BaseException : RuntimeException {
 }
 
 class BaseErrorResponse(
-        @field: SerializedName("code") var code: Int? = null,
-        @field: SerializedName("message") var message: String? = null,
-        @field: SerializedName("errors") var errors: List<Error>? = null
+    @field: SerializedName("code") var code: Int? = null,
+    @field: SerializedName("message") var message: String? = null,
+    @field: SerializedName("errors") var errors: List<Error>? = null
 )
 
 class Error(
-        @field: SerializedName("itemname") val name: List<String>? = null
+    @field: SerializedName("itemname") val name: List<String>? = null
 )

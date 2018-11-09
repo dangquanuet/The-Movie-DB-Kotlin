@@ -1,11 +1,11 @@
 package com.quanda.moviedb.ui.screen.moviedetail
 
 import android.os.Bundle
-import android.view.View
 import com.quanda.moviedb.R
 import com.quanda.moviedb.data.model.Movie
 import com.quanda.moviedb.databinding.FragmentMovieDetailBinding
 import com.quanda.moviedb.ui.base.BaseFragment
+import kotlinx.android.synthetic.main.fragment_movie_detail.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MovieDetailFragment : BaseFragment<FragmentMovieDetailBinding, MovieDetailViewModel>() {
@@ -28,8 +28,8 @@ class MovieDetailFragment : BaseFragment<FragmentMovieDetailBinding, MovieDetail
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewBinding.apply {
-            favoriteListener = View.OnClickListener { this@MovieDetailFragment.viewModel.favoriteMovie() }
+        button_favorite.setOnClickListener {
+            viewModel.favoriteMovie()
         }
         arguments?.apply {
             getParcelable<Movie>(MOVIE)?.apply {

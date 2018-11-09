@@ -9,7 +9,8 @@ import com.quanda.moviedb.databinding.FragmentLoadmoreRefreshBinding
 import com.quanda.moviedb.ui.base.BaseLoadMoreRefreshFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class TvListFragment : BaseLoadMoreRefreshFragment<FragmentLoadmoreRefreshBinding, TvListViewModel, Tv>() {
+class TvListFragment :
+    BaseLoadMoreRefreshFragment<FragmentLoadmoreRefreshBinding, TvListViewModel, Tv>() {
 
     companion object {
         const val TAG = "TvListFragment"
@@ -23,7 +24,7 @@ class TvListFragment : BaseLoadMoreRefreshFragment<FragmentLoadmoreRefreshBindin
         super.onActivityCreated(savedInstanceState)
 
         val adapter = TvListAdapter(
-                itemClickListener = { goToTvDetail(it) }
+            itemClickListener = { goToTvDetail(it) }
         )
 
         viewBinding.apply {

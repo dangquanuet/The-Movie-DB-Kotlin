@@ -9,9 +9,11 @@ import com.quanda.moviedb.data.model.Movie
 import com.quanda.moviedb.databinding.FragmentLoadmoreRefreshBinding
 import com.quanda.moviedb.ui.base.BaseLoadMoreRefreshFragment
 import com.quanda.moviedb.ui.screen.moviedetail.MovieDetailFragment
+import kotlinx.android.synthetic.main.fragment_loadmore_refresh.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class PopularMovieFragment : BaseLoadMoreRefreshFragment<FragmentLoadmoreRefreshBinding, PopularMovieViewModel, Movie>() {
+class PopularMovieFragment :
+    BaseLoadMoreRefreshFragment<FragmentLoadmoreRefreshBinding, PopularMovieViewModel, Movie>() {
 
     companion object {
         const val TAG = "PopularMovieFragment"
@@ -37,15 +39,13 @@ class PopularMovieFragment : BaseLoadMoreRefreshFragment<FragmentLoadmoreRefresh
         }
 
         val adapter = PopularMovieAdapter(
-                itemClickListener = { goToMovieDetail(it) }
+            itemClickListener = { goToMovieDetail(it) }
         )
 
-        viewBinding.apply {
-            root.setBackgroundColor(Color.BLACK)
-            recyclerView.apply {
-                layoutManager = GridLayoutManager(context, 2)
-                this.adapter = adapter
-            }
+        container.setBackgroundColor(Color.BLACK)
+        recycler_view.apply {
+            layoutManager = GridLayoutManager(context, 2)
+            this.adapter = adapter
         }
 
         viewModel.apply {
@@ -57,10 +57,11 @@ class PopularMovieFragment : BaseLoadMoreRefreshFragment<FragmentLoadmoreRefresh
     }
 
     fun goToMovieDetail(movie: Movie) {
-        replaceChildFragment(
-                containerViewId = viewBinding.parent.id,
-                fragment = MovieDetailFragment.newInstance(movie),
-                TAG = MovieDetailFragment.TAG,
-                addToBackStack = true)
+        addChildFragment(
+            containerViewId = container.id,
+            fragment = MovieDetailFragment.newInstance(movie),
+            TAG = MovieDetailFragment.TAG,
+            addToBackStack = true
+        )
     }
 }
