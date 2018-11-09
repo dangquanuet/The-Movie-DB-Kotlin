@@ -1,5 +1,4 @@
 import org.jetbrains.kotlin.config.KotlinCompilerVersion
-import org.jetbrains.kotlin.gradle.dsl.Coroutines
 import org.jetbrains.kotlin.gradle.internal.AndroidExtensionsExtension
 
 plugins {
@@ -13,11 +12,6 @@ androidExtensions {
     configure(delegateClosureOf<AndroidExtensionsExtension> {
         isExperimental = true
     })
-}
-
-kotlin {
-    // configure<org.jetbrains.kotlin.gradle.dsl.KotlinProjectExtension>
-    experimental.coroutines = Coroutines.ENABLE
 }
 
 android {
@@ -112,7 +106,7 @@ android {
 }
 
 dependencies {
-    implementation("androidx.appcompat:appcompat:1.0.0")
+    implementation("androidx.appcompat:appcompat:1.0.2")
     implementation("androidx.legacy:legacy-support-v4:1.0.0")
     implementation("androidx.constraintlayout:constraintlayout:1.1.3")
     implementation("androidx.recyclerview:recyclerview:1.0.0")
