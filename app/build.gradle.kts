@@ -58,11 +58,20 @@ android {
             versionName = "1.0.0"
             applicationIdSuffix = ".dev"
             resValue("string", "app_name", "Movie DB Dev")
+            buildConfigField("boolean","MOCK_DATA","false")
+        }
+        create("mock") {
+            versionCode = 1
+            versionName = "1.0.0"
+            applicationIdSuffix = ".mock"
+            resValue("string", "app_name", "Movie DB Mock")
+            buildConfigField("boolean","MOCK_DATA","true")
         }
         create("prd") {
             versionCode = 1
             versionName = "1.0.0"
             resValue("string", "app_name", "Movie DB")
+            buildConfigField("boolean","MOCK_DATA","false")
         }
     }
 
@@ -84,6 +93,9 @@ android {
     variantFilter {
         // 'dev' flavor is only available for debug build
         if (buildType.name != "debug" && flavors[0].name == "dev") {
+            setIgnore(true)
+        }
+        if (buildType.name != "debug" && flavors[0].name == "mock") {
             setIgnore(true)
         }
         // 'prd' flavor is only available for release build

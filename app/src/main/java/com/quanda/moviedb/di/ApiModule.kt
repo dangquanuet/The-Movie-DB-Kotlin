@@ -4,6 +4,7 @@ import android.content.Context
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.experimental.CoroutineCallAdapterFactory
 import com.quanda.moviedb.BuildConfig
 import com.quanda.moviedb.data.remote.ApiService
+import com.quanda.moviedb.data.remote.MockApi
 import com.quanda.moviedb.data.remote.RxErrorHandlingCallAdapterFactory
 import com.quanda.moviedb.di.Properties.GOOGLE_MAP_APIS_BASE_URL
 import com.quanda.moviedb.di.Properties.TIME_OUT
@@ -96,7 +97,8 @@ fun createMapRetrofit(okHttpClient: OkHttpClient): Retrofit {
 }
 
 fun createApiService(retrofit: Retrofit): ApiService {
-    return retrofit.create(ApiService::class.java)
+    return if (BuildConfig.MOCK_DATA) MockApi()
+    else retrofit.create(ApiService::class.java)
 }
 
 //    @Provides
