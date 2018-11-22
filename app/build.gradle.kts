@@ -6,6 +6,7 @@ plugins {
     id("kotlin-android")
     id("kotlin-android-extensions")
     id("kotlin-kapt")
+    id("androidx.navigation.safeargs")
 }
 
 androidExtensions {
@@ -20,7 +21,6 @@ android {
         applicationId = "com.quanda.moviedb"
         minSdkVersion(19)
         compileSdkVersion(28)
-        targetSdkVersion(28)
         testInstrumentationRunner = "android.support.test.runner.AndroidJUnitRunner"
     }
 
@@ -58,20 +58,20 @@ android {
             versionName = "1.0.0"
             applicationIdSuffix = ".dev"
             resValue("string", "app_name", "Movie DB Dev")
-            buildConfigField("boolean","MOCK_DATA","false")
+            buildConfigField("boolean", "MOCK_DATA", "false")
         }
         create("mock") {
             versionCode = 1
             versionName = "1.0.0"
             applicationIdSuffix = ".mock"
             resValue("string", "app_name", "Movie DB Mock")
-            buildConfigField("boolean","MOCK_DATA","true")
+            buildConfigField("boolean", "MOCK_DATA", "true")
         }
         create("prd") {
             versionCode = 1
             versionName = "1.0.0"
             resValue("string", "app_name", "Movie DB")
-            buildConfigField("boolean","MOCK_DATA","false")
+            buildConfigField("boolean", "MOCK_DATA", "false")
         }
     }
 
@@ -118,6 +118,7 @@ android {
 }
 
 dependencies {
+    // common
     implementation("androidx.appcompat:appcompat:1.0.2")
     implementation("androidx.legacy:legacy-support-v4:1.0.0")
     implementation("androidx.constraintlayout:constraintlayout:1.1.3")
@@ -126,7 +127,55 @@ dependencies {
     implementation("com.google.android.material:material:1.0.0")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:${KotlinCompilerVersion.VERSION}")
 
-    //Support ReactiveX android
+    // ViewModel and LiveData
+    implementation("androidx.lifecycle:lifecycle-extensions:2.0.0")
+    // alternately - if using Java8, use the following instead of lifecycle-compiler
+    implementation("androidx.lifecycle:lifecycle-common-java8:2.0.0")
+    // optional - ReactiveStreams support for LiveData
+    implementation("androidx.lifecycle:lifecycle-reactivestreams-ktx:2.0.0")
+    // optional - Test helpers for LiveData
+    testImplementation("androidx.arch.core:core-testing:2.0.0")
+
+    // room
+    implementation("androidx.room:room-runtime:2.0.0")
+    kapt("androidx.room:room-compiler:2.0.0")
+    // optional - RxJava support for Room
+    implementation("androidx.room:room-rxjava2:2.0.0")
+    // Test helpers
+    testImplementation("androidx.room:room-testing:2.0.0")
+
+/*
+    // paging
+    implementation("androidx.paging:paging-runtime-ktx:2.1.0-beta01")
+    // alternatively - without Android dependencies for testing
+    testImplementation("androidx.paging:paging-common-ktx:2.1.0-beta01")
+    // optional - RxJava support
+    implementation("androidx.paging:paging-rxjava2-ktx:2.1.0-beta01")
+*/
+
+    // navigation
+    implementation("android.arch.navigation:navigation-fragment-ktx:1.0.0-alpha07")
+    implementation("android.arch.navigation:navigation-ui-ktx:1.0.0-alpha07")
+    // optional - Test helpers
+    // this library depends on the Kotlin standard library
+    androidTestImplementation("android.arch.navigation:navigation-testing:1.0.0-alpha07")
+
+/*
+    // work manager
+    implementation ("android.arch.work:work-runtime:1.0.0-alpha11")
+    // optional - Firebase JobDispatcher support
+    implementation ("android.arch.work:work-firebase:1.0.0-alpha11")
+    // optional - Test helpers
+    androidTestImplementation ("android.arch.work:work-testing:1.0.0-alpha11")
+*/
+
+    // data binding compiler
+//    kapt("com.android.databinding:compiler:3.3.0-rc01")
+
+    // ktx
+    implementation("androidx.core:core-ktx:1.0.1")
+
+    // rx
     implementation("io.reactivex.rxjava2:rxjava:2.2.2")
     implementation("io.reactivex.rxjava2:rxandroid:2.1.0")
 
@@ -137,49 +186,33 @@ dependencies {
     //Using this for parse json data to object
     implementation("com.google.code.gson:gson:2.8.5")
 
-    //Using retrofit library for connect api v4.data.source.remote.service
+    // retrofit
     implementation("com.squareup.retrofit2:retrofit:2.4.0")
     implementation("com.squareup.retrofit2:converter-gson:2.4.0")
     implementation("com.squareup.okhttp3:logging-interceptor:3.10.0")
     implementation("com.squareup.retrofit2:adapter-rxjava2:2.4.0")
     implementation("com.jakewharton.retrofit:retrofit2-kotlin-coroutines-experimental-adapter:1.0.0")
 
-    //Glide library load image
+    // glide
     implementation("com.github.bumptech.glide:glide:4.7.1") {
         exclude("module", "support-annotations")
     }
     kapt("com.github.bumptech.glide:compiler:4.8.0")
 
-    // Koin for Kotlin
-    implementation("org.koin:koin-core:1.0.0")
-    // Koin for Android
-    implementation("org.koin:koin-android:1.0.0")
-    // Koin Android ViewModel feature
+    // koin
+    implementation("org.koin:koin-core:1.0.1")
+    implementation("org.koin:koin-android:1.0.1")
     implementation("org.koin:koin-androidx-viewmodel:1.0.0")
+
+    // runtime permission
+    implementation("pub.devrel:easypermissions:2.0.0")
 
     // bottom navigation
     implementation("com.aurelhubert:ahbottomnavigation:2.1.0")
 
-    // databinding compiler
-    kapt("com.android.databinding:compiler:3.3.0-alpha11")
-
-    // room
-    implementation("androidx.room:room-runtime:2.0.0")
-    kapt("androidx.room:room-compiler:2.0.0")
-    // RxJava support for Room
-    implementation("androidx.room:room-rxjava2:2.0.0")
-
-    // ViewModel and LiveData
-    implementation("androidx.lifecycle:lifecycle-extensions:2.0.0")
-    kapt("androidx.lifecycle:lifecycle-compiler:2.0.0")
-    // Java8 support for Lifecycles
-    implementation("androidx.lifecycle:lifecycle-common-java8:2.0.0")
-    // ReactiveStreams support for LiveData
-    implementation("androidx.lifecycle:lifecycle-reactivestreams:2.0.0")
-
     // unit test
     testImplementation("junit:junit:4.12")
-    testImplementation("org.mockito:mockito-core:2.19.0")
+    testImplementation("org.mockito:mockito-core:2.21.0")
     testImplementation("android.arch.core:core-testing:1.1.1")
 
     androidTestImplementation("com.android.support.test:runner:1.0.2")
