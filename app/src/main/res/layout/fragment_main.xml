@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="com.quanda.moviedb.ui.screen.main.MainViewModel" />
+            type="com.example.moviedb.ui.screen.main.MainViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

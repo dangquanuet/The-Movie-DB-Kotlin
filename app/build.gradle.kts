@@ -18,7 +18,7 @@ androidExtensions {
 android {
 
     defaultConfig {
-        applicationId = "com.quanda.moviedb"
+        applicationId = "com.example.moviedb"
         minSdkVersion(19)
         compileSdkVersion(28)
         testInstrumentationRunner = "android.support.test.runner.AndroidJUnitRunner"
@@ -246,7 +246,7 @@ android {
     buildToolsVersion "27.0.3"
 
     defaultConfig {
-        applicationId "com.quanda.moviedb"
+        applicationId "com.example.moviedb"
         minSdkVersion 19
         targetSdkVersion 28
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"

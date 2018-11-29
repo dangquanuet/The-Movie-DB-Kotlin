@@ -6,20 +6,21 @@
 
         <variable
             name="viewModel"
-            type="com.quanda.moviedb.ui.screen.MainActivityViewModel" />
+            type="com.example.moviedb.ui.screen.MainActivityViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <fragment
-            android:id="@+id/container"
-            android:name="androidx.navigation.fragment.NavHostFragment"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:defaultNavHost="true"
-            app:navGraph="@navigation/nav_graph" />
+        <!--<fragment-->
+            <!--android:id="@+id/container"-->
+            <!--android:name="androidx.navigation.fragment.NavHostFragment"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--app:defaultNavHost="true"-->
+            <!--app:navGraph="@navigation/nav_graph" />-->
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -7,49 +7,49 @@
 
     <fragment
         android:id="@+id/main"
-        android:name="com.quanda.moviedb.ui.screen.main.MainFragment"
+        android:name="com.example.moviedb.ui.screen.main.MainFragment"
         tools:layout="@layout/fragment_main">
 
     </fragment>
 
     <fragment
         android:id="@+id/favorite_movie"
-        android:name="com.quanda.moviedb.ui.screen.favoritemovie.FavoriteMovieFragment"
+        android:name="com.example.moviedb.ui.screen.favoritemovie.FavoriteMovieFragment"
         tools:layout="@layout/fragment_loadmore_refresh">
 
     </fragment>
 
     <fragment
         android:id="@+id/login"
-        android:name="com.quanda.moviedb.ui.screen.login.LoginFragment"
+        android:name="com.example.moviedb.ui.screen.login.LoginFragment"
         tools:layout="@layout/fragment_login">
 
     </fragment>
 
     <fragment
         android:id="@+id/movie_detail"
-        android:name="com.quanda.moviedb.ui.screen.moviedetail.MovieDetailFragment"
+        android:name="com.example.moviedb.ui.screen.moviedetail.MovieDetailFragment"
         tools:layout="@layout/fragment_movie_detail">
 
     </fragment>
 
     <fragment
         android:id="@+id/permission"
-        android:name="com.quanda.moviedb.ui.screen.permission.PermissionFragment"
+        android:name="com.example.moviedb.ui.screen.permission.PermissionFragment"
         tools:layout="@layout/fragment_permisison">
 
     </fragment>
 
     <fragment
         android:id="@+id/popular_movie"
-        android:name="com.quanda.moviedb.ui.screen.popularmovie.PopularMovieFragment"
+        android:name="com.example.moviedb.ui.screen.popularmovie.PopularMovieFragment"
         tools:layout="@layout/fragment_loadmore_refresh">
 
     </fragment>
 
     <fragment
         android:id="@+id/tv"
-        android:name="com.quanda.moviedb.ui.screen.tv.TvListFragment"
+        android:name="com.example.moviedb.ui.screen.tv.TvListFragment"
         tools:layout="@layout/fragment_loadmore_refresh">
 
     </fragment>

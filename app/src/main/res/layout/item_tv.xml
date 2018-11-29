@@ -8,7 +8,7 @@
 
         <variable
             name="item"
-            type="com.quanda.moviedb.data.model.Tv" />
+            type="com.example.moviedb.data.model.Tv" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

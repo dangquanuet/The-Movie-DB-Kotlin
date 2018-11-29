@@ -6,7 +6,7 @@
 
         <variable
             name="viewModel"
-            type="com.quanda.moviedb.ui.base.BaseLoadMoreRefreshViewModel" />
+            type="com.example.moviedb.ui.base.BaseLoadMoreRefreshViewModel" />
     </data>
     <!--toolbar auto show hide when scrolling with checking 50% -->
     <androidx.coordinatorlayout.widget.CoordinatorLayout

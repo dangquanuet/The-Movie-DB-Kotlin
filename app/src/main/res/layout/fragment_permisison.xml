@@ -6,7 +6,7 @@
 
         <variable
             name="viewModel"
-            type="com.quanda.moviedb.ui.screen.permission.PermissionViewModel" />
+            type="com.example.moviedb.ui.screen.permission.PermissionViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

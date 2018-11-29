@@ -6,7 +6,7 @@
 
         <variable
             name="viewModel"
-            type="com.quanda.moviedb.ui.screen.login.LoginViewModel" />
+            type="com.example.moviedb.ui.screen.login.LoginViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
