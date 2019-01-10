@@ -1,10 +1,7 @@
 package com.example.moviedb.ui.screen.main
 
 import android.os.Bundle
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import com.aurelhubert.ahbottomnavigation.AHBottomNavigation
-import com.aurelhubert.ahbottomnavigation.AHBottomNavigationAdapter
 import com.example.moviedb.R
 import com.example.moviedb.data.constants.MovieListType
 import com.example.moviedb.databinding.FragmentMainBinding
@@ -23,12 +20,9 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>() {
         fun newInstance() = MainFragment()
     }
 
-    override val layoutId: Int
-        get() = R.layout.fragment_main
+    override val layoutId: Int = R.layout.fragment_main
 
     override val viewModel by viewModel<MainViewModel>()
-
-    var currentPositionFragment = Tab.POPULAR.position
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -36,22 +30,23 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>() {
     }
 
     private fun initBottomNavigation() {
-        bottom_navigation.apply {
-            AHBottomNavigationAdapter(
-                activity, R.menu.menu_bottom_navigation
-            ).setupWithBottomNavigation(this)
-            titleState = AHBottomNavigation.TitleState.ALWAYS_SHOW
-            defaultBackgroundColor = ContextCompat.getColor(context, R.color.white)
-
-            setOnTabSelectedListener { position, wasSelected ->
-                onClickBottomNavigationItem(position)
-            }
-            currentItem = Tab.POPULAR.position
+        layout_tab_popular.setOnClickListener {
+            onClickBottomNavigationItem(Tab.POPULAR.position)
         }
+        layout_tab_rated.setOnClickListener {
+            onClickBottomNavigationItem(Tab.TOP_RATED.position)
+        }
+        layout_tab_favorite.setOnClickListener {
+            onClickBottomNavigationItem(Tab.FAVORITE.position)
+        }
+        layout_tab_profile.setOnClickListener {
+            onClickBottomNavigationItem(Tab.PROFILE.position)
+        }
+        onClickBottomNavigationItem(Tab.POPULAR.position)
     }
 
     private fun onClickBottomNavigationItem(position: Int): Boolean {
-        val currentTag = getTabFragmentTag(currentPositionFragment)
+        val currentTag = getTabFragmentTag(viewModel.currentTab.value ?: Tab.POPULAR.position)
         val newTag = getTabFragmentTag(position)
 
         val fragmentManager = childFragmentManager
@@ -78,7 +73,7 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>() {
                 newFragment.loadData()
             }
         }
-        currentPositionFragment = position
+        viewModel.currentTab.value = position
         fragmentTransaction.commit()
 
         return true
@@ -102,10 +97,11 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>() {
 
     override fun onBack(): Boolean {
         val currentFragment = childFragmentManager.findFragmentByTag(
-            getTabFragmentTag(currentPositionFragment)
-        )
-        val stackCount = currentFragment?.childFragmentManager?.backStackEntryCount
-        if (stackCount != null && stackCount > 0) {
+            getTabFragmentTag(viewModel.currentTab.value ?: Tab.POPULAR.position)
+        ) ?: return false
+
+        val stackCount = currentFragment.childFragmentManager.backStackEntryCount
+        if (stackCount > 0) {
             currentFragment.childFragmentManager.popBackStack()
 
             // refresh favorite movies

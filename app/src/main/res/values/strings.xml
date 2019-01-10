@@ -1,10 +1,10 @@
 <resources>
 
     <!--main screen-->
-    <string name="main_tab_popular">Popular</string>
-    <string name="main_tab_top_rated">Top Rated</string>
-    <string name="main_tab_favorite">Favorite</string>
-    <string name="main_tab_profile">Profile</string>
+    <string name="main_tab_popular">POPULAR</string>
+    <string name="main_tab_top_rated">TOP RATED</string>
+    <string name="main_tab_favorite">FAVORITE</string>
+    <string name="main_tab_profile">PROFILE</string>
 
     <!--login-->
     <string name="login_email">Email</string>

@@ -154,11 +154,11 @@ dependencies {
 */
 
     // navigation
-    implementation("android.arch.navigation:navigation-fragment-ktx:1.0.0-alpha07")
-    implementation("android.arch.navigation:navigation-ui-ktx:1.0.0-alpha07")
+    implementation("android.arch.navigation:navigation-fragment-ktx:1.0.0-alpha09")
+    implementation("android.arch.navigation:navigation-ui-ktx:1.0.0-alpha09")
     // optional - Test helpers
     // this library depends on the Kotlin standard library
-    androidTestImplementation("android.arch.navigation:navigation-testing:1.0.0-alpha07")
+    androidTestImplementation("android.arch.navigation:navigation-testing:1.0.0-alpha08")
 
 /*
     // work manager
@@ -189,7 +189,7 @@ dependencies {
     // retrofit
     implementation("com.squareup.retrofit2:retrofit:2.4.0")
     implementation("com.squareup.retrofit2:converter-gson:2.4.0")
-    implementation("com.squareup.okhttp3:logging-interceptor:3.10.0")
+    implementation("com.squareup.okhttp3:logging-interceptor:3.11.0")
     implementation("com.squareup.retrofit2:adapter-rxjava2:2.4.0")
     implementation("com.jakewharton.retrofit:retrofit2-kotlin-coroutines-experimental-adapter:1.0.0")
 
@@ -206,9 +206,6 @@ dependencies {
 
     // runtime permission
     implementation("pub.devrel:easypermissions:2.0.0")
-
-    // bottom navigation
-    implementation("com.aurelhubert:ahbottomnavigation:2.1.0")
 
     // unit test
     testImplementation("junit:junit:4.12")

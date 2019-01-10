@@ -7,7 +7,7 @@ buildscript {
     }
     dependencies {
         classpath("com.android.tools.build:gradle:3.2.1")
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.3.0")
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.3.11")
         // AAC navigation safe args
         classpath ("android.arch.navigation:navigation-safe-args-gradle-plugin:1.0.0-alpha07")
 

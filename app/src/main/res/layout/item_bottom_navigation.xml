@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="title"
+            type="String" />
+
+        <variable
+            name="icon"
+            type="android.graphics.drawable.Drawable" />
+
+        <variable
+            name="selectedIcon"
+            type="android.graphics.drawable.Drawable" />
+
+        <variable
+            name="isSelected"
+            type="Boolean" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/black"
+        android:orientation="vertical"
+        android:paddingTop="@dimen/dp_6"
+        android:paddingBottom="@dimen/dp_6">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/image_icon"
+            android:layout_width="@dimen/dp_24"
+            android:layout_height="@dimen/dp_24"
+            android:layout_gravity="center_horizontal"
+            android:adjustViewBounds="true"
+            android:src="@{ isSelected ? selectedIcon : icon }"
+            tools:src="@mipmap/ic_launcher" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/text_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center_horizontal"
+            android:layout_marginTop="@dimen/dp_4"
+            android:gravity="center"
+            android:lines="1"
+            android:text="@{ title }"
+            android:textColor="@{ isSelected ? @color/white : @color/white_50 }"
+            android:textSize="@dimen/sp_10"
+            tools:text="Label One"
+            tools:textColor="@color/white" />
+    </LinearLayout>
+</layout>
