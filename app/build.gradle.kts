@@ -194,15 +194,13 @@ dependencies {
     implementation("com.jakewharton.retrofit:retrofit2-kotlin-coroutines-experimental-adapter:1.0.0")
 
     // glide
-    implementation("com.github.bumptech.glide:glide:4.7.1") {
-        exclude("module", "support-annotations")
-    }
+    implementation("com.github.bumptech.glide:glide:4.8.0")
     kapt("com.github.bumptech.glide:compiler:4.8.0")
 
     // koin
     implementation("org.koin:koin-core:1.0.1")
     implementation("org.koin:koin-android:1.0.1")
-    implementation("org.koin:koin-androidx-viewmodel:1.0.0")
+    implementation("org.koin:koin-androidx-viewmodel:1.0.1")
 
     // runtime permission
     implementation("pub.devrel:easypermissions:2.0.0")
