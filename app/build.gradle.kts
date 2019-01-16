@@ -22,6 +22,7 @@ android {
         minSdkVersion(19)
         compileSdkVersion(28)
         testInstrumentationRunner = "android.support.test.runner.AndroidJUnitRunner"
+        ndk?.setAbiFilters( listOf("armeabi-v7a", "arm64-v8a" ,"x86", "x86_64"))
     }
 
     signingConfigs {
