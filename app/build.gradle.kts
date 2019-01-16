@@ -200,7 +200,7 @@ dependencies {
     // koin
     implementation("org.koin:koin-core:1.0.1")
     implementation("org.koin:koin-android:1.0.1")
-    implementation("org.koin:koin-androidx-viewmodel:1.0.0")
+    implementation("org.koin:koin-androidx-viewmodel:1.0.1")
 
     // runtime permission
     implementation("pub.devrel:easypermissions:2.0.0")
