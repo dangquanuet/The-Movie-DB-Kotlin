@@ -194,9 +194,7 @@ dependencies {
     implementation("com.jakewharton.retrofit:retrofit2-kotlin-coroutines-experimental-adapter:1.0.0")
 
     // glide
-    implementation("com.github.bumptech.glide:glide:4.7.1") {
-        exclude("module", "support-annotations")
-    }
+    implementation("com.github.bumptech.glide:glide:4.8.0")
     kapt("com.github.bumptech.glide:compiler:4.8.0")
 
     // koin
