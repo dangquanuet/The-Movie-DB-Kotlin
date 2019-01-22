@@ -19,6 +19,10 @@ abstract class BaseRecyclerAdapter2<Item, ViewBinding : ViewDataBinding>(
         .build()
 ) {
 
+    override fun submitList(list: List<Item>?) {
+        super.submitList(ArrayList<Item>(list ?: listOf()))
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<ViewBinding> {
         return BaseViewHolder(DataBindingUtil.inflate<ViewBinding>(
             LayoutInflater.from(parent.context),

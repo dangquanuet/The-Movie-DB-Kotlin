@@ -22,6 +22,11 @@ android {
         minSdkVersion(19)
         compileSdkVersion(28)
         testInstrumentationRunner = "android.support.test.runner.AndroidJUnitRunner"
+
+        /*
+        * Optional: Get your apps ready for the 64-bit requirement
+        * https://android-developers.googleblog.com/2019/01/get-your-apps-ready-for-64-bit.html
+        * */
         ndk?.setAbiFilters( listOf("armeabi-v7a", "arm64-v8a" ,"x86", "x86_64"))
     }
 
