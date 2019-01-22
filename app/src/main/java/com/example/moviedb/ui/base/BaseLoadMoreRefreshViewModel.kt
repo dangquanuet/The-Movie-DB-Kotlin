@@ -15,7 +15,7 @@ abstract class BaseLoadMoreRefreshViewModel<Item>() : BaseViewModel() {
     }
 
     val isLoadMore = MutableLiveData<Boolean>().apply { value = false }
-    var currentPage = MutableLiveData<Int>().apply { value = 0 }
+    var currentPage = MutableLiveData<Int>().apply { value = getPreFirstPage() }
     var isLastPage = MutableLiveData<Boolean>().apply { value = false }
 
     val onScrollListener = object : EndlessRecyclerOnScrollListener(getLoadMoreThreshold()) {
@@ -33,27 +33,40 @@ abstract class BaseLoadMoreRefreshViewModel<Item>() : BaseViewModel() {
 
     abstract fun loadData(page: Int)
 
-    fun isFirst() = currentPage.value == 0
-            && (listItem.value == null || listItem.value?.size == 0)
+    fun isFirst() = currentPage.value == getPreFirstPage()
+            && listItem.value?.size ?: 0 == 0
 
     fun firstLoad() {
         if (isFirst()) {
             isLoading.value = true
-            loadData(1)
+            loadData(getFirstPage())
         }
     }
 
     fun refreshData() {
-        loadData(1)
+        loadData(getFirstPage())
     }
 
     fun loadMore() {
-        loadData(currentPage.value?.plus(1) ?: 1)
+        loadData(currentPage.value?.plus(1) ?: getFirstPage())
     }
 
-    fun getLoadMoreThreshold() = Constants.DEFAULT_NUM_VISIBLE_THRESHOLD
+    /**
+     * override if first page is not 1
+     */
+    open fun getFirstPage() = Constants.DEFAULT_FIRST_PAGE
 
-    fun getNumberItemPerPage() = Constants.DEFAULT_ITEM_PER_PAGE
+    fun getPreFirstPage() = getFirstPage() - 1
+
+    /**
+     * override if need change number visible threshold
+     */
+    open fun getLoadMoreThreshold() = Constants.DEFAULT_NUM_VISIBLE_THRESHOLD
+
+    /**
+     * override if need change number item per page
+     */
+    open fun getNumberItemPerPage() = Constants.DEFAULT_ITEM_PER_PAGE
 
     fun resetLoadMore() {
         onScrollListener.resetOnLoadMore()

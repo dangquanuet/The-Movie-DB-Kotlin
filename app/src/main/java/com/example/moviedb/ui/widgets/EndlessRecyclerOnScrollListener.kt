@@ -5,7 +5,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.moviedb.data.constants.Constants
 
-abstract class EndlessRecyclerOnScrollListener(threshold: Int) : RecyclerView.OnScrollListener() {
+abstract class EndlessRecyclerOnScrollListener(
+    threshold: Int = Constants.DEFAULT_NUM_VISIBLE_THRESHOLD
+) : RecyclerView.OnScrollListener() {
 
     // The total number of items in the dataset after the last load
     private var mPreviousTotal: Int = 0
