@@ -64,6 +64,14 @@ abstract class BaseViewModel : ViewModel() {
         errorMessage.value = e.message
     }
 
+    fun showLoading() {
+        isLoading.value = true
+    }
+
+    fun hideLoading() {
+        isLoading.value = false
+    }
+
     fun onActivityDestroyed() {
         compositeDisposable.clear()
         parentJob.cancel()
