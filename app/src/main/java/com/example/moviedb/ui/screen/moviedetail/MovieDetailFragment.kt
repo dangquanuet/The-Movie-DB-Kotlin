@@ -21,8 +21,7 @@ class MovieDetailFragment : BaseFragment<FragmentMovieDetailBinding, MovieDetail
         }
     }
 
-    override val layoutId: Int
-        get() = R.layout.fragment_movie_detail
+    override val layoutId: Int = R.layout.fragment_movie_detail
 
     override val viewModel by viewModel<MovieDetailViewModel>()
 

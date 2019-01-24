@@ -14,8 +14,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding, LoginViewModel>() {
         fun newInstance() = LoginFragment()
     }
 
-    override val layoutId: Int
-        get() = R.layout.fragment_login
+    override val layoutId: Int = R.layout.fragment_login
 
     override val viewModel by viewModel<LoginViewModel>()
 
