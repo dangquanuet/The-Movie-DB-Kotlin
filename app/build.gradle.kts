@@ -160,8 +160,8 @@ dependencies {
 */
 
     // navigation
-    implementation("android.arch.navigation:navigation-fragment-ktx:1.0.0-alpha09")
-    implementation("android.arch.navigation:navigation-ui-ktx:1.0.0-alpha09")
+    implementation("android.arch.navigation:navigation-fragment-ktx:1.0.0-alpha11")
+    implementation("android.arch.navigation:navigation-ui-ktx:1.0.0-alpha11")
     // optional - Test helpers
     // this library depends on the Kotlin standard library
     androidTestImplementation("android.arch.navigation:navigation-testing:1.0.0-alpha08")
@@ -189,7 +189,7 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:0.26.0")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:0.26.0")
 
-    //Using this for parse json data to object
+    // gson
     implementation("com.google.code.gson:gson:2.8.5")
 
     // retrofit
