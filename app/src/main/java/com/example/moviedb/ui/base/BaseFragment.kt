@@ -115,9 +115,10 @@ abstract class BaseFragment<ViewBinding : ViewDataBinding, ViewModel : BaseViewM
         transit: Int = -1
     ) {
         activity?.supportFragmentManager?.beginTransaction()
-            ?.add(R.id.container, fragment, TAG)?.apply {
+            ?.add(R.id.container, fragment, TAG)
+            ?.apply {
                 commitTransaction(this, addToBackStack, transit)
-            }?.commit()
+            }
     }
 
     fun replaceFragment(
@@ -125,9 +126,10 @@ abstract class BaseFragment<ViewBinding : ViewDataBinding, ViewModel : BaseViewM
         transit: Int = -1
     ) {
         activity?.supportFragmentManager?.beginTransaction()
-            ?.replace(R.id.container, fragment, TAG)?.apply {
+            ?.replace(R.id.container, fragment, TAG)
+            ?.apply {
                 commitTransaction(this, addToBackStack, transit)
-            }?.commit()
+            }
     }
 
     fun replaceChildFragment(
