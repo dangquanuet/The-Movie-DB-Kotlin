@@ -19,15 +19,9 @@ android {
 
     defaultConfig {
         applicationId = "com.example.moviedb"
-        minSdkVersion(19)
+        minSdkVersion(15)
         compileSdkVersion(28)
-        testInstrumentationRunner = "android.support.test.runner.AndroidJUnitRunner"
-
-        /*
-        * Optional: Get your apps ready for the 64-bit requirement
-        * https://android-developers.googleblog.com/2019/01/get-your-apps-ready-for-64-bit.html
-        * */
-        ndk?.setAbiFilters( listOf("armeabi-v7a", "arm64-v8a" ,"x86", "x86_64"))
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
     signingConfigs {
@@ -140,7 +134,7 @@ dependencies {
     // optional - ReactiveStreams support for LiveData
     implementation("androidx.lifecycle:lifecycle-reactivestreams-ktx:2.0.0")
     // optional - Test helpers for LiveData
-    testImplementation("androidx.arch.core:core-testing:2.0.0")
+//    testImplementation("androidx.arch.core:core-testing:2.0.0")
 
     // room
     implementation("androidx.room:room-runtime:2.0.0")
@@ -148,7 +142,7 @@ dependencies {
     // optional - RxJava support for Room
     implementation("androidx.room:room-rxjava2:2.0.0")
     // Test helpers
-    testImplementation("androidx.room:room-testing:2.0.0")
+//    testImplementation("androidx.room:room-testing:2.0.0")
 
 /*
     // paging
@@ -160,11 +154,11 @@ dependencies {
 */
 
     // navigation
-    implementation("android.arch.navigation:navigation-fragment-ktx:1.0.0-alpha11")
-    implementation("android.arch.navigation:navigation-ui-ktx:1.0.0-alpha11")
+    implementation("android.arch.navigation:navigation-fragment-ktx:1.0.0-beta02")
+    implementation("android.arch.navigation:navigation-ui-ktx:1.0.0-beta02")
     // optional - Test helpers
     // this library depends on the Kotlin standard library
-    androidTestImplementation("android.arch.navigation:navigation-testing:1.0.0-alpha08")
+//    androidTestImplementation("android.arch.navigation:navigation-testing:1.0.0-alpha08")
 
 /*
     // work manager
@@ -174,9 +168,6 @@ dependencies {
     // optional - Test helpers
     androidTestImplementation ("android.arch.work:work-testing:1.0.0-alpha11")
 */
-
-    // data binding compiler
-//    kapt("com.android.databinding:compiler:3.3.0-rc01")
 
     // ktx
     implementation("androidx.core:core-ktx:1.0.1")
@@ -209,7 +200,7 @@ dependencies {
     implementation("org.koin:koin-androidx-viewmodel:1.0.1")
 
     // runtime permission
-    implementation("pub.devrel:easypermissions:2.0.0")
+    implementation("pub.devrel:easypermissions:3.0.0")
 
     // unit test
     testImplementation("junit:junit:4.12")

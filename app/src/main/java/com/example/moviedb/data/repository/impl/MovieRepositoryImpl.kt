@@ -1,5 +1,6 @@
 package com.example.moviedb.data.repository.impl
 
+import com.example.moviedb.data.flow.SchedulerProvider
 import com.example.moviedb.data.local.dao.MovieDao
 import com.example.moviedb.data.model.Movie
 import com.example.moviedb.data.remote.ApiService
@@ -8,23 +9,22 @@ import com.example.moviedb.data.remote.response.GetTvListResponse
 import com.example.moviedb.data.remote.response.Result
 import com.example.moviedb.data.repository.MovieRepository
 import io.reactivex.Single
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
 import kotlinx.coroutines.experimental.Deferred
 import kotlinx.coroutines.experimental.android.UI
 import kotlinx.coroutines.experimental.async
 
 class MovieRepositoryImpl constructor(
     private val apiService: ApiService,
-    private val movieDao: MovieDao
+    private val movieDao: MovieDao,
+    private val schedulerProvider: SchedulerProvider
 ) : MovieRepository {
 
     override fun getMovieList(
         hashMap: HashMap<String, String>
     ): Single<GetMovieListResponse> {
         return apiService.getMovieList(hashMap)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeOn(schedulerProvider.io())
+            .observeOn(schedulerProvider.ui())
     }
 
     override fun getTvList(
