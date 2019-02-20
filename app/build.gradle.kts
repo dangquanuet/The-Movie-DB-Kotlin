@@ -22,6 +22,7 @@ android {
         minSdkVersion(15)
         compileSdkVersion(28)
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        multiDexEnabled = true
     }
 
     signingConfigs {
@@ -59,19 +60,25 @@ android {
             applicationIdSuffix = ".dev"
             resValue("string", "app_name", "Movie DB Dev")
             buildConfigField("boolean", "MOCK_DATA", "false")
+
+            resValue ("string", "ADMOB_APP_ID", "ca-app-pub-3940256099942544~3347511713")
+            resValue ("string", "banner_ad_unit_id", "ca-app-pub-3940256099942544/6300978111")
         }
-        create("mock") {
+        /*create("mock") {
             versionCode = 1
             versionName = "1.0.0"
             applicationIdSuffix = ".mock"
             resValue("string", "app_name", "Movie DB Mock")
             buildConfigField("boolean", "MOCK_DATA", "true")
-        }
+        }*/
         create("prd") {
             versionCode = 1
             versionName = "1.0.0"
             resValue("string", "app_name", "Movie DB")
             buildConfigField("boolean", "MOCK_DATA", "false")
+
+            resValue ("string", "ADMOB_APP_ID", "your_app_id")
+            resValue ("string", "banner_ad_unit_id", "your_banner_ad_unit_id")
         }
     }
 
@@ -201,6 +208,10 @@ dependencies {
 
     // runtime permission
     implementation("pub.devrel:easypermissions:3.0.0")
+
+    implementation ("com.android.support:multidex:1.0.3")
+
+    implementation ("com.google.firebase:firebase-ads:17.1.3")
 
     // unit test
     testImplementation("junit:junit:4.12")

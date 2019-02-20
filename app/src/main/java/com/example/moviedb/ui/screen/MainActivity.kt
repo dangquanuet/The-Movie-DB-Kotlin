@@ -5,6 +5,7 @@ import androidx.navigation.fragment.NavHostFragment
 import com.example.moviedb.R
 import com.example.moviedb.ui.base.BaseActivity
 import com.example.moviedb.ui.screen.main.MainFragment
+import com.google.android.gms.ads.MobileAds
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : BaseActivity() {
@@ -14,6 +15,7 @@ class MainActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        MobileAds.initialize(this, getString(R.string.ADMOB_APP_ID))
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
                 .replace(R.id.container, MainFragment.newInstance(), MainFragment.TAG)

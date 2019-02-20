@@ -1,0 +1,99 @@
+{
+  "project_info": {
+    "project_number": "798464531435",
+    "firebase_url": "https://the-movie-db-kotlin-16680.firebaseio.com",
+    "project_id": "the-movie-db-kotlin-16680",
+    "storage_bucket": "the-movie-db-kotlin-16680.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:798464531435:android:c1d97301229bded4",
+        "android_client_info": {
+          "package_name": "com.example.moviedb.dev"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "798464531435-4o40k2kd471flvhgjllu4dbpgqmfh4mh.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.moviedb.dev",
+            "certificate_hash": "08549eeb903ed1f91adead94d6e1723e356c36b0"
+          }
+        },
+        {
+          "client_id": "798464531435-motdera1h2kocscat177sv6k4d6gc16a.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDwl6AQkfThxNKzsSsgEEECXwTlVMEA-kQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "798464531435-motdera1h2kocscat177sv6k4d6gc16a.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:798464531435:android:995c0db7e162c99a",
+        "android_client_info": {
+          "package_name": "com.example.moviedb.mock"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "798464531435-vkr5vv0gao9ka6v7jc8l6si879mm73n9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.moviedb.mock",
+            "certificate_hash": "08549eeb903ed1f91adead94d6e1723e356c36b0"
+          }
+        },
+        {
+          "client_id": "798464531435-motdera1h2kocscat177sv6k4d6gc16a.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDwl6AQkfThxNKzsSsgEEECXwTlVMEA-kQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "798464531435-motdera1h2kocscat177sv6k4d6gc16a.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
