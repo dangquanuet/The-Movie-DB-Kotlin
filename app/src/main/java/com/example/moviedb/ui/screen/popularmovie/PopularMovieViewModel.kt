@@ -12,8 +12,7 @@ import com.example.moviedb.ui.base.BaseLoadMoreRefreshViewModel
 
 class PopularMovieViewModel constructor(
     val resources: Resources,
-    val movieRepository: MovieRepository,
-    val movieDao: MovieDao
+    val movieRepository: MovieRepository
 ) : BaseLoadMoreRefreshViewModel<Movie>() {
 
     var mode = MutableLiveData<Int>().apply { value = MovieListType.POPULAR.type }
