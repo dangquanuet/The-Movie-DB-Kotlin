@@ -28,7 +28,7 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        ad_view.loadAd(AdRequest.Builder().build())
+        ad_view.loadAd(AdRequest.Builder().addTestDevice(BuildConfig.test_device_id).build())
         initBottomNavigation()
     }
 

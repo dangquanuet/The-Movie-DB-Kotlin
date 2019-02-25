@@ -88,6 +88,7 @@ android {
         buildConfigField("String", "LARGE_IMAGE_URL", "\"https://image.tmdb.org/t/p/w500\"")
         buildConfigField("String", "ORIGINAL_IMAGE_URL", "\"https://image.tmdb.org/t/p/original\"")
         buildConfigField("String", "TMBD_API_KEY", "\"2cdf3a5c7cf412421485f89ace91e373\"")
+        buildConfigField("String", "test_device_id", "\"799A389DFCE445FE5C0BF401FA69FFA3\"")
 
         when (name) {
             "dev" -> {
