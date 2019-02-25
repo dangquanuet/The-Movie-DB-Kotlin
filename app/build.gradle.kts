@@ -316,14 +316,6 @@ android {
             resValue "string", "app_name", "Movie DB DEV"
         }
 
-        // build this flavor for qa test
-        stg {
-            versionCode rootProject.ext.versionCode_dev
-            versionName rootProject.ext.versionName_dev
-            applicationIdSuffix = ".stg"
-            resValue "string", "app_name", "Movie DB STG"
-        }
-
         prd {
             versionCode rootProject.ext.versionCode_product
             versionName rootProject.ext.versionName_product
@@ -390,23 +382,6 @@ dependencies {
     }
     kapt "com.github.bumptech.glide:compiler:4.7.1"
 
-    //dagger 2 core
-    implementation "com.google.dagger:dagger:2.16"
-    kapt "com.google.dagger:dagger-compiler:2.16"
-    compileOnly 'javax.annotation:jsr250-api:1.0'
-    implementation 'javax.inject:javax.inject:1'
-
-    // dagger 2 android
-    implementation "com.google.dagger:dagger-android:2.16"
-    implementation "com.google.dagger:dagger-android-support:2.16"
-    kapt "com.google.dagger:dagger-android-processor:2.16"
-
-    // bottom navigation
-    implementation 'com.aurelhubert:ahbottomnavigation:2.1.0'
-
-    // databinding compiler
-    kapt 'com.android.databinding:compiler:3.1.4'
-
     // room
     implementation "android.arch.persistence.room:runtime:1.1.1"
     kapt "android.arch.persistence.room:compiler:1.1.1"
@@ -421,23 +396,9 @@ dependencies {
     // ReactiveStreams support for LiveData
     implementation "android.arch.lifecycle:reactivestreams:1.1.1"
 
-    // Paging
-    implementation "android.arch.paging:runtime:1.0.1"
-    // RxJava support for Paging
-    implementation "android.arch.paging:rxjava2:1.0.1"
-
     // unit test
     testImplementation 'junit:junit:4.12'
     testImplementation 'org.mockito:mockito-core:2.19.0'
     testImplementation "android.arch.core:core-testing:1.1.1"
-
-    androidTestImplementation 'com.android.support.test:runner:1.0.2'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
-
-    androidTestImplementation "android.arch.persistence.room:testing:1.1.1"
-    androidTestImplementation "android.arch.core:core-testing:1.1.1"
-
-    testImplementation "com.squareup.okhttp3:mockwebserver:3.9.0"
-    testImplementation "org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version"
 }
 */
