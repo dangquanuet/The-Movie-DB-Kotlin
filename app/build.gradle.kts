@@ -162,8 +162,8 @@ dependencies {
 */
 
     // navigation
-    implementation("android.arch.navigation:navigation-fragment-ktx:1.0.0-beta02")
-    implementation("android.arch.navigation:navigation-ui-ktx:1.0.0-beta02")
+    implementation("android.arch.navigation:navigation-fragment-ktx:1.0.0-rc01")
+    implementation("android.arch.navigation:navigation-ui-ktx:1.0.0-rc01")
     // optional - Test helpers
     // this library depends on the Kotlin standard library
 //    androidTestImplementation("android.arch.navigation:navigation-testing:1.0.0-alpha08")
