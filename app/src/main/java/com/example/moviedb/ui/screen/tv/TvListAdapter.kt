@@ -4,11 +4,11 @@ import androidx.recyclerview.widget.DiffUtil
 import com.example.moviedb.R
 import com.example.moviedb.data.model.Tv
 import com.example.moviedb.databinding.ItemTvBinding
-import com.example.moviedb.ui.base.BaseRecyclerAdapter2
+import com.example.moviedb.ui.base.BaseRecyclerAdapter
 
 class TvListAdapter(
     val itemClickListener: (Tv) -> Unit = {}
-) : BaseRecyclerAdapter2<Tv, ItemTvBinding>(object : DiffUtil.ItemCallback<Tv>() {
+) : BaseRecyclerAdapter<Tv, ItemTvBinding>(object : DiffUtil.ItemCallback<Tv>() {
     override fun areItemsTheSame(oldItem: Tv, newItem: Tv): Boolean {
         return oldItem.id == newItem.id
     }

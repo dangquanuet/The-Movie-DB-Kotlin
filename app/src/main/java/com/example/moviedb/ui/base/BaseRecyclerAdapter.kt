@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.moviedb.BR
 import java.util.concurrent.Executors
 
-abstract class BaseRecyclerAdapter2<Item, ViewBinding : ViewDataBinding>(
+abstract class BaseRecyclerAdapter<Item, ViewBinding : ViewDataBinding>(
     callBack: DiffUtil.ItemCallback<Item>
 ) : ListAdapter<Item, BaseViewHolder<ViewBinding>>(
     AsyncDifferConfig.Builder<Item>(callBack)

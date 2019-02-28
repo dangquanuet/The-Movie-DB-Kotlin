@@ -4,11 +4,11 @@ import androidx.recyclerview.widget.DiffUtil
 import com.example.moviedb.R
 import com.example.moviedb.data.model.Movie
 import com.example.moviedb.databinding.ItemMovieBinding
-import com.example.moviedb.ui.base.BaseRecyclerAdapter2
+import com.example.moviedb.ui.base.BaseRecyclerAdapter
 
 class PopularMovieAdapter(
     val itemClickListener: (Movie) -> Unit = {}
-) : BaseRecyclerAdapter2<Movie, ItemMovieBinding>(object : DiffUtil.ItemCallback<Movie>() {
+) : BaseRecyclerAdapter<Movie, ItemMovieBinding>(object : DiffUtil.ItemCallback<Movie>() {
     override fun areItemsTheSame(oldItem: Movie, newItem: Movie): Boolean {
         return oldItem.id == newItem.id
     }
