@@ -4,8 +4,8 @@ import com.example.moviedb.data.model.Tv
 import com.example.moviedb.data.remote.ApiParams
 import com.example.moviedb.data.repository.MovieRepository
 import com.example.moviedb.ui.base.BaseLoadMoreRefreshViewModel
-import kotlinx.coroutines.experimental.android.UI
-import kotlinx.coroutines.experimental.async
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.async
 
 class TvListViewModel constructor(
     private val movieRepository: MovieRepository
@@ -15,7 +15,7 @@ class TvListViewModel constructor(
         val hashMap = HashMap<String, String>()
         hashMap.put(ApiParams.PAGE, page.toString())
 
-        async(UI) {
+        GlobalScope.async {
             try {
                 onLoadSuccess(page, movieRepository.getTvList(hashMap).await().results)
             } catch (e: Throwable) {

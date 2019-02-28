@@ -23,7 +23,7 @@ class MovieDetailFragment : BaseFragment<FragmentMovieDetailBinding, MovieDetail
 
     override val layoutId: Int = R.layout.fragment_movie_detail
 
-    override val viewModel by viewModel<MovieDetailViewModel>()
+    override val viewModel: MovieDetailViewModel by viewModel()
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)

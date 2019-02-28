@@ -5,7 +5,7 @@ import com.example.moviedb.data.remote.response.GetMovieListResponse
 import com.example.moviedb.data.remote.response.GetTvListResponse
 import com.example.moviedb.data.remote.response.Result
 import io.reactivex.Single
-import kotlinx.coroutines.experimental.Deferred
+import kotlinx.coroutines.Deferred
 
 interface MovieRepository {
 

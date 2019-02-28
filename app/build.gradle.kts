@@ -61,8 +61,11 @@ android {
             resValue("string", "app_name", "Movie DB Dev")
             buildConfigField("boolean", "MOCK_DATA", "false")
 
-            resValue ("string", "ADMOB_APP_ID", "ca-app-pub-3940256099942544~3347511713")
-            resValue ("string", "banner_ad_unit_id", "ca-app-pub-3940256099942544/6300978111")
+            resValue("string", "google_app_id", "1:798464531435:android:c1d97301229bded4")
+            resValue("string", "google_api_key", "AIzaSyD_ufzh_9VUi8hJg6rXmomtXN4ICbnO_BM")
+
+            resValue("string", "ADMOB_APP_ID", "ca-app-pub-3940256099942544~3347511713")
+            resValue("string", "banner_ad_unit_id", "ca-app-pub-3940256099942544/6300978111")
         }
         /*create("mock") {
             versionCode = 1
@@ -77,8 +80,8 @@ android {
             resValue("string", "app_name", "Movie DB")
             buildConfigField("boolean", "MOCK_DATA", "false")
 
-            resValue ("string", "ADMOB_APP_ID", "your_app_id")
-            resValue ("string", "banner_ad_unit_id", "your_banner_ad_unit_id")
+            resValue("string", "ADMOB_APP_ID", "your_app_id")
+            resValue("string", "banner_ad_unit_id", "your_banner_ad_unit_id")
         }
     }
 
@@ -185,8 +188,8 @@ dependencies {
     implementation("io.reactivex.rxjava2:rxandroid:2.1.0")
 
     // coroutines
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:0.26.0")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:0.26.0")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.1.1")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.1.1")
 
     // gson
     implementation("com.google.code.gson:gson:2.8.5")
@@ -210,9 +213,9 @@ dependencies {
     // runtime permission
     implementation("pub.devrel:easypermissions:3.0.0")
 
-    implementation ("com.android.support:multidex:1.0.3")
+    implementation("com.android.support:multidex:1.0.3")
 
-    implementation ("com.google.firebase:firebase-ads:17.1.3")
+    implementation("com.google.firebase:firebase-ads:17.1.3")
 
     // unit test
     testImplementation("junit:junit:4.12")

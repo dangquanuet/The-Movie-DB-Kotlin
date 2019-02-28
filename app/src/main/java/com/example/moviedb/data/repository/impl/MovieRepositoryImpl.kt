@@ -9,9 +9,9 @@ import com.example.moviedb.data.remote.response.GetTvListResponse
 import com.example.moviedb.data.remote.response.Result
 import com.example.moviedb.data.repository.MovieRepository
 import io.reactivex.Single
-import kotlinx.coroutines.experimental.Deferred
-import kotlinx.coroutines.experimental.android.UI
-import kotlinx.coroutines.experimental.async
+import kotlinx.coroutines.Deferred
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.async
 
 class MovieRepositoryImpl constructor(
     private val apiService: ApiService,
@@ -38,7 +38,7 @@ class MovieRepositoryImpl constructor(
         success: (GetTvListResponse) -> Unit,
         fail: (Throwable) -> Unit
     ): Deferred<Unit?> {
-        return async(UI) {
+        return GlobalScope.async {
             try {
                 success(apiService.getTvList(hashMap).await())
             } catch (e: Throwable) {
@@ -51,7 +51,7 @@ class MovieRepositoryImpl constructor(
         hashMap: HashMap<String, String>
     ): Result<GetTvListResponse> {
         lateinit var result: Result<GetTvListResponse>
-        async(UI) {
+        GlobalScope.async {
             try {
                 result = Result.Success(apiService.getTvList(hashMap).await())
             } catch (e: Throwable) {
@@ -65,7 +65,7 @@ class MovieRepositoryImpl constructor(
         list: List<Movie>,
         fail: (Throwable) -> Unit
     ): Deferred<Unit> {
-        return async {
+        return GlobalScope.async {
             try {
                 movieDao.insert(list)
             } catch (e: Throwable) {
@@ -78,7 +78,7 @@ class MovieRepositoryImpl constructor(
         movie: Movie,
         fail: (Throwable) -> Unit
     ): Deferred<Unit> {
-        return async {
+        return GlobalScope.async {
             try {
                 movieDao.update(movie)
             } catch (e: Throwable) {

@@ -77,7 +77,7 @@ abstract class BaseFragment<ViewBinding : ViewDataBinding, ViewModel : BaseViewM
 
     override fun onDestroy() {
         super.onDestroy()
-        viewModel.onActivityDestroyed()
+        viewModel.onDestroy()
     }
 
     fun showLoading() {

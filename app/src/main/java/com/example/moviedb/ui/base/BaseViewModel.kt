@@ -5,11 +5,11 @@ import androidx.lifecycle.ViewModel
 import com.example.moviedb.data.remote.BaseException
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
-import kotlinx.coroutines.experimental.CoroutineExceptionHandler
-import kotlinx.coroutines.experimental.Job
+import kotlinx.coroutines.CoroutineExceptionHandler
+import kotlinx.coroutines.Job
 import java.net.SocketTimeoutException
 import java.net.UnknownHostException
-import kotlin.coroutines.experimental.CoroutineContext
+import kotlin.coroutines.CoroutineContext
 
 abstract class BaseViewModel : ViewModel() {
 
@@ -22,7 +22,7 @@ abstract class BaseViewModel : ViewModel() {
     // coroutines
     val parentJob = Job()
     val exceptionHandler: CoroutineContext = CoroutineExceptionHandler { _, throwable ->
-        throwable.printStackTrace()
+        errorMessage.value = throwable.message
     }
 
     fun addDisposable(disposable: Disposable) {
@@ -72,7 +72,7 @@ abstract class BaseViewModel : ViewModel() {
         isLoading.value = false
     }
 
-    fun onActivityDestroyed() {
+    fun onDestroy() {
         compositeDisposable.clear()
         parentJob.cancel()
     }

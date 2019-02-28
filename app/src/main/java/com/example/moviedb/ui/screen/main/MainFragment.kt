@@ -9,6 +9,7 @@ import com.example.moviedb.databinding.FragmentMainBinding
 import com.example.moviedb.ui.base.BaseFragment
 import com.example.moviedb.ui.screen.favoritemovie.FavoriteMovieFragment
 import com.example.moviedb.ui.screen.popularmovie.PopularMovieFragment
+import com.example.moviedb.ui.screen.tv.TvListFragment
 import com.google.android.gms.ads.AdRequest
 import kotlinx.android.synthetic.main.fragment_main.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -93,7 +94,7 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>() {
                 MovieListType.TOP_RATED.type
             )
             Tab.FAVORITE.position -> FavoriteMovieFragment.newInstance()
-            Tab.PROFILE.position -> Fragment() // TODO
+            Tab.PROFILE.position -> TvListFragment.newInstance()
             else -> Fragment()
         }
     }
