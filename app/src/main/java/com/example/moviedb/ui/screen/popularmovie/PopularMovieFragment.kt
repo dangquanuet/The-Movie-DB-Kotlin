@@ -10,7 +10,7 @@ import com.example.moviedb.databinding.FragmentLoadmoreRefreshBinding
 import com.example.moviedb.ui.base.BaseLoadMoreRefreshFragment
 import com.example.moviedb.ui.screen.moviedetail.MovieDetailFragment
 import kotlinx.android.synthetic.main.fragment_loadmore_refresh.*
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.androidx.viewmodel.ext.viewModel
 
 class PopularMovieFragment :
     BaseLoadMoreRefreshFragment<FragmentLoadmoreRefreshBinding, PopularMovieViewModel, Movie>() {
@@ -26,7 +26,7 @@ class PopularMovieFragment :
         }
     }
 
-    override val viewModel by viewModel<PopularMovieViewModel>()
+    override val viewModel: PopularMovieViewModel by viewModel()
 
     // user this for share viewModel between activity and fragment
 //    override val viewModel by sharedViewModel<MainActivityViewModel>()

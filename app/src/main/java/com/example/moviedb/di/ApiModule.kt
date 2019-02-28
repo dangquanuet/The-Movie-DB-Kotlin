@@ -1,18 +1,18 @@
 package com.example.moviedb.di
 
 import android.content.Context
-import com.jakewharton.retrofit2.adapter.kotlin.coroutines.experimental.CoroutineCallAdapterFactory
 import com.example.moviedb.BuildConfig
 import com.example.moviedb.data.remote.ApiService
 import com.example.moviedb.data.remote.MockApi
 import com.example.moviedb.data.remote.RxErrorHandlingCallAdapterFactory
 import com.example.moviedb.di.Properties.GOOGLE_MAP_APIS_BASE_URL
 import com.example.moviedb.di.Properties.TIME_OUT
+import com.jakewharton.retrofit2.adapter.kotlin.coroutines.experimental.CoroutineCallAdapterFactory
 import okhttp3.Cache
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
-import org.koin.dsl.module.module
+import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory

@@ -6,7 +6,7 @@ import com.example.moviedb.data.model.Movie
 import com.example.moviedb.databinding.FragmentMovieDetailBinding
 import com.example.moviedb.ui.base.BaseFragment
 import kotlinx.android.synthetic.main.fragment_movie_detail.*
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.androidx.viewmodel.ext.viewModel
 
 class MovieDetailFragment : BaseFragment<FragmentMovieDetailBinding, MovieDetailViewModel>() {
 

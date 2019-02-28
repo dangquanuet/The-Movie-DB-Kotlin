@@ -6,7 +6,7 @@ import com.example.moviedb.R
 import com.example.moviedb.databinding.FragmentPermisisonBinding
 import com.example.moviedb.ui.base.BaseFragment
 import kotlinx.android.synthetic.main.fragment_permisison.*
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.androidx.viewmodel.ext.viewModel
 
 
 class PermissionFragment : BaseFragment<FragmentPermisisonBinding, PermissionViewModel>() {
@@ -16,7 +16,7 @@ class PermissionFragment : BaseFragment<FragmentPermisisonBinding, PermissionVie
     override val layoutId: Int
         get() = R.layout.fragment_permisison
 
-    override val viewModel by viewModel<PermissionViewModel>()
+    override val viewModel: PermissionViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
