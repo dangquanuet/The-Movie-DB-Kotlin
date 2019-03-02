@@ -21,6 +21,7 @@ android {
         applicationId = "com.example.moviedb"
         minSdkVersion(15)
         compileSdkVersion(28)
+        targetSdkVersion(28)
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled = true
     }
@@ -165,8 +166,8 @@ dependencies {
 */
 
     // navigation
-    implementation("android.arch.navigation:navigation-fragment-ktx:1.0.0-rc01")
-    implementation("android.arch.navigation:navigation-ui-ktx:1.0.0-rc01")
+    implementation("android.arch.navigation:navigation-fragment-ktx:1.0.0-rc02")
+    implementation("android.arch.navigation:navigation-ui-ktx:1.0.0-rc02")
     // optional - Test helpers
     // this library depends on the Kotlin standard library
 //    androidTestImplementation("android.arch.navigation:navigation-testing:1.0.0-alpha08")
