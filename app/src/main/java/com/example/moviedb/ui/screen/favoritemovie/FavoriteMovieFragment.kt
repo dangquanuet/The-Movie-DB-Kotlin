@@ -10,7 +10,7 @@ import com.example.moviedb.ui.base.BaseLoadMoreRefreshFragment
 import com.example.moviedb.ui.screen.moviedetail.MovieDetailFragment
 import com.example.moviedb.ui.screen.popularmovie.PopularMovieAdapter
 import kotlinx.android.synthetic.main.fragment_loadmore_refresh.*
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.androidx.viewmodel.ext.viewModel
 
 class FavoriteMovieFragment :
     BaseLoadMoreRefreshFragment<FragmentLoadmoreRefreshBinding, FavoriteMovieViewModel, Movie>() {
@@ -21,7 +21,7 @@ class FavoriteMovieFragment :
         fun newInstance() = FavoriteMovieFragment()
     }
 
-    override val viewModel by viewModel<FavoriteMovieViewModel>()
+    override val viewModel: FavoriteMovieViewModel by viewModel()
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)

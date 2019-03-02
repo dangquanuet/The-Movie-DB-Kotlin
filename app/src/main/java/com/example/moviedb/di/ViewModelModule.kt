@@ -7,15 +7,15 @@ import com.example.moviedb.ui.screen.main.MainViewModel
 import com.example.moviedb.ui.screen.moviedetail.MovieDetailViewModel
 import com.example.moviedb.ui.screen.popularmovie.PopularMovieViewModel
 import com.example.moviedb.ui.screen.tv.TvListViewModel
-import org.koin.androidx.viewmodel.experimental.builder.viewModel
-import org.koin.dsl.module.module
+import org.koin.androidx.viewmodel.dsl.viewModel
+import org.koin.dsl.module
 
 val viewModelModule = module {
-    viewModel<MainActivityViewModel>()
-    viewModel<MainViewModel>()
-    viewModel<FavoriteMovieViewModel>()
-    viewModel<LoginViewModel>()
-    viewModel<MovieDetailViewModel>()
-    viewModel<PopularMovieViewModel>()
-    viewModel<TvListViewModel>()
+    viewModel { MainActivityViewModel() }
+    viewModel { MainViewModel() }
+    viewModel { FavoriteMovieViewModel(get()) }
+    viewModel { LoginViewModel() }
+    viewModel { MovieDetailViewModel(get(), get()) }
+    viewModel { PopularMovieViewModel(get(), get()) }
+    viewModel { TvListViewModel(get()) }
 }

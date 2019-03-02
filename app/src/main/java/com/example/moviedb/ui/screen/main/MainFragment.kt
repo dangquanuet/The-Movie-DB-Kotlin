@@ -12,7 +12,7 @@ import com.example.moviedb.ui.screen.popularmovie.PopularMovieFragment
 import com.example.moviedb.ui.screen.tv.TvListFragment
 import com.google.android.gms.ads.AdRequest
 import kotlinx.android.synthetic.main.fragment_main.*
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.androidx.viewmodel.ext.viewModel
 
 class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>() {
 
@@ -25,7 +25,7 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>() {
 
     override val layoutId: Int = R.layout.fragment_main
 
-    override val viewModel by viewModel<MainViewModel>()
+    override val viewModel: MainViewModel by viewModel()
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)

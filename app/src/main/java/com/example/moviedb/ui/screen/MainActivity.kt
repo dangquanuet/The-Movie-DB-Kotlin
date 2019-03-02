@@ -1,16 +1,15 @@
 package com.example.moviedb.ui.screen
 
 import android.os.Bundle
-import androidx.navigation.fragment.NavHostFragment
 import com.example.moviedb.R
 import com.example.moviedb.ui.base.BaseActivity
 import com.example.moviedb.ui.screen.main.MainFragment
 import com.google.android.gms.ads.MobileAds
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.androidx.viewmodel.ext.viewModel
 
 class MainActivity : BaseActivity() {
 
-    val viewModel by viewModel<MainActivityViewModel>()
+    val viewModel: MainActivityViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

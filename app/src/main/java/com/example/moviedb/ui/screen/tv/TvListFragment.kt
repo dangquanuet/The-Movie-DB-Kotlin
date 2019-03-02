@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.example.moviedb.data.model.Tv
 import com.example.moviedb.databinding.FragmentLoadmoreRefreshBinding
 import com.example.moviedb.ui.base.BaseLoadMoreRefreshFragment
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.androidx.viewmodel.ext.viewModel
 
 class TvListFragment :
     BaseLoadMoreRefreshFragment<FragmentLoadmoreRefreshBinding, TvListViewModel, Tv>() {
@@ -18,7 +18,7 @@ class TvListFragment :
         fun newInstance() = TvListFragment()
     }
 
-    override val viewModel by viewModel<TvListViewModel>()
+    override val viewModel: TvListViewModel by viewModel()
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
