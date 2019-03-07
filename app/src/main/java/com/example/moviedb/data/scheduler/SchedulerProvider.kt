@@ -1,4 +1,4 @@
-package com.example.moviedb.data.flow
+package com.example.moviedb.data.scheduler
 
 import io.reactivex.Scheduler
 

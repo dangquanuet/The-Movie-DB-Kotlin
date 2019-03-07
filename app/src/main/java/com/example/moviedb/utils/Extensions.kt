@@ -1037,7 +1037,7 @@ fun Activity.hideSoftKeyboard() {
     if (currentFocus != null) {
         val inputMethodManager = getSystemService(Context
                 .INPUT_METHOD_SERVICE) as InputMethodManager
-        inputMethodManager.hideSoftInputFromWindow(currentFocus!!.windowToken, 0)
+        inputMethodManager.hideSoftInputFromWindow(currentFocus?.windowToken, 0)
     }
 }
 
@@ -1308,7 +1308,7 @@ private fun encrypt(string: String?, type: String): String {
     val md5: MessageDigest
     return try {
         md5 = MessageDigest.getInstance(type)
-        val bytes = md5.digest(string!!.toByteArray())
+        val bytes = md5.digest(string?.toByteArray())
         bytes2Hex(bytes)
     } catch (e: NoSuchAlgorithmException) {
         ""
@@ -1614,7 +1614,7 @@ fun findColorStateList(@ColorRes resId: Int): ColorStateList? = ContextCompat.ge
 /**
  * Extension method to layout based on Layout Resource Id aot the parent ViewGroup
  */
-fun inflate(@LayoutRes layoutId: Int, parent: ViewGroup?, attachToRoot: Boolean = false) = LayoutInflater.from(Ext.ctx).inflate(layoutId, parent, attachToRoot)!!
+fun inflate(@LayoutRes layoutId: Int, parent: ViewGroup?, attachToRoot: Boolean = false) = LayoutInflater.from(Ext.ctx).inflate(layoutId, parent, attachToRoot)
 
 
 //[Source](https://github.com/VictorChow/KotlinAndroidLib)

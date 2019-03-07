@@ -1,7 +1,7 @@
 package com.example.moviedb.di
 
-import com.example.moviedb.data.flow.AppSchedulerProvider
-import com.example.moviedb.data.flow.SchedulerProvider
+import com.example.moviedb.data.scheduler.AppSchedulerProvider
+import com.example.moviedb.data.scheduler.SchedulerProvider
 import org.koin.android.ext.koin.androidApplication
 import org.koin.dsl.module
 import org.koin.experimental.builder.singleBy

@@ -30,6 +30,7 @@ abstract class BaseLoadMoreRefreshViewModel<Item>() : BaseViewModel() {
         }
     }
     val listItem = MutableLiveData<ArrayList<Item>>()
+    val isListEmpty = MutableLiveData<Boolean>().apply { value = false }
 
     abstract fun loadData(page: Int)
 
@@ -86,11 +87,17 @@ abstract class BaseLoadMoreRefreshViewModel<Item>() : BaseViewModel() {
         isLoading.value = false
         isRefreshing.value = false
         isLoadMore.value = false
+        checkListState()
     }
 
     override fun onLoadFail(throwable: Throwable) {
         super.onLoadFail(throwable)
         isRefreshing.value = false
         isLoadMore.value = false
+        checkListState()
+    }
+
+    private fun checkListState() {
+        isListEmpty.value = listItem.value == null || listItem.value?.isEmpty() == true
     }
 }

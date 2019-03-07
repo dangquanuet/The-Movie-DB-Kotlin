@@ -1,6 +1,6 @@
 package com.example.moviedb.data.repository.impl
 
-import com.example.moviedb.data.flow.SchedulerProvider
+import com.example.moviedb.data.scheduler.SchedulerProvider
 import com.example.moviedb.data.local.dao.MovieDao
 import com.example.moviedb.data.model.Movie
 import com.example.moviedb.data.remote.ApiService

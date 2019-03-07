@@ -116,5 +116,5 @@ fun createApiService(retrofit: Retrofit): ApiService {
 //    @Provides
 //    @Singleton
 //    internal fun provideMapService(@Named("map_retrofit") retrofit: Retrofit): GoogleMapsApi {
-//        return retrofit.create(GoogleMapsApi::class.java!!)
+//        return retrofit.create(GoogleMapsApi::class.java)
 //    }

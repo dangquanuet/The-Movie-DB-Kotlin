@@ -2,9 +2,17 @@ package com.example.moviedb.data.remote
 
 import com.google.gson.Gson
 import com.google.gson.annotations.SerializedName
-import io.reactivex.*
+import io.reactivex.Completable
+import io.reactivex.Observable
+import io.reactivex.ObservableSource
+import io.reactivex.Single
+import io.reactivex.SingleSource
 import io.reactivex.functions.Function
-import retrofit2.*
+import retrofit2.Call
+import retrofit2.CallAdapter
+import retrofit2.HttpException
+import retrofit2.Response
+import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import java.io.IOException
 import java.lang.reflect.Type
@@ -98,7 +106,7 @@ class RxCallAdapterWrapper<R>(
                     return BaseException.toHttpError(response)
                 }
                 try {
-                    val errorResponse = response.errorBody()!!.string()
+                    val errorResponse = response.errorBody()?.string() ?: ""
                     val baseErrorResponse =
                         Gson().fromJson(errorResponse, BaseErrorResponse::class.java)
                     return if (baseErrorResponse != null) {

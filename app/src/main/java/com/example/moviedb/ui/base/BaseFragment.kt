@@ -86,7 +86,7 @@ abstract class BaseFragment<ViewBinding : ViewDataBinding, ViewModel : BaseViewM
     }
 
     fun hideLoading() {
-        if (loadingDialog != null && loadingDialog!!.isShowing) {
+        if (loadingDialog != null && loadingDialog?.isShowing == true) {
             loadingDialog?.cancel()
         }
     }
