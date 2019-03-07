@@ -43,9 +43,7 @@ class RxCallAdapterWrapper<R>(
     private val wrapped: CallAdapter<R, Any>
 ) : CallAdapter<R, Any> {
 
-    override fun responseType(): Type {
-        return wrapped.responseType()
-    }
+    override fun responseType(): Type = wrapped.responseType()
 
     override fun adapt(call: Call<R>): Any {
         val result = wrapped.adapt(call)
@@ -56,18 +54,21 @@ class RxCallAdapterWrapper<R>(
                     Single.error<Nothing>(convertToBaseException(throwable))
                 })
             }
+
             is Observable<*> -> {
                 result.onErrorResumeNext(Function<Throwable, ObservableSource<Nothing>> { throwable ->
                     //                    Observable.error<Nothing>(convertToRetrofitException(throwable))
                     Observable.error<Nothing>(convertToBaseException(throwable))
                 })
             }
+
             is Completable -> {
                 result.onErrorResumeNext { throwable ->
                     //                    Completable.error(convertToRetrofitException(throwable))
                     Completable.error(convertToBaseException(throwable))
                 }
             }
+
             else -> result
         }
     }
@@ -78,9 +79,7 @@ class RxCallAdapterWrapper<R>(
             is HttpException -> {
                 val response = throwable.response()
                 RetrofitException.httpError(
-                    response.raw().request().url().toString(),
-                    response,
-                    retrofit
+                    response.raw().request().url().toString(), response, retrofit
                 )
             }
             // A network error happened
@@ -95,12 +94,12 @@ class RxCallAdapterWrapper<R>(
     }
 
     private fun convertToBaseException(throwable: Throwable): BaseException {
-        try {
-            if (throwable is BaseException) {
-                return throwable
-            }
+        return when (throwable) {
+            is BaseException -> throwable
 
-            if (throwable is HttpException) {
+            is IOException -> BaseException.toNetworkError(throwable)
+
+            is HttpException -> {
                 val response = throwable.response()
                 if (response.errorBody() == null) {
                     return BaseException.toHttpError(response)
@@ -109,21 +108,22 @@ class RxCallAdapterWrapper<R>(
                     val errorResponse = response.errorBody()?.string() ?: ""
                     val baseErrorResponse =
                         Gson().fromJson(errorResponse, BaseErrorResponse::class.java)
-                    return if (baseErrorResponse != null) {
+                    if (baseErrorResponse != null) {
                         //Get error data from Server
-                        baseErrorResponse.code = throwable.code()
-                        BaseException.toServerError(baseErrorResponse)
+                        baseErrorResponse.code = throwable.code().toString()
+                        return BaseException.toServerError(baseErrorResponse)
                     } else {
                         //Get error data cause http connection
-                        BaseException.toHttpError(response)
+                        return BaseException.toHttpError(response)
                     }
-                } catch (e: IOException) {
-                    e.printStackTrace()
+                } catch (e: Exception) {
+                    BaseException.toUnexpectedError(throwable)
                 }
             }
-            return BaseException.toUnexpectedError(throwable)
-        } catch (e: Exception) {
-            return BaseException.toUnexpectedError(throwable)
+
+            else -> {
+                BaseException.toUnexpectedError(throwable)
+            }
         }
     }
 }
@@ -161,7 +161,7 @@ class RetrofitException constructor(
      */
     @Throws(IOException::class)
     fun <T> getErrorBodyAs(type: Class<T>): T? {
-        if (response == null || response.errorBody() == null || retrofit == null) {
+        if (!(response?.errorBody() != null && retrofit != null)) {
             return null
         }
         return retrofit.responseBodyConverter<T>(type, arrayOfNulls(0))
@@ -193,14 +193,12 @@ class RetrofitException constructor(
 
 class BaseException : RuntimeException {
 
-    var errorType: Int = NETWORK
-    var errorResponse: BaseErrorResponse? = null
+    private var errorType: Int = NETWORK
+    private var errorResponse: BaseErrorResponse? = null
     var response: Response<*>? = null
 
-    val serverErrorCode: Int
-        get() = if (errorResponse != null
-            && errorResponse!!.code != null
-        ) errorResponse!!.code!! else -1
+    val serverErrorCode: String
+        get() = errorResponse?.code ?: ""
 
     constructor(type: Int, cause: Throwable) : super(cause.message, cause) {
         this.errorType = type
@@ -218,22 +216,11 @@ class BaseException : RuntimeException {
 
     override val message: String?
         get() = when (errorType) {
-            SERVER -> if (errorResponse != null
-                && errorResponse!!.errors != null
-                && errorResponse!!.errors!!.isNotEmpty()
-                && errorResponse!!.errors!!.get(0).name != null
-                && errorResponse!!.errors!!.get(0).name!!.isNotEmpty()
-            ) {
-                errorResponse!!.errors!!.get(0).name!!.get(0)
-            } else null
+            SERVER -> errorResponse?.errors?.getOrNull(0)?.name?.getOrNull(0)
 
-            NETWORK -> getNetworkErrorMessage(cause)
+            NETWORK -> cause?.message
 
-            HTTP -> if (response != null
-                && response!!.message().isNotEmpty()
-            ) {
-                response!!.message()
-            } else null
+            HTTP -> response?.message()
 
             UNEXPECTED -> cause?.message
 
@@ -241,10 +228,6 @@ class BaseException : RuntimeException {
                 "Unexpected error has occurred"
             }
         }
-
-    private fun getNetworkErrorMessage(throwable: Throwable?): String {
-        return throwable?.message.toString()
-    }
 
     companion object {
 
@@ -285,11 +268,11 @@ class BaseException : RuntimeException {
 }
 
 class BaseErrorResponse(
-    @field: SerializedName("code") var code: Int? = null,
-    @field: SerializedName("message") var message: String? = null,
-    @field: SerializedName("errors") var errors: List<Error>? = null
+    @SerializedName("code") var code: String? = null,
+    @SerializedName("message") var message: String? = null,
+    @SerializedName("errors") var errors: List<Error>? = null
 )
 
 class Error(
-    @field: SerializedName("itemname") val name: List<String>? = null
+    @SerializedName("itemname") val name: List<String>? = null
 )

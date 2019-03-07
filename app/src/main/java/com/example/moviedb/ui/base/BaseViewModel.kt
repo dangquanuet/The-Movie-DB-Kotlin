@@ -3,6 +3,7 @@ package com.example.moviedb.ui.base
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.moviedb.data.remote.BaseException
+import com.example.moviedb.utils.SingleLiveEvent
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import kotlinx.coroutines.CoroutineExceptionHandler
@@ -17,7 +18,7 @@ abstract class BaseViewModel : ViewModel() {
     val errorMessage = MutableLiveData<String>()
 
     // rx
-    val compositeDisposable = CompositeDisposable()
+    private val compositeDisposable = CompositeDisposable()
 
     // coroutines
     val parentJob = Job()
@@ -25,33 +26,38 @@ abstract class BaseViewModel : ViewModel() {
         errorMessage.value = throwable.message
     }
 
+    val noInternetConnectionEvent = SingleLiveEvent<Unit>()
+    val connectTimeoutEvent = SingleLiveEvent<Unit>()
+    val forceUpdateAppEvent = SingleLiveEvent<Unit>()
+    val serverMaintainEvent = SingleLiveEvent<Unit>()
+
     fun addDisposable(disposable: Disposable) {
         compositeDisposable.add(disposable)
     }
 
     open fun onLoadFail(throwable: Throwable) {
         try {
-            when (throwable) {
-                is BaseException -> {
-                    when (throwable.serverErrorCode) {
-                        // custom server error code
-                        else -> {
-                            when (throwable.cause) {
-                                is UnknownHostException -> {
-                                    errorMessage.value = "No Internet Connection"
-                                }
-                                is SocketTimeoutException -> {
-                                    errorMessage.value = "Connect timeout, please retry"
-                                }
+            when (throwable.cause) {
+                is UnknownHostException -> {
+                    noInternetConnectionEvent.call()
+                }
+                is SocketTimeoutException -> {
+                    connectTimeoutEvent.call()
+                }
+                else -> {
+                    when (throwable) {
+                        is BaseException -> {
+                            when (throwable.serverErrorCode) {
+                                // custom server error code
                                 else -> {
-                                    errorMessage.value = throwable.message
+
                                 }
                             }
                         }
+                        else -> {
+                            errorMessage.value = throwable.message
+                        }
                     }
-                }
-                else -> {
-                    errorMessage.value = throwable.message
                 }
             }
         } catch (e: Exception) {

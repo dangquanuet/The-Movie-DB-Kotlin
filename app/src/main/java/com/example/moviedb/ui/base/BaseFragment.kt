@@ -60,6 +60,18 @@ abstract class BaseFragment<ViewBinding : ViewDataBinding, ViewModel : BaseViewM
                     handleShowErrorMessage(it)
                 }
             })
+            noInternetConnectionEvent.observe(viewLifecycleOwner, Observer {
+                handleShowErrorMessage(getString(R.string.no_internet_connection))
+            })
+            connectTimeoutEvent.observe(viewLifecycleOwner, Observer {
+                handleShowErrorMessage(getString(R.string.connect_timeout))
+            })
+            forceUpdateAppEvent.observe(viewLifecycleOwner, Observer {
+                handleShowErrorMessage(getString(R.string.force_update_app))
+            })
+            serverMaintainEvent.observe(viewLifecycleOwner, Observer {
+                handleShowErrorMessage(getString(R.string.server_maintain_message))
+            })
         }
     }
 
@@ -69,7 +81,7 @@ abstract class BaseFragment<ViewBinding : ViewDataBinding, ViewModel : BaseViewM
 
     fun handleShowErrorMessage(message: String) {
         messageDialog = DialogUtils.showMessage(
-            context,
+            context = context,
             message = message,
             textPositive = getString(R.string.ok)
         )

@@ -5,7 +5,6 @@ import com.example.moviedb.BuildConfig
 import com.example.moviedb.data.remote.ApiService
 import com.example.moviedb.data.remote.MockApi
 import com.example.moviedb.data.remote.RxErrorHandlingCallAdapterFactory
-import com.example.moviedb.di.Properties.GOOGLE_MAP_APIS_BASE_URL
 import com.example.moviedb.di.Properties.TIME_OUT
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.experimental.CoroutineCallAdapterFactory
 import okhttp3.Cache
@@ -14,7 +13,6 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.dsl.module
 import retrofit2.Retrofit
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
@@ -77,7 +75,6 @@ fun createOkHttpClient(
 
 fun createAppRetrofit(okHttpClient: OkHttpClient): Retrofit {
     return Retrofit.Builder()
-//                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .addCallAdapterFactory(RxErrorHandlingCallAdapterFactory.create())
         .addCallAdapterFactory(CoroutineCallAdapterFactory.invoke())
         .addConverterFactory(GsonConverterFactory.create())
@@ -86,6 +83,13 @@ fun createAppRetrofit(okHttpClient: OkHttpClient): Retrofit {
         .build()
 }
 
+
+fun createApiService(retrofit: Retrofit): ApiService {
+    return if (BuildConfig.MOCK_DATA) MockApi()
+    else retrofit.create(ApiService::class.java)
+}
+
+/*
 fun createMapRetrofit(okHttpClient: OkHttpClient): Retrofit {
     return Retrofit.Builder()
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
@@ -96,25 +100,7 @@ fun createMapRetrofit(okHttpClient: OkHttpClient): Retrofit {
         .build()
 }
 
-fun createApiService(retrofit: Retrofit): ApiService {
-    return if (BuildConfig.MOCK_DATA) MockApi()
-    else retrofit.create(ApiService::class.java)
+fun provideMapService(@Named("map_retrofit") retrofit: Retrofit): GoogleMapsApi {
+    return retrofit.create(GoogleMapsApi::class.java)
 }
-
-//    @Provides
-//    @Singleton
-//    RestService provideMockService(@Named("app_retrofit") Retrofit retrofit) {
-//        NetworkBehavior networkBehavior = NetworkBehavior.create();
-//        // Reduce the delay to make the next calls complete faster.
-//        networkBehavior.setDelay(500, TimeUnit.MILLISECONDS);
-//        MockRetrofit mockRetrofit = new MockRetrofit.Builder(retrofit).networkBehavior(networkBehavior).build();
-//        BehaviorDelegate<RestService> restServiceBehaviorDelegate = mockRetrofit.create(RestService.class);
-//        MockRestService mockRestService = new MockRestService(restServiceBehaviorDelegate);
-//        return mockRestService;
-//    }
-
-//    @Provides
-//    @Singleton
-//    internal fun provideMapService(@Named("map_retrofit") retrofit: Retrofit): GoogleMapsApi {
-//        return retrofit.create(GoogleMapsApi::class.java)
-//    }
+*/
