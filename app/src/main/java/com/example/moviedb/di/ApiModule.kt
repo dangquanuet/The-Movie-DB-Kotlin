@@ -51,7 +51,7 @@ fun createHeaderInterceptor(): Interceptor {
         val newRequest = request.newBuilder()
             .url(newUrl)
             .header("Content-Type", "application/json")
-//                    .header("X-App-Secret", "EZ1hEQ2NOUpT-tBUgw2ADQ")
+//                    .header("X-App-Secret", "1234567890")
 //                    .header("Authorization", UserDataManager.getAccessToken())
             .method(request.method(), request.body())
             .build()
