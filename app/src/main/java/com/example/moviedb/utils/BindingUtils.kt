@@ -86,16 +86,31 @@ fun ImageView.loadImage(
 }
 
 @BindingAdapter("clickSafe")
-fun setClickSafe(view: View, listener: View.OnClickListener?) {
-    view.setOnClickListener(object : View.OnClickListener {
-        private var mLastClickTime: Long = 0
+fun View.setClickSafe(listener: View.OnClickListener?) {
+    setOnClickListener(object : View.OnClickListener {
+        var lastClickTime: Long = 0
 
         override fun onClick(v: View) {
-            if (SystemClock.elapsedRealtime() - mLastClickTime < Constants.THRESHOLD_CLICK_TIME) {
+            if (SystemClock.elapsedRealtime() - lastClickTime < Constants.THRESHOLD_CLICK_TIME) {
                 return
             }
             listener?.onClick(v)
-            mLastClickTime = SystemClock.elapsedRealtime()
+            lastClickTime = SystemClock.elapsedRealtime()
+        }
+    })
+}
+
+@BindingAdapter("onSingleClick")
+fun View.setSingleClick(execution: () -> Unit) {
+    setOnClickListener(object : View.OnClickListener {
+        var lastClickTime: Long = 0
+
+        override fun onClick(p0: View?) {
+            if (SystemClock.elapsedRealtime() - lastClickTime < Constants.THRESHOLD_CLICK_TIME) {
+                return
+            }
+            lastClickTime = SystemClock.elapsedRealtime()
+            execution.invoke()
         }
     })
 }
