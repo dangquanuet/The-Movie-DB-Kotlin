@@ -1,6 +1,9 @@
 # The-Movie-DB-Kotlin
 The Movie DB app using Kotlin
 
+![alt text](https://developer.android.com/topic/libraries/architecture/images/final-architecture.png)
+
+
 API https://www.themoviedb.org/documentation/api
 
 Kotlin: https://kotlinlang.org/docs/reference/
