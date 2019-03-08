@@ -2,18 +2,20 @@ package com.example.moviedb.ui.screen
 
 import android.os.Bundle
 import com.example.moviedb.R
+import com.example.moviedb.databinding.ActivityMainBinding
 import com.example.moviedb.ui.base.BaseActivity
 import com.example.moviedb.ui.screen.main.MainFragment
 import com.google.android.gms.ads.MobileAds
 import org.koin.androidx.viewmodel.ext.viewModel
 
-class MainActivity : BaseActivity() {
+class MainActivity : BaseActivity<ActivityMainBinding, MainActivityViewModel>() {
 
-    val viewModel: MainActivityViewModel by viewModel()
+    override val viewModel: MainActivityViewModel by viewModel()
+
+    override val layoutId: Int = R.layout.activity_main
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
         MobileAds.initialize(this, getString(R.string.ADMOB_APP_ID))
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()

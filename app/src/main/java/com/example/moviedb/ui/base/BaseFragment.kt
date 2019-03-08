@@ -42,7 +42,7 @@ abstract class BaseFragment<ViewBinding : ViewDataBinding, ViewModel : BaseViewM
         viewBinding.apply {
             setVariable(BR.viewModel, viewModel)
             root.isClickable = true
-            setLifecycleOwner(viewLifecycleOwner)
+            lifecycleOwner = viewLifecycleOwner
             executePendingBindings()
         }
     }
