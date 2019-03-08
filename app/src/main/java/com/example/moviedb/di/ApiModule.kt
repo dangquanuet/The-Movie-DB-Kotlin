@@ -27,7 +27,6 @@ val networkModule = module {
 
 object Properties {
     const val TIME_OUT = 10
-    const val GOOGLE_MAP_APIS_BASE_URL = "https://maps.googleapis.com"
 }
 
 fun createOkHttpCache(context: Context): Cache {
@@ -76,7 +75,7 @@ fun createOkHttpClient(
 fun createAppRetrofit(okHttpClient: OkHttpClient): Retrofit {
     return Retrofit.Builder()
         .addCallAdapterFactory(RxErrorHandlingCallAdapterFactory.create())
-        .addCallAdapterFactory(CoroutineCallAdapterFactory.invoke())
+        .addCallAdapterFactory(CoroutineCallAdapterFactory.invoke()) // coroutines only
         .addConverterFactory(GsonConverterFactory.create())
         .baseUrl(BuildConfig.BASE_URL)
         .client(okHttpClient)
@@ -88,19 +87,3 @@ fun createApiService(retrofit: Retrofit): ApiService {
     return if (BuildConfig.MOCK_DATA) MockApi()
     else retrofit.create(ApiService::class.java)
 }
-
-/*
-fun createMapRetrofit(okHttpClient: OkHttpClient): Retrofit {
-    return Retrofit.Builder()
-        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-        .addCallAdapterFactory(CoroutineCallAdapterFactory.invoke())
-        .addConverterFactory(GsonConverterFactory.create())
-        .baseUrl(GOOGLE_MAP_APIS_BASE_URL)
-        .client(okHttpClient)
-        .build()
-}
-
-fun provideMapService(@Named("map_retrofit") retrofit: Retrofit): GoogleMapsApi {
-    return retrofit.create(GoogleMapsApi::class.java)
-}
-*/
