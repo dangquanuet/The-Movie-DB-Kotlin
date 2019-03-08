@@ -12,17 +12,15 @@ import com.example.moviedb.data.repository.impl.MovieRepositoryImpl
 import com.example.moviedb.data.repository.impl.UserRepositoryImpl
 import com.google.gson.Gson
 import org.koin.dsl.module
-import org.koin.experimental.builder.single
-import org.koin.experimental.builder.singleBy
 
 val repositoryModule = module {
     single { createDatabaseName() }
     single { createAppDatabase(get(), get()) }
     single { createMovieDao(get()) }
-    singleBy<PrefHelper, AppPrefs>()
-    single<Gson>()
-    singleBy<UserRepository, UserRepositoryImpl>()
-    singleBy<MovieRepository, MovieRepositoryImpl>()
+    single<PrefHelper> { AppPrefs(get(), get()) }
+    single { Gson() }
+    single<UserRepository> { UserRepositoryImpl() }
+    single<MovieRepository> { MovieRepositoryImpl(get(), get(), get()) }
 }
 
 fun createDatabaseName() = Constants.DATABASE_NAME
