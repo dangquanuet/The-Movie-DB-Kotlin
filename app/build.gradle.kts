@@ -19,7 +19,7 @@ android {
 
     defaultConfig {
         applicationId = "com.example.moviedb"
-        minSdkVersion(15)
+        minSdkVersion(17)
         compileSdkVersion(28)
         targetSdkVersion(28)
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
