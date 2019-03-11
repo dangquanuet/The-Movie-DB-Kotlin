@@ -138,6 +138,7 @@ dependencies {
     implementation("androidx.cardview:cardview:1.0.0")
     implementation("com.google.android.material:material:1.0.0")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:${KotlinCompilerVersion.VERSION}")
+    implementation("androidx.core:core-ktx:1.0.1")
 
     // ViewModel and LiveData
     implementation("androidx.lifecycle:lifecycle-extensions:2.0.0")
@@ -169,20 +170,12 @@ dependencies {
     implementation("android.arch.navigation:navigation-fragment-ktx:1.0.0-rc02")
     implementation("android.arch.navigation:navigation-ui-ktx:1.0.0-rc02")
     // optional - Test helpers
-    // this library depends on the Kotlin standard library
 //    androidTestImplementation("android.arch.navigation:navigation-testing:1.0.0-alpha08")
 
-/*
     // work manager
-    implementation ("android.arch.work:work-runtime:1.0.0-alpha11")
-    // optional - Firebase JobDispatcher support
-    implementation ("android.arch.work:work-firebase:1.0.0-alpha11")
+    implementation ("androidx.work:work-runtime-ktx:2.0.0-rc01")
     // optional - Test helpers
-    androidTestImplementation ("android.arch.work:work-testing:1.0.0-alpha11")
-*/
-
-    // ktx
-    implementation("androidx.core:core-ktx:1.0.1")
+//    androidTestImplementation ("androidx.work:work-testing:2.0.0-rc01")
 
     // rx
     implementation("io.reactivex.rxjava2:rxjava:2.2.2")
