@@ -89,10 +89,10 @@ class RxCallAdapterWrapper<R>(
                     if (baseErrorResponse != null) {
                         //Get error data from Server
                         baseErrorResponse.code = throwable.code().toString()
-                        return BaseException.toServerError(baseErrorResponse)
+                        BaseException.toServerError(baseErrorResponse)
                     } else {
                         //Get error data cause http connection
-                        return BaseException.toHttpError(response)
+                        BaseException.toHttpError(response)
                     }
                 } catch (e: Exception) {
                     BaseException.toUnexpectedError(throwable)
