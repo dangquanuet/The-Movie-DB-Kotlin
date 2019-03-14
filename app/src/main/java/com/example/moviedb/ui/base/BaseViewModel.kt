@@ -36,32 +36,28 @@ abstract class BaseViewModel : ViewModel() {
     }
 
     open fun onLoadFail(throwable: Throwable) {
-        try {
-            when (throwable.cause) {
-                is UnknownHostException -> {
-                    noInternetConnectionEvent.call()
-                }
-                is SocketTimeoutException -> {
-                    connectTimeoutEvent.call()
-                }
-                else -> {
-                    when (throwable) {
-                        is BaseException -> {
-                            when (throwable.serverErrorCode) {
-                                // custom server error code
-                                else -> {
+        when (throwable.cause) {
+            is UnknownHostException -> {
+                noInternetConnectionEvent.call()
+            }
+            is SocketTimeoutException -> {
+                connectTimeoutEvent.call()
+            }
+            else -> {
+                when (throwable) {
+                    is BaseException -> {
+                        when (throwable.httpCode) {
+                            // custom server error code
+                            else -> {
 
-                                }
                             }
                         }
-                        else -> {
-                            errorMessage.value = throwable.message
-                        }
+                    }
+                    else -> {
+                        errorMessage.value = throwable.message
                     }
                 }
             }
-        } catch (e: Exception) {
-            errorMessage.value = throwable.message
         }
         isLoading.value = false
     }
