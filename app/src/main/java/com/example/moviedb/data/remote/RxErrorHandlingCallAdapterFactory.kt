@@ -15,7 +15,6 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import java.io.IOException
-import java.lang.RuntimeException
 import java.lang.reflect.Type
 
 
@@ -80,22 +79,27 @@ class RxCallAdapterWrapper<R>(
             is HttpException -> {
                 val response = throwable.response()
                 if (response.errorBody() == null) {
-                    return BaseException.toHttpError(response)
+                    BaseException.toHttpError(response)
                 }
-                try {
-                    val errorResponse = response.errorBody()?.string() ?: ""
-                    val baseErrorResponse =
-                        Gson().fromJson(errorResponse, BaseErrorResponse::class.java)
-                    if (baseErrorResponse != null) {
-                        //Get error data from Server
-                        baseErrorResponse.code = throwable.code().toString()
-                        BaseException.toServerError(baseErrorResponse)
-                    } else {
-                        //Get error data cause http connection
-                        BaseException.toHttpError(response)
-                    }
+
+                val serverErrorResponse = try {
+                    response.errorBody()?.string() ?: ""
                 } catch (e: Exception) {
-                    BaseException.toUnexpectedError(throwable)
+                    ""
+                }
+
+                val baseErrorResponse =
+                    try {
+                        Gson().fromJson(serverErrorResponse, BaseErrorResponse::class.java)
+                    } catch (e: Exception) {
+                        BaseErrorResponse()
+                    }
+
+                if (baseErrorResponse != null) {
+                    baseErrorResponse.code = throwable.code().toString()
+                    BaseException.toServerError(baseErrorResponse)
+                } else {
+                    BaseException.toHttpError(response)
                 }
             }
 
