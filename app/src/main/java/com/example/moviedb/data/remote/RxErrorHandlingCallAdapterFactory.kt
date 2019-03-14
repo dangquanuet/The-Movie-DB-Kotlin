@@ -2,17 +2,9 @@ package com.example.moviedb.data.remote
 
 import com.google.gson.Gson
 import com.google.gson.annotations.SerializedName
-import io.reactivex.Completable
-import io.reactivex.Observable
-import io.reactivex.ObservableSource
-import io.reactivex.Single
-import io.reactivex.SingleSource
+import io.reactivex.*
 import io.reactivex.functions.Function
-import retrofit2.Call
-import retrofit2.CallAdapter
-import retrofit2.HttpException
-import retrofit2.Response
-import retrofit2.Retrofit
+import retrofit2.*
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import java.io.IOException
 import java.lang.reflect.Type
@@ -78,28 +70,38 @@ class RxCallAdapterWrapper<R>(
 
             is HttpException -> {
                 val response = throwable.response()
+                val httpCode = throwable.code().toString()
+
                 if (response.errorBody() == null) {
-                    BaseException.toHttpError(response)
+                    BaseException.toHttpError(
+                        httpCode = httpCode,
+                        response = response
+                    )
                 }
 
-                val serverErrorResponse = try {
+                val serverErrorResponseBody = try {
                     response.errorBody()?.string() ?: ""
                 } catch (e: Exception) {
                     ""
                 }
 
-                val baseErrorResponse =
+                val serverErrorResponse =
                     try {
-                        Gson().fromJson(serverErrorResponse, BaseErrorResponse::class.java)
+                        Gson().fromJson(serverErrorResponseBody, ServerErrorResponse::class.java)
                     } catch (e: Exception) {
-                        BaseErrorResponse()
+                        ServerErrorResponse()
                     }
 
-                if (baseErrorResponse != null) {
-                    baseErrorResponse.httpCode = throwable.code().toString()
-                    BaseException.toServerError(baseErrorResponse)
+                if (serverErrorResponse != null) {
+                    BaseException.toServerError(
+                        serverErrorResponse = serverErrorResponse,
+                        httpCode = httpCode
+                    )
                 } else {
-                    BaseException.toHttpError(response)
+                    BaseException.toHttpError(
+                        response = response,
+                        httpCode = httpCode
+                    )
                 }
             }
 
@@ -110,13 +112,11 @@ class RxCallAdapterWrapper<R>(
 
 class BaseException(
     val errorType: ErrorType,
-    val baseErrorResponse: BaseErrorResponse? = null,
+    val serverErrorResponse: ServerErrorResponse? = null,
     val response: Response<*>? = null,
+    val httpCode: String = "",
     cause: Throwable? = null
 ) : RuntimeException(cause?.message, cause) {
-
-    val serverErrorCode: String
-        get() = baseErrorResponse?.httpCode ?: ""
 
     override val message: String?
         get() = when (errorType) {
@@ -124,23 +124,37 @@ class BaseException(
 
             ErrorType.NETWORK -> cause?.message
 
-            ErrorType.SERVER -> baseErrorResponse?.message // TODO update real response
+            ErrorType.SERVER -> serverErrorResponse?.message // TODO update real response
 
             ErrorType.UNEXPECTED -> cause?.message
         }
 
     companion object {
-        fun toHttpError(response: Response<*>): BaseException =
-            BaseException(errorType = ErrorType.HTTP, response = response)
+        fun toHttpError(response: Response<*>, httpCode: String) =
+            BaseException(
+                errorType = ErrorType.HTTP,
+                response = response,
+                httpCode = httpCode
+            )
 
-        fun toNetworkError(cause: Throwable): BaseException =
-            BaseException(errorType = ErrorType.NETWORK, cause = cause)
+        fun toNetworkError(cause: Throwable) =
+            BaseException(
+                errorType = ErrorType.NETWORK,
+                cause = cause
+            )
 
-        fun toServerError(baseErrorResponse: BaseErrorResponse) =
-            BaseException(errorType = ErrorType.SERVER, baseErrorResponse = baseErrorResponse)
+        fun toServerError(serverErrorResponse: ServerErrorResponse, httpCode: String) =
+            BaseException(
+                errorType = ErrorType.SERVER,
+                serverErrorResponse = serverErrorResponse,
+                httpCode = httpCode
+            )
 
         fun toUnexpectedError(cause: Throwable) =
-            BaseException(errorType = ErrorType.UNEXPECTED, cause = cause)
+            BaseException(
+                errorType = ErrorType.UNEXPECTED,
+                cause = cause
+            )
     }
 }
 
@@ -170,8 +184,7 @@ enum class ErrorType {
     UNEXPECTED
 }
 
-class BaseErrorResponse(
-    var httpCode: String? = null,
+// TODO update server error response
+class ServerErrorResponse(
     @SerializedName("message") val message: String? = null
-    // TODO update real response
 )
