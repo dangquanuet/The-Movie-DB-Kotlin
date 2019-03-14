@@ -96,7 +96,7 @@ class RxCallAdapterWrapper<R>(
                     }
 
                 if (baseErrorResponse != null) {
-                    baseErrorResponse.code = throwable.code().toString()
+                    baseErrorResponse.httpCode = throwable.code().toString()
                     BaseException.toServerError(baseErrorResponse)
                 } else {
                     BaseException.toHttpError(response)
@@ -110,21 +110,21 @@ class RxCallAdapterWrapper<R>(
 
 class BaseException(
     val errorType: ErrorType,
-    val errorResponse: BaseErrorResponse? = null,
+    val baseErrorResponse: BaseErrorResponse? = null,
     val response: Response<*>? = null,
     cause: Throwable? = null
 ) : RuntimeException(cause?.message, cause) {
 
     val serverErrorCode: String
-        get() = errorResponse?.code ?: ""
+        get() = baseErrorResponse?.httpCode ?: ""
 
     override val message: String?
         get() = when (errorType) {
-            ErrorType.SERVER -> errorResponse?.errors?.getOrNull(0)?.name?.getOrNull(0)
+            ErrorType.HTTP -> response?.message()
 
             ErrorType.NETWORK -> cause?.message
 
-            ErrorType.HTTP -> response?.message()
+            ErrorType.SERVER -> baseErrorResponse?.message // TODO update real response
 
             ErrorType.UNEXPECTED -> cause?.message
         }
@@ -136,10 +136,10 @@ class BaseException(
         fun toNetworkError(cause: Throwable): BaseException =
             BaseException(errorType = ErrorType.NETWORK, cause = cause)
 
-        fun toServerError(errorResponse: BaseErrorResponse): BaseException =
-            BaseException(errorType = ErrorType.SERVER, errorResponse = errorResponse)
+        fun toServerError(baseErrorResponse: BaseErrorResponse) =
+            BaseException(errorType = ErrorType.SERVER, baseErrorResponse = baseErrorResponse)
 
-        fun toUnexpectedError(cause: Throwable): BaseException =
+        fun toUnexpectedError(cause: Throwable) =
             BaseException(errorType = ErrorType.UNEXPECTED, cause = cause)
     }
 }
@@ -171,11 +171,7 @@ enum class ErrorType {
 }
 
 class BaseErrorResponse(
-    @SerializedName("code") var code: String? = null,
-    @SerializedName("message") val message: String? = null,
-    @SerializedName("errors") val errors: List<Error>? = null
-)
-
-class Error(
-    @SerializedName("itemname") val name: List<String>? = null
+    var httpCode: String? = null,
+    @SerializedName("message") val message: String? = null
+    // TODO update real response
 )
