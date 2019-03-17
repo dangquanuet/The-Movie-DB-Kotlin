@@ -167,8 +167,8 @@ dependencies {
 */
 
     // navigation
-    implementation("android.arch.navigation:navigation-fragment-ktx:1.0.0-rc02")
-    implementation("android.arch.navigation:navigation-ui-ktx:1.0.0-rc02")
+    implementation("android.arch.navigation:navigation-fragment-ktx:1.0.0")
+    implementation("android.arch.navigation:navigation-ui-ktx:1.0.0")
     // optional - Test helpers
 //    androidTestImplementation("android.arch.navigation:navigation-testing:1.0.0-alpha08")
 
@@ -209,7 +209,7 @@ dependencies {
 
     implementation("com.android.support:multidex:1.0.3")
 
-    implementation("com.google.firebase:firebase-ads:17.1.3")
+    implementation("com.google.firebase:firebase-ads:17.2.0")
 
     // unit test
     testImplementation("junit:junit:4.12")
