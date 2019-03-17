@@ -12,22 +12,17 @@ import java.lang.reflect.Type
 
 class RxErrorHandlingCallAdapterFactory : CallAdapter.Factory() {
 
-    companion object {
-        fun create() = RxErrorHandlingCallAdapterFactory()
-    }
-
-    private val instance = RxJava2CallAdapterFactory.create()
+    private val instance = RxJava2CallAdapterFactory.createAsync()
 
     override fun get(
         returnType: Type,
         annotations: Array<Annotation>,
         retrofit: Retrofit
-    ): CallAdapter<*, *>? {
-        return RxCallAdapterWrapper(
+    ): CallAdapter<*, *>? =
+        RxCallAdapterWrapper(
             retrofit,
             instance.get(returnType, annotations, retrofit) as CallAdapter<Any, Any>
         )
-    }
 }
 
 class RxCallAdapterWrapper<R>(
@@ -42,13 +37,13 @@ class RxCallAdapterWrapper<R>(
         return when (result) {
             is Single<*> -> {
                 result.onErrorResumeNext(Function<Throwable, SingleSource<Nothing>> { throwable ->
-                    Single.error<Nothing>(convertToBaseException(throwable))
+                    Single.error(convertToBaseException(throwable))
                 })
             }
 
             is Observable<*> -> {
                 result.onErrorResumeNext(Function<Throwable, ObservableSource<Nothing>> { throwable ->
-                    Observable.error<Nothing>(convertToBaseException(throwable))
+                    Observable.error(convertToBaseException(throwable))
                 })
             }
 
@@ -58,12 +53,24 @@ class RxCallAdapterWrapper<R>(
                 }
             }
 
+            is Flowable<*> -> {
+                result.onErrorResumeNext(Function<Throwable, Flowable<Nothing>> { throwable ->
+                    Flowable.error(convertToBaseException(throwable))
+                })
+            }
+
+            is Maybe<*> -> {
+                result.onErrorResumeNext(Function<Throwable, Maybe<Nothing>> { throwable ->
+                    Maybe.error(convertToBaseException(throwable))
+                })
+            }
+
             else -> result
         }
     }
 
-    private fun convertToBaseException(throwable: Throwable): BaseException {
-        return when (throwable) {
+    private fun convertToBaseException(throwable: Throwable): BaseException =
+        when (throwable) {
             is BaseException -> throwable
 
             is IOException -> BaseException.toNetworkError(throwable)
@@ -107,7 +114,6 @@ class RxCallAdapterWrapper<R>(
 
             else -> BaseException.toUnexpectedError(throwable)
         }
-    }
 }
 
 class BaseException(
@@ -185,6 +191,6 @@ enum class ErrorType {
 }
 
 // TODO update server error response
-class ServerErrorResponse(
+data class ServerErrorResponse(
     @SerializedName("message") val message: String? = null
 )

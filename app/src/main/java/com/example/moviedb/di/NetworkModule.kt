@@ -5,7 +5,6 @@ import com.example.moviedb.BuildConfig
 import com.example.moviedb.data.remote.ApiService
 import com.example.moviedb.data.remote.MockApi
 import com.example.moviedb.data.remote.RxErrorHandlingCallAdapterFactory
-import com.example.moviedb.di.Properties.TIME_OUT
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.experimental.CoroutineCallAdapterFactory
 import okhttp3.Cache
 import okhttp3.Interceptor
@@ -21,28 +20,24 @@ val networkModule = module {
     single(name = "logging") { createLoggingInterceptor() }
     single(name = "header") { createHeaderInterceptor() }
     single { createOkHttpClient(get(), get(name = "logging"), get(name = "header")) }
-    single { createAppRetrofit(get()) }
+    single { createAppRetrofit(get(), get()) }
     single { createApiService(get()) }
+    single { RxErrorHandlingCallAdapterFactory() }
 }
 
-object Properties {
-    const val TIME_OUT = 10
-}
+const val TIMEOUT = 10
 
-fun createOkHttpCache(context: Context): Cache {
-    val size = (10 * 1024 * 1024).toLong() // 10 Mb
-    return Cache(context.cacheDir, size)
-}
+fun createOkHttpCache(context: Context): Cache =
+    Cache(context.cacheDir, (10 * 1024 * 1024).toLong())
 
-fun createLoggingInterceptor(): Interceptor {
-    val logging = HttpLoggingInterceptor()
-    logging.level = if (BuildConfig.DEBUG) HttpLoggingInterceptor.Level.BODY
-    else HttpLoggingInterceptor.Level.NONE
-    return logging
-}
+fun createLoggingInterceptor(): Interceptor =
+    HttpLoggingInterceptor().apply {
+        level = if (BuildConfig.DEBUG) HttpLoggingInterceptor.Level.BODY
+        else HttpLoggingInterceptor.Level.NONE
+    }
 
-fun createHeaderInterceptor(): Interceptor {
-    return Interceptor { chain ->
+fun createHeaderInterceptor(): Interceptor =
+    Interceptor { chain ->
         val request = chain.request()
         val newUrl = request.url().newBuilder()
             .addQueryParameter("api_key", BuildConfig.TMBD_API_KEY)
@@ -51,39 +46,38 @@ fun createHeaderInterceptor(): Interceptor {
             .url(newUrl)
 //            .header("Content-Type", "application/json")
 //            .header("X-App-Secret", "1234567890")
-//            .header("Authorization", UserDataManager.getAccessToken())
+//            .header("Authorization", userRepositoryImpl.getAccessToken())
             .method(request.method(), request.body())
             .build()
         chain.proceed(newRequest)
     }
-}
 
 fun createOkHttpClient(
     cache: Cache,
     logging: Interceptor,
     header: Interceptor
-): OkHttpClient {
-    return OkHttpClient.Builder()
+): OkHttpClient =
+    OkHttpClient.Builder()
         .cache(cache)
-        .connectTimeout(TIME_OUT.toLong(), TimeUnit.SECONDS)
-        .readTimeout(TIME_OUT.toLong(), TimeUnit.SECONDS)
+        .connectTimeout(TIMEOUT.toLong(), TimeUnit.SECONDS)
+        .readTimeout(TIMEOUT.toLong(), TimeUnit.SECONDS)
         .addInterceptor(header)
         .addInterceptor(logging)
         .build()
-}
 
-fun createAppRetrofit(okHttpClient: OkHttpClient): Retrofit {
-    return Retrofit.Builder()
-        .addCallAdapterFactory(RxErrorHandlingCallAdapterFactory.create())
+fun createAppRetrofit(
+    okHttpClient: OkHttpClient,
+    rxErrorHandlingCallAdapterFactory: RxErrorHandlingCallAdapterFactory
+): Retrofit =
+    Retrofit.Builder()
+        .addCallAdapterFactory(rxErrorHandlingCallAdapterFactory)
         .addCallAdapterFactory(CoroutineCallAdapterFactory.invoke()) // coroutines only
         .addConverterFactory(GsonConverterFactory.create())
         .baseUrl(BuildConfig.BASE_URL)
         .client(okHttpClient)
         .build()
-}
 
 
-fun createApiService(retrofit: Retrofit): ApiService {
-    return if (BuildConfig.MOCK_DATA) MockApi()
+fun createApiService(retrofit: Retrofit): ApiService =
+    if (BuildConfig.MOCK_DATA) MockApi()
     else retrofit.create(ApiService::class.java)
-}
