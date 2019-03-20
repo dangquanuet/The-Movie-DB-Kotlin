@@ -3,6 +3,7 @@ package com.example.moviedb.utils
 import android.content.Context
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import com.example.moviedb.BuildConfig
 
 // # Kotlin Extensions
 
@@ -18,6 +19,9 @@ import android.view.inputmethod.InputMethodManager
 
 // ## View
 
+fun Exception.safePLog() {
+    if (BuildConfig.DEBUG) printStackTrace()
+}
 
 /**
  * Extension method to provide simpler access to {@link View#getResources()#getString(int)}.
