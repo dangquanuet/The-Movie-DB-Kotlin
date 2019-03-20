@@ -47,9 +47,11 @@ fun ImageView.loadLocalImage(uri: Uri?) {
 }
 
 @BindingAdapter(value = ["loadImageLocal"])
-fun ImageView.loadImage(imageName: String?) {
-    if (!TextUtils.isEmpty(imageName)) {
-        setImageResource(resources.getIdentifier(imageName, "drawable", BuildConfig.APPLICATION_ID))
+fun ImageView.loadLocalImage(imageName: String?) {
+    if (TextUtils.isEmpty(imageName).not()) {
+        Glide.with(context)
+            .load(resources.getIdentifier(imageName, "drawable", BuildConfig.APPLICATION_ID))
+            .into(this)
     }
 }
 
@@ -132,10 +134,4 @@ fun TextView?.customBackgroundTint(color: Int?) {
 fun ImageView?.customTint(color: Int?) {
     if (this == null || color == null) return
     imageTintList = ColorStateList.valueOf(color)
-}
-
-@BindingAdapter("background")
-fun View?.customBackground(color: Int?) {
-    if (this == null || color == null) return
-    setBackgroundColor(color)
 }

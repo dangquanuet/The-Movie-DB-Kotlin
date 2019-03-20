@@ -6,14 +6,12 @@ import androidx.lifecycle.Observer
 import java.util.concurrent.atomic.AtomicBoolean
 
 /**
- * Created: 25/10/2018
- * By: Sang
  * Description: Custom mutable live data that used for single event
  *              such as navigation (for configuration change), show toast..
  */
-class SingleLiveEvent<T>: MutableLiveData<T>() {
+class SingleLiveEvent<T> : MutableLiveData<T>() {
 
-    private val pending  = AtomicBoolean(false)
+    private val pending = AtomicBoolean(false)
 
     override fun setValue(value: T?) {
         pending.set(true)
@@ -22,7 +20,7 @@ class SingleLiveEvent<T>: MutableLiveData<T>() {
 
     override fun observe(owner: LifecycleOwner, observer: Observer<in T>) {
         super.observe(owner, Observer {
-            if (pending.compareAndSet(true, false)){
+            if (pending.compareAndSet(true, false)) {
                 observer.onChanged(it)
             }
         })
@@ -32,7 +30,7 @@ class SingleLiveEvent<T>: MutableLiveData<T>() {
      * Single event for no data input. Make call more clear
      * Example: navigation with no data: SingleLiveEvent<Unit>()
      */
-    fun call(){
+    fun call() {
         value = null
     }
 }
