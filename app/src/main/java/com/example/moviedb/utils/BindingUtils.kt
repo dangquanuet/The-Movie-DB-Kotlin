@@ -125,13 +125,13 @@ fun WebView.loadWebUrl(url: String?) {
 }
 
 @BindingAdapter("backgroundTint")
-fun TextView?.customBackgroundTint(color: Int?) {
-    if (this == null || color == null) return
+fun TextView.customBackgroundTint(color: Int?) {
+    if (color == null) return
     background?.setTint(color)
 }
 
 @BindingAdapter("tint")
-fun ImageView?.customTint(color: Int?) {
-    if (this == null || color == null) return
+fun ImageView.customTint(color: Int?) {
+    if (color == null) return
     imageTintList = ColorStateList.valueOf(color)
 }
