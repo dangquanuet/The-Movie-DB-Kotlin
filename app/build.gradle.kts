@@ -61,28 +61,19 @@ android {
             applicationIdSuffix = ".dev"
             resValue("string", "app_name", "Movie DB Dev")
             buildConfigField("boolean", "MOCK_DATA", "false")
-
-            resValue("string", "google_app_id", "1:798464531435:android:c1d97301229bded4")
-            resValue("string", "google_api_key", "AIzaSyD_ufzh_9VUi8hJg6rXmomtXN4ICbnO_BM")
-
-            resValue("string", "ADMOB_APP_ID", "ca-app-pub-3940256099942544~3347511713")
-            resValue("string", "banner_ad_unit_id", "ca-app-pub-3940256099942544/6300978111")
         }
-        /*create("mock") {
+        create("mock") {
             versionCode = 1
             versionName = "1.0.0"
             applicationIdSuffix = ".mock"
             resValue("string", "app_name", "Movie DB Mock")
             buildConfigField("boolean", "MOCK_DATA", "true")
-        }*/
+        }
         create("prd") {
             versionCode = 1
             versionName = "1.0.0"
             resValue("string", "app_name", "Movie DB")
             buildConfigField("boolean", "MOCK_DATA", "false")
-
-            resValue("string", "ADMOB_APP_ID", "your_app_id")
-            resValue("string", "banner_ad_unit_id", "your_banner_ad_unit_id")
         }
     }
 
@@ -92,7 +83,6 @@ android {
         buildConfigField("String", "LARGE_IMAGE_URL", "\"https://image.tmdb.org/t/p/w500\"")
         buildConfigField("String", "ORIGINAL_IMAGE_URL", "\"https://image.tmdb.org/t/p/original\"")
         buildConfigField("String", "TMBD_API_KEY", "\"2cdf3a5c7cf412421485f89ace91e373\"")
-        buildConfigField("String", "test_device_id", "\"799A389DFCE445FE5C0BF401FA69FFA3\"")
 
         when (name) {
             "dev" -> {
@@ -103,14 +93,12 @@ android {
     }
 
     variantFilter {
-        // 'dev' flavor is only available for debug build
         if (buildType.name != "debug" && flavors[0].name == "dev") {
             setIgnore(true)
         }
         if (buildType.name != "debug" && flavors[0].name == "mock") {
             setIgnore(true)
         }
-        // 'prd' flavor is only available for release build
         if (buildType.name != "release" && flavors[0].name == "prd") {
             setIgnore(true)
         }
@@ -173,7 +161,7 @@ dependencies {
 //    androidTestImplementation("android.arch.navigation:navigation-testing:1.0.0-alpha08")
 
     // work manager
-    implementation ("androidx.work:work-runtime-ktx:2.0.0-rc01")
+    implementation("androidx.work:work-runtime-ktx:2.0.0-rc01")
     // optional - Test helpers
 //    androidTestImplementation ("androidx.work:work-testing:2.0.0-rc01")
 
@@ -208,8 +196,6 @@ dependencies {
     implementation("pub.devrel:easypermissions:3.0.0")
 
     implementation("com.android.support:multidex:1.0.3")
-
-    implementation("com.google.firebase:firebase-ads:17.2.0")
 
     // unit test
     testImplementation("junit:junit:4.12")

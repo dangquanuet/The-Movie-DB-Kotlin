@@ -2,7 +2,6 @@ package com.example.moviedb.ui.screen.main
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
-import com.example.moviedb.BuildConfig
 import com.example.moviedb.R
 import com.example.moviedb.data.constants.MovieListType
 import com.example.moviedb.databinding.FragmentMainBinding
@@ -10,7 +9,6 @@ import com.example.moviedb.ui.base.BaseFragment
 import com.example.moviedb.ui.screen.favoritemovie.FavoriteMovieFragment
 import com.example.moviedb.ui.screen.popularmovie.PopularMovieFragment
 import com.example.moviedb.ui.screen.tv.TvListFragment
-import com.google.android.gms.ads.AdRequest
 import kotlinx.android.synthetic.main.fragment_main.*
 import org.koin.androidx.viewmodel.ext.viewModel
 
@@ -29,7 +27,6 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        ad_view.loadAd(AdRequest.Builder().addTestDevice(BuildConfig.test_device_id).build())
         initBottomNavigation()
     }
 
