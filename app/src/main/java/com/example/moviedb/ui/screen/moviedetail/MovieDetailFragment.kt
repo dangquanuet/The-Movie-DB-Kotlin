@@ -162,10 +162,10 @@ class MovieDetailFragment : BaseFragment<FragmentMovieDetailBinding, MovieDetail
         logError(throwable.message ?: "")
     }
 
-    val parentJob = Job()
+    val viewModelJob = Job()
 
     fun sample1h() {
-        launch(CommonPool + parentJob + exceptionHandler) {
+        launch(CommonPool + viewModelJob + exceptionHandler) {
             createException()
         }
     }
@@ -173,13 +173,13 @@ class MovieDetailFragment : BaseFragment<FragmentMovieDetailBinding, MovieDetail
     @Override
     override fun onDestroy() {
         super.onDestroy()
-        parentJob.cancel()
+        viewModelJob.cancel()
     }
 
     fun sample1i() {
-        val parentJob = Job()
+        val viewModelJob = Job()
         async {
-            val job = async(parent = parentJob) {
+            val job = async(parent = viewModelJob) {
                 for (i in 10 downTo 1) { // countdown from 10 to 1
                     logError("Countdown $i ...") // update text
                     delay(1000) // wait half a second
@@ -188,7 +188,7 @@ class MovieDetailFragment : BaseFragment<FragmentMovieDetailBinding, MovieDetail
             }
             val job2 = async {
                 delay(3000)
-                parentJob.cancel()
+                viewModelJob.cancel()
             }
             ""
         }

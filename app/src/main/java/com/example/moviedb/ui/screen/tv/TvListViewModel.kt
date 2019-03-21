@@ -4,24 +4,24 @@ import com.example.moviedb.data.model.Tv
 import com.example.moviedb.data.remote.ApiParams
 import com.example.moviedb.data.repository.MovieRepository
 import com.example.moviedb.ui.base.BaseLoadMoreRefreshViewModel
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
-class TvListViewModel constructor(
-    private val movieRepository: MovieRepository
+class TvListViewModel(
+    val movieRepository: MovieRepository
 ) : BaseLoadMoreRefreshViewModel<Tv>() {
 
     override fun loadData(page: Int) {
         val hashMap = HashMap<String, String>()
         hashMap.put(ApiParams.PAGE, page.toString())
 
-        GlobalScope.async {
+        /*GlobalScope.async {
             try {
                 onLoadSuccess(page, movieRepository.getTvList(hashMap).await().results)
             } catch (e: Throwable) {
                 onLoadFail(e)
             }
-        }
+        }*/
 
         /*
         movieRepository.getTvList(hashMap, {
@@ -47,6 +47,17 @@ class TvListViewModel constructor(
             }
         }
         */
+
+        uiScope.launch {
+            try {
+                val response = withContext(ioContext) {
+                    movieRepository.getTvList3((hashMap))
+                }
+                onLoadSuccess(page, response.results)
+            } catch (e: Exception) {
+                onLoadFail(e)
+            }
+        }
     }
 
 }

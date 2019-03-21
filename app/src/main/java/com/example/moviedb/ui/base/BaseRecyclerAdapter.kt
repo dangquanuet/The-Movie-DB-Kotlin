@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.moviedb.BR
-import com.example.moviedb.utils.safePLog
+import com.example.moviedb.utils.safeLog
 import java.util.concurrent.Executors
 
 abstract class BaseRecyclerAdapter<Item, ViewBinding : ViewDataBinding>(
@@ -40,7 +40,7 @@ abstract class BaseRecyclerAdapter<Item, ViewBinding : ViewDataBinding>(
             holder.binding.setVariable(BR.item, item)
             bindView(holder.binding, item, position)
         } catch (e: IndexOutOfBoundsException) {
-            e.safePLog()
+            e.safeLog()
             bind(holder.binding, position)
         }
         holder.binding.executePendingBindings()

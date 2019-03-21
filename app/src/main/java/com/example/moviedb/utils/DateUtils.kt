@@ -10,7 +10,7 @@ fun String.toDate(
     return try {
         SimpleDateFormat(format, locale).parse(this)
     } catch (e: Exception) {
-        e.safePLog()
+        e.safeLog()
         null
     }
 }
@@ -36,7 +36,7 @@ fun String.changeTimeFormat(
         simpleDateFormat.applyPattern(newFormat)
         simpleDateFormat.format(date)
     } catch (e: Exception) {
-        e.safePLog()
+        e.safeLog()
         null
     }
 }

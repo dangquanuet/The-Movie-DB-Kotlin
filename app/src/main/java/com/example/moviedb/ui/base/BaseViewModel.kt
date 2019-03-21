@@ -7,33 +7,39 @@ import com.example.moviedb.utils.SingleLiveEvent
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import kotlinx.coroutines.CoroutineExceptionHandler
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 import java.net.SocketTimeoutException
 import java.net.UnknownHostException
-import kotlin.coroutines.CoroutineContext
 
 abstract class BaseViewModel : ViewModel() {
 
     val isLoading = MutableLiveData<Boolean>().apply { value = false }
     val errorMessage = MutableLiveData<String>()
 
-    // rx
-    private val compositeDisposable = CompositeDisposable()
-
-    // coroutines
-    val parentJob = Job()
-    val exceptionHandler: CoroutineContext = CoroutineExceptionHandler { _, throwable ->
-        errorMessage.value = throwable.message
-    }
-
     val noInternetConnectionEvent = SingleLiveEvent<Unit>()
     val connectTimeoutEvent = SingleLiveEvent<Unit>()
     val forceUpdateAppEvent = SingleLiveEvent<Unit>()
     val serverMaintainEvent = SingleLiveEvent<Unit>()
 
-    fun addDisposable(disposable: Disposable) {
-        compositeDisposable.add(disposable)
+    // rx
+    protected val compositeDisposable = CompositeDisposable()
+
+    fun addDisposable(disposable: Disposable) = compositeDisposable.add(disposable)
+
+    // coroutines
+    protected val viewModelJob = Job()
+    protected val exceptionHandler = CoroutineExceptionHandler { _, throwable ->
+        uiScope.launch {
+            onLoadFail(throwable)
+        }
     }
+    protected val ioContext = viewModelJob + Dispatchers.IO
+    protected val uiContext = viewModelJob + Dispatchers.Main
+    protected val ioScope = CoroutineScope(ioContext)
+    protected val uiScope = CoroutineScope(uiContext)
 
     open fun onLoadFail(throwable: Throwable) {
         when (throwable.cause) {
@@ -76,6 +82,6 @@ abstract class BaseViewModel : ViewModel() {
 
     fun onDestroy() {
         compositeDisposable.clear()
-        parentJob.cancel()
+        viewModelJob.cancel()
     }
 }
