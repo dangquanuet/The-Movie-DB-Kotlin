@@ -7,6 +7,7 @@ import io.reactivex.Single
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
+import java.net.HttpURLConnection
 import java.net.SocketTimeoutException
 import java.net.UnknownHostException
 
@@ -16,20 +17,46 @@ class MockApi : ApiService {
         hashMap: HashMap<String, String>
     ): Single<GetMovieListResponse> =
         when (200) {
-            1 -> Single.error { Throwable(cause = UnknownHostException()) }
-            2 -> Single.error { Throwable(cause = SocketTimeoutException()) }
-            200 -> Single.just(GetMovieListResponse())
-            401 -> Single.error {
-                BaseException.toServerError(
-                    serverErrorResponse = ServerErrorResponse(message = "Test code 401"),
-                    httpCode = "401"
-                )
+            1 -> {
+                Single.error {
+                    Throwable(
+                        cause = UnknownHostException()
+                    )
+                }
             }
-            500 -> Single.error {
-                BaseException.toServerError(
-                    serverErrorResponse = ServerErrorResponse(message = "Test code 500"),
-                    httpCode = "500"
-                )
+
+            2 -> {
+                Single.error {
+                    Throwable(
+                        cause = SocketTimeoutException()
+                    )
+                }
+            }
+
+            HttpURLConnection.HTTP_OK -> {
+                Single.just(GetMovieListResponse())
+            }
+
+            HttpURLConnection.HTTP_UNAUTHORIZED -> {
+                Single.error {
+                    BaseException.toServerError(
+                        serverErrorResponse = ServerErrorResponse(
+                            message = "Test code 401"
+                        ),
+                        httpCode = HttpURLConnection.HTTP_UNAUTHORIZED
+                    )
+                }
+            }
+
+            HttpURLConnection.HTTP_INTERNAL_ERROR -> {
+                Single.error {
+                    BaseException.toServerError(
+                        serverErrorResponse = ServerErrorResponse(
+                            message = "Test code 500"
+                        ),
+                        httpCode = HttpURLConnection.HTTP_INTERNAL_ERROR
+                    )
+                }
             }
             else -> Single.just(GetMovieListResponse())
         }
@@ -42,25 +69,43 @@ class MockApi : ApiService {
     override fun getTvList(
         hashMap: HashMap<String, String>
     ): Deferred<GetTvListResponse> =
-        when (401) {
+        when (HttpURLConnection.HTTP_INTERNAL_ERROR) {
             1 -> GlobalScope.async {
-                throw BaseException.toNetworkError(cause = UnknownHostException())
+                throw BaseException.toNetworkError(
+                    cause = UnknownHostException()
+                )
             }
+
             2 -> GlobalScope.async {
-                throw BaseException.toNetworkError(cause = SocketTimeoutException())
-            }
-            200 -> GlobalScope.async { GetTvListResponse() }
-            401 -> GlobalScope.async {
-                throw BaseException.toServerError(
-                    serverErrorResponse = ServerErrorResponse(message = "Test code 401"),
-                    httpCode = "401"
+                throw BaseException.toNetworkError(
+                    cause = SocketTimeoutException()
                 )
             }
-            500 -> GlobalScope.async {
-                throw BaseException.toServerError(
-                    serverErrorResponse = ServerErrorResponse(message = "Test code 500"),
-                    httpCode = "500"
-                )
+
+            HttpURLConnection.HTTP_OK -> {
+                GlobalScope.async { GetTvListResponse() }
+            }
+
+            HttpURLConnection.HTTP_UNAUTHORIZED -> {
+                GlobalScope.async {
+                    throw BaseException.toServerError(
+                        serverErrorResponse = ServerErrorResponse(
+                            message = "Test code 401"
+                        ),
+                        httpCode = HttpURLConnection.HTTP_UNAUTHORIZED
+                    )
+                }
+            }
+
+            HttpURLConnection.HTTP_INTERNAL_ERROR -> {
+                GlobalScope.async {
+                    throw BaseException.toServerError(
+                        serverErrorResponse = ServerErrorResponse(
+                            message = "Test code 500"
+                        ),
+                        httpCode = HttpURLConnection.HTTP_INTERNAL_ERROR
+                    )
+                }
             }
             else -> GlobalScope.async { GetTvListResponse() }
         }

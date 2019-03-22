@@ -132,7 +132,7 @@ class CoroutineCallAdapterWrapper<T>(
                     deferred.completeExceptionally(
                         BaseException.toHttpError(
                             response = response,
-                            httpCode = response.code().toString()
+                            httpCode = response.code()
                         )
                     )
                 }
@@ -151,7 +151,7 @@ fun convertToBaseException(throwable: Throwable): BaseException =
 
         is HttpException -> {
             val response = throwable.response()
-            val httpCode = throwable.code().toString()
+            val httpCode = throwable.code()
 
             if (response.errorBody() == null) {
                 BaseException.toHttpError(
@@ -195,7 +195,7 @@ class BaseException(
     val errorType: ErrorType,
     val serverErrorResponse: ServerErrorResponse? = null,
     val response: Response<*>? = null,
-    val httpCode: String = "",
+    val httpCode: Int = 0,
     cause: Throwable? = null
 ) : RuntimeException(cause?.message, cause) {
 
@@ -211,7 +211,7 @@ class BaseException(
         }
 
     companion object {
-        fun toHttpError(response: Response<*>, httpCode: String) =
+        fun toHttpError(response: Response<*>, httpCode: Int) =
             BaseException(
                 errorType = ErrorType.HTTP,
                 response = response,
@@ -224,7 +224,7 @@ class BaseException(
                 cause = cause
             )
 
-        fun toServerError(serverErrorResponse: ServerErrorResponse, httpCode: String) =
+        fun toServerError(serverErrorResponse: ServerErrorResponse, httpCode: Int) =
             BaseException(
                 errorType = ErrorType.SERVER,
                 serverErrorResponse = serverErrorResponse,

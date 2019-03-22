@@ -11,6 +11,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import java.net.HttpURLConnection
 import java.net.SocketTimeoutException
 import java.net.UnknownHostException
 
@@ -53,9 +54,12 @@ abstract class BaseViewModel : ViewModel() {
                 when (throwable) {
                     is BaseException -> {
                         when (throwable.httpCode) {
-                            // custom server error code
-                            "401" -> errorMessage.value = throwable.message
-                            "500" -> errorMessage.value = throwable.message
+                            HttpURLConnection.HTTP_UNAUTHORIZED -> {
+                                errorMessage.value = throwable.message
+                            }
+                            HttpURLConnection.HTTP_INTERNAL_ERROR -> {
+                                errorMessage.value = throwable.message
+                            }
                             else -> {
                                 errorMessage.value = throwable.message
                             }
