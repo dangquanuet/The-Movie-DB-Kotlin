@@ -160,7 +160,7 @@ dependencies {
 //    androidTestImplementation("android.arch.navigation:navigation-testing:1.0.0-alpha08")
 
     // work manager
-    implementation("androidx.work:work-runtime-ktx:2.0.0-rc01")
+    implementation("androidx.work:work-runtime-ktx:2.0.0")
     // optional - Test helpers
 //    androidTestImplementation ("androidx.work:work-testing:2.0.0-rc01")
 
