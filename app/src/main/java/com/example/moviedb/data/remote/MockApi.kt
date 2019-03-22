@@ -42,22 +42,26 @@ class MockApi : ApiService {
     override fun getTvList(
         hashMap: HashMap<String, String>
     ): Deferred<GetTvListResponse> =
-        when (1) {
-            1 -> GlobalScope.async { throw Throwable(cause = UnknownHostException()) }
-            2 -> GlobalScope.async { throw Throwable(cause = SocketTimeoutException()) }
+        when (401) {
+            1 -> GlobalScope.async {
+                throw BaseException.toNetworkError(cause = UnknownHostException())
+            }
+            2 -> GlobalScope.async {
+                throw BaseException.toNetworkError(cause = SocketTimeoutException())
+            }
             200 -> GlobalScope.async { GetTvListResponse() }
-            /*401 -> GlobalScope.async {
-                BaseException.toServerError(
+            401 -> GlobalScope.async {
+                throw BaseException.toServerError(
                     serverErrorResponse = ServerErrorResponse(message = "Test code 401"),
                     httpCode = "401"
                 )
             }
-            500 -> Single.error {
-                BaseException.toServerError(
+            500 -> GlobalScope.async {
+                throw BaseException.toServerError(
                     serverErrorResponse = ServerErrorResponse(message = "Test code 500"),
                     httpCode = "500"
                 )
-            }*/
+            }
             else -> GlobalScope.async { GetTvListResponse() }
         }
 

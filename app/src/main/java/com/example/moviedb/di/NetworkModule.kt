@@ -3,8 +3,9 @@ package com.example.moviedb.di
 import android.content.Context
 import com.example.moviedb.BuildConfig
 import com.example.moviedb.data.remote.ApiService
+import com.example.moviedb.data.remote.CoroutinesErrorHandlingFactory
 import com.example.moviedb.data.remote.MockApi
-import com.example.moviedb.data.remote.RxErrorHandlingCallAdapterFactory
+import com.example.moviedb.data.remote.RxErrorHandlingFactory
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import okhttp3.Cache
 import okhttp3.Interceptor
@@ -20,9 +21,10 @@ val networkModule = module {
     single(name = "logging") { createLoggingInterceptor() }
     single(name = "header") { createHeaderInterceptor() }
     single { createOkHttpClient(get(), get(name = "logging"), get(name = "header")) }
-    single { createAppRetrofit(get(), get()) }
+    single { createAppRetrofit(get(), get(), get()) }
     single { createApiService(get()) }
-    single { RxErrorHandlingCallAdapterFactory() }
+    single { RxErrorHandlingFactory() }
+    single { CoroutinesErrorHandlingFactory() }
 }
 
 const val TIMEOUT = 10
@@ -67,11 +69,12 @@ fun createOkHttpClient(
 
 fun createAppRetrofit(
     okHttpClient: OkHttpClient,
-    rxErrorHandlingCallAdapterFactory: RxErrorHandlingCallAdapterFactory
+    rxErrorHandlingFactory: RxErrorHandlingFactory,
+    coroutinesErrorHandlingFactory: CoroutinesErrorHandlingFactory
 ): Retrofit =
     Retrofit.Builder()
-//        .addCallAdapterFactory(rxErrorHandlingCallAdapterFactory)
-        .addCallAdapterFactory(CoroutineCallAdapterFactory())
+//        .addCallAdapterFactory(rxErrorHandlingFactory)
+        .addCallAdapterFactory(coroutinesErrorHandlingFactory)
         .addConverterFactory(GsonConverterFactory.create())
         .baseUrl(BuildConfig.BASE_URL)
         .client(okHttpClient)

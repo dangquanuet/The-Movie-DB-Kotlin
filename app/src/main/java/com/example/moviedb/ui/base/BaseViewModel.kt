@@ -54,8 +54,10 @@ abstract class BaseViewModel : ViewModel() {
                     is BaseException -> {
                         when (throwable.httpCode) {
                             // custom server error code
+                            "401" -> errorMessage.value = throwable.message
+                            "500" -> errorMessage.value = throwable.message
                             else -> {
-
+                                errorMessage.value = throwable.message
                             }
                         }
                     }

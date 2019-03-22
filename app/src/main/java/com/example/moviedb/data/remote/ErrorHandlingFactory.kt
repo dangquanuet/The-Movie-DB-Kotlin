@@ -3,15 +3,32 @@ package com.example.moviedb.data.remote
 import com.example.moviedb.utils.safeLog
 import com.google.gson.Gson
 import com.google.gson.annotations.SerializedName
-import io.reactivex.*
+import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
+import io.reactivex.Completable
+import io.reactivex.Flowable
+import io.reactivex.Maybe
+import io.reactivex.Observable
+import io.reactivex.ObservableSource
+import io.reactivex.Single
+import io.reactivex.SingleSource
 import io.reactivex.functions.Function
-import retrofit2.*
+import kotlinx.coroutines.CompletableDeferred
+import kotlinx.coroutines.Deferred
+import retrofit2.Call
+import retrofit2.CallAdapter
+import retrofit2.Callback
+import retrofit2.HttpException
+import retrofit2.Response
+import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import java.io.IOException
 import java.lang.reflect.Type
 
 
-class RxErrorHandlingCallAdapterFactory : CallAdapter.Factory() {
+/**
+ * RxErrorHandlingFactory for rxjava
+ */
+class RxErrorHandlingFactory : CallAdapter.Factory() {
 
     private val instance = RxJava2CallAdapterFactory.createAsync()
 
@@ -21,13 +38,11 @@ class RxErrorHandlingCallAdapterFactory : CallAdapter.Factory() {
         retrofit: Retrofit
     ): CallAdapter<*, *>? =
         RxCallAdapterWrapper(
-            retrofit,
             instance.get(returnType, annotations, retrofit) as CallAdapter<Any, Any>
         )
 }
 
 class RxCallAdapterWrapper<R>(
-    private val retrofit: Retrofit,
     private val wrapped: CallAdapter<R, Any>
 ) : CallAdapter<R, Any> {
 
@@ -69,55 +84,112 @@ class RxCallAdapterWrapper<R>(
             else -> result
         }
     }
+}
 
-    private fun convertToBaseException(throwable: Throwable): BaseException =
-        when (throwable) {
-            is BaseException -> throwable
+/**
+ * CoroutinesErrorHandlingFactory for coroutine
+ */
+class CoroutinesErrorHandlingFactory : CallAdapter.Factory() {
 
-            is IOException -> BaseException.toNetworkError(throwable)
+    private val instance = CoroutineCallAdapterFactory()
 
-            is HttpException -> {
-                val response = throwable.response()
-                val httpCode = throwable.code().toString()
+    override fun get(
+        returnType: Type,
+        annotations: Array<Annotation>,
+        retrofit: Retrofit
+    ): CallAdapter<*, *>? =
+        CoroutineCallAdapterWrapper(
+            instance.get(returnType, annotations, retrofit) as CallAdapter<Any, Any>
+        )
+}
 
-                if (response.errorBody() == null) {
-                    BaseException.toHttpError(
-                        httpCode = httpCode,
-                        response = response
-                    )
-                }
+class CoroutineCallAdapterWrapper<T>(
+    private val wrapped: CallAdapter<T, Any>
+) : CallAdapter<T, Deferred<T>> {
 
-                val serverErrorResponseBody = try {
-                    response.errorBody()?.string() ?: ""
-                } catch (e: Exception) {
-                    e.safeLog()
-                    ""
-                }
+    override fun responseType(): Type = wrapped.responseType()
 
-                val serverErrorResponse =
-                    try {
-                        Gson().fromJson(serverErrorResponseBody, ServerErrorResponse::class.java)
-                    } catch (e: Exception) {
-                        e.safeLog()
-                        ServerErrorResponse()
+    override fun adapt(call: Call<T>): Deferred<T> {
+        val deferred = CompletableDeferred<T>()
+
+        deferred.invokeOnCompletion {
+            if (deferred.isCancelled) {
+                call.cancel()
+            }
+        }
+
+        call.enqueue(object : Callback<T> {
+            override fun onFailure(call: Call<T>, throwable: Throwable) {
+                deferred.completeExceptionally(convertToBaseException(throwable))
+            }
+
+            override fun onResponse(call: Call<T>, response: Response<T>) {
+                if (response.isSuccessful) {
+                    response.body()?.let {
+                        deferred.complete(it)
                     }
-
-                if (serverErrorResponse != null) {
-                    BaseException.toServerError(
-                        serverErrorResponse = serverErrorResponse,
-                        httpCode = httpCode
-                    )
                 } else {
-                    BaseException.toHttpError(
-                        response = response,
-                        httpCode = httpCode
+                    deferred.completeExceptionally(
+                        BaseException.toHttpError(
+                            response = response,
+                            httpCode = response.code().toString()
+                        )
                     )
                 }
             }
+        })
 
-            else -> BaseException.toUnexpectedError(throwable)
-        }
+        return deferred
+    }
 }
+
+fun convertToBaseException(throwable: Throwable): BaseException =
+    when (throwable) {
+        is BaseException -> throwable
+
+        is IOException -> BaseException.toNetworkError(throwable)
+
+        is HttpException -> {
+            val response = throwable.response()
+            val httpCode = throwable.code().toString()
+
+            if (response.errorBody() == null) {
+                BaseException.toHttpError(
+                    httpCode = httpCode,
+                    response = response
+                )
+            }
+
+            val serverErrorResponseBody = try {
+                response.errorBody()?.string() ?: ""
+            } catch (e: Exception) {
+                e.safeLog()
+                ""
+            }
+
+            val serverErrorResponse =
+                try {
+                    Gson().fromJson(serverErrorResponseBody, ServerErrorResponse::class.java)
+                } catch (e: Exception) {
+                    e.safeLog()
+                    ServerErrorResponse()
+                }
+
+            if (serverErrorResponse != null) {
+                BaseException.toServerError(
+                    serverErrorResponse = serverErrorResponse,
+                    httpCode = httpCode
+                )
+            } else {
+                BaseException.toHttpError(
+                    response = response,
+                    httpCode = httpCode
+                )
+            }
+        }
+
+        else -> BaseException.toUnexpectedError(throwable)
+    }
 
 class BaseException(
     val errorType: ErrorType,
