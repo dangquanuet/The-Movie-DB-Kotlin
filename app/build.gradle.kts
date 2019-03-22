@@ -23,7 +23,6 @@ android {
         compileSdkVersion(28)
         targetSdkVersion(28)
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        multiDexEnabled = true
     }
 
     signingConfigs {
@@ -181,7 +180,7 @@ dependencies {
     implementation("com.squareup.retrofit2:converter-gson:2.5.0")
     implementation("com.squareup.okhttp3:logging-interceptor:3.11.0")
     implementation("com.squareup.retrofit2:adapter-rxjava2:2.5.0")
-    implementation("com.jakewharton.retrofit:retrofit2-kotlin-coroutines-experimental-adapter:1.0.0")
+    implementation("com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:0.9.2")
 
     // glide
     implementation("com.github.bumptech.glide:glide:4.8.0")
@@ -194,8 +193,6 @@ dependencies {
 
     // runtime permission
     implementation("pub.devrel:easypermissions:3.0.0")
-
-    implementation("com.android.support:multidex:1.0.3")
 
     // unit test
     testImplementation("junit:junit:4.12")

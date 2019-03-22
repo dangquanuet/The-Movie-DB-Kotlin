@@ -1,6 +1,6 @@
 package com.example.moviedb.data.remote
 
-import com.example.moviedb.utils.safePLog
+import com.example.moviedb.utils.safeLog
 import com.google.gson.Gson
 import com.google.gson.annotations.SerializedName
 import io.reactivex.*
@@ -90,7 +90,7 @@ class RxCallAdapterWrapper<R>(
                 val serverErrorResponseBody = try {
                     response.errorBody()?.string() ?: ""
                 } catch (e: Exception) {
-                    e.safePLog()
+                    e.safeLog()
                     ""
                 }
 
@@ -98,7 +98,7 @@ class RxCallAdapterWrapper<R>(
                     try {
                         Gson().fromJson(serverErrorResponseBody, ServerErrorResponse::class.java)
                     } catch (e: Exception) {
-                        e.safePLog()
+                        e.safeLog()
                         ServerErrorResponse()
                     }
 

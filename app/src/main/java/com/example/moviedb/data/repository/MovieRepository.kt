@@ -27,6 +27,10 @@ interface MovieRepository {
         hashMap: HashMap<String, String> = HashMap()
     ): Result<GetTvListResponse>
 
+    suspend fun getTvList3(
+        hashMap: HashMap<String, String>
+    ): GetTvListResponse
+
     fun insertDB(
         list: List<Movie>,
         fail: (Throwable) -> Unit = {}

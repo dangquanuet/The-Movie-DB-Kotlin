@@ -84,12 +84,12 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>() {
 
     fun newFragmentInstance(position: Int): Fragment {
         return when (position) {
-            Tab.POPULAR.position -> PopularMovieFragment.newInstance(
+            Tab.POPULAR.position -> Fragment()/*PopularMovieFragment.newInstance(
                 MovieListType.POPULAR.type
-            )
-            Tab.TOP_RATED.position -> PopularMovieFragment.newInstance(
+            )*/
+            Tab.TOP_RATED.position -> Fragment()/*PopularMovieFragment.newInstance(
                 MovieListType.TOP_RATED.type
-            )
+            )*/
             Tab.FAVORITE.position -> FavoriteMovieFragment.newInstance()
             Tab.PROFILE.position -> TvListFragment.newInstance()
             else -> Fragment()

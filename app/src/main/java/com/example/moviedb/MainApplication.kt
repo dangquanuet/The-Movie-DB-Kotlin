@@ -1,7 +1,6 @@
 package com.example.moviedb
 
 import android.app.Application
-import androidx.multidex.MultiDex
 import com.example.moviedb.di.appModule
 import com.example.moviedb.di.networkModule
 import com.example.moviedb.di.repositoryModule
@@ -18,7 +17,6 @@ class MainApplication : Application() {
             androidContext(this@MainApplication)
             modules(appModule, networkModule, repositoryModule, viewModelModule)
         }
-        MultiDex.install(this)
     }
 
 }

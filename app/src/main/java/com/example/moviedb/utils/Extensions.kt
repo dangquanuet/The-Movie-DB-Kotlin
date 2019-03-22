@@ -19,7 +19,7 @@ import com.example.moviedb.BuildConfig
 
 // ## View
 
-fun Exception.safePLog() {
+fun Exception.safeLog() {
     if (BuildConfig.DEBUG) printStackTrace()
 }
 
