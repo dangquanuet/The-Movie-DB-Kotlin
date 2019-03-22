@@ -5,15 +5,15 @@ import com.example.moviedb.data.remote.ApiParams
 import com.example.moviedb.data.repository.MovieRepository
 import com.example.moviedb.ui.base.BaseLoadMoreRefreshViewModel
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 class TvListViewModel(
-    val movieRepository: MovieRepository
+    private val movieRepository: MovieRepository
 ) : BaseLoadMoreRefreshViewModel<Tv>() {
 
     override fun loadData(page: Int) {
-        val hashMap = HashMap<String, String>()
-        hashMap.put(ApiParams.PAGE, page.toString())
+        val hashMap = HashMap<String, String>().apply {
+            put(ApiParams.PAGE, page.toString())
+        }
 
         /*GlobalScope.async {
             try {
@@ -50,10 +50,7 @@ class TvListViewModel(
 
         uiScope.launch {
             try {
-                val response = withContext(ioContext) {
-                    movieRepository.getTvList3((hashMap))
-                }
-                onLoadSuccess(page, response.results)
+                onLoadSuccess(page, movieRepository.getTvList3((hashMap)).results)
             } catch (e: Exception) {
                 onLoadFail(e)
             }
