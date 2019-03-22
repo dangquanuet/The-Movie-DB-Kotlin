@@ -6,7 +6,6 @@ import com.example.moviedb.data.remote.ApiService
 import com.example.moviedb.data.remote.CoroutinesErrorHandlingFactory
 import com.example.moviedb.data.remote.MockApi
 import com.example.moviedb.data.remote.RxErrorHandlingFactory
-import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import okhttp3.Cache
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -73,7 +72,7 @@ fun createAppRetrofit(
     coroutinesErrorHandlingFactory: CoroutinesErrorHandlingFactory
 ): Retrofit =
     Retrofit.Builder()
-//        .addCallAdapterFactory(rxErrorHandlingFactory)
+        .addCallAdapterFactory(rxErrorHandlingFactory)
         .addCallAdapterFactory(coroutinesErrorHandlingFactory)
         .addConverterFactory(GsonConverterFactory.create())
         .baseUrl(BuildConfig.BASE_URL)

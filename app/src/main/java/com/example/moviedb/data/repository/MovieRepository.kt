@@ -31,14 +31,12 @@ interface MovieRepository {
         hashMap: HashMap<String, String>
     ): GetTvListResponse
 
-    fun insertDB(
-        list: List<Movie>,
-        fail: (Throwable) -> Unit = {}
-    ): Deferred<Unit?>
+    suspend fun insertDB(
+        list: List<Movie>
+    )
 
-    fun updateDB(
-        movie: Movie,
-        fail: (Throwable) -> Unit = {}
-    ): Deferred<Unit?>
+    suspend fun updateDB(
+        movie: Movie
+    )
 
 }

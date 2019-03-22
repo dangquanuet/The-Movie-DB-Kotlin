@@ -67,29 +67,15 @@ class MovieRepositoryImpl constructor(
         return apiService.getTvList(hashMap).await()
     }
 
-    override fun insertDB(
-        list: List<Movie>,
-        fail: (Throwable) -> Unit
-    ): Deferred<Unit> {
-        return GlobalScope.async {
-            try {
-                movieDao.insert(list)
-            } catch (e: Throwable) {
-                fail(e)
-            }
-        }
+    override suspend fun insertDB(
+        list: List<Movie>
+    ) {
+        movieDao.insert(list)
     }
 
-    override fun updateDB(
-        movie: Movie,
-        fail: (Throwable) -> Unit
-    ): Deferred<Unit> {
-        return GlobalScope.async {
-            try {
-                movieDao.update(movie)
-            } catch (e: Throwable) {
-                fail(e)
-            }
-        }
+    override suspend fun updateDB(
+        movie: Movie
+    ) {
+        movieDao.update(movie)
     }
 }

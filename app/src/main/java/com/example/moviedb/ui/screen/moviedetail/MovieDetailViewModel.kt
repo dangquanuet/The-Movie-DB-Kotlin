@@ -5,8 +5,8 @@ import com.example.moviedb.data.local.dao.MovieDao
 import com.example.moviedb.data.model.Movie
 import com.example.moviedb.data.repository.MovieRepository
 import com.example.moviedb.ui.base.BaseViewModel
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class MovieDetailViewModel constructor(
     private val movieRepository: MovieRepository,
@@ -16,20 +16,6 @@ class MovieDetailViewModel constructor(
     val movie = MutableLiveData<Movie>()
     val favoriteChanged = MutableLiveData<Boolean>().apply { value = false }
 
-    fun updateNewMovie(newMovie: Movie) {
-        addDisposable(movieDao.getMovie(newMovie.id)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({
-                newMovie.isFavorite = it.isFavorite
-                movie.value = newMovie
-            }, {
-                newMovie.isFavorite = false
-                movie.value = newMovie
-            })
-        )
-    }
-
     fun favoriteMovie() {
         val newMovie = movie.value
         newMovie?.isFavorite = movie.value?.isFavorite != true
@@ -37,8 +23,16 @@ class MovieDetailViewModel constructor(
 
         favoriteChanged.value = true
 
-        newMovie?.apply {
-            movieRepository.updateDB(newMovie)
+        newMovie?.let {
+            ioScope.launch {
+                try {
+                    movieRepository.updateDB(it)
+                } catch (e: Exception) {
+                    withContext(uiContext) {
+                        onLoadFail(e)
+                    }
+                }
+            }
         }
     }
 }

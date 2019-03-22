@@ -16,7 +16,7 @@ class MockApi : ApiService {
     override fun getMovieList(
         hashMap: HashMap<String, String>
     ): Single<GetMovieListResponse> =
-        when (200) {
+        when (HttpURLConnection.HTTP_OK) {
             1 -> {
                 Single.error {
                     Throwable(
