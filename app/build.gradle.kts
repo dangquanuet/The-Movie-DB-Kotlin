@@ -26,12 +26,7 @@ android {
     }
 
     signingConfigs {
-        create("release") {
-            storeFile = File("movie-db.jks")
-            storePassword = "123456"
-            keyAlias = "key0"
-            keyPassword = "123456"
-        }
+        create("release")
     }
 
     buildTypes {
