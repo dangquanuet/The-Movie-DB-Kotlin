@@ -3,11 +3,11 @@ package com.example.moviedb.ui.screen.favoritemovie
 import android.graphics.Color
 import android.os.Bundle
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.moviedb.data.model.Movie
 import com.example.moviedb.databinding.FragmentLoadmoreRefreshBinding
 import com.example.moviedb.ui.base.BaseLoadMoreRefreshFragment
-import com.example.moviedb.ui.screen.moviedetail.MovieDetailFragment
 import com.example.moviedb.ui.screen.popularmovie.PopularMovieAdapter
 import kotlinx.android.synthetic.main.fragment_loadmore_refresh.*
 import org.koin.androidx.viewmodel.ext.viewModel
@@ -28,7 +28,7 @@ class FavoriteMovieFragment :
 
         val adapter = PopularMovieAdapter(
             itemClickListener = {
-                goToMovieDetail(it)
+                toMovieDetail(it)
             }
         )
 
@@ -50,12 +50,9 @@ class FavoriteMovieFragment :
         viewModel.firstLoad()
     }
 
-    fun goToMovieDetail(movie: Movie) {
-        addChildFragment(
-            containerViewId = container.id,
-            fragment = MovieDetailFragment.newInstance(movie),
-            TAG = MovieDetailFragment.TAG,
-            addToBackStack = true
+    fun toMovieDetail(movie: Movie) {
+        findNavController().navigate(
+            FavoriteMovieFragmentDirections.toMovieDetail(movie)
         )
     }
 }

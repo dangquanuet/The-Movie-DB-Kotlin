@@ -6,19 +6,20 @@ import com.example.moviedb.ui.base.BaseLoadMoreRefreshViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
-class FavoriteMovieViewModel constructor(
+class FavoriteMovieViewModel(
     private val movieDao: MovieDao
 ) : BaseLoadMoreRefreshViewModel<Movie>() {
 
     override fun loadData(page: Int) {
-        addDisposable(movieDao.getFavorite(getNumberItemPerPage(), page)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({
-                onLoadSuccess(page, it)
-            }, {
-                onLoadFail(it)
-            })
+        addDisposable(
+            movieDao.getFavorite(getNumberItemPerPage(), page)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({
+                    onLoadSuccess(page, it)
+                }, {
+                    onLoadFail(it)
+                })
         )
     }
 

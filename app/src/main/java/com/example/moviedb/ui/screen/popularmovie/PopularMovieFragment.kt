@@ -3,12 +3,12 @@ package com.example.moviedb.ui.screen.popularmovie
 import android.graphics.Color
 import android.os.Bundle
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.moviedb.data.constants.MovieListType
 import com.example.moviedb.data.model.Movie
 import com.example.moviedb.databinding.FragmentLoadmoreRefreshBinding
 import com.example.moviedb.ui.base.BaseLoadMoreRefreshFragment
-import com.example.moviedb.ui.screen.moviedetail.MovieDetailFragment
 import kotlinx.android.synthetic.main.fragment_loadmore_refresh.*
 import org.koin.androidx.viewmodel.ext.viewModel
 
@@ -28,9 +28,6 @@ class PopularMovieFragment :
 
     override val viewModel: PopularMovieViewModel by viewModel()
 
-    // user this for share viewModel between activity and fragment
-//    override val viewModel by sharedViewModel<MainActivityViewModel>()
-
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
@@ -39,7 +36,7 @@ class PopularMovieFragment :
         }
 
         val adapter = PopularMovieAdapter(
-            itemClickListener = { goToMovieDetail(it) }
+            itemClickListener = { toMovieDetail(it) }
         )
 
         container.setBackgroundColor(Color.BLACK)
@@ -56,12 +53,9 @@ class PopularMovieFragment :
         }
     }
 
-    fun goToMovieDetail(movie: Movie) {
-        addChildFragment(
-            containerViewId = container.id,
-            fragment = MovieDetailFragment.newInstance(movie),
-            TAG = MovieDetailFragment.TAG,
-            addToBackStack = true
+    fun toMovieDetail(movie: Movie) {
+        findNavController().navigate(
+            PopularMovieFragmentDirections.toMovieDetail(movie)
         )
     }
 }

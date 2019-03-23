@@ -3,55 +3,24 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@+id/main">
+    app:startDestination="@id/navigation_popular">
 
-    <fragment
-        android:id="@+id/main"
-        android:name="com.example.moviedb.ui.screen.main.MainFragment"
-        tools:layout="@layout/fragment_main">
+    <keep_state_fragment
+        android:id="@+id/navigation_popular"
+        android:name="com.example.moviedb.ui.navigation.popularcontainer.PopularContainerFragment"
+        android:label="PopularContainerFragment"
+        tools:layout="@layout/fragment_popular_container" />
 
-    </fragment>
+    <keep_state_fragment
+        android:id="@+id/navigation_favorite"
+        android:name="com.example.moviedb.ui.navigation.favoritecontainer.FavoriteContainerFragment"
+        android:label="FavoriteContainerFragment"
+        tools:layout="@layout/fragment_favorite_container" />
 
-    <fragment
-        android:id="@+id/favorite_movie"
-        android:name="com.example.moviedb.ui.screen.favoritemovie.FavoriteMovieFragment"
-        tools:layout="@layout/fragment_loadmore_refresh">
-
-    </fragment>
-
-    <fragment
-        android:id="@+id/login"
-        android:name="com.example.moviedb.ui.screen.login.LoginFragment"
-        tools:layout="@layout/fragment_login">
-
-    </fragment>
-
-    <fragment
-        android:id="@+id/movie_detail"
-        android:name="com.example.moviedb.ui.screen.moviedetail.MovieDetailFragment"
-        tools:layout="@layout/fragment_movie_detail">
-
-    </fragment>
-
-    <fragment
-        android:id="@+id/permission"
-        android:name="com.example.moviedb.ui.screen.permission.PermissionFragment"
-        tools:layout="@layout/fragment_permisison">
-
-    </fragment>
-
-    <fragment
-        android:id="@+id/popular_movie"
-        android:name="com.example.moviedb.ui.screen.popularmovie.PopularMovieFragment"
-        tools:layout="@layout/fragment_loadmore_refresh">
-
-    </fragment>
-
-    <fragment
-        android:id="@+id/tv"
+    <keep_state_fragment
+        android:id="@+id/navigation_tv"
         android:name="com.example.moviedb.ui.screen.tv.TvListFragment"
-        tools:layout="@layout/fragment_loadmore_refresh">
-
-    </fragment>
+        android:label="TvListFragment"
+        tools:layout="@layout/fragment_loadmore_refresh" />
 
 </navigation>

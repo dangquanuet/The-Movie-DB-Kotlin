@@ -1,10 +1,14 @@
 package com.example.moviedb.ui.screen
 
 import android.os.Bundle
+import androidx.navigation.findNavController
+import androidx.navigation.plusAssign
+import androidx.navigation.ui.setupWithNavController
 import com.example.moviedb.R
 import com.example.moviedb.databinding.ActivityMainBinding
 import com.example.moviedb.ui.base.BaseActivity
-import com.example.moviedb.ui.screen.main.MainFragment
+import com.example.moviedb.ui.navigation.KeepStateNavigator
+import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.androidx.viewmodel.ext.viewModel
 
 class MainActivity : BaseActivity<ActivityMainBinding, MainActivityViewModel>() {
@@ -15,25 +19,23 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainActivityViewModel>() 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if (savedInstanceState == null) {
-            supportFragmentManager.beginTransaction()
-                .replace(R.id.container, MainFragment.newInstance(), MainFragment.TAG)
-                .commit()
-        }
-//        supportFragmentManager.findFragmentById(R.id.container) as NavHostFragment? ?: return
-    }
 
-    override fun onBackPressed() {
-        val currentFragment = supportFragmentManager.findFragmentById(R.id.container)
-        when (currentFragment) {
-            is MainFragment -> if (!currentFragment.onBack()) super.onBackPressed()
-            else -> {
-                if (currentFragment != null && currentFragment.childFragmentManager.backStackEntryCount >= 1) {
-                    currentFragment.childFragmentManager.popBackStack()
-                } else {
-                    super.onBackPressed()
-                }
-            }
-        }
+        val navController = findNavController(R.id.nav_host_fragment)
+
+        // get fragment
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment)!!
+
+        // setup custom navigator
+        val navigator = KeepStateNavigator(
+            context = this,
+            fragmentManager = navHostFragment.childFragmentManager,
+            containerId = R.id.nav_host_fragment
+        )
+        navController.navigatorProvider += navigator
+
+        // set navigation graph
+        navController.setGraph(R.navigation.nav_graph)
+
+        bottom_nav?.setupWithNavController(navController)
     }
 }

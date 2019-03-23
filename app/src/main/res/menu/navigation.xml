@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_popular"
+        android:icon="@drawable/ic_gallery"
+        android:title="@string/main_tab_popular" />
+
+    <item
+        android:id="@+id/navigation_favorite"
+        android:icon="@drawable/ic_gallery"
+        android:title="@string/main_tab_favorite" />
+
+    <item
+        android:id="@+id/navigation_tv"
+        android:icon="@drawable/ic_gallery"
+        android:title="@string/main_tab_tv" />
+
+</menu>

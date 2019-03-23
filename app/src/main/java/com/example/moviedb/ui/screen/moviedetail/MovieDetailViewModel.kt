@@ -8,7 +8,7 @@ import com.example.moviedb.ui.base.BaseViewModel
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class MovieDetailViewModel constructor(
+class MovieDetailViewModel(
     private val movieRepository: MovieRepository,
     private val movieDao: MovieDao
 ) : BaseViewModel() {
