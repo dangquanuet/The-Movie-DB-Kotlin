@@ -233,10 +233,6 @@ android {
 
     signingConfigs {
         release {
-            storeFile file("movie-db.jks")
-            storePassword "123456"
-            keyAlias "key0"
-            keyPassword "123456"
         }
     }
 
