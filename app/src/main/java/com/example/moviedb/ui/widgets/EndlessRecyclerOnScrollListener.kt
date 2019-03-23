@@ -4,66 +4,69 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.moviedb.data.constants.Constants
+import com.example.moviedb.utils.safeLog
 
 abstract class EndlessRecyclerOnScrollListener(
     threshold: Int = Constants.DEFAULT_NUM_VISIBLE_THRESHOLD
 ) : RecyclerView.OnScrollListener() {
 
     // The total number of items in the dataset after the last load
-    private var mPreviousTotal: Int = 0
+    private var previousTotal: Int = 0
     private var isLoading = true
-    private var mFirstVisibleItem: Int = 0
-    private var mVisibleItemCount: Int = 0
-    private var mTotalItemCount: Int = 0
-    private var mNumberThreshold: Int = -1
+    private var firstVisibleItem: Int = 0
+    private var visibleItemCount: Int = 0
+    private var totalItemCount: Int = 0
+    private var numberThreshold: Int = -1
 
     init {
         if (threshold >= 1) {
-            mNumberThreshold = threshold
+            numberThreshold = threshold
         } else {
-            mNumberThreshold = Constants.DEFAULT_NUM_VISIBLE_THRESHOLD
+            numberThreshold = Constants.DEFAULT_NUM_VISIBLE_THRESHOLD
         }
     }
 
-    override fun onScrolled(recycler: RecyclerView, dx: Int, dy: Int) {
-        super.onScrolled(recycler, dx, dy)
-        mVisibleItemCount = recycler.childCount
-        mTotalItemCount = recycler.layoutManager?.itemCount ?: 0
-        if (recycler.layoutManager is LinearLayoutManager) {
-            mFirstVisibleItem =
-                    (recycler.layoutManager as LinearLayoutManager).findFirstVisibleItemPosition()
-        } else if (recycler.layoutManager is GridLayoutManager) {
-            mFirstVisibleItem =
-                    (recycler.layoutManager as GridLayoutManager).findFirstVisibleItemPosition()
-        } else {
-            throw RuntimeException("Un support this kind of LayoutManager ")
+    override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+        super.onScrolled(recyclerView, dx, dy)
+        visibleItemCount = recyclerView.childCount
+        totalItemCount = recyclerView.layoutManager?.itemCount ?: 0
+        val layoutManager = recyclerView.layoutManager
+        when (layoutManager) {
+            is LinearLayoutManager -> {
+                firstVisibleItem = layoutManager.findFirstVisibleItemPosition()
+            }
+            is GridLayoutManager -> {
+                firstVisibleItem = layoutManager.findFirstVisibleItemPosition()
+            }
+            else -> {
+                Exception("Unsupported LayoutManage").safeLog()
+            }
         }
 
         if (isLoading) {
             stateLoading()
         }
 
-        if (!isLoading && mTotalItemCount -
-            mVisibleItemCount <= mFirstVisibleItem + mNumberThreshold
+        if (!isLoading
+            && totalItemCount - visibleItemCount <= firstVisibleItem + numberThreshold
         ) {
-            // End has been reached
             onLoadMore()
             isLoading = true
         }
     }
 
     private fun stateLoading() {
-        if (mTotalItemCount > mPreviousTotal) {
+        if (totalItemCount > previousTotal) {
             isLoading = false
-            mPreviousTotal = mTotalItemCount
+            previousTotal = totalItemCount
         }
     }
 
     fun resetOnLoadMore() {
-        mFirstVisibleItem = 0
-        mVisibleItemCount = 0
-        mTotalItemCount = 0
-        mPreviousTotal = 0
+        firstVisibleItem = 0
+        visibleItemCount = 0
+        totalItemCount = 0
+        previousTotal = 0
         isLoading = true
     }
 

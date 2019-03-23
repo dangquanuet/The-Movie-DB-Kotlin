@@ -24,7 +24,7 @@ class TvListFragment :
         super.onActivityCreated(savedInstanceState)
 
         val adapter = TvListAdapter(
-            itemClickListener = { goToTvDetail(it) }
+            itemClickListener = { toTvDetail(it) }
         )
 
         viewBinding.apply {
@@ -44,7 +44,7 @@ class TvListFragment :
     }
 
 
-    fun goToTvDetail(tv: Tv) {
+    fun toTvDetail(tv: Tv) {
 
     }
 }

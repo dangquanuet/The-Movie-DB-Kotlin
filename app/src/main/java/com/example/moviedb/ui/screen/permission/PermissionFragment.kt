@@ -13,8 +13,7 @@ class PermissionFragment : BaseFragment<FragmentPermisisonBinding, PermissionVie
 
     val permissions = arrayOf(Manifest.permission.CAMERA, Manifest.permission.READ_CONTACTS)
 
-    override val layoutId: Int
-        get() = R.layout.fragment_permisison
+    override val layoutId: Int = R.layout.fragment_permisison
 
     override val viewModel: PermissionViewModel by viewModel()
 

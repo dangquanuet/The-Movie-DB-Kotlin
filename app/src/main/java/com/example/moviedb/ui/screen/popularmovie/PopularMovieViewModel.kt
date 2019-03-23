@@ -3,7 +3,6 @@ package com.example.moviedb.ui.screen.popularmovie
 import android.content.res.Resources
 import androidx.lifecycle.MutableLiveData
 import com.example.moviedb.data.constants.MovieListType
-import com.example.moviedb.data.local.dao.MovieDao
 import com.example.moviedb.data.model.Movie
 import com.example.moviedb.data.remote.ApiParams
 import com.example.moviedb.data.repository.MovieRepository

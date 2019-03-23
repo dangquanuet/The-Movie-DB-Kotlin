@@ -1,6 +1,5 @@
 package com.example.moviedb.ui.screen.login
 
-import android.util.Log
 import com.example.moviedb.R
 import com.example.moviedb.databinding.FragmentLoginBinding
 import com.example.moviedb.ui.base.BaseFragment
@@ -17,8 +16,4 @@ class LoginFragment : BaseFragment<FragmentLoginBinding, LoginViewModel>() {
     override val layoutId: Int = R.layout.fragment_login
 
     override val viewModel: LoginViewModel by viewModel()
-
-    fun clickLogin() {
-        Log.e(TAG, "valid ${viewModel.email.value} ${viewModel.password.value}")
-    }
 }

@@ -11,6 +11,7 @@
     <string name="main_tab_top_rated">TOP RATED</string>
     <string name="main_tab_favorite">FAVORITE</string>
     <string name="main_tab_profile">PROFILE</string>
+    <string name="main_tab_tv">TV</string>
 
     <!--login-->
     <string name="login_email">Email</string>

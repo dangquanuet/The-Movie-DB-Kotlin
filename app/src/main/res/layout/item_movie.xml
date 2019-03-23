@@ -31,7 +31,6 @@
             android:paddingEnd="@dimen/dp_16"
             android:paddingStart="@dimen/dp_16"
             android:paddingTop="@dimen/dp_10"
-            android:singleLine="true"
             android:text="@{ item.title }"
             android:textColor="@android:color/white"
             android:textSize="@dimen/sp_16"
