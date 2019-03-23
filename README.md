@@ -35,6 +35,8 @@ Live data: https://developer.android.com/topic/libraries/architecture/livedata.h
 
 Room: https://developer.android.com/topic/libraries/architecture/room.html
 
+Navigation: https://developer.android.com/guide/navigation
+
 Architecture: https://github.com/googlesamples/android-architecture-components
 
 <===
