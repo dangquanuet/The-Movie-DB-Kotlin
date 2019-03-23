@@ -1,6 +1,5 @@
 package com.example.moviedb.di
 
-import com.example.moviedb.ui.base.BaseViewModel
 import com.example.moviedb.ui.navigation.favoritecontainer.FavoriteContainerVIewModel
 import com.example.moviedb.ui.navigation.popularcontainer.PopularContainerViewModel
 import com.example.moviedb.ui.screen.MainActivityViewModel
