@@ -38,7 +38,12 @@ class MovieDetailFragment : BaseFragment<FragmentMovieDetailBinding, MovieDetail
             findNavController().navigateUp()
         }
 
-        viewModel.movie.value = args.movie
+        viewModel.apply {
+            args.movie.let {
+                movie.value = it
+                checkFavorite(it.id)
+            }
+        }
     }
 
 }

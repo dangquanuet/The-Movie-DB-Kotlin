@@ -6,11 +6,7 @@ import com.example.moviedb.data.remote.BaseException
 import com.example.moviedb.utils.SingleLiveEvent
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
-import kotlinx.coroutines.CoroutineExceptionHandler
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 import java.net.HttpURLConnection
 import java.net.SocketTimeoutException
 import java.net.UnknownHostException
@@ -26,12 +22,12 @@ abstract class BaseViewModel : ViewModel() {
     val serverMaintainEvent = SingleLiveEvent<Unit>()
 
     // rx
-    protected val compositeDisposable = CompositeDisposable()
+    private val compositeDisposable = CompositeDisposable()
 
     fun addDisposable(disposable: Disposable) = compositeDisposable.add(disposable)
 
     // coroutines
-    protected val viewModelJob = Job()
+    private val viewModelJob = Job()
     protected val exceptionHandler = CoroutineExceptionHandler { _, throwable ->
         uiScope.launch {
             onLoadFail(throwable)
@@ -72,6 +68,12 @@ abstract class BaseViewModel : ViewModel() {
             }
         }
         isLoading.value = false
+    }
+
+    suspend fun onLoadFailUI(throwable: Throwable) {
+        withContext(uiContext) {
+            onLoadFail(throwable)
+        }
     }
 
     open fun showError(e: Throwable) {

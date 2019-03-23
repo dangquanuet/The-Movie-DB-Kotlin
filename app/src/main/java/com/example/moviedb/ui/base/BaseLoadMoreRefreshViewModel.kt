@@ -9,14 +9,16 @@ abstract class BaseLoadMoreRefreshViewModel<Item>() : BaseViewModel() {
 
     val isRefreshing = MutableLiveData<Boolean>().apply { value = false }
     val onRefreshListener = SwipeRefreshLayout.OnRefreshListener {
-        if (isLoading.value == true || isRefreshing.value == true) return@OnRefreshListener
+        if (isLoading.value == true
+            || isRefreshing.value == true
+        ) return@OnRefreshListener
         isRefreshing.value = true
         refreshData()
     }
 
     val isLoadMore = MutableLiveData<Boolean>().apply { value = false }
-    var currentPage = MutableLiveData<Int>().apply { value = getPreFirstPage() }
-    var isLastPage = MutableLiveData<Boolean>().apply { value = false }
+    private val currentPage = MutableLiveData<Int>().apply { value = getPreFirstPage() }
+    val isLastPage = MutableLiveData<Boolean>().apply { value = false }
 
     val onScrollListener = object : EndlessRecyclerOnScrollListener(getLoadMoreThreshold()) {
         override fun onLoadMore() {
@@ -30,12 +32,12 @@ abstract class BaseLoadMoreRefreshViewModel<Item>() : BaseViewModel() {
         }
     }
     val listItem = MutableLiveData<ArrayList<Item>>()
-    val isListEmpty = MutableLiveData<Boolean>().apply { value = false }
+    val isEmptyList = MutableLiveData<Boolean>().apply { value = false }
 
     abstract fun loadData(page: Int)
 
-    fun isFirst() = currentPage.value == getPreFirstPage()
-            && listItem.value?.size ?: 0 == 0
+    private fun isFirst() = currentPage.value == getPreFirstPage()
+            && listItem.value?.isEmpty() ?: true
 
     fun firstLoad() {
         if (isFirst()) {
@@ -57,7 +59,7 @@ abstract class BaseLoadMoreRefreshViewModel<Item>() : BaseViewModel() {
      */
     open fun getFirstPage() = Constants.DEFAULT_FIRST_PAGE
 
-    fun getPreFirstPage() = getFirstPage() - 1
+    private fun getPreFirstPage() = getFirstPage() - 1
 
     /**
      * override if need change number visible threshold
@@ -76,7 +78,7 @@ abstract class BaseLoadMoreRefreshViewModel<Item>() : BaseViewModel() {
 
     fun onLoadSuccess(page: Int, items: List<Item>?) {
         currentPage.value = page
-        if (currentPage.value == 1) listItem.value?.clear()
+        if (currentPage.value == getFirstPage()) listItem.value?.clear()
         if (isRefreshing.value == true) resetLoadMore()
 
         val newList = listItem.value ?: ArrayList()
@@ -87,17 +89,19 @@ abstract class BaseLoadMoreRefreshViewModel<Item>() : BaseViewModel() {
         isLoading.value = false
         isRefreshing.value = false
         isLoadMore.value = false
-        checkListState()
+
+        checkEmptyList()
     }
 
     override fun onLoadFail(throwable: Throwable) {
         super.onLoadFail(throwable)
         isRefreshing.value = false
         isLoadMore.value = false
-        checkListState()
+
+        checkEmptyList()
     }
 
-    private fun checkListState() {
-        isListEmpty.value = listItem.value == null || listItem.value?.isEmpty() == true
+    private fun checkEmptyList() {
+        isEmptyList.value = listItem.value?.isEmpty() ?: true
     }
 }

@@ -42,12 +42,12 @@ class FavoriteMovieFragment :
             listItem.observe(viewLifecycleOwner, Observer {
                 adapter.submitList(it)
             })
-            firstLoad()
+            loadData(getFirstPage())
         }
     }
 
     fun loadData() {
-        viewModel.firstLoad()
+        viewModel.loadData(viewModel.getFirstPage())
     }
 
     fun toMovieDetail(movie: Movie) {
