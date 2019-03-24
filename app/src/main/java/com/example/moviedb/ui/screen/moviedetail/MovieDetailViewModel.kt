@@ -28,7 +28,7 @@ class MovieDetailViewModel(
                     }
                 }
             } catch (e: Exception) {
-                onLoadFailUI(e)
+                onLoadFail(e)
             }
         }
     }
@@ -45,7 +45,7 @@ class MovieDetailViewModel(
                 try {
                     movieRepository.updateDB(it)
                 } catch (e: Exception) {
-                    onLoadFailUI(e)
+                    onLoadFail(e)
                 }
             }
         }

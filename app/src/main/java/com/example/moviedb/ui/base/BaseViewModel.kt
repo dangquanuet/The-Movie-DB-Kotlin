@@ -4,8 +4,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.moviedb.data.remote.BaseException
 import com.example.moviedb.utils.SingleLiveEvent
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.disposables.Disposable
 import kotlinx.coroutines.*
 import java.net.HttpURLConnection
 import java.net.SocketTimeoutException
@@ -22,9 +20,8 @@ abstract class BaseViewModel : ViewModel() {
     val serverMaintainEvent = SingleLiveEvent<Unit>()
 
     // rx
-    private val compositeDisposable = CompositeDisposable()
-
-    fun addDisposable(disposable: Disposable) = compositeDisposable.add(disposable)
+//    private val compositeDisposable = CompositeDisposable()
+//    fun addDisposable(disposable: Disposable) = compositeDisposable.add(disposable)
 
     // coroutines
     private val viewModelJob = Job()
@@ -38,41 +35,37 @@ abstract class BaseViewModel : ViewModel() {
     protected val ioScope = CoroutineScope(ioContext)
     protected val uiScope = CoroutineScope(uiContext)
 
-    open fun onLoadFail(throwable: Throwable) {
-        when (throwable.cause) {
-            is UnknownHostException -> {
-                noInternetConnectionEvent.call()
-            }
-            is SocketTimeoutException -> {
-                connectTimeoutEvent.call()
-            }
-            else -> {
-                when (throwable) {
-                    is BaseException -> {
-                        when (throwable.httpCode) {
-                            HttpURLConnection.HTTP_UNAUTHORIZED -> {
-                                errorMessage.value = throwable.message
-                            }
-                            HttpURLConnection.HTTP_INTERNAL_ERROR -> {
-                                errorMessage.value = throwable.message
-                            }
-                            else -> {
-                                errorMessage.value = throwable.message
+    open suspend fun onLoadFail(throwable: Throwable) {
+        withContext(uiContext) {
+            when (throwable.cause) {
+                is UnknownHostException -> {
+                    noInternetConnectionEvent.call()
+                }
+                is SocketTimeoutException -> {
+                    connectTimeoutEvent.call()
+                }
+                else -> {
+                    when (throwable) {
+                        is BaseException -> {
+                            when (throwable.httpCode) {
+                                HttpURLConnection.HTTP_UNAUTHORIZED -> {
+                                    errorMessage.value = throwable.message
+                                }
+                                HttpURLConnection.HTTP_INTERNAL_ERROR -> {
+                                    errorMessage.value = throwable.message
+                                }
+                                else -> {
+                                    errorMessage.value = throwable.message
+                                }
                             }
                         }
-                    }
-                    else -> {
-                        errorMessage.value = throwable.message
+                        else -> {
+                            errorMessage.value = throwable.message
+                        }
                     }
                 }
             }
-        }
-        isLoading.value = false
-    }
-
-    suspend fun onLoadFailUI(throwable: Throwable) {
-        withContext(uiContext) {
-            onLoadFail(throwable)
+            isLoading.value = false
         }
     }
 
@@ -89,7 +82,7 @@ abstract class BaseViewModel : ViewModel() {
     }
 
     fun onDestroy() {
-        compositeDisposable.clear()
+//        compositeDisposable.clear()
         viewModelJob.cancel()
     }
 }

@@ -5,29 +5,20 @@ import com.example.moviedb.data.model.Movie
 import com.example.moviedb.data.remote.ApiService
 import com.example.moviedb.data.remote.response.GetMovieListResponse
 import com.example.moviedb.data.remote.response.GetTvListResponse
-import com.example.moviedb.data.remote.response.Result
 import com.example.moviedb.data.repository.MovieRepository
-import com.example.moviedb.data.scheduler.SchedulerProvider
-import io.reactivex.Single
-import kotlinx.coroutines.Deferred
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.async
 
 class MovieRepositoryImpl constructor(
     private val apiService: ApiService,
-    private val movieDao: MovieDao,
-    private val schedulerProvider: SchedulerProvider
+    private val movieDao: MovieDao
 ) : MovieRepository {
 
-    override fun getMovieList(
+    override suspend fun getMovieList(
         hashMap: HashMap<String, String>
-    ): Single<GetMovieListResponse> {
-        return apiService.getMovieList(hashMap)
-            .subscribeOn(schedulerProvider.io())
-            .observeOn(schedulerProvider.ui())
+    ): GetMovieListResponse {
+        return apiService.getMovieList(hashMap).await()
     }
 
-    override fun getTvList(
+    /*override fun getTvList(
         hashMap: HashMap<String, String>
     ): Deferred<GetTvListResponse> {
         return apiService.getTvList(hashMap)
@@ -59,7 +50,7 @@ class MovieRepositoryImpl constructor(
             }
         }
         return result
-    }
+    }*/
 
     override suspend fun getTvList3(
         hashMap: HashMap<String, String>
