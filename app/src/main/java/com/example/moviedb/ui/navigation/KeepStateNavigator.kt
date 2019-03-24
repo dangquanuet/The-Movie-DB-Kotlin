@@ -7,6 +7,7 @@ import androidx.navigation.NavDestination
 import androidx.navigation.NavOptions
 import androidx.navigation.Navigator
 import androidx.navigation.fragment.FragmentNavigator
+import com.example.moviedb.ui.screen.favoritemovie.FavoriteMovieFragment
 
 /**
  * https://github.com/STAR-ZERO/navigation-keep-fragment-sample/blob/master/app/src/main/java/com/star_zero/navigation_keep_fragment_sample/navigation/KeepStateNavigator.kt
@@ -30,7 +31,7 @@ class KeepStateNavigator(
 
         val currentFragment = fragmentManager.primaryNavigationFragment
         if (currentFragment != null) {
-            transaction.detach(currentFragment)
+            transaction.hide(currentFragment)
         }
 
         var fragment = fragmentManager.findFragmentByTag(tag)
@@ -39,7 +40,12 @@ class KeepStateNavigator(
             fragment = instantiateFragment(context, fragmentManager, className, args)
             transaction.add(containerId, fragment, tag)
         } else {
-            transaction.attach(fragment)
+            // reload favorite movie
+            if (fragment is FavoriteMovieFragment) {
+                fragment.loadData()
+            }
+
+            transaction.show(fragment)
         }
 
         transaction.setPrimaryNavigationFragment(fragment)

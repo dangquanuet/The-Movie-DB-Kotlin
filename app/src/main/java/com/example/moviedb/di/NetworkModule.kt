@@ -59,7 +59,7 @@ fun createOkHttpClient(
     header: Interceptor
 ): OkHttpClient =
     OkHttpClient.Builder()
-        .cache(cache)
+//        .cache(cache)
         .connectTimeout(TIMEOUT.toLong(), TimeUnit.SECONDS)
         .readTimeout(TIMEOUT.toLong(), TimeUnit.SECONDS)
         .addInterceptor(header)
