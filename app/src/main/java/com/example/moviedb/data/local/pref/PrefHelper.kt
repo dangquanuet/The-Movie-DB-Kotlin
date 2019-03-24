@@ -4,7 +4,7 @@ interface PrefHelper {
 
     fun isFirstRun(): Boolean
 
-    fun clear(key: String)
+    fun remove(key: String)
 
     fun clear()
 
