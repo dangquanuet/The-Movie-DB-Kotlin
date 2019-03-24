@@ -132,10 +132,10 @@ dependencies {
 //    testImplementation("androidx.arch.core:core-testing:2.0.0")
 
     // room
-    implementation("androidx.room:room-runtime:2.0.0")
-    kapt("androidx.room:room-compiler:2.0.0")
-    // optional - RxJava support for Room
-    implementation("androidx.room:room-rxjava2:2.0.0")
+    implementation("androidx.room:room-runtime:2.1.0-alpha06")
+    kapt("androidx.room:room-compiler:2.1.0-alpha06")
+    // Kotlin Extensions and Coroutines support for Room
+    implementation("androidx.room:room-ktx:2.1.0-alpha06")
     // Test helpers
 //    testImplementation("androidx.room:room-testing:2.0.0")
 

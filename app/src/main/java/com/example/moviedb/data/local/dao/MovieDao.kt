@@ -7,35 +7,32 @@ import androidx.room.OnConflictStrategy.IGNORE
 import androidx.room.OnConflictStrategy.REPLACE
 import androidx.room.Query
 import com.example.moviedb.data.model.Movie
-import io.reactivex.Maybe
-
-// TODO update room + coroutines
 
 @Dao
 interface MovieDao {
     @Query("SELECT * FROM movie")
-    fun getMovieList(): Maybe<List<Movie>>
+    suspend fun getMovieList(): List<Movie>?
 
     @Query("SELECT * FROM movie WHERE movie.id = :id")
-    fun getMovie(id: String): Maybe<Movie>
+    suspend fun getMovie(id: String): Movie?
 
     @Insert(onConflict = IGNORE)
-    fun insert(movie: Movie)
+    suspend fun insert(movie: Movie)
 
     @Insert(onConflict = IGNORE)
-    fun insert(list: List<Movie>)
+    suspend fun insert(list: List<Movie>)
 
     @Insert(onConflict = REPLACE)
-    fun update(movie: Movie)
+    suspend fun update(movie: Movie)
 
     @Delete
-    fun deleteMovie(movie: Movie)
+    suspend fun deleteMovie(movie: Movie)
 
     @Query("DELETE FROM movie WHERE id = :id")
-    fun deleteMovie(id: String)
+    suspend fun deleteMovie(id: String)
 
     @Query("DELETE FROM movie")
-    fun deleteAll()
+    suspend fun deleteAll()
 
     /*
     @Query("SELECT * FROM playlist " +
@@ -46,8 +43,8 @@ interface MovieDao {
     List<IPlaylist> searchPlaylists(String playlistTitle, int limit);
      */
     @Query("SELECT * FROM movie LIMIT :pageSize OFFSET :pageIndex")
-    fun getMoviePage(pageSize: Int, pageIndex: Int): Maybe<List<Movie>>
+    suspend fun getMoviePage(pageSize: Int, pageIndex: Int): List<Movie>?
 
     @Query("SELECT * FROM movie WHERE movie.isFavorite = 1 LIMIT :pageSize OFFSET ((:pageIndex-1)*:pageSize) ")
-    fun getFavorite(pageSize: Int, pageIndex: Int): Maybe<List<Movie>>
+    suspend fun getFavorite(pageSize: Int, pageIndex: Int): List<Movie>?
 }
