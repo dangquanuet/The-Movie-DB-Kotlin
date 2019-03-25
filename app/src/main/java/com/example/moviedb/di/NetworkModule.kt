@@ -5,7 +5,6 @@ import com.example.moviedb.BuildConfig
 import com.example.moviedb.data.remote.ApiService
 import com.example.moviedb.data.remote.CoroutinesErrorHandlingFactory
 import com.example.moviedb.data.remote.MockApi
-import com.example.moviedb.data.remote.RxErrorHandlingFactory
 import okhttp3.Cache
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -20,9 +19,9 @@ val networkModule = module {
     single(name = "logging") { createLoggingInterceptor() }
     single(name = "header") { createHeaderInterceptor() }
     single { createOkHttpClient(get(), get(name = "logging"), get(name = "header")) }
-    single { createAppRetrofit(get(), get(), get()) }
+    single { createAppRetrofit(get(), get()) }
     single { createApiService(get()) }
-    single { RxErrorHandlingFactory() }
+//    single { RxErrorHandlingFactory() }
     single { CoroutinesErrorHandlingFactory() }
 }
 
@@ -68,11 +67,11 @@ fun createOkHttpClient(
 
 fun createAppRetrofit(
     okHttpClient: OkHttpClient,
-    rxErrorHandlingFactory: RxErrorHandlingFactory,
+//    rxErrorHandlingFactory: RxErrorHandlingFactory,
     coroutinesErrorHandlingFactory: CoroutinesErrorHandlingFactory
 ): Retrofit =
     Retrofit.Builder()
-        .addCallAdapterFactory(rxErrorHandlingFactory)
+//        .addCallAdapterFactory(rxErrorHandlingFactory)
         .addCallAdapterFactory(coroutinesErrorHandlingFactory)
         .addConverterFactory(GsonConverterFactory.create())
         .baseUrl(BuildConfig.BASE_URL)

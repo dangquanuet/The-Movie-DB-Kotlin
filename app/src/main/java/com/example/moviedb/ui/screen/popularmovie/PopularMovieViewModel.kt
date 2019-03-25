@@ -7,6 +7,7 @@ import com.example.moviedb.data.model.Movie
 import com.example.moviedb.data.remote.ApiParams
 import com.example.moviedb.data.repository.MovieRepository
 import com.example.moviedb.ui.base.BaseLoadMoreRefreshViewModel
+import kotlinx.coroutines.launch
 
 
 class PopularMovieViewModel constructor(
@@ -33,13 +34,12 @@ class PopularMovieViewModel constructor(
             )
         }
 
-        addDisposable(
-            movieRepository.getMovieList(hashMap)
-                .subscribe({
-                    onLoadSuccess(page, it.results)
-                }, {
-                    onLoadFail(it)
-                })
-        )
+        ioScope.launch {
+            try {
+                onLoadSuccess(page, movieRepository.getMovieList(hashMap).results)
+            } catch (e: Exception) {
+                onLoadFail(e)
+            }
+        }
     }
 }

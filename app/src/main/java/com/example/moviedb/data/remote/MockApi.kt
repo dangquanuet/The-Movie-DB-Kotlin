@@ -3,7 +3,6 @@ package com.example.moviedb.data.remote
 import com.example.moviedb.data.model.Movie
 import com.example.moviedb.data.remote.response.GetMovieListResponse
 import com.example.moviedb.data.remote.response.GetTvListResponse
-import io.reactivex.Single
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
@@ -15,31 +14,31 @@ class MockApi : ApiService {
 
     override fun getMovieList(
         hashMap: HashMap<String, String>
-    ): Single<GetMovieListResponse> =
+    ): Deferred<GetMovieListResponse> =
         when (HttpURLConnection.HTTP_OK) {
             1 -> {
-                Single.error {
-                    Throwable(
+                GlobalScope.async {
+                    throw BaseException.toNetworkError(
                         cause = UnknownHostException()
                     )
                 }
             }
 
             2 -> {
-                Single.error {
-                    Throwable(
+                GlobalScope.async {
+                    throw BaseException.toNetworkError(
                         cause = SocketTimeoutException()
                     )
                 }
             }
 
             HttpURLConnection.HTTP_OK -> {
-                Single.just(GetMovieListResponse())
+                GlobalScope.async { GetMovieListResponse() }
             }
 
             HttpURLConnection.HTTP_UNAUTHORIZED -> {
-                Single.error {
-                    BaseException.toServerError(
+                GlobalScope.async {
+                    throw BaseException.toServerError(
                         serverErrorResponse = ServerErrorResponse(
                             message = "Test code 401"
                         ),
@@ -49,8 +48,8 @@ class MockApi : ApiService {
             }
 
             HttpURLConnection.HTTP_INTERNAL_ERROR -> {
-                Single.error {
-                    BaseException.toServerError(
+                GlobalScope.async {
+                    throw BaseException.toServerError(
                         serverErrorResponse = ServerErrorResponse(
                             message = "Test code 500"
                         ),
@@ -58,13 +57,13 @@ class MockApi : ApiService {
                     )
                 }
             }
-            else -> Single.just(GetMovieListResponse())
+            else -> GlobalScope.async { GetMovieListResponse() }
         }
 
     override fun getMovieDetail(
         hashMap: HashMap<String, String>
-    ): Single<Movie> =
-        Single.just(Movie("1"))
+    ): Deferred<Movie> =
+        GlobalScope.async { Movie("1") }
 
     override fun getTvList(
         hashMap: HashMap<String, String>

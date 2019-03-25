@@ -4,23 +4,9 @@ import com.example.moviedb.utils.safeLog
 import com.google.gson.Gson
 import com.google.gson.annotations.SerializedName
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
-import io.reactivex.Completable
-import io.reactivex.Flowable
-import io.reactivex.Maybe
-import io.reactivex.Observable
-import io.reactivex.ObservableSource
-import io.reactivex.Single
-import io.reactivex.SingleSource
-import io.reactivex.functions.Function
 import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.Deferred
-import retrofit2.Call
-import retrofit2.CallAdapter
-import retrofit2.Callback
-import retrofit2.HttpException
-import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
+import retrofit2.*
 import java.io.IOException
 import java.lang.reflect.Type
 
@@ -28,7 +14,7 @@ import java.lang.reflect.Type
 /**
  * RxErrorHandlingFactory for rxjava
  */
-class RxErrorHandlingFactory : CallAdapter.Factory() {
+/*class RxErrorHandlingFactory : CallAdapter.Factory() {
 
     private val instance = RxJava2CallAdapterFactory.createAsync()
 
@@ -84,7 +70,7 @@ class RxCallAdapterWrapper<R>(
             else -> result
         }
     }
-}
+}*/
 
 /**
  * CoroutinesErrorHandlingFactory for coroutine

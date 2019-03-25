@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.moviedb.data.constants.Constants
 import com.example.moviedb.ui.widgets.EndlessRecyclerOnScrollListener
+import kotlinx.coroutines.withContext
 
 abstract class BaseLoadMoreRefreshViewModel<Item>() : BaseViewModel() {
 
@@ -76,29 +77,33 @@ abstract class BaseLoadMoreRefreshViewModel<Item>() : BaseViewModel() {
         isLastPage.value = false
     }
 
-    fun onLoadSuccess(page: Int, items: List<Item>?) {
-        currentPage.value = page
-        if (currentPage.value == getFirstPage()) listItem.value?.clear()
-        if (isRefreshing.value == true) resetLoadMore()
+    suspend fun onLoadSuccess(page: Int, items: List<Item>?) {
+        withContext(uiContext) {
+            currentPage.value = page
+            if (currentPage.value == getFirstPage()) listItem.value?.clear()
+            if (isRefreshing.value == true) resetLoadMore()
 
-        val newList = listItem.value ?: ArrayList()
-        newList.addAll(items ?: listOf())
-        listItem.value = newList
+            val newList = listItem.value ?: ArrayList()
+            newList.addAll(items ?: listOf())
+            listItem.value = newList
 
-        isLastPage.value = items?.size ?: 0 < getNumberItemPerPage()
-        isLoading.value = false
-        isRefreshing.value = false
-        isLoadMore.value = false
+            isLastPage.value = items?.size ?: 0 < getNumberItemPerPage()
+            isLoading.value = false
+            isRefreshing.value = false
+            isLoadMore.value = false
 
-        checkEmptyList()
+            checkEmptyList()
+        }
     }
 
-    override fun onLoadFail(throwable: Throwable) {
-        super.onLoadFail(throwable)
-        isRefreshing.value = false
-        isLoadMore.value = false
+    override suspend fun onLoadFail(throwable: Throwable) {
+        withContext(uiContext) {
+            super.onLoadFail(throwable)
+            isRefreshing.value = false
+            isLoadMore.value = false
 
-        checkEmptyList()
+            checkEmptyList()
+        }
     }
 
     private fun checkEmptyList() {

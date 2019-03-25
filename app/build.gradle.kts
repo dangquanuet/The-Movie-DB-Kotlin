@@ -126,18 +126,12 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-extensions:2.0.0")
     // alternately - if using Java8, use the following instead of lifecycle-compiler
     implementation("androidx.lifecycle:lifecycle-common-java8:2.0.0")
-    // optional - ReactiveStreams support for LiveData
-    implementation("androidx.lifecycle:lifecycle-reactivestreams-ktx:2.0.0")
-    // optional - Test helpers for LiveData
-//    testImplementation("androidx.arch.core:core-testing:2.0.0")
 
     // room
     implementation("androidx.room:room-runtime:2.1.0-alpha06")
     kapt("androidx.room:room-compiler:2.1.0-alpha06")
     // Kotlin Extensions and Coroutines support for Room
     implementation("androidx.room:room-ktx:2.1.0-alpha06")
-    // Test helpers
-//    testImplementation("androidx.room:room-testing:2.0.0")
 
 /*
     // paging
@@ -151,17 +145,13 @@ dependencies {
     // navigation
     implementation("android.arch.navigation:navigation-fragment-ktx:1.0.0")
     implementation("android.arch.navigation:navigation-ui-ktx:1.0.0")
-    // optional - Test helpers
-//    androidTestImplementation("android.arch.navigation:navigation-testing:1.0.0-alpha08")
 
     // work manager
     implementation("androidx.work:work-runtime-ktx:2.0.0")
-    // optional - Test helpers
-//    androidTestImplementation ("androidx.work:work-testing:2.0.0-rc01")
 
     // rx
-    implementation("io.reactivex.rxjava2:rxjava:2.2.2")
-    implementation("io.reactivex.rxjava2:rxandroid:2.1.0")
+//    implementation("io.reactivex.rxjava2:rxjava:2.2.2")
+//    implementation("io.reactivex.rxjava2:rxandroid:2.1.0")
 
     // coroutines
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.1.1")
@@ -174,7 +164,7 @@ dependencies {
     implementation("com.squareup.retrofit2:retrofit:2.5.0")
     implementation("com.squareup.retrofit2:converter-gson:2.5.0")
     implementation("com.squareup.okhttp3:logging-interceptor:3.11.0")
-    implementation("com.squareup.retrofit2:adapter-rxjava2:2.5.0")
+//    implementation("com.squareup.retrofit2:adapter-rxjava2:2.5.0")
     implementation("com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:0.9.2")
 
     // glide

@@ -3,17 +3,14 @@ package com.example.moviedb.data.repository
 import com.example.moviedb.data.model.Movie
 import com.example.moviedb.data.remote.response.GetMovieListResponse
 import com.example.moviedb.data.remote.response.GetTvListResponse
-import com.example.moviedb.data.remote.response.Result
-import io.reactivex.Single
-import kotlinx.coroutines.Deferred
 
 interface MovieRepository {
 
-    fun getMovieList(
+    suspend fun getMovieList(
         hashMap: HashMap<String, String> = HashMap()
-    ): Single<GetMovieListResponse>
+    ): GetMovieListResponse
 
-    fun getTvList(
+    /*fun getTvList(
         hashMap: HashMap<String, String> = HashMap()
     ): Deferred<GetTvListResponse>
 
@@ -25,7 +22,7 @@ interface MovieRepository {
 
     fun getTvList2(
         hashMap: HashMap<String, String> = HashMap()
-    ): Result<GetTvListResponse>
+    ): Result<GetTvListResponse>*/
 
     suspend fun getTvList3(
         hashMap: HashMap<String, String>
