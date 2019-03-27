@@ -5,11 +5,15 @@ import com.example.moviedb.data.model.Movie
 import com.example.moviedb.data.remote.ApiService
 import com.example.moviedb.data.remote.response.GetMovieListResponse
 import com.example.moviedb.data.remote.response.GetTvListResponse
+import com.example.moviedb.data.remote.response.Result
 import com.example.moviedb.data.repository.MovieRepository
+import com.example.moviedb.data.scheduler.SchedulerProvider
+import kotlinx.coroutines.launch
 
 class MovieRepositoryImpl constructor(
     private val apiService: ApiService,
-    private val movieDao: MovieDao
+    private val movieDao: MovieDao,
+    private val schedulerProvider: SchedulerProvider
 ) : MovieRepository {
 
     override suspend fun getMovieList(
@@ -18,18 +22,12 @@ class MovieRepositoryImpl constructor(
         return apiService.getMovieList(hashMap).await()
     }
 
-    /*override fun getTvList(
-        hashMap: HashMap<String, String>
-    ): Deferred<GetTvListResponse> {
-        return apiService.getTvList(hashMap)
-    }
-
     override fun getTvList(
         hashMap: HashMap<String, String>,
-        success: (GetTvListResponse) -> Unit,
-        fail: (Throwable) -> Unit
-    ): Deferred<Unit?> {
-        return GlobalScope.async {
+        success: suspend (GetTvListResponse) -> Unit,
+        fail: suspend (Throwable) -> Unit
+    ) {
+        schedulerProvider.ioScope.launch {
             try {
                 success(apiService.getTvList(hashMap).await())
             } catch (e: Throwable) {
@@ -42,7 +40,7 @@ class MovieRepositoryImpl constructor(
         hashMap: HashMap<String, String>
     ): Result<GetTvListResponse> {
         lateinit var result: Result<GetTvListResponse>
-        GlobalScope.async {
+        schedulerProvider.ioScope.launch {
             try {
                 result = Result.Success(apiService.getTvList(hashMap).await())
             } catch (e: Throwable) {
@@ -50,7 +48,7 @@ class MovieRepositoryImpl constructor(
             }
         }
         return result
-    }*/
+    }
 
     override suspend fun getTvList3(
         hashMap: HashMap<String, String>

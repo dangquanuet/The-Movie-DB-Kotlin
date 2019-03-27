@@ -20,9 +20,13 @@ val networkModule = module {
     single(name = "header") { createHeaderInterceptor() }
     single { createOkHttpClient(get(), get(name = "logging"), get(name = "header")) }
     single { createAppRetrofit(get(), get()) }
-    single { createApiService(get()) }
+    single { createApiService(get(), get(), get()) }
 //    single { RxErrorHandlingFactory() }
     single { CoroutinesErrorHandlingFactory() }
+
+    single { Mock(BuildConfig.MOCK_DATA) }
+    single { MockApi(get()) }
+
 }
 
 const val TIMEOUT = 10
@@ -79,6 +83,8 @@ fun createAppRetrofit(
         .build()
 
 
-fun createApiService(retrofit: Retrofit): ApiService =
-    if (BuildConfig.MOCK_DATA) MockApi()
+fun createApiService(retrofit: Retrofit, mockApi: MockApi, mock: Mock): ApiService =
+    if (mock.isMock) mockApi
     else retrofit.create(ApiService::class.java)
+
+class Mock(val isMock: Boolean)

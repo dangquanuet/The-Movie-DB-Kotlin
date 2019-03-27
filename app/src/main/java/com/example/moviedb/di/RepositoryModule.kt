@@ -20,7 +20,7 @@ val repositoryModule = module {
     single<PrefHelper> { AppPrefs(get(), get()) }
     single { Gson() }
     single<UserRepository> { UserRepositoryImpl() }
-    single<MovieRepository> { MovieRepositoryImpl(get(), get()) }
+    single<MovieRepository> { MovieRepositoryImpl(get(), get(), get()) }
 }
 
 fun createDatabaseName() = Constants.DATABASE_NAME

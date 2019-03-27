@@ -4,7 +4,12 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.moviedb.data.remote.BaseException
 import com.example.moviedb.utils.SingleLiveEvent
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineExceptionHandler
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.net.HttpURLConnection
 import java.net.SocketTimeoutException
 import java.net.UnknownHostException
@@ -24,7 +29,7 @@ abstract class BaseViewModel : ViewModel() {
 //    fun addDisposable(disposable: Disposable) = compositeDisposable.add(disposable)
 
     // coroutines
-    private val viewModelJob = Job()
+    private val viewModelJob = SupervisorJob()
     protected val exceptionHandler = CoroutineExceptionHandler { _, throwable ->
         uiScope.launch {
             onLoadFail(throwable)
@@ -34,6 +39,8 @@ abstract class BaseViewModel : ViewModel() {
     protected val uiContext = viewModelJob + Dispatchers.Main
     protected val ioScope = CoroutineScope(ioContext)
     protected val uiScope = CoroutineScope(uiContext)
+    protected val ioScopeError = CoroutineScope(ioContext + exceptionHandler)
+    protected val uiScopeError = CoroutineScope(uiContext + exceptionHandler)
 
     open suspend fun onLoadFail(throwable: Throwable) {
         withContext(uiContext) {

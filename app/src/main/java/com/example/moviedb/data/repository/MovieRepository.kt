@@ -3,6 +3,7 @@ package com.example.moviedb.data.repository
 import com.example.moviedb.data.model.Movie
 import com.example.moviedb.data.remote.response.GetMovieListResponse
 import com.example.moviedb.data.remote.response.GetTvListResponse
+import com.example.moviedb.data.remote.response.Result
 
 interface MovieRepository {
 
@@ -10,19 +11,15 @@ interface MovieRepository {
         hashMap: HashMap<String, String> = HashMap()
     ): GetMovieListResponse
 
-    /*fun getTvList(
-        hashMap: HashMap<String, String> = HashMap()
-    ): Deferred<GetTvListResponse>
-
     fun getTvList(
         hashMap: HashMap<String, String>,
-        success: (GetTvListResponse) -> Unit = {},
-        fail: (Throwable) -> Unit = {}
-    ): Deferred<Unit?>
+        success: suspend (GetTvListResponse) -> Unit = {},
+        fail: suspend (Throwable) -> Unit = {}
+    )
 
     fun getTvList2(
         hashMap: HashMap<String, String> = HashMap()
-    ): Result<GetTvListResponse>*/
+    ): Result<GetTvListResponse>
 
     suspend fun getTvList3(
         hashMap: HashMap<String, String>
