@@ -1,7 +1,16 @@
 package com.example.moviedb.data.scheduler
 
-interface SchedulerProvider {
-    fun ui()
+import kotlinx.coroutines.CoroutineScope
+import kotlin.coroutines.CoroutineContext
 
-    fun io()
+interface SchedulerProvider {
+
+    val uiContext: CoroutineContext
+
+    val ioContext: CoroutineContext
+
+    val uiScope: CoroutineScope
+
+    val ioScope: CoroutineScope
+
 }
