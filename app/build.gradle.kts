@@ -147,7 +147,7 @@ dependencies {
     implementation("android.arch.navigation:navigation-ui-ktx:1.0.0")
 
     // work manager
-    implementation("androidx.work:work-runtime-ktx:2.0.0")
+    implementation("androidx.work:work-runtime-ktx:2.0.1")
 
     // rx
 //    implementation("io.reactivex.rxjava2:rxjava:2.2.2")
