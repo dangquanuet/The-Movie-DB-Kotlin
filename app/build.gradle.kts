@@ -128,10 +128,10 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-common-java8:2.0.0")
 
     // room
-    implementation("androidx.room:room-runtime:2.1.0-alpha06")
-    kapt("androidx.room:room-compiler:2.1.0-alpha06")
+    implementation("androidx.room:room-runtime:2.1.0-alpha07")
+    kapt("androidx.room:room-compiler:2.1.0-alpha07")
     // Kotlin Extensions and Coroutines support for Room
-    implementation("androidx.room:room-ktx:2.1.0-alpha06")
+    implementation("androidx.room:room-ktx:2.1.0-alpha07")
 
 /*
     // paging
