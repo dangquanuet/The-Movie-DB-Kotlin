@@ -133,14 +133,12 @@ dependencies {
     // Kotlin Extensions and Coroutines support for Room
     implementation("androidx.room:room-ktx:2.1.0-alpha07")
 
-/*
     // paging
-    implementation("androidx.paging:paging-runtime-ktx:2.1.0-beta01")
+    implementation("androidx.paging:paging-runtime-ktx:2.1.0")
     // alternatively - without Android dependencies for testing
-    testImplementation("androidx.paging:paging-common-ktx:2.1.0-beta01")
+    testImplementation("androidx.paging:paging-common-ktx:2.1.0")
     // optional - RxJava support
-    implementation("androidx.paging:paging-rxjava2-ktx:2.1.0-beta01")
-*/
+    implementation("androidx.paging:paging-rxjava2-ktx:2.1.0")
 
     // navigation
     implementation("android.arch.navigation:navigation-fragment-ktx:1.0.0")
@@ -181,7 +179,7 @@ dependencies {
 
     // unit test
     testImplementation("junit:junit:4.12")
-    testImplementation("org.mockito:mockito-core:2.21.0")
+    testImplementation("org.mockito:mockito-core:2.25.0")
     testImplementation("android.arch.core:core-testing:1.1.1")
 
     androidTestImplementation("com.android.support.test:runner:1.0.2")
