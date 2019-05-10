@@ -120,7 +120,7 @@ dependencies {
     implementation("androidx.cardview:cardview:1.0.0")
     implementation("com.google.android.material:material:1.0.0")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:${KotlinCompilerVersion.VERSION}")
-    implementation("androidx.core:core-ktx:1.0.1")
+    implementation("androidx.core:core-ktx:1.0.2")
 
     // ViewModel and LiveData
     implementation("androidx.lifecycle:lifecycle-extensions:2.0.0")
@@ -128,10 +128,10 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-common-java8:2.0.0")
 
     // room
-    implementation("androidx.room:room-runtime:2.1.0-alpha07")
-    kapt("androidx.room:room-compiler:2.1.0-alpha07")
+    implementation("androidx.room:room-runtime:2.1.0-beta01")
+    kapt("androidx.room:room-compiler:2.1.0-beta01")
     // Kotlin Extensions and Coroutines support for Room
-    implementation("androidx.room:room-ktx:2.1.0-alpha07")
+    implementation("androidx.room:room-ktx:2.1.0-beta01")
 
     // paging
     implementation("androidx.paging:paging-runtime-ktx:2.1.0")
@@ -148,8 +148,8 @@ dependencies {
     implementation("androidx.work:work-runtime-ktx:2.0.1")
 
     // rx
-//    implementation("io.reactivex.rxjava2:rxjava:2.2.2")
-//    implementation("io.reactivex.rxjava2:rxandroid:2.1.0")
+    implementation("io.reactivex.rxjava2:rxjava:2.2.2")
+    implementation("io.reactivex.rxjava2:rxandroid:2.1.0")
 
     // coroutines
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.1.1")
