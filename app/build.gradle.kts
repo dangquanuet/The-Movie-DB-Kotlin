@@ -10,9 +10,12 @@ plugins {
 }
 
 androidExtensions {
-    configure(delegateClosureOf<AndroidExtensionsExtension> {
+    /*configure(delegateClosureOf<AndroidExtensionsExtension> {
         isExperimental = true
-    })
+    })*/
+    configure<AndroidExtensionsExtension> {
+        isExperimental = true
+    }
 }
 
 android {
@@ -148,8 +151,8 @@ dependencies {
     implementation("androidx.work:work-runtime-ktx:2.0.1")
 
     // rx
-    implementation("io.reactivex.rxjava2:rxjava:2.2.2")
-    implementation("io.reactivex.rxjava2:rxandroid:2.1.0")
+    implementation("io.reactivex.rxjava2:rxjava:2.2.6")
+    implementation("io.reactivex.rxjava2:rxandroid:2.1.1")
 
     // coroutines
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.1.1")
@@ -161,13 +164,13 @@ dependencies {
     // retrofit
     implementation("com.squareup.retrofit2:retrofit:2.5.0")
     implementation("com.squareup.retrofit2:converter-gson:2.5.0")
-    implementation("com.squareup.okhttp3:logging-interceptor:3.11.0")
+    implementation("com.squareup.okhttp3:logging-interceptor:3.12.1")
 //    implementation("com.squareup.retrofit2:adapter-rxjava2:2.5.0")
     implementation("com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:0.9.2")
 
     // glide
-    implementation("com.github.bumptech.glide:glide:4.8.0")
-    kapt("com.github.bumptech.glide:compiler:4.8.0")
+    implementation("com.github.bumptech.glide:glide:4.9.0")
+    kapt("com.github.bumptech.glide:compiler:4.9.0")
 
     // koin
     implementation("org.koin:koin-core:2.0.0-beta-1")
