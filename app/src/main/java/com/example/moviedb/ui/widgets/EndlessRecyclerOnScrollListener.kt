@@ -16,22 +16,17 @@ abstract class EndlessRecyclerOnScrollListener(
     private var firstVisibleItem: Int = 0
     private var visibleItemCount: Int = 0
     private var totalItemCount: Int = 0
-    private var numberThreshold: Int = -1
-
-    init {
-        if (threshold >= 1) {
-            numberThreshold = threshold
-        } else {
-            numberThreshold = Constants.DEFAULT_NUM_VISIBLE_THRESHOLD
-        }
+    private var numberThreshold: Int = if (threshold >= 1) {
+        threshold
+    } else {
+        Constants.DEFAULT_NUM_VISIBLE_THRESHOLD
     }
 
     override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
         super.onScrolled(recyclerView, dx, dy)
         visibleItemCount = recyclerView.childCount
         totalItemCount = recyclerView.layoutManager?.itemCount ?: 0
-        val layoutManager = recyclerView.layoutManager
-        when (layoutManager) {
+        when (val layoutManager = recyclerView.layoutManager) {
             is LinearLayoutManager -> {
                 firstVisibleItem = layoutManager.findFirstVisibleItemPosition()
             }
@@ -47,7 +42,7 @@ abstract class EndlessRecyclerOnScrollListener(
             stateLoading()
         }
 
-        if (!isLoading
+        if (isLoading.not()
             && totalItemCount - visibleItemCount <= firstVisibleItem + numberThreshold
         ) {
             onLoadMore()
@@ -55,6 +50,7 @@ abstract class EndlessRecyclerOnScrollListener(
         }
     }
 
+    // check load more is success
     private fun stateLoading() {
         if (totalItemCount > previousTotal) {
             isLoading = false
