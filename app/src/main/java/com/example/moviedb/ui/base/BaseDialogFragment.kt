@@ -28,7 +28,7 @@ abstract class BaseDialogFragment<ViewBinding : ViewDataBinding> : DialogFragmen
 
     override fun onStart() {
         super.onStart()
-        dialog.apply {
+        dialog?.apply {
             setCancelable(false)
             window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         }

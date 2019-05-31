@@ -125,6 +125,8 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:${KotlinCompilerVersion.VERSION}")
     implementation("androidx.core:core-ktx:1.0.2")
 
+    implementation("androidx.fragment:fragment-ktx:1.1.0-alpha09")
+
     // ViewModel and LiveData
     implementation("androidx.lifecycle:lifecycle-extensions:2.0.0")
     // alternately - if using Java8, use the following instead of lifecycle-compiler
@@ -144,8 +146,9 @@ dependencies {
     implementation("androidx.paging:paging-rxjava2-ktx:2.1.0")
 
     // navigation
-    implementation("android.arch.navigation:navigation-fragment-ktx:1.0.0")
-    implementation("android.arch.navigation:navigation-ui-ktx:1.0.0")
+    implementation("androidx.navigation:navigation-runtime-ktx:2.0.0")
+    implementation("androidx.navigation:navigation-fragment-ktx:2.0.0")
+    implementation("androidx.navigation:navigation-ui-ktx:2.0.0")
 
     // work manager
     implementation("androidx.work:work-runtime-ktx:2.0.1")

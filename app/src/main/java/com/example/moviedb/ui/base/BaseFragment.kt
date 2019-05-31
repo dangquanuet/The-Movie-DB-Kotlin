@@ -87,11 +87,6 @@ abstract class BaseFragment<ViewBinding : ViewDataBinding, ViewModel : BaseViewM
         )
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        viewModel.onDestroy()
-    }
-
     fun showLoading() {
         hideLoading()
         loadingDialog?.show()
@@ -169,7 +164,9 @@ abstract class BaseFragment<ViewBinding : ViewDataBinding, ViewModel : BaseViewM
         val transaction = activity?.supportFragmentManager?.beginTransaction()
         if (addToBackStack) transaction?.addToBackStack(TAG)
         if (transit != -1) transaction?.setTransition(transit)
-        dialogFragment.show(transaction, TAG)
+        if (transaction != null) {
+            dialogFragment.show(transaction, TAG)
+        }
     }
 
     private fun commitTransaction(

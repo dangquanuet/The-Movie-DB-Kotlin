@@ -88,7 +88,8 @@ abstract class BaseViewModel : ViewModel() {
         isLoading.value = false
     }
 
-    fun onDestroy() {
+    override fun onCleared() {
+        super.onCleared()
 //        compositeDisposable.clear()
         viewModelJob.cancel()
     }
