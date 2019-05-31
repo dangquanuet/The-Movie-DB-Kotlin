@@ -10,9 +10,6 @@ plugins {
 }
 
 androidExtensions {
-    /*configure(delegateClosureOf<AndroidExtensionsExtension> {
-        isExperimental = true
-    })*/
     configure<AndroidExtensionsExtension> {
         isExperimental = true
     }
@@ -154,7 +151,7 @@ dependencies {
     implementation("androidx.work:work-runtime-ktx:2.0.1")
 
     // rx
-    implementation("io.reactivex.rxjava2:rxjava:2.2.6")
+    implementation("io.reactivex.rxjava2:rxjava:2.2.7")
     implementation("io.reactivex.rxjava2:rxandroid:2.1.1")
 
     // coroutines
@@ -185,7 +182,7 @@ dependencies {
 
     // unit test
     testImplementation("junit:junit:4.12")
-    testImplementation("org.mockito:mockito-core:2.25.0")
+    testImplementation("org.mockito:mockito-core:2.25.1")
     testImplementation("android.arch.core:core-testing:1.1.1")
 
     androidTestImplementation("com.android.support.test:runner:1.0.2")
@@ -194,7 +191,7 @@ dependencies {
     androidTestImplementation("android.arch.persistence.room:testing:1.1.1")
     androidTestImplementation("android.arch.core:core-testing:1.1.1")
 
-    testImplementation("com.squareup.okhttp3:mockwebserver:3.9.0")
+    testImplementation("com.squareup.okhttp3:mockwebserver:3.14.0")
     testImplementation("org.jetbrains.kotlin:kotlin-stdlib:${KotlinCompilerVersion.VERSION}")
 }
 
