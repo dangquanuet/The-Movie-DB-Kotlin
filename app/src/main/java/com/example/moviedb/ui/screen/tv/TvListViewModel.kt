@@ -20,7 +20,7 @@ class TvListViewModel(
         getTv4(page, hashMap)
     }
 
-    fun getTv(page: Int, hashMap: HashMap<String, String>) {
+    /*fun getTv(page: Int, hashMap: HashMap<String, String>) {
         movieRepository.getTvList(hashMap, {
             onLoadSuccess(page, it.results)
         }, {
@@ -50,7 +50,7 @@ class TvListViewModel(
                 onLoadFail(e)
             }
         }
-    }
+    }*/
 
     fun getTv4(page: Int, hashMap: HashMap<String, String>) {
         uiScopeError.launch {

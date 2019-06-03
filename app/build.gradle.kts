@@ -123,6 +123,7 @@ dependencies {
     implementation("androidx.core:core-ktx:1.0.2")
 
     implementation("androidx.fragment:fragment-ktx:1.1.0-alpha09")
+    implementation("androidx.lifecycle:lifecycle-viewmodel:2.2.0-alpha01")
 
     // ViewModel and LiveData
     implementation("androidx.lifecycle:lifecycle-extensions:2.0.0")

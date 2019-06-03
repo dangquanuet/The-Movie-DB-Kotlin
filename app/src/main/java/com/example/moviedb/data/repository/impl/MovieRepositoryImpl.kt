@@ -22,7 +22,7 @@ class MovieRepositoryImpl constructor(
         return apiService.getMovieList(hashMap).await()
     }
 
-    override fun getTvList(
+    /*override fun getTvList(
         hashMap: HashMap<String, String>,
         success: suspend (GetTvListResponse) -> Unit,
         fail: suspend (Throwable) -> Unit
@@ -48,7 +48,7 @@ class MovieRepositoryImpl constructor(
             }
         }
         return result
-    }
+    }*/
 
     override suspend fun getTvList3(
         hashMap: HashMap<String, String>
