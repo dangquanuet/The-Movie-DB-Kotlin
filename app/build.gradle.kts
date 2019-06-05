@@ -25,21 +25,14 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
-    signingConfigs {
-        create("release")
-    }
-
     buildTypes {
         getByName("debug") {
-            signingConfig = signingConfigs["debug"]
             isDebuggable = true
             isMinifyEnabled = false
             isShrinkResources = false
             isUseProguard = false
-            proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
         }
         getByName("release") {
-            signingConfig = signingConfigs["release"]
             isDebuggable = false
             isMinifyEnabled = true
             isShrinkResources = true
@@ -86,7 +79,7 @@ android {
         }
     }
 
-    variantFilter {
+    /*variantFilter {
         if (buildType.name != "debug" && flavors[0].name == "dev") {
             setIgnore(true)
         }
@@ -96,7 +89,7 @@ android {
         if (buildType.name != "release" && flavors[0].name == "prd") {
             setIgnore(true)
         }
-    }
+    }*/
 
     flavorDimensions("default")
 
