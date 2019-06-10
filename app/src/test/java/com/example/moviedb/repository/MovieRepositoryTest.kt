@@ -41,7 +41,7 @@ class MovieRepositoryTest {
     @Test
     fun getMovieList() {
         //true data return
-        Mockito.`when`(apiService.getMovieList()).thenReturn(Single.just(createMovie()))
+        Mockito.`when`(apiService.getMovieListAsync()).thenReturn(Single.just(createMovie()))
         movieRepository.getMovieList().test().assertValue {
             it.results.size == 2
             it.results.get(0).title == "Movie1"
@@ -50,7 +50,7 @@ class MovieRepositoryTest {
 
         // error data return
         val runtimeException = RuntimeException("123");
-        Mockito.`when`(apiService.getMovieList()).thenReturn(Single.error(runtimeException))
+        Mockito.`when`(apiService.getMovieListAsync()).thenReturn(Single.error(runtimeException))
         movieRepository.getMovieList().test().assertError(runtimeException)
     }
 

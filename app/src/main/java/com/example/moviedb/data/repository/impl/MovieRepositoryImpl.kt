@@ -5,10 +5,8 @@ import com.example.moviedb.data.model.Movie
 import com.example.moviedb.data.remote.ApiService
 import com.example.moviedb.data.remote.response.GetMovieListResponse
 import com.example.moviedb.data.remote.response.GetTvListResponse
-import com.example.moviedb.data.remote.response.Result
 import com.example.moviedb.data.repository.MovieRepository
 import com.example.moviedb.data.scheduler.SchedulerProvider
-import kotlinx.coroutines.launch
 
 class MovieRepositoryImpl constructor(
     private val apiService: ApiService,
@@ -19,7 +17,7 @@ class MovieRepositoryImpl constructor(
     override suspend fun getMovieList(
         hashMap: HashMap<String, String>
     ): GetMovieListResponse {
-        return apiService.getMovieList(hashMap).await()
+        return apiService.getMovieListAsync(hashMap)
     }
 
     /*override fun getTvList(
@@ -53,7 +51,7 @@ class MovieRepositoryImpl constructor(
     override suspend fun getTvList3(
         hashMap: HashMap<String, String>
     ): GetTvListResponse {
-        return apiService.getTvList(hashMap).await()
+        return apiService.getTvListAsync(hashMap)
     }
 
     override suspend fun insertDB(

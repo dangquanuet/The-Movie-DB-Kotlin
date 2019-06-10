@@ -25,7 +25,7 @@ val networkModule = module {
     single { CoroutinesErrorHandlingFactory() }
 
     single { Mock(BuildConfig.MOCK_DATA) }
-    single { MockApi(get()) }
+    single { MockApi() }
 
 }
 
@@ -76,7 +76,8 @@ fun createAppRetrofit(
 ): Retrofit =
     Retrofit.Builder()
 //        .addCallAdapterFactory(rxErrorHandlingFactory)
-        .addCallAdapterFactory(coroutinesErrorHandlingFactory)
+//        .addCallAdapterFactory(coroutinesErrorHandlingFactory)
+        // TODO fix CoroutineCallAdapterFactory
         .addConverterFactory(GsonConverterFactory.create())
         .baseUrl(BuildConfig.BASE_URL)
         .client(okHttpClient)

@@ -50,7 +50,7 @@ class MovieDBServiceTest {
     @Test
     fun testGetMovie() {
         enqueueResponse("movie_list_response.json")
-        var response = service.getMovieList()
+        var response = service.getMovieListAsync()
         var request: RecordedRequest = mockWebServer.takeRequest()
         assertEquals(request.path, "3/discover/movie")
         assertNotNull(response)

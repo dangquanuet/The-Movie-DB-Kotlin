@@ -4,9 +4,12 @@ import com.example.moviedb.utils.safeLog
 import com.google.gson.Gson
 import com.google.gson.annotations.SerializedName
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
+import io.reactivex.*
+import io.reactivex.functions.Function
 import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.Deferred
 import retrofit2.*
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import java.io.IOException
 import java.lang.reflect.Type
 
@@ -14,7 +17,7 @@ import java.lang.reflect.Type
 /**
  * RxErrorHandlingFactory for rxjava
  */
-/*class RxErrorHandlingFactory : CallAdapter.Factory() {
+class RxErrorHandlingFactory : CallAdapter.Factory() {
 
     private val instance = RxJava2CallAdapterFactory.createAsync()
 
@@ -70,11 +73,12 @@ class RxCallAdapterWrapper<R>(
             else -> result
         }
     }
-}*/
+}
 
 /**
- * CoroutinesErrorHandlingFactory for coroutine
+ * CoroutineErrorHandlingFactory for Coroutine
  */
+// TODO fix CoroutineCallAdapterFactory
 class CoroutinesErrorHandlingFactory : CallAdapter.Factory() {
 
     private val instance = CoroutineCallAdapterFactory()
@@ -139,7 +143,7 @@ fun convertToBaseException(throwable: Throwable): BaseException =
             val response = throwable.response()
             val httpCode = throwable.code()
 
-            if (response.errorBody() == null) {
+            if (response?.errorBody() == null) {
                 BaseException.toHttpError(
                     httpCode = httpCode,
                     response = response
@@ -147,7 +151,7 @@ fun convertToBaseException(throwable: Throwable): BaseException =
             }
 
             val serverErrorResponseBody = try {
-                response.errorBody()?.string() ?: ""
+                response?.errorBody()?.string() ?: ""
             } catch (e: Exception) {
                 e.safeLog()
                 ""
@@ -197,7 +201,7 @@ class BaseException(
         }
 
     companion object {
-        fun toHttpError(response: Response<*>, httpCode: Int) =
+        fun toHttpError(response: Response<*>?, httpCode: Int) =
             BaseException(
                 errorType = ErrorType.HTTP,
                 response = response,
