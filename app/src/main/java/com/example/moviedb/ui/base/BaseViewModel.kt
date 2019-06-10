@@ -44,7 +44,9 @@ abstract class BaseViewModel : ViewModel() {
 
     open suspend fun onLoadFail(throwable: Throwable) {
         withContext(uiContext) {
-            when (throwable.cause) {
+            // TODO update base
+//            when (throwable.cause) {
+            when (throwable) {
                 is UnknownHostException -> {
                     noInternetConnectionEvent.call()
                 }
