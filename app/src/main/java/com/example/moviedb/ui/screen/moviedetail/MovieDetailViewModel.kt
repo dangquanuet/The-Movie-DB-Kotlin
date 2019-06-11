@@ -1,10 +1,12 @@
 package com.example.moviedb.ui.screen.moviedetail
 
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.example.moviedb.data.local.dao.MovieDao
 import com.example.moviedb.data.model.Movie
 import com.example.moviedb.data.repository.MovieRepository
 import com.example.moviedb.ui.base.BaseViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
@@ -17,10 +19,10 @@ class MovieDetailViewModel(
     val favoriteChanged = MutableLiveData<Boolean>().apply { value = false }
 
     fun checkFavorite(id: String) {
-        ioScope.launch {
+        viewModelScope.launch {
             try {
                 val favoriteMovie = movieDao.getMovie(id)
-                withContext(uiContext) {
+                withContext(Dispatchers.Main) {
                     if (favoriteMovie?.isFavorite == true) {
                         val newMoview = movie.value
                         newMoview?.isFavorite = true
@@ -41,7 +43,7 @@ class MovieDetailViewModel(
         favoriteChanged.value = true
 
         newMovie?.let {
-            ioScope.launch {
+            viewModelScope.launch {
                 try {
                     movieRepository.updateDB(it)
                 } catch (e: Exception) {

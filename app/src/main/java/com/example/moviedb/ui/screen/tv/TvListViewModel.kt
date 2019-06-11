@@ -1,9 +1,8 @@
 package com.example.moviedb.ui.screen.tv
 
+import androidx.lifecycle.viewModelScope
 import com.example.moviedb.data.model.Tv
 import com.example.moviedb.data.remote.ApiParams
-import com.example.moviedb.data.remote.response.GetTvListResponse
-import com.example.moviedb.data.remote.response.Result
 import com.example.moviedb.data.repository.MovieRepository
 import com.example.moviedb.ui.base.BaseLoadMoreRefreshViewModel
 import kotlinx.coroutines.launch
@@ -53,8 +52,12 @@ class TvListViewModel(
     }*/
 
     fun getTv4(page: Int, hashMap: HashMap<String, String>) {
-        uiScopeError.launch {
-            onLoadSuccess(page, movieRepository.getTvList3((hashMap)).results)
+        viewModelScope.launch {
+            try {
+                onLoadSuccess(page, movieRepository.getTvList3((hashMap)).results)
+            } catch (throwable: Throwable) {
+                onLoadFail(throwable)
+            }
         }
     }
 

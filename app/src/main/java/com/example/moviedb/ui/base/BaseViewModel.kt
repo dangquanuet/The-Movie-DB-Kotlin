@@ -4,11 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.moviedb.data.remote.BaseException
 import com.example.moviedb.utils.SingleLiveEvent
-import kotlinx.coroutines.CoroutineExceptionHandler
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.SupervisorJob
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.net.HttpURLConnection
 import java.net.SocketTimeoutException
@@ -29,9 +25,9 @@ abstract class BaseViewModel : ViewModel() {
 //    fun addDisposable(disposable: Disposable) = compositeDisposable.add(disposable)
 
     // coroutines
-    private val viewModelJob = SupervisorJob()
+    /*private val viewModelJob = SupervisorJob()
     protected val exceptionHandler = CoroutineExceptionHandler { _, throwable ->
-        uiScope.launch {
+        viewModelScope.launch {
             onLoadFail(throwable)
         }
     }
@@ -42,8 +38,10 @@ abstract class BaseViewModel : ViewModel() {
     protected val ioScopeError = CoroutineScope(ioContext + exceptionHandler)
     protected val uiScopeError = CoroutineScope(uiContext + exceptionHandler)
 
+    protected val viewModelScopeExceptionHandler = viewModelScope + exceptionHandler*/
+
     open suspend fun onLoadFail(throwable: Throwable) {
-        withContext(uiContext) {
+        withContext(Dispatchers.Main) {
             // TODO update base
 //            when (throwable.cause) {
             when (throwable) {
@@ -93,6 +91,6 @@ abstract class BaseViewModel : ViewModel() {
     override fun onCleared() {
         super.onCleared()
 //        compositeDisposable.clear()
-        viewModelJob.cancel()
+//        viewModelJob.cancel()
     }
 }

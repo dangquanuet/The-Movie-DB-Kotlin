@@ -2,6 +2,7 @@ package com.example.moviedb.ui.screen.popularmovie
 
 import android.content.res.Resources
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.example.moviedb.data.constants.MovieListType
 import com.example.moviedb.data.model.Movie
 import com.example.moviedb.data.remote.ApiParams
@@ -34,7 +35,7 @@ class PopularMovieViewModel constructor(
             )
         }
 
-        ioScope.launch {
+        viewModelScope.launch {
             try {
                 onLoadSuccess(page, movieRepository.getMovieList(hashMap).results)
             } catch (e: Exception) {
