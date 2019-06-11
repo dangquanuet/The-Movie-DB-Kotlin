@@ -20,8 +20,8 @@ android {
     defaultConfig {
         applicationId = "com.example.moviedb"
         minSdkVersion(17)
-        compileSdkVersion(28)
-        targetSdkVersion(28)
+        compileSdkVersion(29)
+        targetSdkVersion(29)
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -40,6 +40,8 @@ android {
             proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
         }
     }
+
+    flavorDimensions("default")
 
     productFlavors {
         create("dev") {
@@ -79,7 +81,7 @@ android {
         }
     }
 
-    /*variantFilter {
+    variantFilter {
         if (buildType.name != "debug" && flavors[0].name == "dev") {
             setIgnore(true)
         }
@@ -89,9 +91,7 @@ android {
         if (buildType.name != "release" && flavors[0].name == "prd") {
             setIgnore(true)
         }
-    }*/
-
-    flavorDimensions("default")
+    }
 
     compileOptions {
         setTargetCompatibility(1.8)
@@ -115,7 +115,7 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:${KotlinCompilerVersion.VERSION}")
     implementation("androidx.core:core-ktx:1.0.2")
 
-    implementation("androidx.fragment:fragment-ktx:1.1.0-alpha09")
+    implementation("androidx.fragment:fragment-ktx:1.1.0-beta01")
     implementation("androidx.lifecycle:lifecycle-viewmodel:2.2.0-alpha01")
 
     // ViewModel and LiveData
