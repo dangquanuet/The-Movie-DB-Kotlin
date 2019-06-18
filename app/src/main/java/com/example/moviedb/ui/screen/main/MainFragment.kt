@@ -61,7 +61,7 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>() {
         var newFragment: Fragment? = fragmentManager.findFragmentByTag(newTag)
         if (newFragment == null) {
             newFragment = newFragmentInstance(position)
-            if (newFragment.isAdded()) {
+            if (newFragment.isAdded) {
                 fragmentTransaction.show(newFragment)
             } else {
                 fragmentTransaction.add(R.id.frame_layout, newFragment, newTag)

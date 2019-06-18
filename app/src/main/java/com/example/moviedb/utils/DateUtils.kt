@@ -34,7 +34,8 @@ fun String.changeTimeFormat(
         val simpleDateFormat = SimpleDateFormat(oldFormat, locale)
         val date = simpleDateFormat.parse(this)
         simpleDateFormat.applyPattern(newFormat)
-        simpleDateFormat.format(date)
+        if (date != null) simpleDateFormat.format(date)
+        else null
     } catch (e: Exception) {
         e.safeLog()
         null
@@ -49,14 +50,14 @@ fun Date.toTimeString(format: String, locale: Locale = Locale.getDefault()): Str
 fun getCurrentDateTime(): Date? = Calendar.getInstance().time
 
 fun Date.toCalendar(): Calendar? {
-    return Calendar.getInstance()?.let {
+    return Calendar.getInstance().let {
         it.time = this
         it
     }
 }
 
 fun Date.getPreviousMonth(): Date? {
-    return Calendar.getInstance()?.let {
+    return Calendar.getInstance().let {
         it.time = this
         it.add(Calendar.MONTH, -1)
         it.time
@@ -64,7 +65,7 @@ fun Date.getPreviousMonth(): Date? {
 }
 
 fun Date.getNextMonth(): Date? {
-    return Calendar.getInstance()?.let {
+    return Calendar.getInstance().let {
         it.time = this
         it.add(Calendar.MONTH, 1)
         it.time
@@ -72,7 +73,7 @@ fun Date.getNextMonth(): Date? {
 }
 
 fun Date.getPreviousDay(): Date? {
-    return Calendar.getInstance()?.let {
+    return Calendar.getInstance().let {
         it.time = this
         it.add(Calendar.DAY_OF_MONTH, -1)
         it.time
@@ -80,7 +81,7 @@ fun Date.getPreviousDay(): Date? {
 }
 
 fun Date.getNextDay(): Date? {
-    return Calendar.getInstance()?.let {
+    return Calendar.getInstance().let {
         it.time = this
         it.add(Calendar.DAY_OF_MONTH, 1)
         it.time
