@@ -7,7 +7,6 @@ import androidx.navigation.NavDestination
 import androidx.navigation.NavOptions
 import androidx.navigation.Navigator
 import androidx.navigation.fragment.FragmentNavigator
-import com.example.moviedb.ui.screen.favoritemovie.FavoriteMovieFragment
 
 /**
  * https://github.com/STAR-ZERO/navigation-keep-fragment-sample/blob/master/app/src/main/java/com/star_zero/navigation_keep_fragment_sample/navigation/KeepStateNavigator.kt
@@ -16,9 +15,9 @@ import com.example.moviedb.ui.screen.favoritemovie.FavoriteMovieFragment
 @Navigator.Name("keep_state_fragment") // `keep_state_fragment` is used in navigation xml
 class KeepStateNavigator(
     private val context: Context,
-    private val fragmentManager: FragmentManager, // Should pass childFragmentManager.
+    private val manager: FragmentManager, // Should pass childFragmentManager.
     private val containerId: Int
-) : FragmentNavigator(context, fragmentManager, containerId) {
+) : FragmentNavigator(context, manager, containerId) {
 
     override fun navigate(
         destination: Destination,
@@ -27,31 +26,33 @@ class KeepStateNavigator(
         navigatorExtras: Navigator.Extras?
     ): NavDestination? {
         val tag = destination.id.toString()
-        val transaction = fragmentManager.beginTransaction()
+        val transaction = manager.beginTransaction()
 
-        val currentFragment = fragmentManager.primaryNavigationFragment
+        var initialNavigate = false
+        val currentFragment = manager.primaryNavigationFragment
         if (currentFragment != null) {
-            transaction.hide(currentFragment)
+            transaction.detach(currentFragment)
+        } else {
+            initialNavigate = true
         }
 
-        var fragment = fragmentManager.findFragmentByTag(tag)
+        var fragment = manager.findFragmentByTag(tag)
         if (fragment == null) {
             val className = destination.className
-            fragment = instantiateFragment(context, fragmentManager, className, args)
+            fragment = manager.fragmentFactory.instantiate(context.classLoader, className)
             transaction.add(containerId, fragment, tag)
         } else {
-            // reload favorite movie
-            if (fragment is FavoriteMovieFragment) {
-                fragment.loadData()
-            }
-
-            transaction.show(fragment)
+            transaction.attach(fragment)
         }
 
         transaction.setPrimaryNavigationFragment(fragment)
         transaction.setReorderingAllowed(true)
         transaction.commit()
 
-        return destination
+        return if (initialNavigate) {
+            destination
+        } else {
+            null
+        }
     }
 }

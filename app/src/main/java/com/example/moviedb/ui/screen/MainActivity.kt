@@ -28,7 +28,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainActivityViewModel>() 
         // setup custom navigator
         val navigator = KeepStateNavigator(
             context = this,
-            fragmentManager = navHostFragment.childFragmentManager,
+            manager = navHostFragment.childFragmentManager,
             containerId = R.id.nav_host_fragment
         )
         navController.navigatorProvider += navigator
