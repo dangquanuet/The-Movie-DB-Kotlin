@@ -57,6 +57,7 @@
 
 ##################################
 # Retrofit 2
+# https://github.com/square/retrofit/blob/master/retrofit/src/main/resources/META-INF/proguard/retrofit2.pro
 ##################################
 # Platform calls Class.forName on types which do not exist on Android to determine platform.
 -dontnote retrofit2.Platform
@@ -69,7 +70,8 @@
 
 
 ##################################
-# OkHttp libs #
+# OkHttp
+# https://github.com/square/okhttp/blob/master/okhttp/src/main/resources/META-INF/proguard/okhttp3.pro
 ##################################
 -keepattributes Signature
 -keepattributes *Annotation*
@@ -80,6 +82,7 @@
 
 ##################################
 # Okio
+# https://github.com/square/okio/blob/master/okio/src/jvmMain/resources/META-INF/proguard/okio.pro
 ##################################
 -dontwarn okio.**
 -keep class sun.misc.Unsafe { *; }
@@ -120,28 +123,6 @@
 -keep class * extends io.reactivex.observers.DisposableObserver {
    *;
 }
-
-
-##################################
-# Dagger 2.8 libs #
-##################################
--dontwarn com.google.errorprone.annotations.*
--keep class * extends javax.inject.Provider
--keep class * implements javax.inject.Provider
--keep class dagger.** { *; }
-
--keepclassmembers,allowobfuscation class * {
-    @javax.inject.* *;
-    @dagger.* *;
-    <init>();
-}
--keep class **$$ModuleAdapter
--keep class **$$InjectAdapter
--keep class **$$StaticInjection
--keep class javax.inject.** { *; }
--dontwarn dagger.internal.codegen.**
--dontwarn dagger.producers.internal.**
--dontwarn dagger.shaded.auto.common.**
 
 
 ##################################
@@ -207,3 +188,11 @@
 
 # Other GenerateAdapter
 -keep class * implements androidx.lifecycle.GeneratedAdapter {<init>(...);}
+
+##################################
+# Koin #
+##################################
+-keepnames class android.arch.lifecycle.ViewModel
+-keepclassmembers public class * extends android.arch.lifecycle.ViewModel { public <init>(...); }
+-keepclassmembers class com.lebao.app.domain.** { public <init>(...); }
+-keepclassmembers class * { public <init>(...); }

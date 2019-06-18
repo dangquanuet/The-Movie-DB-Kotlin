@@ -10,7 +10,7 @@ import com.example.moviedb.ui.screen.favoritemovie.FavoriteMovieFragment
 import com.example.moviedb.ui.screen.popularmovie.PopularMovieFragment
 import com.example.moviedb.ui.screen.tv.TvListFragment
 import kotlinx.android.synthetic.main.fragment_main.*
-import org.koin.androidx.viewmodel.ext.viewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>() {
 

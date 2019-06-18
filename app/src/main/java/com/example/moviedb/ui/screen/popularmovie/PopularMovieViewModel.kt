@@ -11,9 +11,9 @@ import com.example.moviedb.ui.base.BaseLoadMoreRefreshViewModel
 import kotlinx.coroutines.launch
 
 
-class PopularMovieViewModel constructor(
+class PopularMovieViewModel(
     val resources: Resources,
-    val movieRepository: MovieRepository
+    private val movieRepository: MovieRepository
 ) : BaseLoadMoreRefreshViewModel<Movie>() {
 
     var mode = MutableLiveData<Int>().apply { value = MovieListType.POPULAR.type }

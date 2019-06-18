@@ -3,12 +3,12 @@ package com.example.moviedb.di
 import android.content.Context
 import com.example.moviedb.BuildConfig
 import com.example.moviedb.data.remote.ApiService
-import com.example.moviedb.data.remote.CoroutinesErrorHandlingFactory
 import com.example.moviedb.data.remote.MockApi
 import okhttp3.Cache
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import org.koin.core.qualifier.named
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -16,13 +16,13 @@ import java.util.concurrent.TimeUnit
 
 val networkModule = module {
     single { createOkHttpCache(get()) }
-    single(name = "logging") { createLoggingInterceptor() }
-    single(name = "header") { createHeaderInterceptor() }
-    single { createOkHttpClient(get(), get(name = "logging"), get(name = "header")) }
-    single { createAppRetrofit(get(), get()) }
+    single(named("logging")) { createLoggingInterceptor() }
+    single(named("header")) { createHeaderInterceptor() }
+    single { createOkHttpClient(get(named("logging")), get(named("header"))) }
+    single { createAppRetrofit(get()) }
     single { createApiService(get(), get(), get()) }
 //    single { RxErrorHandlingFactory() }
-    single { CoroutinesErrorHandlingFactory() }
+//    single { CoroutinesErrorHandlingFactory() }
 
     single { Mock(BuildConfig.MOCK_DATA) }
     single { MockApi() }
@@ -57,7 +57,7 @@ fun createHeaderInterceptor(): Interceptor =
     }
 
 fun createOkHttpClient(
-    cache: Cache,
+//    cache: Cache,
     logging: Interceptor,
     header: Interceptor
 ): OkHttpClient =
@@ -70,9 +70,9 @@ fun createOkHttpClient(
         .build()
 
 fun createAppRetrofit(
-    okHttpClient: OkHttpClient,
+    okHttpClient: OkHttpClient
 //    rxErrorHandlingFactory: RxErrorHandlingFactory,
-    coroutinesErrorHandlingFactory: CoroutinesErrorHandlingFactory
+//    coroutinesErrorHandlingFactory: CoroutinesErrorHandlingFactory
 ): Retrofit =
     Retrofit.Builder()
 //        .addCallAdapterFactory(rxErrorHandlingFactory)

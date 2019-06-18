@@ -10,7 +10,7 @@ import com.example.moviedb.databinding.FragmentLoadmoreRefreshBinding
 import com.example.moviedb.ui.base.BaseLoadMoreRefreshFragment
 import com.example.moviedb.ui.screen.popularmovie.PopularMovieAdapter
 import kotlinx.android.synthetic.main.fragment_loadmore_refresh.*
-import org.koin.androidx.viewmodel.ext.viewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class FavoriteMovieFragment :
     BaseLoadMoreRefreshFragment<FragmentLoadmoreRefreshBinding, FavoriteMovieViewModel, Movie>() {

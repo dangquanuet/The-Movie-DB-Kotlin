@@ -9,7 +9,7 @@ import com.example.moviedb.databinding.ActivityMainBinding
 import com.example.moviedb.ui.base.BaseActivity
 import com.example.moviedb.ui.navigation.KeepStateNavigator
 import kotlinx.android.synthetic.main.activity_main.*
-import org.koin.androidx.viewmodel.ext.viewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : BaseActivity<ActivityMainBinding, MainActivityViewModel>() {
 

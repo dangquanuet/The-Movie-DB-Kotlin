@@ -6,12 +6,10 @@ import com.example.moviedb.data.remote.ApiService
 import com.example.moviedb.data.remote.response.GetMovieListResponse
 import com.example.moviedb.data.remote.response.GetTvListResponse
 import com.example.moviedb.data.repository.MovieRepository
-import com.example.moviedb.data.scheduler.SchedulerProvider
 
-class MovieRepositoryImpl constructor(
+class MovieRepositoryImpl(
     private val apiService: ApiService,
-    private val movieDao: MovieDao,
-    private val schedulerProvider: SchedulerProvider
+    private val movieDao: MovieDao
 ) : MovieRepository {
 
     override suspend fun getMovieList(

@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.core.content.edit
 import com.google.gson.Gson
 
-class AppPrefs constructor(
+class AppPrefs(
     context: Context,
     val gson: Gson
 ) : PrefHelper {

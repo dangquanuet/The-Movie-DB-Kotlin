@@ -9,3 +9,5 @@ val appModule = module {
     single { androidApplication().resources }
     single<SchedulerProvider> { AppSchedulerProvider() }
 }
+
+val appModules = listOf(appModule, networkModule, repositoryModule, viewModelModule)

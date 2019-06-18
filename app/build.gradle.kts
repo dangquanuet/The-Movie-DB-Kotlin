@@ -167,9 +167,9 @@ dependencies {
     kapt("com.github.bumptech.glide:compiler:4.9.0")
 
     // koin
-    implementation("org.koin:koin-core:2.0.0-beta-1")
-    implementation("org.koin:koin-android:2.0.0-beta-1")
-    implementation("org.koin:koin-androidx-viewmodel:2.0.0-beta-1")
+    implementation("org.koin:koin-core:2.0.1")
+    implementation("org.koin:koin-android:2.0.1")
+    implementation("org.koin:koin-androidx-viewmodel:2.0.1")
 
     // runtime permission
     implementation("pub.devrel:easypermissions:3.0.0")

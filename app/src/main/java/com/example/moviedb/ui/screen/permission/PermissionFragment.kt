@@ -6,7 +6,7 @@ import com.example.moviedb.R
 import com.example.moviedb.databinding.FragmentPermisisonBinding
 import com.example.moviedb.ui.base.BaseFragment
 import kotlinx.android.synthetic.main.fragment_permisison.*
-import org.koin.androidx.viewmodel.ext.viewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class PermissionFragment : BaseFragment<FragmentPermisisonBinding, PermissionViewModel>() {
