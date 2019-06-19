@@ -1,5 +1,6 @@
 package com.example.moviedb.repository
 
+/*
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.example.moviedb.RxImmediateSchedulerRule
 import com.example.moviedb.data.local.dao.MovieDao
@@ -74,4 +75,4 @@ class MovieRepositoryTest {
         return response
     }
 
-}
+}*/

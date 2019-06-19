@@ -1,5 +1,6 @@
 package com.example.moviedb.data.room
 
+/*
 import androidx.room.Room
 import androidx.test.InstrumentationRegistry
 import androidx.test.runner.AndroidJUnit4
@@ -81,4 +82,4 @@ class MovieDaoTest {
         }
     }
 
-}
+}*/

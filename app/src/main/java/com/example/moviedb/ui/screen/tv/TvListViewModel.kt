@@ -8,7 +8,7 @@ import com.example.moviedb.ui.base.BaseLoadMoreRefreshViewModel
 import kotlinx.coroutines.launch
 
 class TvListViewModel(
-    private val movieRepository: UserRepository
+    private val userRepository: UserRepository
 ) : BaseLoadMoreRefreshViewModel<Tv>() {
 
     override fun loadData(page: Int) {
@@ -54,7 +54,7 @@ class TvListViewModel(
     fun getTv4(page: Int, hashMap: HashMap<String, String>) {
         viewModelScope.launch {
             try {
-                onLoadSuccess(page, movieRepository.getTvList3((hashMap)).results)
+                onLoadSuccess(page, userRepository.getTvList3((hashMap)).results)
             } catch (throwable: Throwable) {
                 onLoadFail(throwable)
             }

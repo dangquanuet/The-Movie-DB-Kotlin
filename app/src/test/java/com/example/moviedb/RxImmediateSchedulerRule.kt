@@ -1,5 +1,6 @@
 package com.example.moviedb
 
+/*
 import io.reactivex.android.plugins.RxAndroidPlugins
 import io.reactivex.plugins.RxJavaPlugins
 import io.reactivex.schedulers.Schedulers
@@ -26,4 +27,4 @@ class RxImmediateSchedulerRule : TestRule {
             }
         }
     }
-}
+}*/

@@ -13,7 +13,7 @@ import kotlinx.coroutines.launch
 
 class PopularMovieViewModel(
     val resources: Resources,
-    private val movieRepository: UserRepository
+    private val userRepository: UserRepository
 ) : BaseLoadMoreRefreshViewModel<Movie>() {
 
     var mode = MutableLiveData<Int>().apply { value = MovieListType.POPULAR.type }
@@ -29,7 +29,7 @@ class PopularMovieViewModel(
 
         viewModelScope.launch {
             try {
-                onLoadSuccess(page, movieRepository.getMovieList(hashMap).results)
+                onLoadSuccess(page, userRepository.getMovieList(hashMap).results)
             } catch (e: Exception) {
                 onLoadFail(e)
             }

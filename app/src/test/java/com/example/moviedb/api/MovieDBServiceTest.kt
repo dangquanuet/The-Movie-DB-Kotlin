@@ -1,5 +1,6 @@
 package com.example.moviedb.api
 
+/*
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.example.moviedb.data.remote.ApiService
 import okhttp3.mockwebserver.MockResponse
@@ -73,4 +74,4 @@ class MovieDBServiceTest {
         }
         mockWebServer.enqueue(mockResponse.setBody(source.readString(StandardCharsets.UTF_8)))
     }
-}
+}*/
