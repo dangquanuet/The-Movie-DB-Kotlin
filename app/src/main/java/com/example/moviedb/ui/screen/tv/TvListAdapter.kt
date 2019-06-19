@@ -32,9 +32,4 @@ class TvListAdapter(
         }
     }
 
-    override fun bindView(binding: ItemTvBinding, item: Tv, position: Int) {
-        binding.apply {
-
-        }
-    }
 }
