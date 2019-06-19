@@ -5,7 +5,7 @@ import com.example.moviedb.RxImmediateSchedulerRule
 import com.example.moviedb.data.local.dao.MovieDao
 import com.example.moviedb.data.model.Movie
 import com.example.moviedb.data.remote.response.GetMovieListResponse
-import com.example.moviedb.data.repository.impl.MovieRepositoryImpl
+import com.example.moviedb.data.repository.impl.UserRepositoryImpl
 import com.example.moviedb.data.remote.ApiService
 import io.reactivex.Observable
 import io.reactivex.Single
@@ -21,7 +21,7 @@ class MovieRepositoryTest {
 
     lateinit var apiService: ApiService
     lateinit var movieDao: MovieDao
-    lateinit var movieRepository: MovieRepositoryImpl
+    lateinit var movieRepository: UserRepositoryImpl
 
     @get:Rule
     var instantExecutorRule = InstantTaskExecutorRule()
@@ -35,7 +35,7 @@ class MovieRepositoryTest {
         apiService = Mockito.mock<ApiService>(
                 ApiService::class.java)
         movieDao = Mockito.mock<MovieDao>(MovieDao::class.java)
-        movieRepository = MovieRepositoryImpl(apiService)
+        movieRepository = UserRepositoryImpl(apiService)
     }
 
     @Test

@@ -1,10 +1,10 @@
 package com.example.moviedb.ui.screen.moviedetail
 
 import android.os.Bundle
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.moviedb.R
-import com.example.moviedb.data.model.Movie
 import com.example.moviedb.databinding.FragmentMovieDetailBinding
 import com.example.moviedb.ui.base.BaseFragment
 import kotlinx.android.synthetic.main.fragment_movie_detail.*
@@ -12,7 +12,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MovieDetailFragment : BaseFragment<FragmentMovieDetailBinding, MovieDetailViewModel>() {
 
-    companion object {
+    /*companion object {
         const val MOVIE = "MOVIE"
         const val TAG = "MovieDetailFragment"
 
@@ -21,7 +21,7 @@ class MovieDetailFragment : BaseFragment<FragmentMovieDetailBinding, MovieDetail
                 putParcelable(MOVIE, movie)
             }
         }
-    }
+    }*/
 
     override val layoutId: Int = R.layout.fragment_movie_detail
 
@@ -42,7 +42,14 @@ class MovieDetailFragment : BaseFragment<FragmentMovieDetailBinding, MovieDetail
             args.movie.let {
                 movie.value = it
                 checkFavorite(it.id)
+                getCastAndCrew(it.id)
             }
+
+            val castAdapter = CastAdapter()
+            recycler_cast.adapter = castAdapter
+            cast.observe(viewLifecycleOwner, Observer {
+                castAdapter.submitList(it)
+            })
         }
     }
 

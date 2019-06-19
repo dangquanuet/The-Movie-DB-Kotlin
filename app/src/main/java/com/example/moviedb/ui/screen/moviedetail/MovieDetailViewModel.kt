@@ -3,20 +3,22 @@ package com.example.moviedb.ui.screen.moviedetail
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.moviedb.data.local.dao.MovieDao
+import com.example.moviedb.data.model.Cast
 import com.example.moviedb.data.model.Movie
-import com.example.moviedb.data.repository.MovieRepository
+import com.example.moviedb.data.repository.UserRepository
 import com.example.moviedb.ui.base.BaseViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class MovieDetailViewModel(
-    val movieRepository: MovieRepository,
-    val movieDao: MovieDao
+    private val userRepository: UserRepository,
+    private val movieDao: MovieDao
 ) : BaseViewModel() {
 
     val movie = MutableLiveData<Movie>()
-    val favoriteChanged = MutableLiveData<Boolean>().apply { value = false }
+    val cast = MutableLiveData<ArrayList<Cast>>()
+    private val favoriteChanged = MutableLiveData<Boolean>().apply { value = false }
 
     fun checkFavorite(id: String) {
         viewModelScope.launch {
@@ -45,10 +47,23 @@ class MovieDetailViewModel(
         newMovie?.let {
             viewModelScope.launch {
                 try {
-                    movieRepository.updateDB(it)
+                    userRepository.updateDB(it)
                 } catch (e: Exception) {
                     onLoadFail(e)
                 }
+            }
+        }
+    }
+
+    fun getCastAndCrew(movieId: String) {
+        viewModelScope.launch {
+            try {
+                val movieCast = userRepository.getCastAndCrew(movieId).cast
+                withContext(Dispatchers.Main) {
+                    cast.value = movieCast
+                }
+            } catch (e: Exception) {
+                onLoadFail(e)
             }
         }
     }

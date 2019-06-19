@@ -81,18 +81,6 @@ android {
         }
     }
 
-    variantFilter {
-        if (buildType.name != "debug" && flavors[0].name == "dev") {
-            setIgnore(true)
-        }
-        if (buildType.name != "debug" && flavors[0].name == "mock") {
-            setIgnore(true)
-        }
-        if (buildType.name != "release" && flavors[0].name == "prd") {
-            setIgnore(true)
-        }
-    }
-
     compileOptions {
         setTargetCompatibility(1.8)
         setSourceCompatibility(1.8)
@@ -130,11 +118,11 @@ dependencies {
     implementation("androidx.room:room-ktx:2.1.0")
 
     // paging
-    implementation("androidx.paging:paging-runtime-ktx:2.1.0")
+//    implementation("androidx.paging:paging-runtime-ktx:2.1.0")
     // alternatively - without Android dependencies for testing
-    testImplementation("androidx.paging:paging-common-ktx:2.1.0")
+//    testImplementation("androidx.paging:paging-common-ktx:2.1.0")
     // optional - RxJava support
-    implementation("androidx.paging:paging-rxjava2-ktx:2.1.0")
+//    implementation("androidx.paging:paging-rxjava2-ktx:2.1.0")
 
     // navigation
     implementation("androidx.navigation:navigation-runtime-ktx:2.0.0")
@@ -142,11 +130,11 @@ dependencies {
     implementation("androidx.navigation:navigation-ui-ktx:2.0.0")
 
     // work manager
-    implementation("androidx.work:work-runtime-ktx:2.0.1")
+//    implementation("androidx.work:work-runtime-ktx:2.0.1")
 
     // rx
-    implementation("io.reactivex.rxjava2:rxjava:2.2.7")
-    implementation("io.reactivex.rxjava2:rxandroid:2.1.1")
+//    implementation("io.reactivex.rxjava2:rxjava:2.2.7")
+//    implementation("io.reactivex.rxjava2:rxandroid:2.1.1")
 
     // coroutines
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.1.1")
@@ -159,8 +147,8 @@ dependencies {
     implementation("com.squareup.retrofit2:retrofit:2.6.0")
     implementation("com.squareup.retrofit2:converter-gson:2.6.0")
     implementation("com.squareup.okhttp3:logging-interceptor:3.12.1")
-    implementation("com.squareup.retrofit2:adapter-rxjava2:2.6.0")
-    implementation("com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:0.9.2")
+//    implementation("com.squareup.retrofit2:adapter-rxjava2:2.6.0")
+//    implementation("com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:0.9.2")
 
     // glide
     implementation("com.github.bumptech.glide:glide:4.9.0")
@@ -172,7 +160,7 @@ dependencies {
     implementation("org.koin:koin-androidx-viewmodel:2.0.1")
 
     // runtime permission
-    implementation("pub.devrel:easypermissions:3.0.0")
+//    implementation("pub.devrel:easypermissions:3.0.0")
 
     // unit test
     testImplementation("junit:junit:4.12")

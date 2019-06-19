@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:bind="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
@@ -14,14 +14,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/black">
-
-        <!--<androidx.appcompat.widget.AppCompatImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:alpha="0.4"
-            android:scaleType="centerCrop"
-            bind:loadImage="@{ viewModel.movie.poster_path }"
-            tools:src="@drawable/bg_default_image" />-->
 
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
@@ -37,13 +29,13 @@
                     android:id="@+id/image_backdrop"
                     android:layout_width="0dp"
                     android:layout_height="@dimen/dp_300"
-                    bind:centerCrop="@{ true }"
-                    bind:large="@{ true }"
-                    bind:layout_constraintEnd_toEndOf="parent"
-                    bind:layout_constraintStart_toStartOf="parent"
-                    bind:layout_constraintTop_toTopOf="parent"
-                    bind:loadImage="@{ viewModel.movie.backdrop_path }"
-                    bind:placeholder="@{ @drawable/ic_gallery }"
+                    app:centerCrop="@{ true }"
+                    app:large="@{ true }"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:loadImage="@{ viewModel.movie.backdrop_path }"
+                    app:placeholder="@{ @drawable/ic_gallery }"
                     tools:scaleType="centerCrop"
                     tools:src="@drawable/ic_gallery" />
 
@@ -54,8 +46,8 @@
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_arrow_back_black"
                     android:tint="@color/white"
-                    bind:layout_constraintStart_toStartOf="@id/image_backdrop"
-                    bind:layout_constraintTop_toTopOf="@id/image_backdrop" />
+                    app:layout_constraintStart_toStartOf="@id/image_backdrop"
+                    app:layout_constraintTop_toTopOf="@id/image_backdrop" />
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/text_title"
@@ -65,9 +57,9 @@
                     android:text="@{ viewModel.movie.title }"
                     android:textColor="@color/white"
                     android:textSize="@dimen/sp_20"
-                    bind:layout_constraintEnd_toEndOf="parent"
-                    bind:layout_constraintStart_toStartOf="parent"
-                    bind:layout_constraintTop_toBottomOf="@id/image_backdrop"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/image_backdrop"
                     tools:text="Title" />
 
                 <androidx.appcompat.widget.AppCompatTextView
@@ -78,9 +70,9 @@
                     android:text="@{ viewModel.movie.release_date }"
                     android:textColor="@color/white"
                     android:textSize="@dimen/sp_14"
-                    bind:layout_constraintEnd_toEndOf="parent"
-                    bind:layout_constraintStart_toStartOf="parent"
-                    bind:layout_constraintTop_toBottomOf="@id/text_title"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/text_title"
                     tools:text="Date" />
 
                 <androidx.appcompat.widget.AppCompatTextView
@@ -92,9 +84,9 @@
                     android:text="@{ String.valueOf(viewModel.movie.vote_average) }"
                     android:textColor="@color/white"
                     android:textSize="@dimen/sp_14"
-                    bind:layout_constraintEnd_toEndOf="parent"
-                    bind:layout_constraintStart_toStartOf="parent"
-                    bind:layout_constraintTop_toBottomOf="@id/text_release_date"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/text_release_date"
                     tools:text="Vote" />
 
                 <androidx.appcompat.widget.AppCompatTextView
@@ -103,12 +95,13 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/dp_16"
                     android:layout_marginTop="@dimen/dp_16"
+                    android:layout_marginEnd="@dimen/dp_16"
                     android:text="@string/summary"
                     android:textColor="@color/white"
                     android:textSize="@dimen/sp_16"
-                    bind:layout_constraintEnd_toEndOf="parent"
-                    bind:layout_constraintStart_toStartOf="parent"
-                    bind:layout_constraintTop_toBottomOf="@id/text_vote_avarage" />
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/text_vote_avarage" />
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/text_overview"
@@ -120,10 +113,24 @@
                     android:text="@{ viewModel.movie.overview }"
                     android:textColor="@color/white"
                     android:textSize="@dimen/sp_14"
-                    bind:layout_constraintEnd_toEndOf="parent"
-                    bind:layout_constraintStart_toStartOf="parent"
-                    bind:layout_constraintTop_toBottomOf="@id/text_summary"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/text_summary"
                     tools:text="Determined to prove herself, Officer Judy Hopps, the first bunny on Zootopia's police force, jumps at the chance to crack her first case - even if it means partnering with scam-artist fox Nick Wilde to solve the mystery." />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycler_cast"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/dp_200"
+                    android:layout_marginStart="@dimen/dp_16"
+                    android:layout_marginTop="@dimen/dp_16"
+                    android:layout_marginEnd="@dimen/dp_16"
+                    android:orientation="horizontal"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/text_overview"
+                    tools:listitem="@layout/item_cast" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.core.widget.NestedScrollView>
@@ -135,8 +142,8 @@
             android:layout_marginEnd="@dimen/dp_16"
             android:layout_marginBottom="@dimen/dp_16"
             android:src="@{ viewModel.movie.isFavorite ? @drawable/ic_favorite_white_24dp : @drawable/ic_favorite_border_white_24dp }"
-            bind:layout_constraintBottom_toBottomOf="parent"
-            bind:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             tools:src="@drawable/ic_favorite_white_24dp" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

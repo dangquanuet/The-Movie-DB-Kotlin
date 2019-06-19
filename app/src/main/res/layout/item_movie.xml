@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:bind="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
@@ -19,7 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
-            bind:loadImage="@{ item.poster_path }"
+            app:loadImage="@{ item.poster_path }"
             tools:src="@drawable/bg_default_image" />
 
         <androidx.appcompat.widget.AppCompatTextView
@@ -27,10 +26,10 @@
             android:layout_height="wrap_content"
             android:background="@color/black_50"
             android:gravity="center"
-            android:paddingBottom="@dimen/dp_10"
-            android:paddingEnd="@dimen/dp_16"
             android:paddingStart="@dimen/dp_16"
             android:paddingTop="@dimen/dp_10"
+            android:paddingEnd="@dimen/dp_16"
+            android:paddingBottom="@dimen/dp_10"
             android:text="@{ item.title }"
             android:textColor="@android:color/white"
             android:textSize="@dimen/sp_16"

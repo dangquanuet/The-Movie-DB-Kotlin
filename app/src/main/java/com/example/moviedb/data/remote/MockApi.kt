@@ -1,6 +1,7 @@
 package com.example.moviedb.data.remote
 
 import com.example.moviedb.data.model.Movie
+import com.example.moviedb.data.remote.response.GetCastAndCrewResponse
 import com.example.moviedb.data.remote.response.GetMovieListResponse
 import com.example.moviedb.data.remote.response.GetTvListResponse
 import java.net.HttpURLConnection
@@ -56,6 +57,10 @@ class MockApi(
     override suspend fun getMovieDetailAsync(
         hashMap: HashMap<String, String>
     ): Movie = Movie("1")
+
+    override suspend fun getCastAndCrewAsync(movieId: String): GetCastAndCrewResponse {
+        return GetCastAndCrewResponse()
+    }
 
     override suspend fun getTvListAsync(
         hashMap: HashMap<String, String>

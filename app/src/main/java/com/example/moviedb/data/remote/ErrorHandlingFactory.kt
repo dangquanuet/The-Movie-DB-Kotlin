@@ -2,6 +2,13 @@ package com.example.moviedb.data.remote
 
 import com.example.moviedb.utils.safeLog
 import com.google.gson.Gson
+import retrofit2.HttpException
+import retrofit2.Response
+import java.io.IOException
+
+/*
+import com.example.moviedb.utils.safeLog
+import com.google.gson.Gson
 import com.google.gson.annotations.SerializedName
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import io.reactivex.*
@@ -14,9 +21,10 @@ import java.io.IOException
 import java.lang.reflect.Type
 
 
+*/
 /**
  * RxErrorHandlingFactory for rxjava
- */
+ *//*
 class RxErrorHandlingFactory : CallAdapter.Factory() {
 
     private val instance = RxJava2CallAdapterFactory.createAsync()
@@ -75,9 +83,9 @@ class RxCallAdapterWrapper<R>(
     }
 }
 
-/**
+*//**
  * CoroutineErrorHandlingFactory for Coroutine
- */
+ *//*
 // TODO fix CoroutineCallAdapterFactory
 class CoroutinesErrorHandlingFactory : CallAdapter.Factory() {
 
@@ -131,7 +139,7 @@ class CoroutineCallAdapterWrapper<T>(
 
         return deferred
     }
-}
+}*/
 
 fun convertToBaseException(throwable: Throwable): BaseException =
     when (throwable) {
@@ -257,5 +265,5 @@ enum class ErrorType {
 
 // TODO update server error response
 data class ServerErrorResponse(
-    @SerializedName("message") val message: String? = null
+    val message: String? = null
 )

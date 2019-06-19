@@ -4,7 +4,6 @@ import android.content.res.ColorStateList
 import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.SystemClock
-import android.text.TextUtils
 import android.view.View
 import android.webkit.WebView
 import android.widget.ImageView
@@ -48,7 +47,7 @@ fun ImageView.loadLocalImage(uri: Uri?) {
 
 @BindingAdapter(value = ["loadImageLocal"])
 fun ImageView.loadLocalImage(imageName: String?) {
-    if (TextUtils.isEmpty(imageName).not()) {
+    if (imageName.isNullOrBlank().not()) {
         Glide.with(context)
             .load(resources.getIdentifier(imageName, "drawable", BuildConfig.APPLICATION_ID))
             .into(this)
@@ -64,7 +63,7 @@ fun ImageView.loadImage(
     centerCrop: Boolean = false, fitCenter: Boolean = false, circleCrop: Boolean = false,
     isCacheSource: Boolean = false, animation: Boolean = false, isLarge: Boolean = false
 ) {
-    if (TextUtils.isEmpty(url)) {
+    if (url.isNullOrBlank()) {
         setImageDrawable(placeHolder)
         return
     }
@@ -76,7 +75,7 @@ fun ImageView.loadImage(
     )
         .placeholder(placeHolder)
 
-    if (!animation) requestOptions.dontAnimate()
+    if (animation.not()) requestOptions.dontAnimate()
     if (centerCrop) requestOptions.centerCrop()
     if (fitCenter) requestOptions.fitCenter()
     if (circleCrop) requestOptions.circleCrop()
