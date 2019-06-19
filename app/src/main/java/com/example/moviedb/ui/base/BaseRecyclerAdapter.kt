@@ -67,6 +67,6 @@ abstract class BaseRecyclerAdapter<Item, ViewBinding : ViewDataBinding>(
     protected open fun bind(binding: ViewBinding, position: Int) {}
 }
 
-open class BaseViewHolder<ViewBinding : ViewDataBinding> constructor(
+open class BaseViewHolder<ViewBinding : ViewDataBinding>(
     val binding: ViewBinding
 ) : RecyclerView.ViewHolder(binding.root)

@@ -16,17 +16,17 @@ class UserRepositoryImpl(
     override suspend fun getMovieList(
         hashMap: HashMap<String, String>
     ): GetMovieListResponse {
-        return apiService.getMovieListAsync(hashMap)
+        return apiService.getDiscoverMovieAsync(hashMap)
     }
 
     override suspend fun getCastAndCrew(movieId: String): GetCastAndCrewResponse {
-        return apiService.getCastAndCrewAsync(movieId)
+        return apiService.getMovieCreditsAsync(movieId)
     }
 
     override suspend fun getTvList3(
         hashMap: HashMap<String, String>
     ): GetTvListResponse {
-        return apiService.getTvListAsync(hashMap)
+        return apiService.getDiscoverTvAsync(hashMap)
     }
 
     override suspend fun insertDB(

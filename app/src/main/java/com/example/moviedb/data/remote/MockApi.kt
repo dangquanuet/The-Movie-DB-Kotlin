@@ -2,6 +2,7 @@ package com.example.moviedb.data.remote
 
 import com.example.moviedb.data.model.Movie
 import com.example.moviedb.data.remote.response.GetCastAndCrewResponse
+import com.example.moviedb.data.remote.response.GetMovieImages
 import com.example.moviedb.data.remote.response.GetMovieListResponse
 import com.example.moviedb.data.remote.response.GetTvListResponse
 import java.net.HttpURLConnection
@@ -11,16 +12,14 @@ import java.net.UnknownHostException
 class MockApi(
 ) : ApiService {
 
-    override suspend fun getMovieListAsync(
+    override suspend fun getDiscoverMovieAsync(
         hashMap: HashMap<String, String>
     ): GetMovieListResponse =
         when (HttpURLConnection.HTTP_UNAUTHORIZED) {
             1 -> {
-
                 throw BaseException.toNetworkError(
                     cause = UnknownHostException()
                 )
-
             }
 
             2 -> {
@@ -54,15 +53,19 @@ class MockApi(
             else -> GetMovieListResponse()
         }
 
-    override suspend fun getMovieDetailAsync(
+    override suspend fun getMovieAsync(
         hashMap: HashMap<String, String>
     ): Movie = Movie("1")
 
-    override suspend fun getCastAndCrewAsync(movieId: String): GetCastAndCrewResponse {
+    override suspend fun getMovieCreditsAsync(movieId: String): GetCastAndCrewResponse {
         return GetCastAndCrewResponse()
     }
 
-    override suspend fun getTvListAsync(
+    override suspend fun getMovieImagesAsync(movieId: String): GetMovieImages {
+        return GetMovieImages()
+    }
+
+    override suspend fun getDiscoverTvAsync(
         hashMap: HashMap<String, String>
     ): GetTvListResponse =
         when (HttpURLConnection.HTTP_INTERNAL_ERROR) {

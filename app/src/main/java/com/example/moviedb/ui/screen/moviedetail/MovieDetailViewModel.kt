@@ -58,10 +58,7 @@ class MovieDetailViewModel(
     fun getCastAndCrew(movieId: String) {
         viewModelScope.launch {
             try {
-                val movieCast = userRepository.getCastAndCrew(movieId).cast
-                withContext(Dispatchers.Main) {
-                    cast.value = movieCast
-                }
+                cast.value = userRepository.getCastAndCrew(movieId).cast
             } catch (e: Exception) {
                 onLoadFail(e)
             }
