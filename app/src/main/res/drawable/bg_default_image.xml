@@ -2,14 +2,14 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item>
         <shape>
-            <corners android:radius="@dimen/dp_6"/>
-            <solid android:color="#ededed"/>
+            <corners android:radius="@dimen/dp_6" />
+            <solid android:color="#ededed" />
         </shape>
     </item>
 
     <item>
         <bitmap
             android:gravity="center"
-            android:src="@drawable/ic_gallery"/>
+            android:src="@drawable/ic_gallery" />
     </item>
 </layer-list>
