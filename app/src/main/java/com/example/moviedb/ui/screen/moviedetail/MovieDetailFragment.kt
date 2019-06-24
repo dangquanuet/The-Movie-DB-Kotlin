@@ -12,17 +12,6 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MovieDetailFragment : BaseFragment<FragmentMovieDetailBinding, MovieDetailViewModel>() {
 
-    /*companion object {
-        const val MOVIE = "MOVIE"
-        const val TAG = "MovieDetailFragment"
-
-        fun newInstance(movie: Movie) = MovieDetailFragment().apply {
-            arguments = Bundle().apply {
-                putParcelable(MOVIE, movie)
-            }
-        }
-    }*/
-
     override val layoutId: Int = R.layout.fragment_movie_detail
 
     override val viewModel: MovieDetailViewModel by viewModel()

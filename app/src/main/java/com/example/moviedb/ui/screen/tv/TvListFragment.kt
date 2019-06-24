@@ -12,12 +12,6 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class TvListFragment :
     BaseLoadMoreRefreshFragment<FragmentLoadmoreRefreshBinding, TvListViewModel, Tv>() {
 
-    companion object {
-        const val TAG = "TvListFragment"
-
-        fun newInstance() = TvListFragment()
-    }
-
     override val viewModel: TvListViewModel by viewModel()
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -44,7 +38,7 @@ class TvListFragment :
     }
 
 
-    fun toTvDetail(tv: Tv) {
+    private fun toTvDetail(tv: Tv) {
 
     }
 }

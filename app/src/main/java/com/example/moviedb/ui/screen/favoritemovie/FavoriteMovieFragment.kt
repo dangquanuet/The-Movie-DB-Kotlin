@@ -15,12 +15,6 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class FavoriteMovieFragment :
     BaseLoadMoreRefreshFragment<FragmentLoadmoreRefreshBinding, FavoriteMovieViewModel, Movie>() {
 
-    companion object {
-        const val TAG = "FavoriteMovieFragment"
-
-        fun newInstance() = FavoriteMovieFragment()
-    }
-
     override val viewModel: FavoriteMovieViewModel by viewModel()
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -50,7 +44,7 @@ class FavoriteMovieFragment :
         viewModel.loadData(viewModel.getFirstPage())
     }
 
-    fun toMovieDetail(movie: Movie) {
+    private fun toMovieDetail(movie: Movie) {
         findNavController().navigate(
             FavoriteMovieFragmentDirections.toMovieDetail(movie)
         )

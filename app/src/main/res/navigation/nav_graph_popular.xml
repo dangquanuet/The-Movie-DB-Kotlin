@@ -10,9 +10,16 @@
         android:name="com.example.moviedb.ui.screen.popularmovie.PopularMovieFragment"
         tools:layout="@layout/fragment_loadmore_refresh">
 
+        <argument
+            android:name="type"
+            android:defaultValue="@null"
+            app:argType="java.lang.Integer"
+            app:nullable="true" />
+
         <action
             android:id="@+id/to_movie_detail"
             app:destination="@id/movie_detail" />
+
     </fragment>
 
     <fragment

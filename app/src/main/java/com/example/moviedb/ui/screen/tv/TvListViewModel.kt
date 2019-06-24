@@ -18,7 +18,7 @@ class TvListViewModel(
         getTv4(page, hashMap)
     }
 
-    fun getTv4(page: Int, hashMap: HashMap<String, String>) {
+    private fun getTv4(page: Int, hashMap: HashMap<String, String>) {
         viewModelScopeExceptionHandler.launch {
             onLoadSuccess(page, userRepository.getTvList3((hashMap)).results)
         }
