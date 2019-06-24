@@ -7,8 +7,6 @@
         <variable
             name="viewModel"
             type="com.example.moviedb.ui.screen.main.MainViewModel" />
-
-        <import type="com.example.moviedb.ui.screen.main.Tab" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -16,69 +14,28 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <LinearLayout
-            android:id="@+id/layout_bottom_navigation"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:baselineAligned="false"
-            android:orientation="horizontal"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
-
-            <include
-                android:id="@+id/layout_tab_popular"
-                layout="@layout/item_bottom_navigation"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                app:icon="@{ @drawable/ic_gallery }"
-                app:isSelected="@{ viewModel.currentTab == Tab.POPULAR.position }"
-                app:selectedIcon="@{ @drawable/ic_gallery }"
-                app:title="@{ @string/main_tab_popular }" />
-
-            <include
-                android:id="@+id/layout_tab_rated"
-                layout="@layout/item_bottom_navigation"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                app:icon="@{ @drawable/ic_gallery }"
-                app:isSelected="@{ viewModel.currentTab == Tab.TOP_RATED.position }"
-                app:selectedIcon="@{ @drawable/ic_gallery }"
-                app:title="@{ @string/main_tab_top_rated }" />
-
-            <include
-                android:id="@+id/layout_tab_favorite"
-                layout="@layout/item_bottom_navigation"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                app:icon="@{ @drawable/ic_gallery }"
-                app:isSelected="@{ viewModel.currentTab == Tab.FAVORITE.position }"
-                app:selectedIcon="@{ @drawable/ic_gallery }"
-                app:title="@{ @string/main_tab_favorite }" />
-
-            <include
-                android:id="@+id/layout_tab_profile"
-                layout="@layout/item_bottom_navigation"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                app:icon="@{ @drawable/ic_gallery }"
-                app:isSelected="@{ viewModel.currentTab == Tab.PROFILE.position }"
-                app:selectedIcon="@{ @drawable/ic_gallery }"
-                app:title="@{ @string/main_tab_profile }" />
-        </LinearLayout>
-
-        <FrameLayout
-            android:id="@+id/frame_layout"
+        <fragment
+            android:id="@+id/nav_host_fragment"
+            android:name="androidx.navigation.fragment.NavHostFragment"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            app:layout_constraintBottom_toTopOf="@id/layout_bottom_navigation"
+            app:defaultNavHost="true"
+            app:layout_constraintBottom_toTopOf="@+id/bottom_nav"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottom_nav"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@color/black"
+            app:itemIconTint="@color/white"
+            app:itemTextColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:menu="@menu/navigation" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
