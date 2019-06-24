@@ -3,24 +3,21 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/navigation_popular">
+    app:startDestination="@id/splash">
 
-    <keep_state_fragment
-        android:id="@+id/navigation_popular"
-        android:name="com.example.moviedb.ui.navigation.popularcontainer.PopularContainerFragment"
-        android:label="PopularContainerFragment"
-        tools:layout="@layout/fragment_popular_container" />
+    <fragment
+        android:id="@+id/splash"
+        android:name="com.example.moviedb.ui.screen.splash.SplashFragment"
+        tools:layout="@layout/fragment_splash">
+        <action
+            android:id="@+id/splash_to_main"
+            app:destination="@id/main"
+            app:popUpTo="@id/splash"
+            app:popUpToInclusive="true" />
+    </fragment>
 
-    <keep_state_fragment
-        android:id="@+id/navigation_favorite"
-        android:name="com.example.moviedb.ui.navigation.favoritecontainer.FavoriteContainerFragment"
-        android:label="FavoriteContainerFragment"
-        tools:layout="@layout/fragment_favorite_container" />
-
-    <keep_state_fragment
-        android:id="@+id/navigation_tv"
-        android:name="com.example.moviedb.ui.screen.tv.TvListFragment"
-        android:label="TvListFragment"
-        tools:layout="@layout/fragment_loadmore_refresh" />
-
+    <fragment
+        android:id="@+id/main"
+        android:name="com.example.moviedb.ui.screen.main.MainFragment"
+        tools:layout="@layout/fragment_main" />
 </navigation>

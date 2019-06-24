@@ -1,4 +1,4 @@
-package com.example.moviedb.ui.screen.main
+package com.example.moviedb.ui.screen.oldmain
 
 enum class Tab(val position: Int) {
     POPULAR(0),

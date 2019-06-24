@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.example.moviedb.ui.screen.oldmain.OldMainViewModel" />
+
+        <import type="com.example.moviedb.ui.screen.oldmain.Tab" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/layout_bottom_navigation"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:baselineAligned="false"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <include
+                android:id="@+id/layout_tab_popular"
+                layout="@layout/item_bottom_navigation"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                app:icon="@{ @drawable/ic_gallery }"
+                app:isSelected="@{ viewModel.currentTab == Tab.POPULAR.position }"
+                app:selectedIcon="@{ @drawable/ic_gallery }"
+                app:title="@{ @string/main_tab_popular }" />
+
+            <include
+                android:id="@+id/layout_tab_rated"
+                layout="@layout/item_bottom_navigation"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                app:icon="@{ @drawable/ic_gallery }"
+                app:isSelected="@{ viewModel.currentTab == Tab.TOP_RATED.position }"
+                app:selectedIcon="@{ @drawable/ic_gallery }"
+                app:title="@{ @string/main_tab_top_rated }" />
+
+            <include
+                android:id="@+id/layout_tab_favorite"
+                layout="@layout/item_bottom_navigation"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                app:icon="@{ @drawable/ic_gallery }"
+                app:isSelected="@{ viewModel.currentTab == Tab.FAVORITE.position }"
+                app:selectedIcon="@{ @drawable/ic_gallery }"
+                app:title="@{ @string/main_tab_favorite }" />
+
+            <include
+                android:id="@+id/layout_tab_profile"
+                layout="@layout/item_bottom_navigation"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                app:icon="@{ @drawable/ic_gallery }"
+                app:isSelected="@{ viewModel.currentTab == Tab.PROFILE.position }"
+                app:selectedIcon="@{ @drawable/ic_gallery }"
+                app:title="@{ @string/main_tab_profile }" />
+        </LinearLayout>
+
+        <FrameLayout
+            android:id="@+id/frame_layout"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@id/layout_bottom_navigation"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
