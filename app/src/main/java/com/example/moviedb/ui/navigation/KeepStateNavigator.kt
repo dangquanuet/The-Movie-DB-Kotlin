@@ -15,9 +15,9 @@ import androidx.navigation.fragment.FragmentNavigator
 @Navigator.Name("keep_state_fragment") // `keep_state_fragment` is used in navigation xml
 class KeepStateNavigator(
     private val context: Context,
-    private val manager: FragmentManager, // Should pass childFragmentManager.
+    private val fragmentManager: FragmentManager, // Should pass childFragmentManager.
     private val containerId: Int
-) : FragmentNavigator(context, manager, containerId) {
+) : FragmentNavigator(context, fragmentManager, containerId) {
 
     override fun navigate(
         destination: Destination,
@@ -26,28 +26,29 @@ class KeepStateNavigator(
         navigatorExtras: Navigator.Extras?
     ): NavDestination? {
         val tag = destination.id.toString()
-        val transaction = manager.beginTransaction()
+        val fragmentTransaction = fragmentManager.beginTransaction()
 
         var initialNavigate = false
-        val currentFragment = manager.primaryNavigationFragment
+        val currentFragment = fragmentManager.primaryNavigationFragment
         if (currentFragment != null) {
-            transaction.detach(currentFragment)
+            fragmentTransaction.detach(currentFragment)
         } else {
             initialNavigate = true
         }
 
-        var fragment = manager.findFragmentByTag(tag)
-        if (fragment == null) {
+        var newFragment = fragmentManager.findFragmentByTag(tag)
+        if (newFragment == null) {
             val className = destination.className
-            fragment = manager.fragmentFactory.instantiate(context.classLoader, className)
-            transaction.add(containerId, fragment, tag)
+            newFragment =
+                fragmentManager.fragmentFactory.instantiate(context.classLoader, className)
+            fragmentTransaction.add(containerId, newFragment, tag)
         } else {
-            transaction.attach(fragment)
+            fragmentTransaction.attach(newFragment)
         }
 
-        transaction.setPrimaryNavigationFragment(fragment)
-        transaction.setReorderingAllowed(true)
-        transaction.commit()
+        fragmentTransaction.setPrimaryNavigationFragment(newFragment)
+        fragmentTransaction.setReorderingAllowed(true)
+        fragmentTransaction.commit()
 
         return if (initialNavigate) {
             destination

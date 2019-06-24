@@ -29,7 +29,7 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>() {
         // setup custom navigator
         val navigator = KeepStateNavigator(
             context = requireContext(),
-            manager = navHostFragment.childFragmentManager,
+            fragmentManager = navHostFragment.childFragmentManager,
             containerId = R.id.nav_host_fragment
         )
         navController.navigatorProvider += navigator
