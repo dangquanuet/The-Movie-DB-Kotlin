@@ -3,22 +3,16 @@ package com.example.moviedb.ui.screen.oldmain
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import com.example.moviedb.R
-import com.example.moviedb.data.constants.MovieListType
 import com.example.moviedb.databinding.FragmentMainBinding
 import com.example.moviedb.ui.base.BaseFragment
 import com.example.moviedb.ui.screen.favoritemovie.FavoriteMovieFragment
-import com.example.moviedb.ui.screen.popularmovie.PopularMovieFragment
-import com.example.moviedb.ui.screen.tv.TvListFragment
 import kotlinx.android.synthetic.main.fragment_old_main.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class OldMainFragment : BaseFragment<FragmentMainBinding, OldMainViewModel>() {
 
     companion object {
-        const val TAG = "OldMainFragment"
-        const val FRAGMENT_TAG = "FRAGMENT_TAG"
-
-        fun newInstance() = OldMainFragment()
+        private const val FRAGMENT_TAG = "FRAGMENT_TAG"
     }
 
     override val layoutId: Int = R.layout.fragment_old_main
@@ -80,9 +74,9 @@ class OldMainFragment : BaseFragment<FragmentMainBinding, OldMainViewModel>() {
         return true
     }
 
-    fun getTabFragmentTag(position: Int) = FRAGMENT_TAG + position
+    private fun getTabFragmentTag(position: Int) = FRAGMENT_TAG + position
 
-    fun newFragmentInstance(position: Int): Fragment {
+    private fun newFragmentInstance(position: Int): Fragment {
         return when (position) {
             Tab.POPULAR.position -> Fragment()/*PopularMovieFragment.newInstance(
                 MovieListType.POPULAR.type
@@ -94,27 +88,6 @@ class OldMainFragment : BaseFragment<FragmentMainBinding, OldMainViewModel>() {
             Tab.PROFILE.position -> Fragment()
             else -> Fragment()
         }
-    }
-
-    override fun onBack(): Boolean {
-        val currentFragment = childFragmentManager.findFragmentByTag(
-            getTabFragmentTag(viewModel.currentTab.value ?: Tab.POPULAR.position)
-        ) ?: return false
-
-        val stackCount = currentFragment.childFragmentManager.backStackEntryCount
-        if (stackCount > 0) {
-            currentFragment.childFragmentManager.popBackStack()
-
-            // refresh favorite movies
-            if (currentFragment is FavoriteMovieFragment) {
-                currentFragment.loadData()
-            }
-
-            // handled in child
-            return true
-        }
-        // not handle in child, parent will handle
-        return false
     }
 
 }

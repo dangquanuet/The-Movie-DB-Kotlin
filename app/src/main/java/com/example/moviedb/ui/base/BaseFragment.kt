@@ -182,7 +182,4 @@ abstract class BaseFragment<ViewBinding : ViewDataBinding, ViewModel : BaseViewM
         parentFragment.childFragmentManager.popBackStack()
     }
 
-    open fun onBack(): Boolean {
-        return false
-    }
 }
