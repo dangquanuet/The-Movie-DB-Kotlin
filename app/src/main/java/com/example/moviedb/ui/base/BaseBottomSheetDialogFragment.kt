@@ -1,7 +1,5 @@
 package com.example.moviedb.ui.base
 
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,11 +7,11 @@ import android.view.ViewGroup
 import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
-import androidx.fragment.app.DialogFragment
 import com.example.moviedb.BR
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
-abstract class BaseDialogFragment<ViewBinding : ViewDataBinding, ViewModel : BaseViewModel> :
-    DialogFragment() {
+abstract class BaseBottomSheetDialogFragment<ViewBinding : ViewDataBinding, ViewModel : BaseViewModel> :
+    BottomSheetDialogFragment() {
 
     lateinit var viewBinding: ViewBinding
 
@@ -37,14 +35,6 @@ abstract class BaseDialogFragment<ViewBinding : ViewDataBinding, ViewModel : Bas
             root.isClickable = true
             lifecycleOwner = viewLifecycleOwner
             executePendingBindings()
-        }
-    }
-
-    override fun onStart() {
-        super.onStart()
-        dialog?.apply {
-            setCancelable(false)
-            window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         }
     }
 }
