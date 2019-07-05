@@ -146,7 +146,7 @@ dependencies {
     // retrofit
     implementation("com.squareup.retrofit2:retrofit:2.6.0")
     implementation("com.squareup.retrofit2:converter-gson:2.6.0")
-    implementation("com.squareup.okhttp3:logging-interceptor:3.12.1")
+    implementation("com.squareup.okhttp3:logging-interceptor:3.14.0")
 //    implementation("com.squareup.retrofit2:adapter-rxjava2:2.6.0")
 //    implementation("com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:0.9.2")
 
@@ -155,8 +155,8 @@ dependencies {
     kapt("com.github.bumptech.glide:compiler:4.9.0")
 
     // koin
-    implementation("org.koin:koin-core:2.0.1")
-    implementation("org.koin:koin-android:2.0.1")
+//    implementation("org.koin:koin-core:2.0.1")
+//    implementation("org.koin:koin-android:2.0.1")
     implementation("org.koin:koin-androidx-viewmodel:2.0.1")
 
     // runtime permission
