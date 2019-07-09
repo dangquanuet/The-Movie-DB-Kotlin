@@ -103,7 +103,7 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:${KotlinCompilerVersion.VERSION}")
     implementation("androidx.core:core-ktx:1.0.2")
 
-    implementation("androidx.fragment:fragment-ktx:1.1.0-beta01")
+    implementation("androidx.fragment:fragment-ktx:1.1.0-rc01")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0-alpha01")
 
     // ViewModel and LiveData
@@ -136,9 +136,9 @@ dependencies {
 //    implementation("io.reactivex.rxjava2:rxjava:2.2.7")
 //    implementation("io.reactivex.rxjava2:rxandroid:2.1.1")
 
-    // coroutines
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.1.1")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.1.1")
+    // coroutines (already included)
+//    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.0-M2")
+//    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.0-M2")
 
     // gson
     implementation("com.google.code.gson:gson:2.8.5")
