@@ -55,7 +55,7 @@ abstract class BaseViewModel : ViewModel() {
                     val baseException = convertToBaseException(throwable)
                     when (baseException.httpCode) {
                         HttpURLConnection.HTTP_UNAUTHORIZED -> {
-                            errorMessage.value = throwable.message
+                            errorMessage.value = baseException.message
                         }
                         HttpURLConnection.HTTP_INTERNAL_ERROR -> {
                             errorMessage.value = baseException.message

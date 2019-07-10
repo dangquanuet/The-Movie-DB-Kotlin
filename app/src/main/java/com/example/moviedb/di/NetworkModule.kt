@@ -22,11 +22,8 @@ val networkModule = module {
     single { createAppRetrofit(get()) }
     single { createApiService(get(), get(), get()) }
 //    single { RxErrorHandlingFactory() }
-//    single { CoroutinesErrorHandlingFactory() }
-
     single { Mock(BuildConfig.MOCK_DATA) }
     single { MockApi() }
-
 }
 
 const val TIMEOUT = 10
@@ -72,12 +69,9 @@ fun createOkHttpClient(
 fun createAppRetrofit(
     okHttpClient: OkHttpClient
 //    rxErrorHandlingFactory: RxErrorHandlingFactory,
-//    coroutinesErrorHandlingFactory: CoroutinesErrorHandlingFactory
 ): Retrofit =
     Retrofit.Builder()
 //        .addCallAdapterFactory(rxErrorHandlingFactory)
-//        .addCallAdapterFactory(coroutinesErrorHandlingFactory)
-        // TODO fix CoroutineCallAdapterFactory
         .addConverterFactory(GsonConverterFactory.create())
         .baseUrl(BuildConfig.BASE_URL)
         .client(okHttpClient)
