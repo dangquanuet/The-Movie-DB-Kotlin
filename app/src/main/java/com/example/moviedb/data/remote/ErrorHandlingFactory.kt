@@ -203,7 +203,7 @@ class BaseException(
 
             ErrorType.NETWORK -> cause?.message
 
-            ErrorType.SERVER -> serverErrorResponse?.message // TODO update real response
+            ErrorType.SERVER -> serverErrorResponse?.errors?.get(0) // TODO update error message from server
 
             ErrorType.UNEXPECTED -> cause?.message
         }
@@ -265,5 +265,6 @@ enum class ErrorType {
 
 // TODO update server error response
 data class ServerErrorResponse(
-    val message: String? = null
+    val message: String? = null,
+    val errors: List<String>? = null
 )

@@ -3,7 +3,7 @@ package com.example.moviedb.ui.base
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.moviedb.data.remote.BaseException
+import com.example.moviedb.data.remote.convertToBaseException
 import com.example.moviedb.utils.SingleLiveEvent
 import kotlinx.coroutines.*
 import java.net.HttpURLConnection
@@ -26,7 +26,7 @@ abstract class BaseViewModel : ViewModel() {
 //    fun addDisposable(disposable: Disposable) = compositeDisposable.add(disposable)
 
     // coroutines
-    protected val exceptionHandler = CoroutineExceptionHandler { context, throwable ->
+    private val exceptionHandler = CoroutineExceptionHandler { context, throwable ->
         viewModelScope.launch {
             onLoadFail(throwable)
         }
@@ -44,8 +44,6 @@ abstract class BaseViewModel : ViewModel() {
 
     open suspend fun onLoadFail(throwable: Throwable) {
         withContext(Dispatchers.Main) {
-            // TODO update base
-//            when (throwable.cause) {
             when (throwable) {
                 is UnknownHostException -> {
                     noInternetConnectionEvent.call()
@@ -54,22 +52,16 @@ abstract class BaseViewModel : ViewModel() {
                     connectTimeoutEvent.call()
                 }
                 else -> {
-                    when (throwable) {
-                        is BaseException -> {
-                            when (throwable.httpCode) {
-                                HttpURLConnection.HTTP_UNAUTHORIZED -> {
-                                    errorMessage.value = throwable.message
-                                }
-                                HttpURLConnection.HTTP_INTERNAL_ERROR -> {
-                                    errorMessage.value = throwable.message
-                                }
-                                else -> {
-                                    errorMessage.value = throwable.message
-                                }
-                            }
+                    val baseException = convertToBaseException(throwable)
+                    when (baseException.httpCode) {
+                        HttpURLConnection.HTTP_UNAUTHORIZED -> {
+                            errorMessage.value = throwable.message
+                        }
+                        HttpURLConnection.HTTP_INTERNAL_ERROR -> {
+                            errorMessage.value = baseException.message
                         }
                         else -> {
-                            errorMessage.value = throwable.message
+                            errorMessage.value = baseException.message
                         }
                     }
                 }
