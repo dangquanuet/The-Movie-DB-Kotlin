@@ -1,6 +1,7 @@
 package com.example.moviedb.ui.screen.main
 
 import android.os.Bundle
+import android.view.View
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.plusAssign
 import androidx.navigation.ui.setupWithNavController
@@ -18,19 +19,22 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>() {
 
     override val viewModel: MainViewModel by viewModel()
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setupNavHost()
+    }
 
+    private fun setupNavHost() {
         val navController = findNavController()
 
         // get fragment
-        val navHostFragment = childFragmentManager.findFragmentById(R.id.nav_host_fragment)!!
+        val navHostFragment = childFragmentManager.findFragmentById(R.id.nav_host_fragment_main)!!
 
         // setup custom navigator
         val navigator = KeepStateNavigator(
             context = requireContext(),
             fragmentManager = navHostFragment.childFragmentManager,
-            containerId = R.id.nav_host_fragment
+            containerId = R.id.nav_host_fragment_main
         )
         navController.navigatorProvider += navigator
 

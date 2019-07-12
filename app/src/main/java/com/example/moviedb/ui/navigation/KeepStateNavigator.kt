@@ -12,6 +12,7 @@ import androidx.navigation.fragment.FragmentNavigator
  * https://github.com/STAR-ZERO/navigation-keep-fragment-sample/blob/master/app/src/main/java/com/star_zero/navigation_keep_fragment_sample/navigation/KeepStateNavigator.kt
  */
 
+// TODO fix bug crash when rotation
 @Navigator.Name("keep_state_fragment") // `keep_state_fragment` is used in navigation xml
 class KeepStateNavigator(
     private val context: Context,
