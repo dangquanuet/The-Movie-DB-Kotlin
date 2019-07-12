@@ -1,16 +1,18 @@
 package com.example.moviedb.ui.base
 
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.LayoutRes
+import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.DialogFragment
+import androidx.lifecycle.Observer
 import com.example.moviedb.BR
+import com.example.moviedb.R
+import com.example.moviedb.utils.DialogUtils
 
 abstract class BaseDialogFragment<ViewBinding : ViewDataBinding, ViewModel : BaseViewModel> :
     DialogFragment() {
@@ -21,6 +23,9 @@ abstract class BaseDialogFragment<ViewBinding : ViewDataBinding, ViewModel : Bas
 
     @get:LayoutRes
     abstract val layoutId: Int
+
+    var loadingDialog: AlertDialog? = null
+    var messageDialog: AlertDialog? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,11 +45,64 @@ abstract class BaseDialogFragment<ViewBinding : ViewDataBinding, ViewModel : Bas
         }
     }
 
-    override fun onStart() {
-        super.onStart()
-        dialog?.apply {
-            setCancelable(false)
-            window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        viewModel.apply {
+            isLoading.observe(viewLifecycleOwner, Observer {
+                handleShowLoading(it == true)
+            })
+            errorMessage.observe(viewLifecycleOwner, Observer {
+                hideLoading()
+                if (it.isNullOrBlank().not()) {
+                    handleShowErrorMessage(it)
+                }
+            })
+            noInternetConnectionEvent.observe(viewLifecycleOwner, Observer {
+                handleShowErrorMessage(getString(R.string.no_internet_connection))
+            })
+            connectTimeoutEvent.observe(viewLifecycleOwner, Observer {
+                handleShowErrorMessage(getString(R.string.connect_timeout))
+            })
+            forceUpdateAppEvent.observe(viewLifecycleOwner, Observer {
+                handleShowErrorMessage(getString(R.string.force_update_app))
+            })
+            serverMaintainEvent.observe(viewLifecycleOwner, Observer {
+                handleShowErrorMessage(getString(R.string.server_maintain_message))
+            })
         }
+    }
+
+    /**
+     * override this if not use loading dialog (example progress bar)
+     */
+    open fun handleShowLoading(isLoading: Boolean) {
+        if (isLoading) showLoading() else hideLoading()
+    }
+
+    fun handleShowErrorMessage(message: String) {
+        messageDialog = DialogUtils.showMessage(
+            context = context,
+            message = message,
+            textPositive = getString(R.string.ok)
+        )
+    }
+
+    fun showLoading() {
+        if (loadingDialog == null) {
+            loadingDialog = DialogUtils.createLoadingDialog(context)
+        }
+        loadingDialog?.show()
+    }
+
+    fun hideLoading() {
+        if (loadingDialog?.isShowing == true) {
+            loadingDialog?.dismiss()
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        loadingDialog?.dismiss()
+        messageDialog?.dismiss()
     }
 }

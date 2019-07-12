@@ -20,7 +20,6 @@ abstract class BaseViewModel : ViewModel() {
     val forceUpdateAppEvent = SingleLiveEvent<Unit>()
     val serverMaintainEvent = SingleLiveEvent<Unit>()
 
-
     // rx
 //    private val compositeDisposable = CompositeDisposable()
 //    fun addDisposable(disposable: Disposable) = compositeDisposable.add(disposable)

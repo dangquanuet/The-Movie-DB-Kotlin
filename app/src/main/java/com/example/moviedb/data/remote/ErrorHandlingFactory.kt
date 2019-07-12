@@ -81,65 +81,8 @@ class RxCallAdapterWrapper<R>(
             else -> result
         }
     }
-}
-
-*//**
- * CoroutineErrorHandlingFactory for Coroutine
- *//*
-// TODO fix CoroutineCallAdapterFactory
-class CoroutinesErrorHandlingFactory : CallAdapter.Factory() {
-
-    private val instance = CoroutineCallAdapterFactory()
-
-    override fun get(
-        returnType: Type,
-        annotations: Array<Annotation>,
-        retrofit: Retrofit
-    ): CallAdapter<*, *>? =
-        CoroutineCallAdapterWrapper(
-            instance.get(returnType, annotations, retrofit) as CallAdapter<Any, Any>
-        )
-}
-
-class CoroutineCallAdapterWrapper<T>(
-    private val wrapped: CallAdapter<T, Any>
-) : CallAdapter<T, Deferred<T>> {
-
-    override fun responseType(): Type = wrapped.responseType()
-
-    override fun adapt(call: Call<T>): Deferred<T> {
-        val deferred = CompletableDeferred<T>()
-
-        deferred.invokeOnCompletion {
-            if (deferred.isCancelled) {
-                call.cancel()
-            }
-        }
-
-        call.enqueue(object : Callback<T> {
-            override fun onFailure(call: Call<T>, throwable: Throwable) {
-                deferred.completeExceptionally(convertToBaseException(throwable))
-            }
-
-            override fun onResponse(call: Call<T>, response: Response<T>) {
-                if (response.isSuccessful) {
-                    response.body()?.let {
-                        deferred.complete(it)
-                    }
-                } else {
-                    deferred.completeExceptionally(
-                        BaseException.toHttpError(
-                            response = response,
-                            httpCode = response.code()
-                        )
-                    )
-                }
-            }
-        })
-
-        return deferred
-    }
 }*/
+
 
 fun convertToBaseException(throwable: Throwable): BaseException =
     when (throwable) {

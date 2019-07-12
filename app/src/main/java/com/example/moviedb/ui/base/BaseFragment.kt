@@ -49,14 +49,13 @@ abstract class BaseFragment<ViewBinding : ViewDataBinding, ViewModel : BaseViewM
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        loadingDialog = DialogUtils.createLoadingDialog(context, false)
         viewModel.apply {
             isLoading.observe(viewLifecycleOwner, Observer {
                 handleShowLoading(it == true)
             })
             errorMessage.observe(viewLifecycleOwner, Observer {
                 hideLoading()
-                if (it != null && it.isNotBlank()) {
+                if (it.isNullOrBlank().not()) {
                     handleShowErrorMessage(it)
                 }
             })
@@ -75,6 +74,9 @@ abstract class BaseFragment<ViewBinding : ViewDataBinding, ViewModel : BaseViewM
         }
     }
 
+    /**
+     * override this if not use loading dialog (example progress bar)
+     */
     open fun handleShowLoading(isLoading: Boolean) {
         if (isLoading) showLoading() else hideLoading()
     }
@@ -88,19 +90,22 @@ abstract class BaseFragment<ViewBinding : ViewDataBinding, ViewModel : BaseViewM
     }
 
     fun showLoading() {
-        hideLoading()
+        if (loadingDialog == null) {
+            loadingDialog = DialogUtils.createLoadingDialog(context)
+        }
         loadingDialog?.show()
     }
 
     fun hideLoading() {
-        if (loadingDialog != null && loadingDialog?.isShowing == true) {
-            loadingDialog?.cancel()
+        if (loadingDialog?.isShowing == true) {
+            loadingDialog?.dismiss()
         }
     }
 
-    override fun onPause() {
+    override fun onDestroy() {
+        super.onDestroy()
+        loadingDialog?.dismiss()
         messageDialog?.dismiss()
-        super.onPause()
     }
 
     /**
