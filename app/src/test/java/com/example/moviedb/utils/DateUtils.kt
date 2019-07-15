@@ -17,6 +17,9 @@ class DateUtils {
 
     private val timeString_ddMMyyyy = "15-07-2019"
     private val format_ddMMyyyy = "dd-MM-yyyy"
+    private val format_illegal = "bb"
+    private val emptyString = ""
+    private val blankString = "       "
 
     /**
      * string is empty
@@ -26,7 +29,7 @@ class DateUtils {
     fun stringToDate_stringIsEmpty() {
         assertEquals(
             null,
-            "".toDate(format_yyyyMMdd)
+            emptyString.toDate(format_yyyyMMdd)
         )
     }
 
@@ -38,7 +41,7 @@ class DateUtils {
     fun stringToDate_stringIsBlank() {
         assertEquals(
             null,
-            "      ".toDate(format_yyyyMMdd)
+            blankString.toDate(format_yyyyMMdd)
         )
     }
 
@@ -50,7 +53,7 @@ class DateUtils {
     fun stringToDate_formatIsEmpty() {
         assertEquals(
             null,
-            timeString_yyyyMMdd.toDate("")
+            timeString_yyyyMMdd.toDate(emptyString)
         )
     }
 
@@ -62,7 +65,7 @@ class DateUtils {
     fun stringToDate_formatIsBlank() {
         assertEquals(
             null,
-            timeString_yyyyMMdd.toDate("        ")
+            timeString_yyyyMMdd.toDate(blankString)
         )
     }
 
@@ -86,7 +89,7 @@ class DateUtils {
     fun stringToDate_formatIllegal() {
         assertEquals(
             null,
-            timeString_yyyyMMdd_HHmmss.toDate("bb")
+            timeString_yyyyMMdd_HHmmss.toDate(format_illegal)
         )
     }
 
@@ -98,7 +101,7 @@ class DateUtils {
     fun stringToTimeLong_stringIsEmpty() {
         assertEquals(
             null,
-            "".toTimeLong(format_yyyyMMdd)
+            emptyString.toTimeLong(format_yyyyMMdd)
         )
     }
 
@@ -110,7 +113,7 @@ class DateUtils {
     fun stringToTimeLong_stringIsBlank() {
         assertEquals(
             null,
-            "      ".toTimeLong(format_yyyyMMdd)
+            blankString.toTimeLong(format_yyyyMMdd)
         )
     }
 
@@ -122,7 +125,7 @@ class DateUtils {
     fun stringToTimeLong_formatIsEmpty() {
         assertEquals(
             null,
-            timeString_yyyyMMdd.toTimeLong("")
+            timeString_yyyyMMdd.toTimeLong(emptyString)
         )
     }
 
@@ -134,7 +137,7 @@ class DateUtils {
     fun stringToTimeLong_formatIsBlank() {
         assertEquals(
             null,
-            timeString_yyyyMMdd.toTimeLong("        ")
+            timeString_yyyyMMdd.toTimeLong(blankString)
         )
     }
 
@@ -158,7 +161,7 @@ class DateUtils {
     fun stringToTimeLong_formatIllegal() {
         assertEquals(
             null,
-            timeString_yyyyMMdd_HHmmss.toTimeLong("bb")
+            timeString_yyyyMMdd_HHmmss.toTimeLong(format_illegal)
         )
     }
 
@@ -170,7 +173,7 @@ class DateUtils {
     fun longToTimeString_formatIsEmpty() {
         assertEquals(
             null,
-            timeLongMilliseconds.toTimeString("")
+            timeLongMilliseconds.toTimeString(emptyString)
         )
     }
 
@@ -182,7 +185,7 @@ class DateUtils {
     fun longToTimeString_formatIsBlank() {
         assertEquals(
             null,
-            timeLongMilliseconds.toTimeString("      ")
+            timeLongMilliseconds.toTimeString(blankString)
         )
     }
 
@@ -218,7 +221,7 @@ class DateUtils {
     fun longToTimeString_formatIllegal() {
         assertEquals(
             null,
-            timeLongMilliseconds.toTimeString("bb")
+            timeLongMilliseconds.toTimeString(format_illegal)
         )
     }
 
@@ -230,7 +233,7 @@ class DateUtils {
     fun stringChangeTimeFormat_stringIsEmpty() {
         assertEquals(
             null,
-            "".changeTimeFormat(format_yyyyMMdd, format_ddMMyyyy)
+            emptyString.changeTimeFormat(format_yyyyMMdd, format_ddMMyyyy)
         )
     }
 
@@ -242,7 +245,7 @@ class DateUtils {
     fun stringChangeTimeFormat_stringIsBlank() {
         assertEquals(
             null,
-            "       ".changeTimeFormat(format_yyyyMMdd, format_ddMMyyyy)
+            blankString.changeTimeFormat(format_yyyyMMdd, format_ddMMyyyy)
         )
     }
 
@@ -254,7 +257,7 @@ class DateUtils {
     fun stringChangeTimeFormat_oldFormatIsEmpty() {
         assertEquals(
             null,
-            timeString_yyyyMMdd.changeTimeFormat("", format_ddMMyyyy)
+            timeString_yyyyMMdd.changeTimeFormat(emptyString, format_ddMMyyyy)
         )
     }
 
@@ -266,7 +269,7 @@ class DateUtils {
     fun stringChangeTimeFormat_oldFormatIsBlank() {
         assertEquals(
             null,
-            timeString_yyyyMMdd.changeTimeFormat("      ", format_ddMMyyyy)
+            timeString_yyyyMMdd.changeTimeFormat(blankString, format_ddMMyyyy)
         )
     }
 
@@ -278,7 +281,7 @@ class DateUtils {
     fun stringChangeTimeFormat_oldFormatIllegal() {
         assertEquals(
             null,
-            timeString_yyyyMMdd.changeTimeFormat("bb", format_yyyyMMdd)
+            timeString_yyyyMMdd.changeTimeFormat(format_illegal, format_yyyyMMdd)
         )
     }
 
@@ -290,7 +293,7 @@ class DateUtils {
     fun stringChangeTimeFormat_newFormatIsEmpty() {
         assertEquals(
             null,
-            timeString_yyyyMMdd.changeTimeFormat(format_yyyyMMdd, "")
+            timeString_yyyyMMdd.changeTimeFormat(format_yyyyMMdd, emptyString)
         )
     }
 
@@ -302,7 +305,7 @@ class DateUtils {
     fun stringChangeTimeFormat_newFormatIsBlank() {
         assertEquals(
             null,
-            timeString_yyyyMMdd.changeTimeFormat(format_yyyyMMdd, "      ")
+            timeString_yyyyMMdd.changeTimeFormat(format_yyyyMMdd, blankString)
         )
     }
 
@@ -314,7 +317,7 @@ class DateUtils {
     fun stringChangeTimeFormat_newFormatIllegal() {
         assertEquals(
             null,
-            timeString_yyyyMMdd.changeTimeFormat(format_yyyyMMdd, "bb")
+            timeString_yyyyMMdd.changeTimeFormat(format_yyyyMMdd, format_illegal)
         )
     }
 
@@ -338,7 +341,7 @@ class DateUtils {
     fun dateToTimeString_formatIsEmpty() {
         assertEquals(
             null,
-            timeDate.toTimeString("")
+            timeDate.toTimeString(emptyString)
         )
     }
 
@@ -350,7 +353,7 @@ class DateUtils {
     fun dateToTimeString_formatIsBlank() {
         assertEquals(
             null,
-            timeDate.toTimeString("      ")
+            timeDate.toTimeString(blankString)
         )
     }
 
@@ -362,7 +365,7 @@ class DateUtils {
     fun dateToTimeString_formatIllegal() {
         assertEquals(
             null,
-            timeDate.toTimeString("bb")
+            timeDate.toTimeString(format_illegal)
         )
     }
 
