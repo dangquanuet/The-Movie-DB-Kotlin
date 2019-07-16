@@ -12,9 +12,13 @@ import java.net.UnknownHostException
 
 abstract class BaseViewModel : ViewModel() {
 
+    // loading flag
     val isLoading = MutableLiveData<Boolean>().apply { value = false }
+
+    // error message
     val errorMessage = MutableLiveData<String>()
 
+    // optional flags
     val noInternetConnectionEvent = SingleLiveEvent<Unit>()
     val connectTimeoutEvent = SingleLiveEvent<Unit>()
     val forceUpdateAppEvent = SingleLiveEvent<Unit>()
@@ -25,6 +29,8 @@ abstract class BaseViewModel : ViewModel() {
 //    fun addDisposable(disposable: Disposable) = compositeDisposable.add(disposable)
 
     // coroutines
+
+    // exception handler for coroutine
     private val exceptionHandler = CoroutineExceptionHandler { context, throwable ->
         viewModelScope.launch {
             onLoadFail(throwable)
@@ -39,18 +45,25 @@ abstract class BaseViewModel : ViewModel() {
     protected val ioScopeError = CoroutineScope(ioContext + exceptionHandler)
     protected val uiScopeError = CoroutineScope(uiContext + exceptionHandler)
     */
+    // viewModelScope with exception handler
     protected val viewModelScopeExceptionHandler = viewModelScope + exceptionHandler
 
+    /**
+     * handle throwable when load fail
+     */
     open suspend fun onLoadFail(throwable: Throwable) {
         withContext(Dispatchers.Main) {
             when (throwable) {
+                // case no internet connection
                 is UnknownHostException -> {
                     noInternetConnectionEvent.call()
                 }
+                // case request time out
                 is SocketTimeoutException -> {
                     connectTimeoutEvent.call()
                 }
                 else -> {
+                    // convert throwable to base exception to get error information
                     val baseException = convertToBaseException(throwable)
                     when (baseException.httpCode) {
                         HttpURLConnection.HTTP_UNAUTHORIZED -> {
@@ -65,7 +78,7 @@ abstract class BaseViewModel : ViewModel() {
                     }
                 }
             }
-            isLoading.value = false
+            hideLoading()
         }
     }
 

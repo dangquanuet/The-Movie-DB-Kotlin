@@ -101,8 +101,8 @@ abstract class BaseDialogFragment<ViewBinding : ViewDataBinding, ViewModel : Bas
     }
 
     override fun onDestroy() {
-        super.onDestroy()
         loadingDialog?.dismiss()
         messageDialog?.dismiss()
+        super.onDestroy()
     }
 }

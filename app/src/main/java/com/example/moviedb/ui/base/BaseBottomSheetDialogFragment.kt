@@ -101,8 +101,8 @@ abstract class BaseBottomSheetDialogFragment<ViewBinding : ViewDataBinding, View
     }
 
     override fun onDestroy() {
-        super.onDestroy()
         loadingDialog?.dismiss()
         messageDialog?.dismiss()
+        super.onDestroy()
     }
 }
