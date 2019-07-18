@@ -20,6 +20,10 @@
             android:id="@+id/to_movie_detail"
             app:destination="@id/movie_detail" />
 
+        <action
+            android:id="@+id/to_login"
+            app:destination="@id/login" />
+
     </fragment>
 
     <fragment
@@ -31,5 +35,15 @@
             android:name="movie"
             app:argType="com.example.moviedb.data.model.Movie" />
     </fragment>
+
+    <dialog
+        android:id="@+id/login"
+        android:name="com.example.moviedb.ui.screen.login.LoginFragment"
+        tools:layout="@layout/fragment_login">
+
+        <argument
+            android:name="movie"
+            app:argType="com.example.moviedb.data.model.Movie" />
+    </dialog>
 
 </navigation>

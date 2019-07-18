@@ -1,4 +1,5 @@
 import org.jetbrains.kotlin.config.KotlinCompilerVersion
+import org.jetbrains.kotlin.gradle.dsl.KotlinJvmOptions
 import org.jetbrains.kotlin.gradle.internal.AndroidExtensionsExtension
 
 plugins {
@@ -86,6 +87,10 @@ android {
         setSourceCompatibility(1.8)
     }
 
+    (kotlinOptions as KotlinJvmOptions).apply {
+        jvmTarget = JavaVersion.VERSION_1_8.toString()
+    }
+
     dataBinding {
         isEnabled = true
     }
@@ -124,9 +129,9 @@ dependencies {
 //    implementation("androidx.paging:paging-rxjava2-ktx:2.1.0")
 
     // navigation
-    implementation("androidx.navigation:navigation-runtime-ktx:2.0.0")
-    implementation("androidx.navigation:navigation-fragment-ktx:2.0.0")
-    implementation("androidx.navigation:navigation-ui-ktx:2.0.0")
+    implementation("androidx.navigation:navigation-runtime-ktx:2.1.0-beta01")
+    implementation("androidx.navigation:navigation-fragment-ktx:2.1.0-beta01")
+    implementation("androidx.navigation:navigation-ui-ktx:2.1.0-beta01")
 
     // work manager
 //    implementation("androidx.work:work-runtime-ktx:2.0.1")
