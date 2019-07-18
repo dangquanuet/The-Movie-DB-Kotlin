@@ -99,13 +99,13 @@ android {
 
 dependencies {
     // common
-    implementation("androidx.appcompat:appcompat:1.0.2")
+    implementation("androidx.appcompat:appcompat:1.1.0-rc01")
     implementation("androidx.legacy:legacy-support-v4:1.0.0")
     implementation("androidx.constraintlayout:constraintlayout:1.1.3")
-    implementation("androidx.recyclerview:recyclerview:1.0.0")
-    implementation("com.google.android.material:material:1.0.0")
+    implementation("androidx.recyclerview:recyclerview:1.1.0-beta01")
+    implementation("com.google.android.material:material:1.1.0-alpha08")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:${KotlinCompilerVersion.VERSION}")
-    implementation("androidx.core:core-ktx:1.0.2")
+    implementation("androidx.core:core-ktx:1.2.0-alpha02")
 
     implementation("androidx.fragment:fragment-ktx:1.2.0-alpha01")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0-alpha02")
@@ -116,10 +116,10 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-common-java8:2.0.0")
 
     // room
-    implementation("androidx.room:room-runtime:2.1.0")
-    kapt("androidx.room:room-compiler:2.1.0")
+    implementation("androidx.room:room-runtime:2.2.0-alpha01")
+    kapt("androidx.room:room-compiler:2.2.0-alpha01")
     // Kotlin Extensions and Coroutines support for Room
-    implementation("androidx.room:room-ktx:2.1.0")
+    implementation("androidx.room:room-ktx:2.2.0-alpha01")
 
     // paging
 //    implementation("androidx.paging:paging-runtime-ktx:2.1.0")
