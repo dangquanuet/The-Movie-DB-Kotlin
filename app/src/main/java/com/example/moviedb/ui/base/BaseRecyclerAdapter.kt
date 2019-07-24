@@ -9,9 +9,11 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.moviedb.BR
-import com.example.moviedb.utils.safeLog
 import java.util.concurrent.Executors
 
+/**
+ * base recycler view adapter
+ */
 abstract class BaseRecyclerAdapter<Item, ViewBinding : ViewDataBinding>(
     callBack: DiffUtil.ItemCallback<Item>
 ) : ListAdapter<Item, BaseViewHolder<ViewBinding>>(
@@ -20,6 +22,9 @@ abstract class BaseRecyclerAdapter<Item, ViewBinding : ViewDataBinding>(
         .build()
 ) {
 
+    /**
+     * override this with new list to pass check "if (newList == mList)" in AsyncListDiffer
+     */
     override fun submitList(list: List<Item>?) {
         super.submitList(ArrayList<Item>(list ?: listOf()))
     }
@@ -35,13 +40,10 @@ abstract class BaseRecyclerAdapter<Item, ViewBinding : ViewDataBinding>(
     }
 
     override fun onBindViewHolder(holder: BaseViewHolder<ViewBinding>, position: Int) {
-        try {
-            val item: Item = getItem(position)
-            holder.binding.setVariable(BR.item, item)
+        val item: Item? = currentList.getOrNull(position)
+        holder.binding.setVariable(BR.item, item)
+        if (item != null) {
             bindView(holder.binding, item, position)
-        } catch (e: IndexOutOfBoundsException) {
-            e.safeLog()
-            bind(holder.binding, position)
         }
         holder.binding.executePendingBindings()
     }
@@ -52,19 +54,16 @@ abstract class BaseRecyclerAdapter<Item, ViewBinding : ViewDataBinding>(
     protected abstract fun getLayoutRes(viewType: Int): Int
 
     /**
-     * override if need
      * bind first time
      * use for set item onClickListener, something only set one time
      */
     protected open fun bindFirstTime(binding: ViewBinding) {}
 
     /**
-     * override if need
      * bind view
      */
     protected open fun bindView(binding: ViewBinding, item: Item, position: Int) {}
 
-    protected open fun bind(binding: ViewBinding, position: Int) {}
 }
 
 open class BaseViewHolder<ViewBinding : ViewDataBinding>(

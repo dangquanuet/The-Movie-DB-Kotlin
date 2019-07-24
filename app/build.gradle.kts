@@ -168,7 +168,7 @@ dependencies {
 
     // unit test
     testImplementation("junit:junit:4.12")
-    testImplementation("org.mockito:mockito-core:2.25.1")
+    testImplementation("org.mockito:mockito-core:2.27.0")
     testImplementation("android.arch.core:core-testing:1.1.1")
 
     androidTestImplementation("com.android.support.test:runner:1.0.2")
