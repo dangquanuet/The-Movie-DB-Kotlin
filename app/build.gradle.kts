@@ -129,9 +129,9 @@ dependencies {
 //    implementation("androidx.paging:paging-rxjava2-ktx:2.1.0")
 
     // navigation
-    implementation("androidx.navigation:navigation-runtime-ktx:2.1.0-beta01")
-    implementation("androidx.navigation:navigation-fragment-ktx:2.1.0-beta01")
-    implementation("androidx.navigation:navigation-ui-ktx:2.1.0-beta01")
+    implementation("androidx.navigation:navigation-runtime-ktx:2.1.0-beta02")
+    implementation("androidx.navigation:navigation-fragment-ktx:2.1.0-beta02")
+    implementation("androidx.navigation:navigation-ui-ktx:2.1.0-beta02")
 
     // work manager
 //    implementation("androidx.work:work-runtime-ktx:2.0.1")
