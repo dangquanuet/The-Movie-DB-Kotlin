@@ -146,7 +146,7 @@ class BaseException(
 
             ErrorType.NETWORK -> cause?.message
 
-            ErrorType.SERVER -> serverErrorResponse?.errors?.get(0) // TODO update error message from server
+            ErrorType.SERVER -> serverErrorResponse?.errors?.getOrNull(0) // TODO update error message from server
 
             ErrorType.UNEXPECTED -> cause?.message
         }
