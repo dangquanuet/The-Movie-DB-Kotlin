@@ -87,7 +87,7 @@ fun Date.toTimeString(format: String, locale: Locale = Locale.getDefault()): Str
 /**
  * get current date time
  */
-fun getCurrentDateTime(): Date? = Calendar.getInstance().time
+fun getCurrentDateTime(): Date = Calendar.getInstance().time
 
 /**
  * convert date to calendar
