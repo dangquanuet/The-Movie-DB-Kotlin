@@ -16,7 +16,7 @@ class PopularMovieViewModel(
     private val userRepository: UserRepository
 ) : BaseLoadMoreRefreshViewModel<Movie>() {
 
-    var mode = MutableLiveData<Int>().apply { value = MovieListType.POPULAR.type }
+    val mode = MutableLiveData<Int>().apply { value = MovieListType.POPULAR.type }
 
     override fun loadData(page: Int) {
         val hashMap = HashMap<String, String>()
