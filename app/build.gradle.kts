@@ -31,13 +31,13 @@ android {
             isDebuggable = true
             isMinifyEnabled = false
             isShrinkResources = false
-            isUseProguard = false
+//            isUseProguard = false
         }
         getByName("release") {
             isDebuggable = false
             isMinifyEnabled = true
             isShrinkResources = true
-            isUseProguard = true
+//            isUseProguard = true
             proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
         }
     }

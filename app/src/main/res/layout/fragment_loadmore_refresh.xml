@@ -8,7 +8,7 @@
 
         <variable
             name="viewModel"
-            type="com.example.moviedb.ui.base.BaseLoadMoreRefreshViewModel" />
+            type="com.example.moviedb.ui.base.BaseLoadMoreRefreshViewModel&lt;Object>" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
