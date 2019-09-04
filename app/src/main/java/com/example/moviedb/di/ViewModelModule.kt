@@ -8,6 +8,7 @@ import com.example.moviedb.ui.screen.login.LoginViewModel
 import com.example.moviedb.ui.screen.main.MainViewModel
 import com.example.moviedb.ui.screen.moviedetail.MovieDetailViewModel
 import com.example.moviedb.ui.screen.oldmain.OldMainViewModel
+import com.example.moviedb.ui.screen.permission.PermissionViewModel
 import com.example.moviedb.ui.screen.popularmovie.PopularMovieViewModel
 import com.example.moviedb.ui.screen.profile.ProfileViewModel
 import com.example.moviedb.ui.screen.splash.SplashViewModel
@@ -28,4 +29,5 @@ val viewModelModule = module {
     viewModel { SplashViewModel() }
     viewModel { MainViewModel() }
     viewModel { ProfileViewModel() }
+    viewModel { PermissionViewModel() }
 }
