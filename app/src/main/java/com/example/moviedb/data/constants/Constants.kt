@@ -7,9 +7,5 @@ object Constants {
     const val THRESHOLD_CLICK_TIME = 1000
     const val MIN_PASSWORD_LENGTH = 8
 
-    // request permission code
-    const val REQUEST_READ_CONTACTS = 2000
-    const val REQUEST_CAMERA_READ_CONTACTS = 2001
-
     const val DATABASE_NAME = "DATABASE_NAME"
 }
