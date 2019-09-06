@@ -5,6 +5,7 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import androidx.appcompat.app.AlertDialog
 import com.example.moviedb.R
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 object DialogUtils {
 
@@ -13,7 +14,7 @@ object DialogUtils {
         canceledOnTouchOutside: Boolean = false
     ): AlertDialog? {
         if (context == null) return null
-        return AlertDialog.Builder(context)
+        return MaterialAlertDialogBuilder(context)
             .setView(R.layout.layout_loading_dialog)
             .create().apply {
                 setCancelable(cancelable)
@@ -39,7 +40,7 @@ object DialogUtils {
         cancelable: Boolean = false, canceledOnTouchOutside: Boolean = false
     ): AlertDialog? {
         if (context == null) return null
-        return AlertDialog.Builder(context).apply {
+        return MaterialAlertDialogBuilder(context).apply {
             setTitle(title)
             setMessage(message)
             setPositiveButton(textPositive) { dialog, which ->
@@ -49,7 +50,6 @@ object DialogUtils {
                 negativeListener?.invoke()
             }
             setCancelable(cancelable)
-
         }.create().apply {
             setCanceledOnTouchOutside(canceledOnTouchOutside)
             show()
@@ -63,7 +63,7 @@ object DialogUtils {
         cancelable: Boolean = false, canceledOnTouchOutside: Boolean = false
     ): AlertDialog? {
         if (context == null) return null
-        return AlertDialog.Builder(context).apply {
+        return MaterialAlertDialogBuilder(context).apply {
             if (title != null) setTitle(title)
             if (message != null) setMessage(message)
             if (textPositive != null) {
