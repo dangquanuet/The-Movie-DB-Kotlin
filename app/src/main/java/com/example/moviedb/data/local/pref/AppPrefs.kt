@@ -10,7 +10,7 @@ class AppPrefs(
 ) : PrefHelper {
 
     companion object {
-        private const val FIRST_RUN = "first_run"
+        private const val FIRST_RUN = "FIRST_RUN"
     }
 
     private val sharedPreferences = context.getSharedPreferences(
