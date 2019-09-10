@@ -9,6 +9,7 @@ import com.example.moviedb.R
 import com.example.moviedb.databinding.FragmentMainBinding
 import com.example.moviedb.ui.base.BaseFragment
 import com.example.moviedb.ui.navigation.KeepStateNavigator
+import com.example.moviedb.ui.screen.permission.PermissionFragment
 import kotlinx.android.synthetic.main.fragment_main.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -22,6 +23,7 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupNavHost()
+//        test()
     }
 
     private fun setupNavHost() {
@@ -42,5 +44,11 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>() {
         navController.setGraph(R.navigation.nav_graph_main)
 
         bottom_nav?.setupWithNavController(navController)
+    }
+
+    fun test() {
+        childFragmentManager.beginTransaction()
+            .replace(R.id.container, PermissionFragment.newInstance(), PermissionFragment.TAG)
+            .commit()
     }
 }
