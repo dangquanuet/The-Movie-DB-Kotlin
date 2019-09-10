@@ -69,7 +69,10 @@ class PermissionFragment : BaseFragment<FragmentPermisisonBinding, PermissionVie
 
     // multiple permissions
     private val multiplePermissions =
-        arrayOf(Manifest.permission.CAMERA, Manifest.permission.ACCESS_FINE_LOCATION)
+        arrayOf(
+            Manifest.permission.ACCESS_FINE_LOCATION,
+            Manifest.permission.CAMERA
+        )
     private val multiplePermissionsCode = 1111
 
     /**
