@@ -18,6 +18,142 @@ import androidx.fragment.app.Fragment
  * example request runtime permission in fragment
  */
 /*
+class Activity/Fragment {
+    // single permission
+    private val singlePermission = arrayOf(Manifest.permission.WRITE_CONTACTS)
+    private val singlePermissionCode = 1001
+
+    /**
+     * request single permission with listener
+     */
+    private fun requestSinglePermissionWithListener() {
+        requestPermissions(
+            singlePermission,
+            singlePermissionCode,
+            object : RequestPermissionListener {
+                override fun onPermissionRationaleShouldBeShown(requestPermission: () -> Unit) {
+                    DialogUtils.showMessage(
+                        context = this@PermissionActivity,
+                        message = "Please allow permission to use this feature",
+                        textPositive = "OK",
+                        positiveListener = {
+                            requestPermission.invoke()
+                        },
+                        textNegative = "Cancel"
+                    )
+                }
+
+                override fun onPermissionPermanentlyDenied(openAppSetting: () -> Unit) {
+                    DialogUtils.showMessage(
+                        context = this@PermissionActivity,
+                        message = "Permission Disabled, Please allow permission to use this feature",
+                        textPositive = "OK",
+                        positiveListener = {
+                            openAppSetting.invoke()
+                        },
+                        textNegative = "Cancel"
+                    )
+                }
+
+                override fun onPermissionGranted() {
+                    showToast("Granted, do work")
+                }
+            })
+    }
+
+    // multiple permissions
+    private val multiplePermissions = arrayOf(
+        Manifest.permission.ACCESS_FINE_LOCATION,
+        Manifest.permission.CAMERA
+    )
+    private val multiplePermissionsCode = 1111
+
+    /**
+     * request multiple permissions with listener
+     */
+    private fun requestMultiplePermissionWithListener() {
+        requestPermissions(
+            multiplePermissions,
+            multiplePermissionsCode,
+            object : RequestPermissionListener {
+                override fun onPermissionRationaleShouldBeShown(requestPermission: () -> Unit) {
+                    DialogUtils.showMessage(
+                        context = this@PermissionActivity,
+                        message = "Please allow permissions to use this feature",
+                        textPositive = "OK",
+                        positiveListener = {
+                            requestPermission.invoke()
+                        },
+                        textNegative = "Cancel"
+                    )
+                }
+
+                override fun onPermissionPermanentlyDenied(openAppSetting: () -> Unit) {
+                    DialogUtils.showMessage(
+                        context = this@PermissionActivity,
+                        message = "Permission Disabled, Please allow permissions to use this feature",
+                        textPositive = "OK",
+                        positiveListener = {
+                            openAppSetting.invoke()
+                        },
+                        textNegative = "Cancel"
+                    )
+                }
+
+                override fun onPermissionGranted() {
+                    showToast("Granted, do work")
+                }
+            })
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int, permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+
+        // single permission
+        handleOnRequestPermissionResult(
+            singlePermissionCode,
+            requestCode,
+            permissions,
+            grantResults,
+            object : PermissionResultListener {
+                override fun onPermissionRationaleShouldBeShown() {
+                    showToast("permission denied")
+                }
+
+                override fun onPermissionPermanentlyDenied() {
+                    showToast("permission permanently disabled")
+                }
+
+                override fun onPermissionGranted() {
+                    showToast("permission granted")
+                }
+            })
+
+        // multiple permission
+        handleOnRequestPermissionResult(
+            multiplePermissionsCode,
+            requestCode,
+            permissions,
+            grantResults,
+            object : PermissionResultListener {
+                override fun onPermissionRationaleShouldBeShown() {
+                    showToast("permission denied")
+                }
+
+                override fun onPermissionPermanentlyDenied() {
+                    showToast("permission permanently disabled")
+                }
+
+                override fun onPermissionGranted() {
+                    showToast("permission granted")
+                }
+            }
+        )
+    }
+}
 */
 
 /**
@@ -220,7 +356,7 @@ fun <T : Activity> T.requestPermission(
 }*/
 
 /**
- * request multiple permissions in activity
+ * request permissions in activity
  */
 @TargetApi(Build.VERSION_CODES.M)
 fun <T : Activity> T.requestPermissions(
@@ -256,7 +392,7 @@ fun <T : Activity> T.requestPermissions(
 }
 
 /**
- * request multiple permissions in fragment
+ * request permissions in fragment
  */
 fun <T : Fragment> T.requestPermissions(
     permissions: Array<String>,
@@ -298,12 +434,12 @@ fun <T : Fragment> T.requestPermissions(
  * 1.  Below M, runtime permission not needed. In that case onPermissionGranted() would be called.
  * If permission is already granted, onPermissionGranted() would be called.
  *
- * 2.  Above M, if the permission is being asked first time onNeedPermission() would be called.
+ * 2.  Equal and Above M, if the permission is being asked first time onNeedPermission() would be called.
  *
- * 3.  Above M, if the permission is previously asked but not granted, onPermissionPreviouslyDenied()
+ * 3.  Equal and Above M, if the permission is previously asked but not granted, onPermissionPreviouslyDenied()
  * would be called.
  *
- * 4.  Above M, if the permission is disabled by device policy or the user checked "Never ask again"
+ * 4.  Equal and Above M, if the permission is disabled by device policy or the user checked "Never ask again"
  * check box on previous request permission, onPermissionDisabled() would be called.
  */
 interface RequestPermissionListener {
@@ -325,6 +461,9 @@ interface RequestPermissionListener {
     fun onPermissionGranted()
 }
 
+/**
+ * handle request permission result with listener in activity
+ */
 fun <T : Activity> T.handleOnRequestPermissionResult(
     requestPermissionCode: Int,
     requestCode: Int,
@@ -351,6 +490,9 @@ fun <T : Activity> T.handleOnRequestPermissionResult(
     }
 }
 
+/**
+ * handle request permission result with listener in fragment
+ */
 fun <T : Fragment> T.handleOnRequestPermissionResult(
     requestPermissionCode: Int,
     requestCode: Int,
@@ -377,6 +519,9 @@ fun <T : Fragment> T.handleOnRequestPermissionResult(
     }
 }
 
+/**
+ * request permission result listener
+ */
 interface PermissionResultListener {
     /**
      * Callback on permission denied
