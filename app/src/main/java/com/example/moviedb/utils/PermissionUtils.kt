@@ -18,139 +18,6 @@ import androidx.fragment.app.Fragment
  * example request runtime permission in fragment
  */
 /*
-class Fragment {
-
-    // single permission
-    private val singlePermission = Manifest.permission.WRITE_CONTACTS
-    private val singlePermissionCode = 1001
-
-    /**
-     * request single permission with listener
-     */
-    private fun requestSinglePermissionWithListener() {
-        requestPermission(singlePermission, singlePermissionCode, object : PermissionAskListener {
-            override fun onPermissionRationaleShouldBeShown(requestPermission: () -> Unit) {
-                DialogUtils.showMessage(
-                    context = context,
-                    message = "Please allow permission to use this feature",
-                    textPositive = "OK",
-                    positiveListener = {
-                        requestPermission.invoke()
-                    },
-                    textNegative = "Cancel"
-                )
-            }
-
-            override fun onPermissionPermanentlyDenied(openAppSetting: () -> Unit) {
-                DialogUtils.showMessage(
-                    context = context,
-                    message = "Permission Disabled, Please allow permission to use this feature",
-                    textPositive = "OK",
-                    positiveListener = {
-                        openAppSetting.invoke()
-                    },
-                    textNegative = "Cancel"
-                )
-            }
-
-            override fun onPermissionGranted() {
-                showToast("Granted, do work")
-            }
-        })
-    }
-
-    // multiple permissions
-    private val multiplePermissions =
-        arrayOf(Manifest.permission.CAMERA, Manifest.permission.ACCESS_FINE_LOCATION)
-    private val multiplePermissionsCode = 1111
-
-    /**
-     * request multiple permissions with listener
-     */
-    private fun requestMultiplePermissionWithListener() {
-        requestPermissions(
-            multiplePermissions,
-            multiplePermissionsCode,
-            object : PermissionAskListener {
-                override fun onPermissionRationaleShouldBeShown(requestPermission: () -> Unit) {
-                    DialogUtils.showMessage(
-                        context = context,
-                        message = "Please allow permissions to use this feature",
-                        textPositive = "OK",
-                        positiveListener = {
-                            requestPermission.invoke()
-                        },
-                        textNegative = "Cancel"
-                    )
-                }
-
-                override fun onPermissionPermanentlyDenied(openAppSetting: () -> Unit) {
-                    DialogUtils.showMessage(
-                        context = context,
-                        message = "Permission Disabled, Please allow permissions to use this feature",
-                        textPositive = "OK",
-                        positiveListener = {
-                            openAppSetting.invoke()
-                        },
-                        textNegative = "Cancel"
-                    )
-                }
-
-                override fun onPermissionGranted() {
-                    showToast("Granted, do work")
-                }
-            })
-    }
-
-    override fun onRequestPermissionsResult(
-        requestCode: Int, permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        when (requestCode) {
-            // single permission
-            singlePermissionCode -> {
-                if (isGrantedGrantResults(grantResults)) {
-                    // permission was granted, yay! Do the
-                    // contacts-related task you need to do.
-                    showToast("permission granted")
-                } else {
-                    // permission denied, boo! Disable the
-                    // functionality that depends on this permission.
-                    if (shouldShowRequestPermissionRationale(singlePermission)) {
-                        // permission denied
-                        showToast("permission denied")
-                    } else {
-                        // permission disabled or never ask again
-                        showToast("permission disabled")
-                    }
-                }
-            }
-
-            // multiple permission
-            multiplePermissionsCode -> {
-                // If request is cancelled, the result arrays are empty.
-                if (grantResults.size == multiplePermissions.size) {
-                    if (isGrantedGrantResults(grantResults)) {
-                        // permission was granted, yay! Do the
-                        // contacts-related task you need to do.
-                        showToast("permissions granted")
-                    } else {
-                        // permission denied, boo! Disable the
-                        // functionality that depends on this permission.
-                        if (shouldShowRequestPermissionsRationale(multiplePermissions)) {
-                            // permission denied
-                            showToast("permission denied")
-                        } else {
-                            // permission disabled or never ask again
-                            showToast("permission disabled")
-                        }
-                    }
-                }
-            }
-        }
-    }
-}
 */
 
 /**
@@ -258,7 +125,7 @@ fun Context.shouldAskPermissions(permissions: Array<String>): Boolean {
  * check if should show request permissions rationale in activity
  */
 @TargetApi(Build.VERSION_CODES.M)
-fun <T : Activity> T.shouldShowRequestPermissionsRationale(permissions: Array<String>): Boolean {
+fun <T : Activity> T.shouldShowRequestPermissionsRationale(permissions: Array<out String>): Boolean {
     for (permission in permissions) {
         if (shouldShowRequestPermissionRationale(permission)) {
             return true
@@ -270,7 +137,7 @@ fun <T : Activity> T.shouldShowRequestPermissionsRationale(permissions: Array<St
 /**
  * check if should show request permissions rationale in fragment
  */
-fun <T : Fragment> T.shouldShowRequestPermissionsRationale(permissions: Array<String>): Boolean {
+fun <T : Fragment> T.shouldShowRequestPermissionsRationale(permissions: Array<out String>): Boolean {
     for (permission in permissions) {
         if (shouldShowRequestPermissionRationale(permission)) {
             return true
@@ -282,11 +149,11 @@ fun <T : Fragment> T.shouldShowRequestPermissionsRationale(permissions: Array<St
 /**
  * request single permission in activity
  */
-@TargetApi(Build.VERSION_CODES.M)
+/*@TargetApi(Build.VERSION_CODES.M)
 fun <T : Activity> T.requestPermission(
     permission: String,
     permissionRequestCode: Int,
-    listener: PermissionAskListener
+    listener: RequestPermissionListener
 ) {
     // permission is not granted
     if (shouldAskPermission(permission)) {
@@ -313,15 +180,15 @@ fun <T : Activity> T.requestPermission(
         // permission granted
         listener.onPermissionGranted()
     }
-}
+}*/
 
 /**
  * request single permission in fragment
  */
-fun <T : Fragment> T.requestPermission(
+/*fun <T : Fragment> T.requestPermission(
     permission: String,
     permissionRequestCode: Int,
-    listener: PermissionAskListener
+    listener: RequestPermissionListener
 ) {
     val context = context ?: return
 
@@ -350,7 +217,7 @@ fun <T : Fragment> T.requestPermission(
         // permission granted
         listener.onPermissionGranted()
     }
-}
+}*/
 
 /**
  * request multiple permissions in activity
@@ -359,13 +226,13 @@ fun <T : Fragment> T.requestPermission(
 fun <T : Activity> T.requestPermissions(
     permissions: Array<String>,
     permissionRequestCode: Int,
-    listener: PermissionAskListener
+    requestPermissionListener: RequestPermissionListener
 ) {
     // permissions is not granted
     if (shouldAskPermissions(permissions)) {
         // permissions denied previously
         if (shouldShowRequestPermissionsRationale(permissions)) {
-            listener.onPermissionRationaleShouldBeShown {
+            requestPermissionListener.onPermissionRationaleShouldBeShown {
                 requestPermissions(permissions, permissionRequestCode)
             }
         } else {
@@ -377,14 +244,14 @@ fun <T : Activity> T.requestPermissions(
             } else {
                 // permission disabled
                 // Handle the feature without permission or ask user to manually allow permission
-                listener.onPermissionPermanentlyDenied {
+                requestPermissionListener.onPermissionPermanentlyDenied {
                     openAppDetailSettings()
                 }
             }
         }
     } else {
         // permission granted
-        listener.onPermissionGranted()
+        requestPermissionListener.onPermissionGranted()
     }
 }
 
@@ -394,7 +261,7 @@ fun <T : Activity> T.requestPermissions(
 fun <T : Fragment> T.requestPermissions(
     permissions: Array<String>,
     permissionRequestCode: Int,
-    listener: PermissionAskListener
+    requestPermissionListener: RequestPermissionListener
 ) {
     val context = context ?: return
 
@@ -402,7 +269,7 @@ fun <T : Fragment> T.requestPermissions(
     if (context.shouldAskPermissions(permissions)) {
         // permissions denied previously
         if (shouldShowRequestPermissionsRationale(permissions)) {
-            listener.onPermissionRationaleShouldBeShown {
+            requestPermissionListener.onPermissionRationaleShouldBeShown {
                 requestPermissions(permissions, permissionRequestCode)
             }
         } else {
@@ -414,14 +281,14 @@ fun <T : Fragment> T.requestPermissions(
             } else {
                 // permission disabled
                 // Handle the feature without permission or ask user to manually allow permission
-                listener.onPermissionPermanentlyDenied {
+                requestPermissionListener.onPermissionPermanentlyDenied {
                     context.openAppDetailSettings()
                 }
             }
         }
     } else {
         // permission granted
-        listener.onPermissionGranted()
+        requestPermissionListener.onPermissionGranted()
     }
 }
 
@@ -439,7 +306,7 @@ fun <T : Fragment> T.requestPermissions(
  * 4.  Above M, if the permission is disabled by device policy or the user checked "Never ask again"
  * check box on previous request permission, onPermissionDisabled() would be called.
  */
-interface PermissionAskListener {
+interface RequestPermissionListener {
     /**
      * Callback on permission previously denied
      * should show permission rationale and continue permission request
@@ -451,6 +318,75 @@ interface PermissionAskListener {
      * should show message and open app setting
      */
     fun onPermissionPermanentlyDenied(openAppSetting: () -> Unit)
+
+    /**
+     * Callback on permission granted
+     */
+    fun onPermissionGranted()
+}
+
+fun <T : Activity> T.handleOnRequestPermissionResult(
+    requestPermissionCode: Int,
+    requestCode: Int,
+    permissions: Array<out String>,
+    grantResults: IntArray,
+    permissionResultListener: PermissionResultListener
+) {
+    if (requestPermissionCode == requestCode) {
+        if (isGrantedGrantResults(grantResults)) {
+            // permission was granted, yay! Do the
+            // contacts-related task you need to do.
+            permissionResultListener.onPermissionGranted()
+        } else {
+            // permission denied, boo! Disable the
+            // functionality that depends on this permission.
+            if (shouldShowRequestPermissionsRationale(permissions)) {
+                // permission denied
+                permissionResultListener.onPermissionRationaleShouldBeShown()
+            } else {
+                // permission disabled or never ask again
+                permissionResultListener.onPermissionPermanentlyDenied()
+            }
+        }
+    }
+}
+
+fun <T : Fragment> T.handleOnRequestPermissionResult(
+    requestPermissionCode: Int,
+    requestCode: Int,
+    permissions: Array<out String>,
+    grantResults: IntArray,
+    permissionResultListener: PermissionResultListener
+) {
+    if (requestPermissionCode == requestCode) {
+        if (isGrantedGrantResults(grantResults)) {
+            // permission was granted, yay! Do the
+            // contacts-related task you need to do.
+            permissionResultListener.onPermissionGranted()
+        } else {
+            // permission denied, boo! Disable the
+            // functionality that depends on this permission.
+            if (shouldShowRequestPermissionsRationale(permissions)) {
+                // permission denied
+                permissionResultListener.onPermissionRationaleShouldBeShown()
+            } else {
+                // permission disabled or never ask again
+                permissionResultListener.onPermissionPermanentlyDenied()
+            }
+        }
+    }
+}
+
+interface PermissionResultListener {
+    /**
+     * Callback on permission denied
+     */
+    fun onPermissionRationaleShouldBeShown()
+
+    /**
+     * Callback on permission "Never show again" checked and denied
+     */
+    fun onPermissionPermanentlyDenied()
 
     /**
      * Callback on permission granted

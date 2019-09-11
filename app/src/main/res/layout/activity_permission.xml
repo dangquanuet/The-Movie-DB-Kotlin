@@ -4,15 +4,11 @@
 
     <data>
 
-        <variable
-            name="viewModel"
-            type="com.example.moviedb.ui.screen.permission.PermissionViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/yellow_500"
         android:padding="@dimen/dp_16">
 
         <com.google.android.material.button.MaterialButton
@@ -32,6 +28,14 @@
             android:text="Simple Multiple Permissions"
             app:backgroundTint="@color/blue_500"
             app:layout_constraintTop_toBottomOf="@id/button_1" />
+
+        <FrameLayout
+            android:id="@+id/fragment_container"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHeight_percent="0.5"
+            app:layout_constraintStart_toStartOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

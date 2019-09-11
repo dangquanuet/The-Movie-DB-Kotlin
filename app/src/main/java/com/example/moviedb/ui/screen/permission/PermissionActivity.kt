@@ -4,33 +4,31 @@ import android.Manifest
 import android.os.Bundle
 import android.widget.Toast
 import com.example.moviedb.R
-import com.example.moviedb.databinding.FragmentPermisisonBinding
-import com.example.moviedb.ui.base.BaseFragment
+import com.example.moviedb.databinding.ActivityPermissionBinding
+import com.example.moviedb.ui.base.BaseActivity
 import com.example.moviedb.utils.*
 import kotlinx.android.synthetic.main.fragment_permisison.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
+class PermissionActivity : BaseActivity<ActivityPermissionBinding, PermissionViewModel>() {
 
-class PermissionFragment : BaseFragment<FragmentPermisisonBinding, PermissionViewModel>() {
-
-    companion object {
-        const val TAG = "PermissionFragment"
-        fun newInstance() = PermissionFragment()
-    }
-
-    override val layoutId: Int = R.layout.fragment_permisison
+    override val layoutId: Int = R.layout.activity_permission
 
     override val viewModel: PermissionViewModel by viewModel()
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
         button_1?.setSingleClick { requestSinglePermissionWithListener() }
         button_2?.setSingleClick { requestMultiplePermissionWithListener() }
+
+        supportFragmentManager.beginTransaction().replace(
+            R.id.fragment_container, PermissionFragment.newInstance()
+        ).commit()
     }
 
     // single permission
     private val singlePermission = arrayOf(Manifest.permission.WRITE_CONTACTS)
-    private val singlePermissionCode = 2001
+    private val singlePermissionCode = 1001
 
     /**
      * request single permission with listener
@@ -42,7 +40,7 @@ class PermissionFragment : BaseFragment<FragmentPermisisonBinding, PermissionVie
             object : RequestPermissionListener {
                 override fun onPermissionRationaleShouldBeShown(requestPermission: () -> Unit) {
                     DialogUtils.showMessage(
-                        context = context,
+                        context = this@PermissionActivity,
                         message = "Please allow permission to use this feature",
                         textPositive = "OK",
                         positiveListener = {
@@ -54,7 +52,7 @@ class PermissionFragment : BaseFragment<FragmentPermisisonBinding, PermissionVie
 
                 override fun onPermissionPermanentlyDenied(openAppSetting: () -> Unit) {
                     DialogUtils.showMessage(
-                        context = context,
+                        context = this@PermissionActivity,
                         message = "Permission Disabled, Please allow permission to use this feature",
                         textPositive = "OK",
                         positiveListener = {
@@ -75,7 +73,7 @@ class PermissionFragment : BaseFragment<FragmentPermisisonBinding, PermissionVie
         Manifest.permission.ACCESS_FINE_LOCATION,
         Manifest.permission.CAMERA
     )
-    private val multiplePermissionsCode = 2111
+    private val multiplePermissionsCode = 1111
 
     /**
      * request multiple permissions with listener
@@ -87,7 +85,7 @@ class PermissionFragment : BaseFragment<FragmentPermisisonBinding, PermissionVie
             object : RequestPermissionListener {
                 override fun onPermissionRationaleShouldBeShown(requestPermission: () -> Unit) {
                     DialogUtils.showMessage(
-                        context = context,
+                        context = this@PermissionActivity,
                         message = "Please allow permissions to use this feature",
                         textPositive = "OK",
                         positiveListener = {
@@ -99,7 +97,7 @@ class PermissionFragment : BaseFragment<FragmentPermisisonBinding, PermissionVie
 
                 override fun onPermissionPermanentlyDenied(openAppSetting: () -> Unit) {
                     DialogUtils.showMessage(
-                        context = context,
+                        context = this@PermissionActivity,
                         message = "Permission Disabled, Please allow permissions to use this feature",
                         textPositive = "OK",
                         positiveListener = {
@@ -164,7 +162,6 @@ class PermissionFragment : BaseFragment<FragmentPermisisonBinding, PermissionVie
     }
 
     private fun showToast(message: String) {
-        Toast.makeText(context, "Fragment $message", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, "Activity $message", Toast.LENGTH_SHORT).show()
     }
-
 }
