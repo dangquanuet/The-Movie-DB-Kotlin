@@ -103,7 +103,7 @@ dependencies {
     implementation("androidx.legacy:legacy-support-v4:1.0.0")
     implementation("androidx.constraintlayout:constraintlayout:2.0.0-beta2")
     implementation("androidx.recyclerview:recyclerview:1.1.0-beta04")
-    implementation("com.google.android.material:material:1.1.0-alpha09")
+    implementation("com.google.android.material:material:1.1.0-alpha10")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:${KotlinCompilerVersion.VERSION}")
     implementation("androidx.core:core-ktx:1.2.0-alpha04")
 
@@ -111,9 +111,9 @@ dependencies {
 //    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0-alpha02")
 
     // ViewModel and LiveData
-    implementation("androidx.lifecycle:lifecycle-extensions:2.0.0")
+    implementation("androidx.lifecycle:lifecycle-extensions:2.1.0")
     // alternately - if using Java8, use the following instead of lifecycle-compiler, provide @OnLifecycleEvent
-    implementation("androidx.lifecycle:lifecycle-common-java8:2.0.0")
+    implementation("androidx.lifecycle:lifecycle-common-java8:2.1.0")
 
     // room
     implementation("androidx.room:room-runtime:2.2.0-rc01")
