@@ -27,4 +27,26 @@ interface UserRepository {
         movie: Movie
     )
 
+    /**
+     * local movie db functions
+     */
+    suspend fun getMovieListLocal(): List<Movie>?
+
+    suspend fun getMovieLocal(id: String): Movie?
+
+    suspend fun insertLocal(movie: Movie)
+
+    suspend fun insertLocal(list: List<Movie>)
+
+    suspend fun updateLocal(movie: Movie)
+
+    suspend fun deleteMovieLocal(movie: Movie)
+
+    suspend fun deleteMovieLocal(id: String)
+
+    suspend fun deleteAllLocal()
+
+    suspend fun getMoviePageLocal(pageSize: Int, pageIndex: Int): List<Movie>?
+
+    suspend fun getFavoriteLocal(pageSize: Int, pageIndex: Int): List<Movie>?
 }

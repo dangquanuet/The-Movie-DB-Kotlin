@@ -40,4 +40,44 @@ class UserRepositoryImpl(
     ) {
         movieDao.update(movie)
     }
+
+    override suspend fun getMovieListLocal(): List<Movie>? {
+        return movieDao.getMovieList()
+    }
+
+    override suspend fun getMovieLocal(id: String): Movie? {
+        return movieDao.getMovie(id)
+    }
+
+    override suspend fun insertLocal(movie: Movie) {
+        return movieDao.insert(movie)
+    }
+
+    override suspend fun insertLocal(list: List<Movie>) {
+        return movieDao.insert(list)
+    }
+
+    override suspend fun updateLocal(movie: Movie) {
+        return movieDao.update(movie)
+    }
+
+    override suspend fun deleteMovieLocal(movie: Movie) {
+        return movieDao.deleteMovie(movie)
+    }
+
+    override suspend fun deleteMovieLocal(id: String) {
+        return movieDao.deleteMovie(id)
+    }
+
+    override suspend fun deleteAllLocal() {
+        return movieDao.deleteAll()
+    }
+
+    override suspend fun getMoviePageLocal(pageSize: Int, pageIndex: Int): List<Movie>? {
+        return movieDao.getMoviePage(pageSize, pageIndex)
+    }
+
+    override suspend fun getFavoriteLocal(pageSize: Int, pageIndex: Int): List<Movie>? {
+        return movieDao.getFavorite(pageSize = pageSize, pageIndex = pageIndex)
+    }
 }

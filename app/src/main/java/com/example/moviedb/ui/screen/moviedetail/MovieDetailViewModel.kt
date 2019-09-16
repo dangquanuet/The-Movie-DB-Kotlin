@@ -2,7 +2,6 @@ package com.example.moviedb.ui.screen.moviedetail
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.example.moviedb.data.local.dao.MovieDao
 import com.example.moviedb.data.model.Cast
 import com.example.moviedb.data.model.Movie
 import com.example.moviedb.data.repository.UserRepository
@@ -12,8 +11,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class MovieDetailViewModel(
-    private val userRepository: UserRepository,
-    private val movieDao: MovieDao
+    private val userRepository: UserRepository
 ) : BaseViewModel() {
 
     val movie = MutableLiveData<Movie>()
@@ -23,7 +21,7 @@ class MovieDetailViewModel(
     fun checkFavorite(id: String) {
         viewModelScope.launch {
             try {
-                val favoriteMovie = movieDao.getMovie(id)
+                val favoriteMovie = userRepository.getMovieLocal(id)
                 withContext(Dispatchers.Main) {
                     if (favoriteMovie?.isFavorite == true) {
                         val newMoview = movie.value
