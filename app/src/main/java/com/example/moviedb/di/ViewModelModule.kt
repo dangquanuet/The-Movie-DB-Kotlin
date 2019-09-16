@@ -21,7 +21,7 @@ val viewModelModule = module {
     viewModel { OldMainViewModel() }
     viewModel { FavoriteMovieViewModel(get()) }
     viewModel { LoginViewModel() }
-    viewModel { MovieDetailViewModel(get(), get()) }
+    viewModel { MovieDetailViewModel(get()) }
     viewModel { PopularMovieViewModel(get(), get()) }
     viewModel { TvListViewModel(get()) }
     viewModel { PopularContainerViewModel() }
