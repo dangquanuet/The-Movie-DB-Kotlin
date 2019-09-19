@@ -107,7 +107,7 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:${KotlinCompilerVersion.VERSION}")
     implementation("androidx.core:core-ktx:1.2.0-alpha04")
 
-    implementation("androidx.fragment:fragment-ktx:1.2.0-alpha03")
+    implementation("androidx.fragment:fragment-ktx:1.2.0-alpha04")
 //    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0-alpha02")
 
     // ViewModel and LiveData
@@ -129,9 +129,9 @@ dependencies {
 //    implementation("androidx.paging:paging-rxjava2-ktx:2.1.0")
 
     // navigation
-    implementation("androidx.navigation:navigation-runtime-ktx:2.2.0-alpha02")
-    implementation("androidx.navigation:navigation-fragment-ktx:2.2.0-alpha02")
-    implementation("androidx.navigation:navigation-ui-ktx:2.2.0-alpha02")
+    implementation("androidx.navigation:navigation-runtime-ktx:2.2.0-alpha03")
+    implementation("androidx.navigation:navigation-fragment-ktx:2.2.0-alpha03")
+    implementation("androidx.navigation:navigation-ui-ktx:2.2.0-alpha03")
 
     // work manager
 //    implementation("androidx.work:work-runtime-ktx:2.0.1")
@@ -152,7 +152,6 @@ dependencies {
     implementation("com.squareup.retrofit2:converter-gson:2.6.0")
     implementation("com.squareup.okhttp3:logging-interceptor:3.14.0")
 //    implementation("com.squareup.retrofit2:adapter-rxjava2:2.6.0")
-//    implementation("com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:0.9.2")
 
     // glide
     implementation("com.github.bumptech.glide:glide:4.9.0")
