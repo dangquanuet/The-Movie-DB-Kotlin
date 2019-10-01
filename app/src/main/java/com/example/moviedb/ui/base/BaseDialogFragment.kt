@@ -79,14 +79,6 @@ abstract class BaseDialogFragment<ViewBinding : ViewDataBinding, ViewModel : Bas
         if (isLoading) showLoading() else hideLoading()
     }
 
-    fun handleShowErrorMessage(message: String) {
-        messageDialog = DialogUtils.showMessage(
-            context = context,
-            message = message,
-            textPositive = getString(R.string.ok)
-        )
-    }
-
     fun showLoading() {
         if (loadingDialog == null) {
             loadingDialog = DialogUtils.createLoadingDialog(context)
@@ -98,6 +90,18 @@ abstract class BaseDialogFragment<ViewBinding : ViewDataBinding, ViewModel : Bas
         if (loadingDialog?.isShowing == true) {
             loadingDialog?.dismiss()
         }
+    }
+
+    fun handleShowErrorMessage(message: String) {
+        if (messageDialog?.isShowing == true) {
+            messageDialog?.hide()
+        }
+
+        messageDialog = DialogUtils.showMessage(
+            context = context,
+            message = message,
+            textPositive = getString(R.string.ok)
+        )
     }
 
     override fun onDestroy() {
