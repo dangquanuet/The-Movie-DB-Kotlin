@@ -4,6 +4,7 @@ import com.example.moviedb.ui.navigation.favoritecontainer.FavoriteContainerVIew
 import com.example.moviedb.ui.navigation.popularcontainer.PopularContainerViewModel
 import com.example.moviedb.ui.screen.MainActivityViewModel
 import com.example.moviedb.ui.screen.favoritemovie.FavoriteMovieViewModel
+import com.example.moviedb.ui.screen.image.ImageViewModel
 import com.example.moviedb.ui.screen.login.LoginViewModel
 import com.example.moviedb.ui.screen.main.MainViewModel
 import com.example.moviedb.ui.screen.moviedetail.MovieDetailViewModel
@@ -30,4 +31,5 @@ val viewModelModule = module {
     viewModel { MainViewModel() }
     viewModel { ProfileViewModel() }
     viewModel { PermissionViewModel() }
+    viewModel { ImageViewModel() }
 }

@@ -18,7 +18,11 @@
 
         <action
             android:id="@+id/to_movie_detail"
-            app:destination="@id/movie_detail" />
+            app:destination="@id/movie_detail"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
 
         <action
             android:id="@+id/to_login"
@@ -34,6 +38,25 @@
         <argument
             android:name="movie"
             app:argType="com.example.moviedb.data.model.Movie" />
+
+        <action
+            android:id="@+id/to_image"
+            app:destination="@id/image"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/image"
+        android:name="com.example.moviedb.ui.screen.image.ImageFragment"
+        tools:layout="@layout/fragment_image">
+
+        <argument
+            android:name="imageUrl"
+            app:argType="string" />
+
     </fragment>
 
     <dialog

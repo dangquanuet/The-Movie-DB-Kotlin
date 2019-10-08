@@ -7,6 +7,7 @@ import androidx.navigation.fragment.navArgs
 import com.example.moviedb.R
 import com.example.moviedb.databinding.FragmentMovieDetailBinding
 import com.example.moviedb.ui.base.BaseFragment
+import com.example.moviedb.utils.setSingleClick
 import kotlinx.android.synthetic.main.fragment_movie_detail.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -23,8 +24,13 @@ class MovieDetailFragment : BaseFragment<FragmentMovieDetailBinding, MovieDetail
         button_favorite?.setOnClickListener {
             viewModel.favoriteMovie()
         }
-        image_back?.setOnClickListener {
+        image_back?.setSingleClick {
             findNavController().navigateUp()
+        }
+        image_backdrop?.setSingleClick {
+            viewModel.movie.value?.backdrop_path?.let {
+                toFullImage(it)
+            }
         }
 
         viewModel.apply {
@@ -34,12 +40,21 @@ class MovieDetailFragment : BaseFragment<FragmentMovieDetailBinding, MovieDetail
                 getCastAndCrew(it.id)
             }
 
-            val castAdapter = CastAdapter()
-            recycler_cast.adapter = castAdapter
+            val castAdapter = CastAdapter(itemClickListener = {
+                it.profile_path?.let { profilePath ->
+                    toFullImage(profilePath)
+                }
+            })
+            recycler_cast?.adapter = castAdapter
             cast.observe(viewLifecycleOwner, Observer {
                 castAdapter.submitList(it)
             })
         }
     }
 
+    private fun toFullImage(imageUrl: String) {
+        findNavController().navigate(
+            MovieDetailFragmentDirections.toImage(imageUrl)
+        )
+    }
 }
