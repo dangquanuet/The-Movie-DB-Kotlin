@@ -5,6 +5,7 @@ import com.example.moviedb.R
 import com.example.moviedb.data.model.Tv
 import com.example.moviedb.databinding.ItemTvBinding
 import com.example.moviedb.ui.base.BaseRecyclerAdapter
+import com.example.moviedb.utils.setSingleClick
 
 class TvListAdapter(
     val itemClickListener: (Tv) -> Unit = {}
@@ -24,7 +25,7 @@ class TvListAdapter(
 
     override fun bindFirstTime(binding: ItemTvBinding) {
         binding.apply {
-            root.setOnClickListener {
+            root.setSingleClick {
                 item?.apply {
                     itemClickListener(this)
                 }
