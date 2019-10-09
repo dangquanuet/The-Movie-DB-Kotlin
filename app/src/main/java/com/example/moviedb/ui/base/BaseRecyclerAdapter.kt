@@ -2,6 +2,7 @@ package com.example.moviedb.ui.base
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.AsyncDifferConfig
@@ -9,7 +10,9 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.moviedb.BR
+import com.example.moviedb.R
 import java.util.concurrent.Executors
+
 
 /**
  * base recycler view adapter
@@ -46,6 +49,13 @@ abstract class BaseRecyclerAdapter<Item, ViewBinding : ViewDataBinding>(
             bindView(holder.binding, item, position)
         }
         holder.binding.executePendingBindings()
+
+        holder.itemView.startAnimation(
+            AnimationUtils.loadAnimation(
+                holder.itemView.context,
+                R.anim.fade_in
+            )
+        )
     }
 
     /**
