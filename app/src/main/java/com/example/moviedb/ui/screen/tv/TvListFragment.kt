@@ -39,6 +39,6 @@ class TvListFragment :
 
 
     private fun toTvDetail(tv: Tv) {
-
+        //TODO("Implement toTvDetail function")
     }
 }

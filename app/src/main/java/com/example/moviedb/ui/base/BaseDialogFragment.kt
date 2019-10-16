@@ -15,21 +15,21 @@ import com.example.moviedb.R
 import com.example.moviedb.utils.DialogUtils
 
 abstract class BaseDialogFragment<ViewBinding : ViewDataBinding, ViewModel : BaseViewModel> :
-    DialogFragment() {
+        DialogFragment() {
 
-    lateinit var viewBinding: ViewBinding
+    private lateinit var viewBinding: ViewBinding
 
     abstract val viewModel: ViewModel
 
     @get:LayoutRes
     abstract val layoutId: Int
 
-    var loadingDialog: AlertDialog? = null
-    var messageDialog: AlertDialog? = null
+    private var loadingDialog: AlertDialog? = null
+    private var messageDialog: AlertDialog? = null
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater, container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View? {
         viewBinding = DataBindingUtil.inflate(inflater, layoutId, container, false)
         return viewBinding.root
@@ -79,28 +79,28 @@ abstract class BaseDialogFragment<ViewBinding : ViewDataBinding, ViewModel : Bas
         if (isLoading) showLoading() else hideLoading()
     }
 
-    fun showLoading() {
+    private fun showLoading() {
         if (loadingDialog == null) {
             loadingDialog = DialogUtils.createLoadingDialog(context)
         }
         loadingDialog?.show()
     }
 
-    fun hideLoading() {
+    private fun hideLoading() {
         if (loadingDialog?.isShowing == true) {
             loadingDialog?.dismiss()
         }
     }
 
-    fun handleShowErrorMessage(message: String) {
+    private fun handleShowErrorMessage(message: String) {
         if (messageDialog?.isShowing == true) {
             messageDialog?.hide()
         }
 
         messageDialog = DialogUtils.showMessage(
-            context = context,
-            message = message,
-            textPositive = getString(R.string.ok)
+                context = context,
+                message = message,
+                textPositive = getString(R.string.ok)
         )
     }
 

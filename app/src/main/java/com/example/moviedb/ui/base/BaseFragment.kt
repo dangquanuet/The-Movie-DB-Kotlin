@@ -25,8 +25,8 @@ abstract class BaseFragment<ViewBinding : ViewDataBinding, ViewModel : BaseViewM
     @get:LayoutRes
     abstract val layoutId: Int
 
-    var loadingDialog: AlertDialog? = null
-    var messageDialog: AlertDialog? = null
+    private var loadingDialog: AlertDialog? = null
+    private var messageDialog: AlertDialog? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -81,20 +81,20 @@ abstract class BaseFragment<ViewBinding : ViewDataBinding, ViewModel : BaseViewM
         if (isLoading) showLoading() else hideLoading()
     }
 
-    fun showLoading() {
+    private fun showLoading() {
         if (loadingDialog == null) {
             loadingDialog = DialogUtils.createLoadingDialog(context)
         }
         loadingDialog?.show()
     }
 
-    fun hideLoading() {
+    private fun hideLoading() {
         if (loadingDialog?.isShowing == true) {
             loadingDialog?.dismiss()
         }
     }
 
-    fun handleShowErrorMessage(message: String) {
+    private fun handleShowErrorMessage(message: String) {
         if (messageDialog?.isShowing == true) {
             messageDialog?.hide()
         }

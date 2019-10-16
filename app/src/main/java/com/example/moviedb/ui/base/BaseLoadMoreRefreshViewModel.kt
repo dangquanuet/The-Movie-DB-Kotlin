@@ -7,7 +7,7 @@ import com.example.moviedb.ui.widgets.EndlessRecyclerOnScrollListener
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-abstract class BaseLoadMoreRefreshViewModel<Item>() : BaseViewModel() {
+abstract class BaseLoadMoreRefreshViewModel<Item> : BaseViewModel() {
 
     // refresh flag
     val isRefreshing = MutableLiveData<Boolean>().apply { value = false }
@@ -31,7 +31,7 @@ abstract class BaseLoadMoreRefreshViewModel<Item>() : BaseViewModel() {
     val isLastPage = MutableLiveData<Boolean>().apply { value = false }
 
     // scroll listener for recycler view
-    val onScrollListener = object : EndlessRecyclerOnScrollListener(getLoadMoreThreshold()) {
+    private val onScrollListener = object : EndlessRecyclerOnScrollListener(getLoadMoreThreshold()) {
         override fun onLoadMore() {
             if (isLoading.value == true
                 || isRefreshing.value == true
@@ -47,7 +47,7 @@ abstract class BaseLoadMoreRefreshViewModel<Item>() : BaseViewModel() {
     val listItem = MutableLiveData<ArrayList<Item>>()
 
     // empty list flag
-    val isEmptyList = MutableLiveData<Boolean>().apply { value = false }
+    private val isEmptyList = MutableLiveData<Boolean>().apply { value = false }
 
     /**
      * load data
@@ -73,7 +73,7 @@ abstract class BaseLoadMoreRefreshViewModel<Item>() : BaseViewModel() {
     /**
      * load first page
      */
-    fun refreshData() {
+    private fun refreshData() {
         loadData(getFirstPage())
     }
 
@@ -94,7 +94,7 @@ abstract class BaseLoadMoreRefreshViewModel<Item>() : BaseViewModel() {
     /**
      * override if need change number visible threshold
      */
-    open fun getLoadMoreThreshold() = Constants.DEFAULT_NUM_VISIBLE_THRESHOLD
+    fun getLoadMoreThreshold() = Constants.DEFAULT_NUM_VISIBLE_THRESHOLD
 
     /**
      * override if need change number item per page
@@ -104,7 +104,7 @@ abstract class BaseLoadMoreRefreshViewModel<Item>() : BaseViewModel() {
     /**
      * reset load more
      */
-    fun resetLoadMore() {
+    private fun resetLoadMore() {
         onScrollListener.resetOnLoadMore()
         isLastPage.value = false
     }
