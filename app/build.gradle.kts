@@ -107,7 +107,7 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:${KotlinCompilerVersion.VERSION}")
     implementation("androidx.core:core-ktx:1.2.0-beta01")
 
-    implementation("androidx.fragment:fragment-ktx:1.2.0-beta01")
+    implementation("androidx.fragment:fragment-ktx:1.2.0-beta02")
 //    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0-alpha02")
 
     // ViewModel and LiveData
