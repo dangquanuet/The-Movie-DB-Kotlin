@@ -27,6 +27,8 @@ class MovieDetailViewModel(
                         val newMoview = movie.value
                         newMoview?.isFavorite = true
                         movie.value = newMoview
+                    } else {
+                        movie.value?.isFavorite = false
                     }
                 }
             } catch (e: Exception) {
