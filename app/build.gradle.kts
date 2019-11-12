@@ -105,9 +105,9 @@ dependencies {
     implementation("androidx.recyclerview:recyclerview:1.1.0-rc01")
     implementation("com.google.android.material:material:1.2.0-alpha01")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:${KotlinCompilerVersion.VERSION}")
-    implementation("androidx.core:core-ktx:1.2.0-beta01")
+    implementation("androidx.core:core-ktx:1.2.0-beta02")
 
-    implementation("androidx.fragment:fragment-ktx:1.2.0-rc01")
+    implementation("androidx.fragment:fragment-ktx:1.2.0-rc02")
 //    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0-alpha02")
 
     // ViewModel and LiveData
@@ -129,9 +129,9 @@ dependencies {
 //    implementation("androidx.paging:paging-rxjava2-ktx:2.1.0")
 
     // navigation
-    implementation("androidx.navigation:navigation-runtime-ktx:2.2.0-rc01")
-    implementation("androidx.navigation:navigation-fragment-ktx:2.2.0-rc01")
-    implementation("androidx.navigation:navigation-ui-ktx:2.2.0-rc01")
+    implementation("androidx.navigation:navigation-runtime-ktx:2.2.0-rc02")
+    implementation("androidx.navigation:navigation-fragment-ktx:2.2.0-rc02")
+    implementation("androidx.navigation:navigation-ui-ktx:2.2.0-rc02")
 
     // work manager
 //    implementation("androidx.work:work-runtime-ktx:2.0.1")
