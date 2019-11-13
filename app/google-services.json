@@ -8,12 +8,57 @@
   "client": [
     {
       "client_info": {
+        "mobilesdk_app_id": "1:798464531435:android:24c66ab00d1c5744",
+        "android_client_info": {
+          "package_name": "com.example.moviedb"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "798464531435-u3j61uphmmnsb40rrmjemtva0k8pr8oa.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.moviedb",
+            "certificate_hash": "340ac9a6b77997283de207d50ac8ad749159d108"
+          }
+        },
+        {
+          "client_id": "798464531435-motdera1h2kocscat177sv6k4d6gc16a.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDwl6AQkfThxNKzsSsgEEECXwTlVMEA-kQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "798464531435-motdera1h2kocscat177sv6k4d6gc16a.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:798464531435:android:c1d97301229bded4",
         "android_client_info": {
           "package_name": "com.example.moviedb.dev"
         }
       },
       "oauth_client": [
+        {
+          "client_id": "798464531435-6i26a1t039vicqe97pm74l7f53roqp3s.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.moviedb.dev",
+            "certificate_hash": "340ac9a6b77997283de207d50ac8ad749159d108"
+          }
+        },
         {
           "client_id": "798464531435-4o40k2kd471flvhgjllu4dbpgqmfh4mh.apps.googleusercontent.com",
           "client_type": 1,
@@ -33,20 +78,13 @@
         }
       ],
       "services": {
-        "analytics_service": {
-          "status": 1
-        },
         "appinvite_service": {
-          "status": 2,
           "other_platform_oauth_client": [
             {
               "client_id": "798464531435-motdera1h2kocscat177sv6k4d6gc16a.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
-        },
-        "ads_service": {
-          "status": 2
         }
       }
     },
@@ -58,6 +96,14 @@
         }
       },
       "oauth_client": [
+        {
+          "client_id": "798464531435-kt4de0rqlefr3bg6t5mdeknaehs4luis.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.moviedb.mock",
+            "certificate_hash": "340ac9a6b77997283de207d50ac8ad749159d108"
+          }
+        },
         {
           "client_id": "798464531435-vkr5vv0gao9ka6v7jc8l6si879mm73n9.apps.googleusercontent.com",
           "client_type": 1,
@@ -77,20 +123,13 @@
         }
       ],
       "services": {
-        "analytics_service": {
-          "status": 1
-        },
         "appinvite_service": {
-          "status": 2,
           "other_platform_oauth_client": [
             {
               "client_id": "798464531435-motdera1h2kocscat177sv6k4d6gc16a.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
-        },
-        "ads_service": {
-          "status": 2
         }
       }
     }
