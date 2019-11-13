@@ -8,6 +8,7 @@ plugins {
     id("kotlin-android-extensions")
     id("kotlin-kapt")
     id("androidx.navigation.safeargs.kotlin")
+    id("io.fabric")
 }
 
 androidExtensions {
@@ -23,6 +24,10 @@ android {
         minSdkVersion(17)
         compileSdkVersion(29)
         targetSdkVersion(29)
+        multiDexEnabled = true
+        vectorDrawables {
+            useSupportLibrary = true
+        }
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -106,6 +111,7 @@ dependencies {
     implementation("com.google.android.material:material:1.2.0-alpha01")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:${KotlinCompilerVersion.VERSION}")
     implementation("androidx.core:core-ktx:1.2.0-beta02")
+    implementation("androidx.multidex:multidex:2.0.1")
 
     implementation("androidx.fragment:fragment-ktx:1.2.0-rc02")
 //    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0-alpha02")
@@ -165,6 +171,10 @@ dependencies {
     // runtime permission
 //    implementation("pub.devrel:easypermissions:3.0.0")
 
+    // firebase
+    implementation("com.google.firebase:firebase-analytics:17.2.1")
+    implementation("com.crashlytics.sdk.android:crashlytics:2.10.1")
+
     // unit test
     testImplementation("junit:junit:4.12")
     testImplementation("org.mockito:mockito-core:2.27.0")
@@ -179,6 +189,7 @@ dependencies {
     testImplementation("com.squareup.okhttp3:mockwebserver:3.14.0")
     testImplementation("org.jetbrains.kotlin:kotlin-stdlib:${KotlinCompilerVersion.VERSION}")
 }
+apply(mapOf("plugin" to "com.google.gms.google-services"))
 
 /*
 apply plugin: 'com.android.application'
