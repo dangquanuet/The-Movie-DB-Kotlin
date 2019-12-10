@@ -107,13 +107,13 @@ dependencies {
     implementation("androidx.appcompat:appcompat:1.1.0")
     implementation("androidx.legacy:legacy-support-v4:1.0.0")
     implementation("androidx.constraintlayout:constraintlayout:2.0.0-beta3")
-    implementation("androidx.recyclerview:recyclerview:1.1.0-rc01")
-    implementation("com.google.android.material:material:1.2.0-alpha01")
+    implementation("androidx.recyclerview:recyclerview:1.1.0")
+    implementation("com.google.android.material:material:1.2.0-alpha02")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:${KotlinCompilerVersion.VERSION}")
-    implementation("androidx.core:core-ktx:1.2.0-beta02")
+    implementation("androidx.core:core-ktx:1.2.0-rc01")
     implementation("androidx.multidex:multidex:2.0.1")
 
-    implementation("androidx.fragment:fragment-ktx:1.2.0-rc02")
+    implementation("androidx.fragment:fragment-ktx:1.2.0-rc03")
 //    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0-alpha02")
 
     // ViewModel and LiveData
@@ -122,10 +122,10 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-common-java8:2.1.0")
 
     // room
-    implementation("androidx.room:room-runtime:2.2.1")
-    kapt("androidx.room:room-compiler:2.2.1")
+    implementation("androidx.room:room-runtime:2.2.2")
+    kapt("androidx.room:room-compiler:2.2.2")
     // Kotlin Extensions and Coroutines support for Room
-    implementation("androidx.room:room-ktx:2.2.1")
+    implementation("androidx.room:room-ktx:2.2.2")
 
     // paging
 //    implementation("androidx.paging:paging-runtime-ktx:2.1.0")
@@ -135,9 +135,9 @@ dependencies {
 //    implementation("androidx.paging:paging-rxjava2-ktx:2.1.0")
 
     // navigation
-    implementation("androidx.navigation:navigation-runtime-ktx:2.2.0-rc02")
-    implementation("androidx.navigation:navigation-fragment-ktx:2.2.0-rc02")
-    implementation("androidx.navigation:navigation-ui-ktx:2.2.0-rc02")
+    implementation("androidx.navigation:navigation-runtime-ktx:2.2.0-rc03")
+    implementation("androidx.navigation:navigation-fragment-ktx:2.2.0-rc03")
+    implementation("androidx.navigation:navigation-ui-ktx:2.2.0-rc03")
 
     // work manager
 //    implementation("androidx.work:work-runtime-ktx:2.0.1")
