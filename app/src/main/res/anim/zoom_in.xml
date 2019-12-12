@@ -4,11 +4,11 @@
 
     <scale
         android:duration="@android:integer/config_mediumAnimTime"
-        android:fromXScale="1"
-        android:fromYScale="1"
+        android:fromXScale="0.6"
+        android:fromYScale="0.6"
         android:pivotX="50%"
         android:pivotY="50%"
-        android:toXScale="3"
-        android:toYScale="3" />
+        android:toXScale="1"
+        android:toYScale="1" />
 
 </set>

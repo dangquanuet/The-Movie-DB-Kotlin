@@ -58,7 +58,7 @@ abstract class EndlessRecyclerOnScrollListener(
         }
     }
 
-    // TODO check logic load more when load fail
+    // check logic load more when load fail
 
     fun resetOnLoadMore() {
         firstVisibleItem = 0

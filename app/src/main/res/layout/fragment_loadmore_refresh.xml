@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:bind="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -24,26 +24,26 @@
             android:layout_marginBottom="@dimen/dp_4"
             android:layout_marginTop="@dimen/dp_4"
             android:visibility="@{ viewModel.isLoadMore ? View.VISIBLE : View.GONE }"
-            bind:layout_constraintBottom_toBottomOf="parent"
-            bind:layout_constraintEnd_toEndOf="parent"
-            bind:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:id="@+id/refresh_layout"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            bind:isRefreshing="@{ viewModel.isRefreshing }"
-            bind:layout_constraintBottom_toTopOf="@id/progress_load_more"
-            bind:layout_constraintEnd_toEndOf="parent"
-            bind:layout_constraintStart_toStartOf="parent"
-            bind:layout_constraintTop_toTopOf="parent"
-            bind:onRefreshListener="@{ viewModel.onRefreshListener }">
+            app:isRefreshing="@{ viewModel.isRefreshing }"
+            app:layout_constraintBottom_toTopOf="@id/progress_load_more"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:onRefreshListener="@{ viewModel.onRefreshListener }">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                bind:onScrollListener="@{ viewModel.onScrollListener }" />
+                app:onScrollListener="@{ viewModel.onScrollListener }" />
 
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
@@ -52,9 +52,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:visibility="@{ viewModel.isLoading ? View.VISIBLE : View.GONE }"
-            bind:layout_constraintBottom_toBottomOf="parent"
-            bind:layout_constraintEnd_toEndOf="parent"
-            bind:layout_constraintStart_toStartOf="parent"
-            bind:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

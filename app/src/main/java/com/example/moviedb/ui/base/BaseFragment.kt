@@ -12,6 +12,7 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import com.example.moviedb.BR
 import com.example.moviedb.R
 import com.example.moviedb.utils.DialogUtils
@@ -110,6 +111,10 @@ abstract class BaseFragment<ViewBinding : ViewDataBinding, ViewModel : BaseViewM
         loadingDialog?.dismiss()
         messageDialog?.dismiss()
         super.onDestroy()
+    }
+
+    fun navigateUp() {
+        findNavController().navigateUp()
     }
 
     /**

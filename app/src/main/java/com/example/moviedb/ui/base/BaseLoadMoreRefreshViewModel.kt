@@ -14,11 +14,7 @@ abstract class BaseLoadMoreRefreshViewModel<Item>() : BaseViewModel() {
 
     // refresh listener for swipe refresh layout
     val onRefreshListener = SwipeRefreshLayout.OnRefreshListener {
-        if (isLoading.value == true
-            || isRefreshing.value == true
-        ) return@OnRefreshListener
-        isRefreshing.value = true
-        refreshData()
+        doRefresh()
     }
 
     // load more flag
@@ -33,13 +29,7 @@ abstract class BaseLoadMoreRefreshViewModel<Item>() : BaseViewModel() {
     // scroll listener for recycler view
     val onScrollListener = object : EndlessRecyclerOnScrollListener(getLoadMoreThreshold()) {
         override fun onLoadMore() {
-            if (isLoading.value == true
-                || isRefreshing.value == true
-                || isLoadMore.value == true
-                || isLastPage.value == true
-            ) return
-            isLoadMore.value = true
-            loadMore()
+            doLoadMore()
         }
     }
 
@@ -70,17 +60,33 @@ abstract class BaseLoadMoreRefreshViewModel<Item>() : BaseViewModel() {
         }
     }
 
+    fun doRefresh() {
+        if (isLoading.value == true || isRefreshing.value == true) return
+        isRefreshing.value = true
+        refreshData()
+    }
+
     /**
      * load first page
      */
-    fun refreshData() {
+    protected fun refreshData() {
         loadData(getFirstPage())
+    }
+
+    fun doLoadMore() {
+        if (isLoading.value == true
+            || isRefreshing.value == true
+            || isLoadMore.value == true
+            || isLastPage.value == true
+        ) return
+        isLoadMore.value = true
+        loadMore()
     }
 
     /**
      * load next page
      */
-    fun loadMore() {
+    protected fun loadMore() {
         loadData(currentPage.value?.plus(1) ?: getFirstPage())
     }
 
