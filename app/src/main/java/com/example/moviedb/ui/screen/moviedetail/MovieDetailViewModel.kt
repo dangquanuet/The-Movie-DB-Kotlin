@@ -6,6 +6,7 @@ import com.example.moviedb.data.model.Cast
 import com.example.moviedb.data.model.Movie
 import com.example.moviedb.data.repository.UserRepository
 import com.example.moviedb.ui.base.BaseViewModel
+import com.example.moviedb.utils.SingleLiveEvent
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -15,7 +16,7 @@ class MovieDetailViewModel(
 ) : BaseViewModel() {
 
     val movie = MutableLiveData<Movie>()
-    val cast = MutableLiveData<ArrayList<Cast>>()
+    val cast = SingleLiveEvent<ArrayList<Cast>>()
     private val favoriteChanged = MutableLiveData<Boolean>().apply { value = false }
 
     fun checkFavorite(id: String) {
@@ -55,7 +56,11 @@ class MovieDetailViewModel(
         }
     }
 
-    fun getCastAndCrew(movieId: String) {
+    /**
+     * load cast and crew
+     */
+    fun loadCastAndCrew(movieId: String) {
+        if (cast.value != null) return
         viewModelScope.launch {
             try {
                 cast.value = userRepository.getCastAndCrew(movieId).cast

@@ -49,7 +49,7 @@ class KeepStateNavigator(
 
         fragmentTransaction.setPrimaryNavigationFragment(newFragment)
         fragmentTransaction.setReorderingAllowed(true)
-        fragmentTransaction.commit()
+        fragmentTransaction.commitNow()
 
         return if (initialNavigate) {
             destination

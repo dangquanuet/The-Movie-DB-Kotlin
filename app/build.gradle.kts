@@ -1,6 +1,5 @@
 import org.jetbrains.kotlin.config.KotlinCompilerVersion
 import org.jetbrains.kotlin.gradle.dsl.KotlinJvmOptions
-import org.jetbrains.kotlin.gradle.internal.AndroidExtensionsExtension
 
 plugins {
     id("com.android.application")
@@ -9,12 +8,7 @@ plugins {
     id("kotlin-kapt")
     id("androidx.navigation.safeargs.kotlin")
     id("io.fabric")
-}
-
-androidExtensions {
-    configure<AndroidExtensionsExtension> {
-        isExperimental = true
-    }
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -88,18 +82,19 @@ android {
     }
 
     compileOptions {
-        setTargetCompatibility(1.8)
-        setSourceCompatibility(1.8)
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
     }
 
-    (kotlinOptions as KotlinJvmOptions).apply {
-        jvmTarget = JavaVersion.VERSION_1_8.toString()
-    }
+    (kotlinOptions as KotlinJvmOptions).jvmTarget = JavaVersion.VERSION_1_8.toString()
 
     dataBinding {
         isEnabled = true
     }
 
+    androidExtensions {
+        isExperimental = true
+    }
 }
 
 dependencies {
@@ -189,7 +184,6 @@ dependencies {
     testImplementation("com.squareup.okhttp3:mockwebserver:3.14.0")
     testImplementation("org.jetbrains.kotlin:kotlin-stdlib:${KotlinCompilerVersion.VERSION}")
 }
-apply(mapOf("plugin" to "com.google.gms.google-services"))
 
 /*
 apply plugin: 'com.android.application'

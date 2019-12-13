@@ -1,5 +1,7 @@
 package com.example.moviedb.ui.screen.moviedetail
 
+import android.os.Build
+import android.widget.ImageView
 import androidx.recyclerview.widget.DiffUtil
 import com.example.moviedb.R
 import com.example.moviedb.data.model.Cast
@@ -8,7 +10,7 @@ import com.example.moviedb.ui.base.BaseRecyclerAdapter
 import com.example.moviedb.utils.setSingleClick
 
 class CastAdapter(
-    val itemClickListener: (Cast) -> Unit = {}
+    val itemClickListener: ((ImageView, Cast) -> Unit)? = null
 ) : BaseRecyclerAdapter<Cast, ItemCastBinding>(object : DiffUtil.ItemCallback<Cast>() {
     override fun areItemsTheSame(oldItem: Cast, newItem: Cast): Boolean {
         return oldItem.id == newItem.id
@@ -26,9 +28,18 @@ class CastAdapter(
     override fun bindFirstTime(binding: ItemCastBinding) {
         binding.apply {
             root.setSingleClick {
-                item?.apply {
-                    itemClickListener(this)
+                item?.let {
+                    itemClickListener?.invoke(imageCast, it)
                 }
+            }
+        }
+    }
+
+    override fun bindView(binding: ItemCastBinding, item: Cast, position: Int) {
+        super.bindView(binding, item, position)
+        binding.apply {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                imageCast.transitionName = item.profile_path
             }
         }
     }
