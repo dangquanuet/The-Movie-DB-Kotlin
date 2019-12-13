@@ -62,6 +62,9 @@ class MovieDetailFragment : BaseFragment<FragmentMovieDetailBinding, MovieDetail
                     image_backdrop?.transitionName = it.backdrop_path
                 }
             }
+        }
+
+        if (recycler_cast?.adapter == null) {
             recycler_cast?.adapter = castAdapter
         }
     }

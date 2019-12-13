@@ -19,33 +19,31 @@ import com.example.moviedb.utils.DialogUtils
 
 abstract class BaseFragment<ViewBinding : ViewDataBinding, ViewModel : BaseViewModel> : Fragment() {
 
-    lateinit var viewBinding: ViewBinding
+    protected lateinit var viewBinding: ViewBinding
 
-    abstract val viewModel: ViewModel
+    protected abstract val viewModel: ViewModel
 
     @get:LayoutRes
-    abstract val layoutId: Int
+    protected abstract val layoutId: Int
 
-    var loadingDialog: AlertDialog? = null
-    var messageDialog: AlertDialog? = null
+    private var loadingDialog: AlertDialog? = null
+    private var messageDialog: AlertDialog? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        viewBinding = DataBindingUtil.inflate(inflater, layoutId, container, false)
-        return viewBinding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        viewBinding.apply {
-            setVariable(BR.viewModel, viewModel)
-            root.isClickable = true
-            lifecycleOwner = viewLifecycleOwner
-            executePendingBindings()
+        if (::viewBinding.isInitialized.not()) {
+            viewBinding = DataBindingUtil.inflate(inflater, layoutId, container, false)
+            viewBinding.apply {
+                setVariable(BR.viewModel, viewModel)
+                root.isClickable = true
+                lifecycleOwner = viewLifecycleOwner
+                executePendingBindings()
+            }
         }
+        return viewBinding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

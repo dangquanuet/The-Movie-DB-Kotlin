@@ -16,7 +16,7 @@ class MovieDetailViewModel(
 ) : BaseViewModel() {
 
     val movie = MutableLiveData<Movie>()
-    val cast = SingleLiveEvent<ArrayList<Cast>>()
+    val cast = MutableLiveData<ArrayList<Cast>>()
     private val favoriteChanged = MutableLiveData<Boolean>().apply { value = false }
 
     fun checkFavorite(id: String) {

@@ -2,6 +2,7 @@ package com.example.moviedb.ui.navigation
 
 import android.content.Context
 import android.os.Bundle
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.navigation.NavDestination
 import androidx.navigation.NavOptions
@@ -32,19 +33,23 @@ class KeepStateNavigator(
         var initialNavigate = false
         val currentFragment = fragmentManager.primaryNavigationFragment
         if (currentFragment != null) {
-            fragmentTransaction.detach(currentFragment)
+            fragmentTransaction.hide(currentFragment)
         } else {
             initialNavigate = true
         }
 
-        var newFragment = fragmentManager.findFragmentByTag(tag)
+        var newFragment: Fragment? = fragmentManager.findFragmentByTag(tag)
         if (newFragment == null) {
             val className = destination.className
             newFragment =
                 fragmentManager.fragmentFactory.instantiate(context.classLoader, className)
-            fragmentTransaction.add(containerId, newFragment, tag)
+            if (newFragment.isAdded) {
+                fragmentTransaction.show(newFragment)
+            } else {
+                fragmentTransaction.add(containerId, newFragment, tag)
+            }
         } else {
-            fragmentTransaction.attach(newFragment)
+            fragmentTransaction.show(newFragment)
         }
 
         fragmentTransaction.setPrimaryNavigationFragment(newFragment)

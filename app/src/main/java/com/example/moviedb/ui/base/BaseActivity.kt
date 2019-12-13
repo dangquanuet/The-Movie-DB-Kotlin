@@ -10,17 +10,19 @@ import com.example.moviedb.BR
 abstract class BaseActivity<ViewBinding : ViewDataBinding, ViewModel : BaseViewModel> :
     AppCompatActivity() {
 
-    lateinit var viewBinding: ViewBinding
+    protected lateinit var viewBinding: ViewBinding
 
-    abstract val viewModel: ViewModel
+    protected abstract val viewModel: ViewModel
 
     @get:LayoutRes
-    abstract val layoutId: Int
+    protected abstract val layoutId: Int
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewBinding = DataBindingUtil.setContentView(this, layoutId)
-        viewBinding.setVariable(BR.viewModel, viewModel)
+        if (::viewBinding.isInitialized.not()) {
+            viewBinding = DataBindingUtil.setContentView(this, layoutId)
+            viewBinding.setVariable(BR.viewModel, viewModel)
+        }
     }
 
 }
