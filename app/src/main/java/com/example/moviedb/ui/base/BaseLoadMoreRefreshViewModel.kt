@@ -24,7 +24,7 @@ abstract class BaseLoadMoreRefreshViewModel<Item>() : BaseViewModel() {
     private val currentPage = MutableLiveData<Int>().apply { value = getPreFirstPage() }
 
     // last page flag
-    val isLastPage = MutableLiveData<Boolean>().apply { value = false }
+    private val isLastPage = MutableLiveData<Boolean>().apply { value = false }
 
     // scroll listener for recycler view
     val onScrollListener = object : EndlessRecyclerOnScrollListener(getLoadMoreThreshold()) {
