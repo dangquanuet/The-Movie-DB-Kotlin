@@ -101,12 +101,14 @@ dependencies {
     // common
     implementation("androidx.appcompat:appcompat:1.1.0")
     implementation("androidx.legacy:legacy-support-v4:1.0.0")
-    implementation("androidx.constraintlayout:constraintlayout:2.0.0-beta3")
+    implementation("androidx.constraintlayout:constraintlayout:2.0.0-beta4")
     implementation("androidx.recyclerview:recyclerview:1.1.0")
     implementation("com.google.android.material:material:1.2.0-alpha02")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:${KotlinCompilerVersion.VERSION}")
     implementation("androidx.core:core-ktx:1.2.0-rc01")
     implementation("androidx.multidex:multidex:2.0.1")
+
+    implementation ("androidx.viewpager2:viewpager2:1.0.0")
 
     implementation("androidx.fragment:fragment-ktx:1.2.0-rc03")
 //    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0-alpha02")

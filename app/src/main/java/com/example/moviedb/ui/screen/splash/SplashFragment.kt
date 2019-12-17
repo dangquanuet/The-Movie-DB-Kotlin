@@ -17,7 +17,8 @@ class SplashFragment : BaseFragment<FragmentSplashBinding, SplashViewModel>() {
     private val handler = Handler()
 
     private val task = Runnable {
-        findNavController().navigate(SplashFragmentDirections.splashToMain())
+//        findNavController().navigate(SplashFragmentDirections.splashToMain())
+        findNavController().navigate(SplashFragmentDirections.toMoviePager())
     }
 
     override fun onResume() {
