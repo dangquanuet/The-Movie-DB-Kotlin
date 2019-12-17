@@ -165,6 +165,9 @@ dependencies {
 //    implementation("org.koin:koin-android:2.0.1")
     implementation("org.koin:koin-androidx-viewmodel:2.0.1")
 
+    // lottie
+    implementation("com.airbnb.android:lottie:3.3.1")
+
     // runtime permission
 //    implementation("pub.devrel:easypermissions:3.0.0")
 
