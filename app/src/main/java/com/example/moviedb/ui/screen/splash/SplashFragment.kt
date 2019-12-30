@@ -9,25 +9,24 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SplashFragment : BaseFragment<FragmentSplashBinding, SplashViewModel>() {
 
-    override val layoutId: Int
-        get() = R.layout.fragment_splash
+    override val layoutId: Int = R.layout.fragment_splash
 
     override val viewModel: SplashViewModel by viewModel()
 
     private val handler = Handler()
 
     private val task = Runnable {
-//        findNavController().navigate(SplashFragmentDirections.splashToMain())
-        findNavController().navigate(SplashFragmentDirections.toMoviePager())
+        findNavController().navigate(SplashFragmentDirections.toMain())
+//        findNavController().navigate(SplashFragmentDirections.toMoviePager())
     }
 
-    override fun onResume() {
-        super.onResume()
+    override fun onStart() {
+        super.onStart()
         handler.postDelayed(task, 1000)
     }
 
-    override fun onPause() {
+    override fun onStop() {
         handler.removeCallbacks(task)
-        super.onPause()
+        super.onStop()
     }
 }
