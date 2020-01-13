@@ -110,7 +110,7 @@ dependencies {
 
     implementation ("androidx.viewpager2:viewpager2:1.0.0")
 
-    implementation("androidx.fragment:fragment-ktx:1.2.0-rc04")
+    implementation("androidx.fragment:fragment-ktx:1.2.0-rc05")
 //    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0-alpha02")
 
     // ViewModel and LiveData
