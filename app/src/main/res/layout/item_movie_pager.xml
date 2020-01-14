@@ -14,16 +14,20 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginStart="@dimen/dp_100"
-        android:layout_marginEnd="@dimen/dp_100"
-        >
+        android:layout_marginEnd="@dimen/dp_100">
 
-        <androidx.appcompat.widget.AppCompatImageView
+        <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:scaleType="centerCrop"
-            app:centerCrop="@{ true }"
-            app:loadImageMovie="@{ item.poster_path }"
-            tools:src="@drawable/bg_default_image" />
+            app:cardCornerRadius="@dimen/dp_16">
 
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                app:centerCrop="@{ true }"
+                app:loadImageMovie="@{ item.poster_path }"
+                tools:src="@drawable/bg_default_image" />
+        </com.google.android.material.card.MaterialCardView>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

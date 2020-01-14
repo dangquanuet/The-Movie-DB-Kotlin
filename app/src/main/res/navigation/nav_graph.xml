@@ -17,6 +17,12 @@
             app:popUpToInclusive="true" />
 
         <action
+            android:id="@+id/to_movie_list_pager"
+            app:destination="@id/movie_list_pager"
+            app:popUpTo="@id/splash"
+            app:popUpToInclusive="true" />
+
+        <action
             android:id="@+id/to_movie_pager"
             app:destination="@id/movie_pager"
             app:popUpTo="@id/splash"
@@ -27,6 +33,11 @@
         android:id="@+id/main"
         android:name="com.example.moviedb.ui.screen.main.MainFragment"
         tools:layout="@layout/fragment_main" />
+
+    <fragment
+        android:id="@+id/movie_list_pager"
+        android:name="com.example.moviedb.ui.screen.movielistpager.MovieListPagerFragment"
+        tools:layout="@layout/fragment_movie_list_pager" />
 
     <fragment
         android:id="@+id/movie_pager"

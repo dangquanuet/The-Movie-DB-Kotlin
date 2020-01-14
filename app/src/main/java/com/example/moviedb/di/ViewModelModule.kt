@@ -8,7 +8,9 @@ import com.example.moviedb.ui.screen.image.ImageViewModel
 import com.example.moviedb.ui.screen.login.LoginViewModel
 import com.example.moviedb.ui.screen.main.MainViewModel
 import com.example.moviedb.ui.screen.moviedetail.MovieDetailViewModel
+import com.example.moviedb.ui.screen.movielistpager.MovieListPagerViewModel
 import com.example.moviedb.ui.screen.moviepager.MoviePagerViewModel
+import com.example.moviedb.ui.screen.moviepager.movie.MovieViewModel
 import com.example.moviedb.ui.screen.oldmain.OldMainViewModel
 import com.example.moviedb.ui.screen.permission.PermissionViewModel
 import com.example.moviedb.ui.screen.popularmovie.PopularMovieViewModel
@@ -34,4 +36,6 @@ val viewModelModule = module {
     viewModel { PermissionViewModel() }
     viewModel { ImageViewModel() }
     viewModel { MoviePagerViewModel(get(), get()) }
+    viewModel { MovieListPagerViewModel() }
+    viewModel { MovieViewModel() }
 }

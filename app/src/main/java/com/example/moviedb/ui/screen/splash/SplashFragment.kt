@@ -18,8 +18,8 @@ class SplashFragment : BaseFragment<FragmentSplashBinding, SplashViewModel>() {
     private val handler = Handler()
 
     private val task = Runnable {
-        findNavController().navigate(SplashFragmentDirections.toMain())
-//        findNavController().navigate(SplashFragmentDirections.toMoviePager())
+//        findNavController().navigate(SplashFragmentDirections.toMain())
+        findNavController().navigate(SplashFragmentDirections.toMovieListPager())
     }
 
     private val activityScope = CoroutineScope(Dispatchers.Main)
@@ -28,7 +28,8 @@ class SplashFragment : BaseFragment<FragmentSplashBinding, SplashViewModel>() {
         super.onStart()
         activityScope.launch {
             delay(1000)
-            findNavController().navigate(SplashFragmentDirections.toMain())
+//            findNavController().navigate(SplashFragmentDirections.toMain())
+            findNavController().navigate(SplashFragmentDirections.toMovieListPager())
         }
 //        handler.postDelayed(task, 1000)
     }

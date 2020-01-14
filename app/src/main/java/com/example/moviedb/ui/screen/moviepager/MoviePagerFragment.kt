@@ -19,15 +19,17 @@ class MoviePagerFragment :
     companion object {
         const val TAG = "MoviePagerFragment"
         const val TYPE = "TYPE"
+        const val POSITION = "POSITION"
         private const val MAX_SCALE = 0.76f
         private const val SCALE_PERCENT = 0.8f
         private const val MIN_SCALE = SCALE_PERCENT * MAX_SCALE
         private const val MAX_ALPHA = 1.0f
         private const val MIN_ALPHA = 0.3f
 
-        fun newInstance(type: Int) = MoviePagerFragment().apply {
+        fun newInstance(type: Int, position: Int) = MoviePagerFragment().apply {
             arguments = Bundle().apply {
                 putInt(TYPE, type)
+                putInt(POSITION, position)
             }
         }
     }
@@ -39,16 +41,16 @@ class MoviePagerFragment :
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        /*viewModel.apply {
-            mode.value = args.type?.toInt()
-        }*/
+        viewModel.apply {
+            mode.value = arguments?.getInt(TYPE)
+        }
 
         val adapter = MoviePagerAdapter(
             itemClickListener = { toMovieDetail(it) }
         )
 
         container.setBackgroundColor(Color.BLACK)
-        viewPager2?.apply {
+        movie_pager?.apply {
             clipToPadding = false
             clipChildren = false
             // retain 1 page on each size
@@ -68,7 +70,7 @@ class MoviePagerFragment :
                 // translation X
                 view.translationX = -position * (nextItemVisiblePx + currentItemHorizontalMarginPx)
                 // translation Y
-                view.translationY = abs(position) * ((MAX_SCALE - scaleY) / 2 * view.height)
+//                view.translationY = abs(position) * ((MAX_SCALE - scaleY) / 2 * view.height)
             }
         }
 

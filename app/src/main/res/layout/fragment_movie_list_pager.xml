@@ -3,18 +3,14 @@
 
     <data>
 
-        <variable
-            name="viewModel"
-            type="com.example.moviedb.ui.screen.moviepager.MoviePagerViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <androidx.viewpager2.widget.ViewPager2
-            android:id="@+id/movie_pager"
+            android:id="@+id/movie_list_pager"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
