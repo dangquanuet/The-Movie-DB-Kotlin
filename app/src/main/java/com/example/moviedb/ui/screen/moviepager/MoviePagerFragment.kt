@@ -20,7 +20,7 @@ class MoviePagerFragment :
         const val TAG = "MoviePagerFragment"
         const val TYPE = "TYPE"
         const val POSITION = "POSITION"
-        private const val MAX_SCALE = 0.76f
+        private const val MAX_SCALE = 1f
         private const val SCALE_PERCENT = 0.8f
         private const val MIN_SCALE = SCALE_PERCENT * MAX_SCALE
         private const val MAX_ALPHA = 1.0f
@@ -57,18 +57,18 @@ class MoviePagerFragment :
             offscreenPageLimit = 1
             this.adapter = adapter
 
-            val nextItemVisiblePx = resources.getDimensionPixelOffset(R.dimen.dp_100)
-            val currentItemHorizontalMarginPx = resources.getDimensionPixelOffset(R.dimen.dp_50)
+            val nextItemTranslationX = resources.getDimensionPixelOffset(R.dimen.dp_250)
             setPageTransformer { view, position ->
                 // position  -1: left, 0: center, 1: right
                 val absPosition = abs(position)
                 // alpha from 0.3 to 1.0
                 view.alpha = MAX_ALPHA - (MAX_ALPHA - MIN_ALPHA) * absPosition
-                // scaleY from 0.7 to 0.9
-                val scaleY = MAX_SCALE - (MAX_SCALE - MIN_SCALE) * absPosition
-                view.scaleY = scaleY
+                // scale from 0.7 to 0.9
+                val scale = MAX_SCALE - (MAX_SCALE - MIN_SCALE) * absPosition
+                view.scaleY = scale
+                view.scaleX = scale
                 // translation X
-                view.translationX = -position * (nextItemVisiblePx + currentItemHorizontalMarginPx)
+                view.translationX = -position * nextItemTranslationX
                 // translation Y
 //                view.translationY = abs(position) * ((MAX_SCALE - scaleY) / 2 * view.height)
             }
