@@ -30,8 +30,7 @@
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
                 app:centerCrop="@{ true }"
-                app:large="@{ true }"
-                app:loadImageMovie="@{ item.poster_path }"
+                app:imageUrl="@{ item.fullBackdropPath }"
                 tools:src="@drawable/bg_default_image" />
         </com.google.android.material.card.MaterialCardView>
 

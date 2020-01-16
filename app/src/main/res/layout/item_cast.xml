@@ -19,11 +19,11 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             app:centerCrop="@{ true }"
+            app:imageUrl="@{ item.fullProfilePath }"
             app:layout_constraintDimensionRatio="4:6"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:loadImageMovie="@{ item.profile_path }"
             tools:src="@mipmap/ic_launcher" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

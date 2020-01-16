@@ -18,7 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:centerCrop="@{ true }"
-            app:loadImageMovie="@{ item.poster_path }"
+            app:imageUrl="@{ item.fullPosterPath }"
             tools:src="@drawable/bg_default_image" />
 
         <androidx.appcompat.widget.AppCompatTextView

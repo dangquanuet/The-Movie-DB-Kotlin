@@ -3,6 +3,7 @@ package com.example.moviedb.data.model
 import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.example.moviedb.BuildConfig
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
@@ -30,4 +31,11 @@ data class Movie(
     val vote_average: Double? = null,
     val vote_count: Int? = null,
     var isFavorite: Boolean? = false
-) : Parcelable
+) : Parcelable {
+
+    fun getFullBackdropPath() =
+        if (backdrop_path.isNullOrBlank()) null else BuildConfig.SMALL_IMAGE_URL + backdrop_path
+
+    fun getFullPosterPath() =
+        if (poster_path.isNullOrBlank()) null else BuildConfig.SMALL_IMAGE_URL + poster_path
+}

@@ -3,6 +3,7 @@ package com.example.moviedb.data.model
 import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.example.moviedb.BuildConfig
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
@@ -20,4 +21,7 @@ data class Tv(
     val vote_average: Double? = null,
     val overview: String? = null,
     val poster_path: String? = null
-) : Parcelable
+) : Parcelable {
+    fun getFullPosterPath() =
+        if (poster_path.isNullOrBlank()) null else BuildConfig.SMALL_IMAGE_URL + poster_path
+}

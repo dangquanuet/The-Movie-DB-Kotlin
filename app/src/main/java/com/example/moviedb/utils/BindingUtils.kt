@@ -15,11 +15,11 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
+import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.signature.ObjectKey
 import com.example.moviedb.BuildConfig
 import com.example.moviedb.data.constants.Constants
-import java.io.File
 
 @BindingAdapter("onRefreshListener")
 fun SwipeRefreshLayout.customRefreshListener(listener: SwipeRefreshLayout.OnRefreshListener?) {
@@ -56,43 +56,36 @@ fun ImageView.loadLocalImage(imageName: String?) {
 }
 
 @BindingAdapter(
-    value = ["loadImage", "thumbnailUrl", "placeholder", "errorDrawable", "centerCrop", "fitCenter", "circleCrop", "cacheType", "signatureKey"],
+    value = ["imageUrl", "thumbnailUrl", "placeholder", "errorDrawable", "requestListener", "centerCrop", "fitCenter", "circleCrop", "diskCacheStrategy", "signatureKey"],
     requireAll = false
 )
 fun ImageView.loadImage(
-    url: String? = null,
+    imageUrl: String? = null,
     thumbnailUrl: String? = null,
     placeHolder: Drawable? = null,
     errorDrawable: Drawable? = null,
+    requestListener: RequestListener<Drawable>? = null,
     centerCrop: Boolean = false,
     fitCenter: Boolean = false,
     circleCrop: Boolean = false,
-    cacheType: Int = 0,
+    diskCacheStrategy: DiskCacheStrategy? = null,
     signatureKey: String? = null
 ) {
-    if (url.isNullOrBlank()) {
+    if (imageUrl.isNullOrBlank()) {
         setImageDrawable(placeHolder)
         return
     }
 
     val requestOptions = RequestOptions().apply {
+
         // cache type: https://futurestud.io/tutorials/glide-how-to-choose-the-best-caching-preference
-        when (cacheType) {
-            // Glide 4.x: DiskCacheStrategy.RESOURCE Glide 3.x: DiskCacheStrategy.RESULT caches only the final image, after reducing the resolution (and possibly transformations) (default behavior of Glide 3.x)
-            0 -> diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+        // Glide 4.x: DiskCacheStrategy.RESOURCE Glide 3.x: DiskCacheStrategy.RESULT caches only the final image, after reducing the resolution (and possibly transformations) (default behavior of Glide 3.x)
+        // Glide 4.x: DiskCacheStrategy.DATA, Glide 3.x: DiskCacheStrategy.SOURCE caches only the original full-resolution image
+        // Glide 4.x only: DiskCacheStrategy.AUTOMATIC intelligently chooses a cache strategy based on the resource (default behavior of Glide 4.x)
+        // Glide 3.x & 4.x: DiskCacheStrategy.ALL caches all versions of the image
+        // Glide 3.x & 4.x: DiskCacheStrategy.NONE caches nothing
+        diskCacheStrategy(diskCacheStrategy ?: DiskCacheStrategy.RESOURCE)
 
-            // Glide 4.x: DiskCacheStrategy.DATA, Glide 3.x: DiskCacheStrategy.SOURCE caches only the original full-resolution image
-            1 -> diskCacheStrategy(DiskCacheStrategy.DATA)
-
-            // Glide 4.x only: DiskCacheStrategy.AUTOMATIC intelligently chooses a cache strategy based on the resource (default behavior of Glide 4.x)
-            2 -> diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
-
-            // Glide 3.x & 4.x: DiskCacheStrategy.ALL caches all versions of the image
-            3 -> diskCacheStrategy(DiskCacheStrategy.ALL)
-
-            // Glide 3.x & 4.x: DiskCacheStrategy.NONE caches nothing
-            4 -> diskCacheStrategy(DiskCacheStrategy.NONE)
-        }
         placeholder(placeHolder)
         error(errorDrawable)
 
@@ -106,50 +99,16 @@ fun ImageView.loadImage(
         }
     }
 
-    GlideApp.with(context).load(url).apply {
+    GlideApp.with(context).load(imageUrl).apply {
         transition(DrawableTransitionOptions.withCrossFade())
-        if (!thumbnailUrl.isNullOrBlank()) {
+        listener(requestListener)
+        if (thumbnailUrl.isNullOrBlank().not()) {
             thumbnail(Glide.with(context).load(thumbnailUrl).apply(requestOptions))
         } else {
             thumbnail(0.2f)
         }
         apply(requestOptions)
     }.into(this)
-}
-
-/**
- * For this project only, load image from movie db
- */
-@BindingAdapter(
-    value = ["loadImageMovie", "placeholder", "centerCrop", "fitCenter", "circleCrop", "cacheSource", "animation", "large"],
-    requireAll = false
-)
-fun ImageView.loadImageMovie(
-    url: String? = "", placeHolder: Drawable?,
-    centerCrop: Boolean = false, fitCenter: Boolean = false, circleCrop: Boolean = false,
-    isCacheSource: Boolean = false, animation: Boolean = false, isLarge: Boolean = false
-) {
-    if (url.isNullOrBlank()) {
-        setImageDrawable(placeHolder)
-        return
-    }
-    val urlWithHost =
-        (if (isLarge) BuildConfig.LARGE_IMAGE_URL else BuildConfig.SMALL_IMAGE_URL) + url
-    val requestBuilder = GlideApp.with(context).load(urlWithHost)
-    val requestOptions = RequestOptions().diskCacheStrategy(
-        if (isCacheSource) DiskCacheStrategy.DATA else DiskCacheStrategy.RESOURCE
-    )
-        .placeholder(placeHolder)
-
-    if (animation.not()) requestOptions.dontAnimate()
-    if (centerCrop) requestOptions.centerCrop()
-    if (fitCenter) requestOptions.fitCenter()
-    if (circleCrop) requestOptions.circleCrop()
-    val file = File(urlWithHost)
-    if (file.exists()) {
-        requestOptions.signature(ObjectKey(file.lastModified().toString()))
-    }
-    requestBuilder.apply(requestOptions).into(this)
 }
 
 @BindingAdapter("clickSafe")

@@ -157,8 +157,8 @@ dependencies {
 //    implementation("com.squareup.retrofit2:adapter-rxjava2:2.6.0")
 
     // glide
-    implementation("com.github.bumptech.glide:glide:4.10.0")
-    kapt("com.github.bumptech.glide:compiler:4.10.0")
+    implementation("com.github.bumptech.glide:glide:4.11.0")
+    kapt("com.github.bumptech.glide:compiler:4.11.0")
 
     // koin
 //    implementation("org.koin:koin-core:2.0.1")

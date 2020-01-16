@@ -28,8 +28,8 @@ class SplashFragment : BaseFragment<FragmentSplashBinding, SplashViewModel>() {
         super.onStart()
         activityScope.launch {
             delay(1000)
-//            findNavController().navigate(SplashFragmentDirections.toMain())
-            findNavController().navigate(SplashFragmentDirections.toMovieListPager())
+            findNavController().navigate(SplashFragmentDirections.toMain())
+//            findNavController().navigate(SplashFragmentDirections.toMovieListPager())
         }
 //        handler.postDelayed(task, 1000)
     }
