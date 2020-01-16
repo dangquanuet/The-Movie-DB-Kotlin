@@ -1,6 +1,5 @@
 package com.example.moviedb.ui.screen.moviedetail
 
-import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
@@ -8,7 +7,6 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import androidx.transition.TransitionInflater
 import com.example.moviedb.R
 import com.example.moviedb.databinding.FragmentMovieDetailBinding
 import com.example.moviedb.ui.base.BaseFragment
@@ -28,14 +26,6 @@ class MovieDetailFragment : BaseFragment<FragmentMovieDetailBinding, MovieDetail
         toFullImage(imageView, cast.getFullProfilePath() ?: "")
     })
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            sharedElementEnterTransition =
-                TransitionInflater.from(context).inflateTransition(android.R.transition.move)
-        }
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         button_favorite?.setOnClickListener {
@@ -53,10 +43,6 @@ class MovieDetailFragment : BaseFragment<FragmentMovieDetailBinding, MovieDetail
                 movie.value = it
                 checkFavorite(it.id)
                 loadCastAndCrew(it.id)
-
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    image_backdrop?.transitionName = it.backdrop_path
-                }
             }
         }
 

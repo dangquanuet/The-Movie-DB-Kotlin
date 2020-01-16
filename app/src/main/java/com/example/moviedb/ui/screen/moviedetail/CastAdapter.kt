@@ -1,6 +1,5 @@
 package com.example.moviedb.ui.screen.moviedetail
 
-import android.os.Build
 import android.widget.ImageView
 import androidx.recyclerview.widget.DiffUtil
 import com.example.moviedb.R
@@ -31,15 +30,6 @@ class CastAdapter(
                 item?.let {
                     itemClickListener?.invoke(imageCast, it)
                 }
-            }
-        }
-    }
-
-    override fun bindView(binding: ItemCastBinding, item: Cast, position: Int) {
-        super.bindView(binding, item, position)
-        binding.apply {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                imageCast.transitionName = item.profile_path
             }
         }
     }

@@ -33,10 +33,6 @@ class PopularMovieFragment :
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        /*viewModel.apply {
-            mode.value = args.type?.toInt()
-        }*/
-
         val adapter = PopularMovieAdapter(
             itemClickListener = { toMovieDetail(it) }
         )

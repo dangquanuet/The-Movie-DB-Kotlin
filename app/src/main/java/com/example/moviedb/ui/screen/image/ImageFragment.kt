@@ -14,12 +14,9 @@ import com.example.moviedb.R
 import com.example.moviedb.databinding.FragmentImageBinding
 import com.example.moviedb.ui.base.BaseFragment
 import com.example.moviedb.ui.base.BaseViewModel
-import com.example.moviedb.utils.loadImage
 import com.example.moviedb.utils.setSingleClick
-import kotlinx.android.synthetic.main.fragment_image.*
-import kotlinx.android.synthetic.main.fragment_movie_detail.image_back
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
+import kotlinx.android.synthetic.main.fragment_movie_detail.*
+import kotlinx.coroutines.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ImageFragment : BaseFragment<FragmentImageBinding, BaseViewModel>() {
@@ -34,54 +31,51 @@ class ImageFragment : BaseFragment<FragmentImageBinding, BaseViewModel>() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        image_back?.setSingleClick {
-            findNavController().navigateUp()
-        }
-
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             sharedElementEnterTransition =
                 TransitionInflater.from(context).inflateTransition(android.R.transition.move)
         }
-        viewModel.apply {
-            args.imageUrl.let {
-                image?.loadImage(
-                    imageUrl = it,
-                    requestListener = object : RequestListener<Drawable> {
-                        override fun onLoadFailed(
-                            e: GlideException?,
-                            model: Any?,
-                            target: Target<Drawable>?,
-                            isFirstResource: Boolean
-                        ): Boolean {
-                            startPostponedEnterTransition()
-                            return false
-                        }
 
-                        override fun onResourceReady(
-                            resource: Drawable?,
-                            model: Any?,
-                            target: Target<Drawable>?,
-                            dataSource: DataSource?,
-                            isFirstResource: Boolean
-                        ): Boolean {
-                            startPostponedEnterTransition()
-                            return false
-                        }
-                    })
+        viewBinding.imageRequestListener = object : RequestListener<Drawable> {
+            override fun onLoadFailed(
+                e: GlideException?,
+                model: Any?,
+                target: Target<Drawable>?,
+                isFirstResource: Boolean
+            ): Boolean {
+                startPostponedEnterTransition()
+                return false
+            }
 
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    image?.transitionName = it
-                }
+            override fun onResourceReady(
+                resource: Drawable?,
+                model: Any?,
+                target: Target<Drawable>?,
+                dataSource: DataSource?,
+                isFirstResource: Boolean
+            ): Boolean {
+                startPostponedEnterTransition()
+                return false
             }
         }
 
-        /*ioScope.launch {
+        image_back?.setSingleClick {
+            findNavController().navigateUp()
+        }
+
+        viewModel.apply {
+            args.imageUrl.let {
+                imageUrl.value = it
+            }
+        }
+
+        ioScope.launch {
             // Animation Watchdog - Make sure we don't wait longer than a second for the Glide image
             delay(1000)
             withContext(Dispatchers.Main) {
                 startPostponedEnterTransition()
             }
-        }*/
+        }
 
         postponeEnterTransition()
     }

@@ -15,9 +15,6 @@ class MovieListPagerFragment :
 
     companion object {
         const val TAG = "MovieListPagerFragment"
-
-        fun newInstance() = MovieListPagerFragment().apply {
-        }
     }
 
     override val layoutId: Int = R.layout.fragment_movie_list_pager

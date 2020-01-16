@@ -172,7 +172,7 @@ dependencies {
 //    implementation("pub.devrel:easypermissions:3.0.0")
 
     // firebase
-    implementation("com.google.firebase:firebase-analytics:17.2.1")
+    implementation("com.google.firebase:firebase-analytics:17.2.2")
     implementation("com.crashlytics.sdk.android:crashlytics:2.10.1")
 
     // unit test

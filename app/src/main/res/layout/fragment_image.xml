@@ -5,9 +5,15 @@
 
     <data>
 
+        <import type="android.graphics.drawable.Drawable" />
+
         <variable
             name="viewModel"
             type="com.example.moviedb.ui.screen.image.ImageViewModel" />
+
+        <variable
+            name="imageRequestListener"
+            type="com.bumptech.glide.request.RequestListener&lt;Drawable>" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -19,10 +25,13 @@
             android:id="@+id/image"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            app:imageUrl="@{ viewModel.imageUrl }"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:requestListener="@{ imageRequestListener }"
+            app:transitionName="@{viewModel.imageUrl }"
             tools:src="@mipmap/ic_launcher" />
 
         <androidx.appcompat.widget.AppCompatImageView

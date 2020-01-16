@@ -35,6 +35,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:placeholder="@{ @drawable/ic_gallery }"
+                    app:transitionName="@{viewModel.movie.fullBackdropPath }"
                     tools:scaleType="centerCrop"
                     tools:src="@drawable/ic_gallery" />
 

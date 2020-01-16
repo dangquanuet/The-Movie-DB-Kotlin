@@ -102,11 +102,11 @@ fun ImageView.loadImage(
     GlideApp.with(context).load(imageUrl).apply {
         transition(DrawableTransitionOptions.withCrossFade())
         listener(requestListener)
-        if (thumbnailUrl.isNullOrBlank().not()) {
+        /*if (thumbnailUrl.isNullOrBlank().not()) {
             thumbnail(Glide.with(context).load(thumbnailUrl).apply(requestOptions))
         } else {
             thumbnail(0.2f)
-        }
+        }*/
         apply(requestOptions)
     }.into(this)
 }
