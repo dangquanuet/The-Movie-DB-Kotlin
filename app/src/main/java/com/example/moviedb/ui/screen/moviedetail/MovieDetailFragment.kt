@@ -23,7 +23,9 @@ class MovieDetailFragment : BaseFragment<FragmentMovieDetailBinding, MovieDetail
     private val args: MovieDetailFragmentArgs by navArgs()
 
     private val castAdapter = CastAdapter(itemClickListener = { imageView, cast ->
-        toFullImage(imageView, cast.getFullProfilePath() ?: "")
+        cast.getFullProfilePath()?.let {
+            toFullImage(imageView, it)
+        }
     })
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -35,7 +37,9 @@ class MovieDetailFragment : BaseFragment<FragmentMovieDetailBinding, MovieDetail
             findNavController().navigateUp()
         }
         image_backdrop?.setSingleClick {
-            toFullImage(image_backdrop, viewModel.movie.value?.getFullBackdropPath() ?: "")
+            viewModel.movie.value?.getFullBackdropPath()?.let {
+                toFullImage(image_backdrop, it)
+            }
         }
 
         viewModel.apply {

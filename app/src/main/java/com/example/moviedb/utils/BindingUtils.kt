@@ -101,7 +101,8 @@ fun ImageView.loadImage(
 
     GlideApp.with(context).load(imageUrl).apply {
         transition(DrawableTransitionOptions.withCrossFade())
-        listener(requestListener)
+        addListener(requestListener)
+        // breaks sharedElementEnterTransition
         /*if (thumbnailUrl.isNullOrBlank().not()) {
             thumbnail(Glide.with(context).load(thumbnailUrl).apply(requestOptions))
         } else {
