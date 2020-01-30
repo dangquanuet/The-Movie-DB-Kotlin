@@ -103,20 +103,20 @@ dependencies {
     implementation("androidx.legacy:legacy-support-v4:1.0.0")
     implementation("androidx.constraintlayout:constraintlayout:2.0.0-beta4")
     implementation("androidx.recyclerview:recyclerview:1.1.0")
-    implementation("com.google.android.material:material:1.2.0-alpha03")
+    implementation("com.google.android.material:material:1.2.0-alpha04")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:${KotlinCompilerVersion.VERSION}")
-    implementation("androidx.core:core-ktx:1.2.0-rc01")
+    implementation("androidx.core:core-ktx:1.3.0-alpha01")
     implementation("androidx.multidex:multidex:2.0.1")
 
     implementation ("androidx.viewpager2:viewpager2:1.0.0")
 
-    implementation("androidx.fragment:fragment-ktx:1.2.0-rc05")
+    implementation("androidx.fragment:fragment-ktx:1.2.0")
 //    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0-alpha02")
 
     // ViewModel and LiveData
-    implementation("androidx.lifecycle:lifecycle-extensions:2.1.0")
+    implementation("androidx.lifecycle:lifecycle-extensions:2.2.0")
     // alternately - if using Java8, use the following instead of lifecycle-compiler, provide @OnLifecycleEvent
-    implementation("androidx.lifecycle:lifecycle-common-java8:2.1.0")
+    implementation("androidx.lifecycle:lifecycle-common-java8:2.2.0")
 
     // room
     implementation("androidx.room:room-runtime:2.2.3")
@@ -132,9 +132,9 @@ dependencies {
 //    implementation("androidx.paging:paging-rxjava2-ktx:2.1.0")
 
     // navigation
-    implementation("androidx.navigation:navigation-runtime-ktx:2.2.0-rc04")
-    implementation("androidx.navigation:navigation-fragment-ktx:2.2.0-rc04")
-    implementation("androidx.navigation:navigation-ui-ktx:2.2.0-rc04")
+    implementation("androidx.navigation:navigation-runtime-ktx:2.2.0")
+    implementation("androidx.navigation:navigation-fragment-ktx:2.2.0")
+    implementation("androidx.navigation:navigation-ui-ktx:2.2.0")
 
     // work manager
 //    implementation("androidx.work:work-runtime-ktx:2.0.1")
