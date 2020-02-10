@@ -39,8 +39,7 @@ class PermissionActivity : BaseActivity<ActivityPermissionBinding, PermissionVie
             singlePermissionCode,
             object : RequestPermissionListener {
                 override fun onPermissionRationaleShouldBeShown(requestPermission: () -> Unit) {
-                    DialogUtils.showMessage(
-                        context = this@PermissionActivity,
+                    showDialog(
                         message = "Please allow permission to use this feature",
                         textPositive = "OK",
                         positiveListener = {
@@ -51,8 +50,7 @@ class PermissionActivity : BaseActivity<ActivityPermissionBinding, PermissionVie
                 }
 
                 override fun onPermissionPermanentlyDenied(openAppSetting: () -> Unit) {
-                    DialogUtils.showMessage(
-                        context = this@PermissionActivity,
+                    showDialog(
                         message = "Permission Disabled, Please allow permission to use this feature",
                         textPositive = "OK",
                         positiveListener = {
@@ -84,8 +82,7 @@ class PermissionActivity : BaseActivity<ActivityPermissionBinding, PermissionVie
             multiplePermissionsCode,
             object : RequestPermissionListener {
                 override fun onPermissionRationaleShouldBeShown(requestPermission: () -> Unit) {
-                    DialogUtils.showMessage(
-                        context = this@PermissionActivity,
+                    showDialog(
                         message = "Please allow permissions to use this feature",
                         textPositive = "OK",
                         positiveListener = {
@@ -96,8 +93,7 @@ class PermissionActivity : BaseActivity<ActivityPermissionBinding, PermissionVie
                 }
 
                 override fun onPermissionPermanentlyDenied(openAppSetting: () -> Unit) {
-                    DialogUtils.showMessage(
-                        context = this@PermissionActivity,
+                    showDialog(
                         message = "Permission Disabled, Please allow permissions to use this feature",
                         textPositive = "OK",
                         positiveListener = {

@@ -8,7 +8,7 @@ abstract class BaseLoadMoreRefreshFragment<ViewBinding : ViewDataBinding, ViewMo
 
     override val layoutId: Int = R.layout.fragment_loadmore_refresh
 
-    override fun handleShowLoading(isLoading: Boolean) {
+    override fun handleLoading(isLoading: Boolean) {
         // use progress bar
     }
 }

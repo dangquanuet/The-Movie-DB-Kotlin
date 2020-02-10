@@ -41,8 +41,7 @@ class PermissionFragment : BaseFragment<FragmentPermisisonBinding, PermissionVie
             singlePermissionCode,
             object : RequestPermissionListener {
                 override fun onPermissionRationaleShouldBeShown(requestPermission: () -> Unit) {
-                    DialogUtils.showMessage(
-                        context = context,
+                    context?.showDialog(
                         message = "Please allow permission to use this feature",
                         textPositive = "OK",
                         positiveListener = {
@@ -53,8 +52,7 @@ class PermissionFragment : BaseFragment<FragmentPermisisonBinding, PermissionVie
                 }
 
                 override fun onPermissionPermanentlyDenied(openAppSetting: () -> Unit) {
-                    DialogUtils.showMessage(
-                        context = context,
+                    context?.showDialog(
                         message = "Permission Disabled, Please allow permission to use this feature",
                         textPositive = "OK",
                         positiveListener = {
@@ -86,8 +84,7 @@ class PermissionFragment : BaseFragment<FragmentPermisisonBinding, PermissionVie
             multiplePermissionsCode,
             object : RequestPermissionListener {
                 override fun onPermissionRationaleShouldBeShown(requestPermission: () -> Unit) {
-                    DialogUtils.showMessage(
-                        context = context,
+                    context?.showDialog(
                         message = "Please allow permissions to use this feature",
                         textPositive = "OK",
                         positiveListener = {
@@ -98,8 +95,7 @@ class PermissionFragment : BaseFragment<FragmentPermisisonBinding, PermissionVie
                 }
 
                 override fun onPermissionPermanentlyDenied(openAppSetting: () -> Unit) {
-                    DialogUtils.showMessage(
-                        context = context,
+                    context?.showDialog(
                         message = "Permission Disabled, Please allow permissions to use this feature",
                         textPositive = "OK",
                         positiveListener = {

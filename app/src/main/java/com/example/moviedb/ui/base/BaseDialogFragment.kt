@@ -15,7 +15,8 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.example.moviedb.BR
 import com.example.moviedb.R
-import com.example.moviedb.utils.DialogUtils
+import com.example.moviedb.utils.showDialog
+import com.example.moviedb.utils.showLoadingDialog
 
 abstract class BaseDialogFragment<ViewBinding : ViewDataBinding, ViewModel : BaseViewModel> :
     DialogFragment() {
@@ -51,25 +52,22 @@ abstract class BaseDialogFragment<ViewBinding : ViewDataBinding, ViewModel : Bas
         super.onActivityCreated(savedInstanceState)
         viewModel.apply {
             isLoading.observe(viewLifecycleOwner, Observer {
-                handleShowLoading(it == true)
+                handleLoading(it == true)
             })
             errorMessage.observe(viewLifecycleOwner, Observer {
-                hideLoading()
-                if (it.isNullOrBlank().not()) {
-                    handleShowErrorMessage(it)
-                }
+                handleErrorMessage(it)
             })
             noInternetConnectionEvent.observe(viewLifecycleOwner, Observer {
-                handleShowErrorMessage(getString(R.string.no_internet_connection))
+                handleErrorMessage(getString(R.string.no_internet_connection))
             })
             connectTimeoutEvent.observe(viewLifecycleOwner, Observer {
-                handleShowErrorMessage(getString(R.string.connect_timeout))
+                handleErrorMessage(getString(R.string.connect_timeout))
             })
             forceUpdateAppEvent.observe(viewLifecycleOwner, Observer {
-                handleShowErrorMessage(getString(R.string.force_update_app))
+                handleErrorMessage(getString(R.string.force_update_app))
             })
             serverMaintainEvent.observe(viewLifecycleOwner, Observer {
-                handleShowErrorMessage(getString(R.string.server_maintain_message))
+                handleErrorMessage(getString(R.string.server_maintain_message))
             })
         }
     }
@@ -77,33 +75,46 @@ abstract class BaseDialogFragment<ViewBinding : ViewDataBinding, ViewModel : Bas
     /**
      * override this if not use loading dialog (example progress bar)
      */
-    open fun handleShowLoading(isLoading: Boolean) {
-        if (isLoading) showLoading() else hideLoading()
+    open fun handleLoading(isLoading: Boolean) {
+        if (isLoading) showLoadingDialog() else dismissLLoadingDialog()
     }
 
-    fun showLoading() {
+    fun showLoadingDialog() {
         if (loadingDialog == null) {
-            loadingDialog = DialogUtils.createLoadingDialog(context)
+            loadingDialog = context?.showLoadingDialog()
+        } else {
+            loadingDialog?.show()
         }
-        loadingDialog?.show()
     }
 
-    fun hideLoading() {
+    fun dismissLLoadingDialog() {
         if (loadingDialog?.isShowing == true) {
             loadingDialog?.dismiss()
         }
     }
 
-    fun handleShowErrorMessage(message: String) {
+    fun handleErrorMessage(message: String) {
+        dismissLLoadingDialog()
+
         if (messageDialog?.isShowing == true) {
-            messageDialog?.hide()
+            messageDialog?.dismiss()
         }
 
-        messageDialog = DialogUtils.showMessage(
-            context = context,
+        messageDialog = context?.showDialog(
             message = message,
             textPositive = getString(R.string.ok)
         )
+    }
+
+    /**
+     * show dialog and dismiss safety when fragment destroy
+     */
+    fun showDialogSafe(dialog: AlertDialog?) {
+        if (messageDialog?.isShowing == true) {
+            messageDialog?.dismiss()
+        }
+
+        messageDialog = dialog
     }
 
     override fun onDestroy() {
