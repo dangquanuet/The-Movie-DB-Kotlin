@@ -94,7 +94,9 @@ abstract class BaseBottomSheetDialogFragment<ViewBinding : ViewDataBinding, View
         }
     }
 
-    fun handleErrorMessage(message: String) {
+    fun handleErrorMessage(message: String?) {
+        if (message.isNullOrBlank()) return
+
         dismissLLoadingDialog()
 
         if (messageDialog?.isShowing == true) {

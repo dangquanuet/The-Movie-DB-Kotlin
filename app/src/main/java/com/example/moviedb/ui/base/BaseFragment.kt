@@ -92,7 +92,9 @@ abstract class BaseFragment<ViewBinding : ViewDataBinding, ViewModel : BaseViewM
         }
     }
 
-    fun handleErrorMessage(message: String) {
+    fun handleErrorMessage(message: String?) {
+        if (message.isNullOrBlank()) return
+
         dismissLLoadingDialog()
 
         if (messageDialog?.isShowing == true) {

@@ -16,7 +16,7 @@ abstract class BaseViewModel : ViewModel() {
     val isLoading = MutableLiveData<Boolean>().apply { value = false }
 
     // error message
-    val errorMessage = MutableLiveData<String>()
+    val errorMessage = SingleLiveEvent<String>()
 
     // optional flags
     val noInternetConnectionEvent = SingleLiveEvent<Unit>()

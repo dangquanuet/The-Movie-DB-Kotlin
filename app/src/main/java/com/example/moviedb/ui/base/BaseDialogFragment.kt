@@ -93,7 +93,9 @@ abstract class BaseDialogFragment<ViewBinding : ViewDataBinding, ViewModel : Bas
         }
     }
 
-    fun handleErrorMessage(message: String) {
+    fun handleErrorMessage(message: String?) {
+        if (message.isNullOrBlank()) return
+
         dismissLLoadingDialog()
 
         if (messageDialog?.isShowing == true) {
