@@ -110,7 +110,7 @@ dependencies {
 
     implementation ("androidx.viewpager2:viewpager2:1.0.0")
 
-    implementation("androidx.fragment:fragment-ktx:1.2.1")
+    implementation("androidx.fragment:fragment-ktx:1.2.2")
 //    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0-alpha02")
 
     // ViewModel and LiveData
@@ -119,10 +119,10 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-common-java8:2.2.0")
 
     // room
-    implementation("androidx.room:room-runtime:2.2.3")
-    kapt("androidx.room:room-compiler:2.2.3")
+    implementation("androidx.room:room-runtime:2.2.4")
+    kapt("androidx.room:room-compiler:2.2.4")
     // Kotlin Extensions and Coroutines support for Room
-    implementation("androidx.room:room-ktx:2.2.3")
+    implementation("androidx.room:room-ktx:2.2.4")
 
     // paging
 //    implementation("androidx.paging:paging-runtime-ktx:2.1.0")
