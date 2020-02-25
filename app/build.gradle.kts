@@ -88,6 +88,7 @@ android {
 
     (kotlinOptions as KotlinJvmOptions).jvmTarget = JavaVersion.VERSION_1_8.toString()
 
+    // https://developer.android.com/topic/libraries/data-binding
     dataBinding {
         isEnabled = true
     }
@@ -103,47 +104,55 @@ dependencies {
     implementation("androidx.legacy:legacy-support-v4:1.0.0")
     implementation("androidx.constraintlayout:constraintlayout:2.0.0-beta4")
     implementation("androidx.recyclerview:recyclerview:1.1.0")
-    implementation("com.google.android.material:material:1.2.0-alpha04")
+    implementation("com.google.android.material:material:1.2.0-alpha05")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:${KotlinCompilerVersion.VERSION}")
-    implementation("androidx.core:core-ktx:1.3.0-alpha01")
     implementation("androidx.multidex:multidex:2.0.1")
 
-    implementation ("androidx.viewpager2:viewpager2:1.0.0")
-
+    // List of KTX extensions
+    // https://developer.android.com/kotlin/ktx/extensions-list
+    implementation("androidx.core:core-ktx:1.3.0-alpha01")
+//    implementation("androidx.activity:activity-ktx:1.1.0")
     implementation("androidx.fragment:fragment-ktx:1.2.2")
-//    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0-alpha02")
 
-    // ViewModel and LiveData
-    implementation("androidx.lifecycle:lifecycle-extensions:2.2.0")
+    // Lifecycle
+    // https://developer.android.com/jetpack/androidx/releases/lifecycle
+    // ViewModel
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0")
+    // LiveData
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.2.0")
     // alternately - if using Java8, use the following instead of lifecycle-compiler, provide @OnLifecycleEvent
     implementation("androidx.lifecycle:lifecycle-common-java8:2.2.0")
+    // Saved state module for ViewModel
+//    implementation ("androidx.lifecycle:lifecycle-viewmodel-savedstate:2.2.0")
 
     // room
+    // https://developer.android.com/topic/libraries/architecture/room
     implementation("androidx.room:room-runtime:2.2.4")
     kapt("androidx.room:room-compiler:2.2.4")
     // Kotlin Extensions and Coroutines support for Room
     implementation("androidx.room:room-ktx:2.2.4")
 
-    // paging
-//    implementation("androidx.paging:paging-runtime-ktx:2.1.0")
-    // alternatively - without Android dependencies for testing
-//    testImplementation("androidx.paging:paging-common-ktx:2.1.0")
-    // optional - RxJava support
-//    implementation("androidx.paging:paging-rxjava2-ktx:2.1.0")
-
     // navigation
-    implementation("androidx.navigation:navigation-runtime-ktx:2.2.1")
-    implementation("androidx.navigation:navigation-fragment-ktx:2.2.1")
-    implementation("androidx.navigation:navigation-ui-ktx:2.2.1")
+    // https://developer.android.com/jetpack/androidx/releases/navigation
+    implementation("androidx.navigation:navigation-runtime-ktx:2.3.0-alpha02")
+    implementation("androidx.navigation:navigation-fragment-ktx:2.3.0-alpha02")
+    implementation("androidx.navigation:navigation-ui-ktx:2.3.0-alpha02")
+    // Dynamic Feature Module Support
+//    implementation("androidx.navigation:navigation-dynamic-features-fragment:2.3.0-alpha02")
 
-    // work manager
-//    implementation("androidx.work:work-runtime-ktx:2.0.1")
+    // work
+    // https://developer.android.com/topic/libraries/architecture/workmanager
+//    implementation("androidx.work:work-runtime-ktx:2.3.2")
+
+    implementation("androidx.viewpager2:viewpager2:1.0.0")
 
     // rx
+    // https://github.com/ReactiveX/RxJava
 //    implementation("io.reactivex.rxjava2:rxjava:2.2.7")
 //    implementation("io.reactivex.rxjava2:rxandroid:2.1.1")
 
-    // coroutines (already included)
+    // coroutines
+    // https://github.com/Kotlin/kotlinx.coroutines
 //    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.0-M2")
 //    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.0-M2")
 
@@ -151,21 +160,25 @@ dependencies {
     implementation("com.google.code.gson:gson:2.8.5")
 
     // retrofit
-    implementation("com.squareup.retrofit2:retrofit:2.6.1")
+    // https://github.com/square/retrofit
+    implementation("com.squareup.retrofit2:retrofit:2.7.1")
     implementation("com.squareup.retrofit2:converter-gson:2.6.1")
-    implementation("com.squareup.okhttp3:logging-interceptor:3.14.0")
+    implementation("com.squareup.okhttp3:logging-interceptor:4.3.1")
 //    implementation("com.squareup.retrofit2:adapter-rxjava2:2.6.0")
 
     // glide
+    // https://github.com/bumptech/glide
     implementation("com.github.bumptech.glide:glide:4.11.0")
     kapt("com.github.bumptech.glide:compiler:4.11.0")
 
     // koin
+    // https://github.com/InsertKoinIO/koin
 //    implementation("org.koin:koin-core:2.0.1")
 //    implementation("org.koin:koin-android:2.0.1")
     implementation("org.koin:koin-androidx-viewmodel:2.0.1")
 
     // lottie
+    // https://github.com/airbnb/lottie-android
     implementation("com.airbnb.android:lottie:3.3.1")
 
     // runtime permission
@@ -176,8 +189,8 @@ dependencies {
     implementation("com.crashlytics.sdk.android:crashlytics:2.10.1")
 
     // unit test
-    testImplementation("junit:junit:4.12")
-    testImplementation("org.mockito:mockito-core:2.27.0")
+    testImplementation("junit:junit:4.13")
+    testImplementation("org.mockito:mockito-core:3.2.4")
     testImplementation("android.arch.core:core-testing:1.1.1")
 
     androidTestImplementation("com.android.support.test:runner:1.0.2")
@@ -186,7 +199,7 @@ dependencies {
     androidTestImplementation("android.arch.persistence.room:testing:1.1.1")
     androidTestImplementation("android.arch.core:core-testing:1.1.1")
 
-    testImplementation("com.squareup.okhttp3:mockwebserver:3.14.0")
+    testImplementation("com.squareup.okhttp3:mockwebserver:4.1.0")
     testImplementation("org.jetbrains.kotlin:kotlin-stdlib:${KotlinCompilerVersion.VERSION}")
 }
 

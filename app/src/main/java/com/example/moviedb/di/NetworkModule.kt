@@ -40,7 +40,7 @@ fun createLoggingInterceptor(): Interceptor =
 fun createHeaderInterceptor(): Interceptor =
     Interceptor { chain ->
         val request = chain.request()
-        val newUrl = request.url().newBuilder()
+        val newUrl = request.url.newBuilder()
             .addQueryParameter("api_key", BuildConfig.TMBD_API_KEY)
             .build()
         val newRequest = request.newBuilder()
@@ -48,7 +48,7 @@ fun createHeaderInterceptor(): Interceptor =
 //            .header("Content-Type", "application/json")
 //            .header("X-App-Secret", "1234567890")
 //            .header("Authorization", userRepositoryImpl.getAccessToken())
-            .method(request.method(), request.body())
+            .method(request.method, request.body)
             .build()
         chain.proceed(newRequest)
     }
