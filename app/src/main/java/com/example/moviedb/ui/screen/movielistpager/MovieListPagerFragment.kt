@@ -41,14 +41,4 @@ class MovieListPagerFragment :
         }
 
     }
-
-    override fun onStart() {
-        super.onStart()
-        activity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
-    }
-
-    override fun onStop() {
-        activity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
-        super.onStop()
-    }
 }

@@ -3,7 +3,6 @@ package com.example.moviedb.ui.screen.moviepager
 import android.content.pm.ActivityInfo
 import android.graphics.Color
 import android.os.Bundle
-import android.util.DisplayMetrics
 import androidx.lifecycle.Observer
 import com.example.moviedb.R
 import com.example.moviedb.data.model.Movie
@@ -81,16 +80,6 @@ class MoviePagerFragment :
             })
             firstLoad()
         }
-    }
-
-    override fun onStart() {
-        super.onStart()
-        activity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
-    }
-
-    override fun onStop() {
-        activity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
-        super.onStop()
     }
 
     private fun toMovieDetail(movie: Movie) {
