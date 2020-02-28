@@ -1,5 +1,4 @@
 import org.jetbrains.kotlin.config.KotlinCompilerVersion
-import org.jetbrains.kotlin.gradle.dsl.KotlinJvmOptions
 
 plugins {
     id("com.android.application")
@@ -86,7 +85,7 @@ android {
         targetCompatibility = JavaVersion.VERSION_1_8
     }
 
-    (kotlinOptions as KotlinJvmOptions).jvmTarget = JavaVersion.VERSION_1_8.toString()
+    kotlinOptions.jvmTarget = JavaVersion.VERSION_1_8.toString()
 
     // https://developer.android.com/topic/libraries/data-binding
     dataBinding {
@@ -185,7 +184,7 @@ dependencies {
 //    implementation("pub.devrel:easypermissions:3.0.0")
 
     // firebase
-    implementation("com.google.firebase:firebase-analytics:17.2.2")
+    implementation("com.google.firebase:firebase-analytics:17.2.3")
     implementation("com.crashlytics.sdk.android:crashlytics:2.10.1")
 
     // unit test
