@@ -88,8 +88,8 @@ android {
     kotlinOptions.jvmTarget = JavaVersion.VERSION_1_8.toString()
 
     // https://developer.android.com/topic/libraries/data-binding
-    dataBinding {
-        isEnabled = true
+    buildFeatures{
+        dataBinding = true
     }
 
     androidExtensions {
