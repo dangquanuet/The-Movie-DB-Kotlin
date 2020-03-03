@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.LayoutRes
-import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.DialogFragment
@@ -15,6 +14,7 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.example.moviedb.BR
 import com.example.moviedb.R
+import com.example.moviedb.utils.dismissLLoadingDialog
 import com.example.moviedb.utils.showDialog
 import com.example.moviedb.utils.showLoadingDialog
 
@@ -27,9 +27,6 @@ abstract class BaseDialogFragment<ViewBinding : ViewDataBinding, ViewModel : Bas
 
     @get:LayoutRes
     protected abstract val layoutId: Int
-
-    private var loadingDialog: AlertDialog? = null
-    private var messageDialog: AlertDialog? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -80,17 +77,7 @@ abstract class BaseDialogFragment<ViewBinding : ViewDataBinding, ViewModel : Bas
     }
 
     fun showLoadingDialog() {
-        if (loadingDialog == null) {
-            loadingDialog = context?.showLoadingDialog()
-        } else {
-            loadingDialog?.show()
-        }
-    }
-
-    fun dismissLLoadingDialog() {
-        if (loadingDialog?.isShowing == true) {
-            loadingDialog?.dismiss()
-        }
+        context?.showLoadingDialog()
     }
 
     fun handleErrorMessage(message: String?) {
@@ -98,31 +85,10 @@ abstract class BaseDialogFragment<ViewBinding : ViewDataBinding, ViewModel : Bas
 
         dismissLLoadingDialog()
 
-        if (messageDialog?.isShowing == true) {
-            messageDialog?.dismiss()
-        }
-
-        messageDialog = context?.showDialog(
+        context?.showDialog(
             message = message,
             textPositive = getString(R.string.ok)
         )
-    }
-
-    /**
-     * show dialog and dismiss safety when fragment destroy
-     */
-    fun showDialogSafe(dialog: AlertDialog?) {
-        if (messageDialog?.isShowing == true) {
-            messageDialog?.dismiss()
-        }
-
-        messageDialog = dialog
-    }
-
-    override fun onDestroy() {
-        loadingDialog?.dismiss()
-        messageDialog?.dismiss()
-        super.onDestroy()
     }
 
     fun navigateUp() {
