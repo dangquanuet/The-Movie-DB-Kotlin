@@ -147,8 +147,7 @@ dependencies {
 
     // rx
     // https://github.com/ReactiveX/RxJava
-//    implementation("io.reactivex.rxjava2:rxjava:2.2.7")
-//    implementation("io.reactivex.rxjava2:rxandroid:2.1.1")
+//    implementation("io.reactivex.rxjava3:rxjava:3.0.0")
 
     // coroutines
     // https://github.com/Kotlin/kotlinx.coroutines
