@@ -21,7 +21,7 @@ class FavoriteMovieViewModel(
                     )
                 )
             } catch (e: Exception) {
-                onLoadFail(e)
+                onError(e)
             }
         }
     }

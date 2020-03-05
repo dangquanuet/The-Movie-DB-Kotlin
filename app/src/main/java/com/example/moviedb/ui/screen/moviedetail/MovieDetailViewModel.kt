@@ -6,7 +6,6 @@ import com.example.moviedb.data.model.Cast
 import com.example.moviedb.data.model.Movie
 import com.example.moviedb.data.repository.UserRepository
 import com.example.moviedb.ui.base.BaseViewModel
-import com.example.moviedb.utils.SingleLiveEvent
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -33,7 +32,7 @@ class MovieDetailViewModel(
                     }
                 }
             } catch (e: Exception) {
-                onLoadFail(e)
+                onError(e)
             }
         }
     }
@@ -50,7 +49,7 @@ class MovieDetailViewModel(
                 try {
                     userRepository.updateDB(it)
                 } catch (e: Exception) {
-                    onLoadFail(e)
+                    onError(e)
                 }
             }
         }
@@ -65,7 +64,7 @@ class MovieDetailViewModel(
             try {
                 cast.value = userRepository.getCastAndCrew(movieId).cast
             } catch (e: Exception) {
-                onLoadFail(e)
+                onError(e)
             }
         }
     }

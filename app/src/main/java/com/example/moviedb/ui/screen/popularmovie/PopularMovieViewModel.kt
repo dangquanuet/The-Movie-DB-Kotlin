@@ -31,7 +31,7 @@ class PopularMovieViewModel(
             try {
                 onLoadSuccess(page, userRepository.getMovieList(hashMap).results)
             } catch (e: Exception) {
-                onLoadFail(e)
+                onError(e)
             }
         }
     }

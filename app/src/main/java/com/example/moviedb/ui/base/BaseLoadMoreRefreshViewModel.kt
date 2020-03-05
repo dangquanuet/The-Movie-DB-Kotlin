@@ -148,9 +148,9 @@ abstract class BaseLoadMoreRefreshViewModel<Item>() : BaseViewModel() {
     /**
      * handle load fail
      */
-    override suspend fun onLoadFail(throwable: Throwable) {
+    override suspend fun onError(throwable: Throwable) {
         withContext(Dispatchers.Main) {
-            super.onLoadFail(throwable)
+            super.onError(throwable)
             // reset load
             isRefreshing.value = false
             isLoadMore.value = false

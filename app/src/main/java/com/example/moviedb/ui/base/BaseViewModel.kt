@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.moviedb.data.remote.convertToBaseException
 import com.example.moviedb.utils.SingleLiveEvent
 import kotlinx.coroutines.*
+import java.net.ConnectException
 import java.net.HttpURLConnection
 import java.net.SocketTimeoutException
 import java.net.UnknownHostException
@@ -33,7 +34,7 @@ abstract class BaseViewModel : ViewModel() {
     // exception handler for coroutine
     private val exceptionHandler = CoroutineExceptionHandler { context, throwable ->
         viewModelScope.launch {
-            onLoadFail(throwable)
+            onError(throwable)
         }
     }
     /*
@@ -51,11 +52,14 @@ abstract class BaseViewModel : ViewModel() {
     /**
      * handle throwable when load fail
      */
-    open suspend fun onLoadFail(throwable: Throwable) {
+    open suspend fun onError(throwable: Throwable) {
         withContext(Dispatchers.Main) {
             when (throwable) {
                 // case no internet connection
                 is UnknownHostException -> {
+                    noInternetConnectionEvent.call()
+                }
+                is ConnectException -> {
                     noInternetConnectionEvent.call()
                 }
                 // case request time out
