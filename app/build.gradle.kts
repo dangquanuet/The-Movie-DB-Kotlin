@@ -151,8 +151,8 @@ dependencies {
 
     // coroutines
     // https://github.com/Kotlin/kotlinx.coroutines
-//    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.0-M2")
-//    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.0-M2")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.3")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.3")
 
     // gson
     implementation("com.google.code.gson:gson:2.8.5")
