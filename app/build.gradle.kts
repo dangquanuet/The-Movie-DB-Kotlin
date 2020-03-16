@@ -109,7 +109,7 @@ dependencies {
 
     // List of KTX extensions
     // https://developer.android.com/kotlin/ktx/extensions-list
-    implementation("androidx.core:core-ktx:1.3.0-alpha01")
+    implementation("androidx.core:core-ktx:1.3.0-alpha02")
 //    implementation("androidx.activity:activity-ktx:1.1.0")
     implementation("androidx.fragment:fragment-ktx:1.2.2")
 
@@ -133,9 +133,9 @@ dependencies {
 
     // navigation
     // https://developer.android.com/jetpack/androidx/releases/navigation
-    implementation("androidx.navigation:navigation-runtime-ktx:2.3.0-alpha02")
-    implementation("androidx.navigation:navigation-fragment-ktx:2.3.0-alpha02")
-    implementation("androidx.navigation:navigation-ui-ktx:2.3.0-alpha02")
+    implementation("androidx.navigation:navigation-runtime-ktx:2.3.0-alpha03")
+    implementation("androidx.navigation:navigation-fragment-ktx:2.3.0-alpha03")
+    implementation("androidx.navigation:navigation-ui-ktx:2.3.0-alpha03")
     // Dynamic Feature Module Support
 //    implementation("androidx.navigation:navigation-dynamic-features-fragment:2.3.0-alpha02")
 
