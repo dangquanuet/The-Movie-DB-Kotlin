@@ -119,6 +119,7 @@ fun convertToBaseException(throwable: Throwable): BaseException =
             if (serverErrorResponse != null) {
                 BaseException.toServerError(
                     serverErrorResponse = serverErrorResponse,
+                    response = response,
                     httpCode = httpCode
                 )
             } else {
@@ -165,10 +166,11 @@ class BaseException(
                 cause = cause
             )
 
-        fun toServerError(serverErrorResponse: ServerErrorResponse, httpCode: Int) =
+        fun toServerError(serverErrorResponse: ServerErrorResponse, response: Response<*>?, httpCode: Int) =
             BaseException(
                 errorType = ErrorType.SERVER,
                 serverErrorResponse = serverErrorResponse,
+                response = response,
                 httpCode = httpCode
             )
 

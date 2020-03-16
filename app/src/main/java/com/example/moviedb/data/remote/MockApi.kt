@@ -37,6 +37,7 @@ class MockApi(
                     serverErrorResponse = ServerErrorResponse(
                         message = "Test code 401"
                     ),
+                    response = null,
                     httpCode = HttpURLConnection.HTTP_UNAUTHORIZED
                 )
             }
@@ -46,6 +47,7 @@ class MockApi(
                     serverErrorResponse = ServerErrorResponse(
                         message = "Test code 500"
                     ),
+                    response = null,
                     httpCode = HttpURLConnection.HTTP_INTERNAL_ERROR
                 )
             }
@@ -90,6 +92,7 @@ class MockApi(
                     serverErrorResponse = ServerErrorResponse(
                         message = "Test code 401"
                     ),
+                    response = null,
                     httpCode = HttpURLConnection.HTTP_UNAUTHORIZED
                 )
             }
@@ -99,6 +102,7 @@ class MockApi(
                     serverErrorResponse = ServerErrorResponse(
                         message = "Test code 500"
                     ),
+                    response = null,
                     httpCode = HttpURLConnection.HTTP_INTERNAL_ERROR
                 )
             }
