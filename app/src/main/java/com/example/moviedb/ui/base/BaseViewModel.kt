@@ -24,6 +24,7 @@ abstract class BaseViewModel : ViewModel() {
     val connectTimeoutEvent = SingleLiveEvent<Unit>()
     val forceUpdateAppEvent = SingleLiveEvent<Unit>()
     val serverMaintainEvent = SingleLiveEvent<Unit>()
+    val unknownErrorEvent = SingleLiveEvent<Unit>()
 
     // rx
 //    private val compositeDisposable = CompositeDisposable()
@@ -77,7 +78,7 @@ abstract class BaseViewModel : ViewModel() {
                             errorMessage.value = baseException.message
                         }
                         else -> {
-                            errorMessage.value = baseException.message
+                            unknownErrorEvent.call()
                         }
                     }
                 }

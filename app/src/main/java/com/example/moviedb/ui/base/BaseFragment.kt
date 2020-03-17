@@ -65,6 +65,9 @@ abstract class BaseFragment<ViewBinding : ViewDataBinding, ViewModel : BaseViewM
             serverMaintainEvent.observe(viewLifecycleOwner, Observer {
                 handleErrorMessage(getString(R.string.server_maintain_message))
             })
+            unknownErrorEvent.observe(viewLifecycleOwner, Observer {
+                handleErrorMessage(getString(R.string.unknown_error))
+            })
         }
     }
 
@@ -72,10 +75,10 @@ abstract class BaseFragment<ViewBinding : ViewDataBinding, ViewModel : BaseViewM
      * override this if not use loading dialog (example progress bar)
      */
     open fun handleLoading(isLoading: Boolean) {
-        if (isLoading) showLoadingDialog() else dismissLLoadingDialog()
+        if (isLoading) showLoading() else dismissLLoadingDialog()
     }
 
-    fun showLoadingDialog() {
+    fun showLoading() {
         context?.showLoadingDialog()
     }
 
