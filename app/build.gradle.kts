@@ -111,7 +111,7 @@ dependencies {
     // https://developer.android.com/kotlin/ktx/extensions-list
     implementation("androidx.core:core-ktx:1.3.0-alpha02")
 //    implementation("androidx.activity:activity-ktx:1.1.0")
-    implementation("androidx.fragment:fragment-ktx:1.2.2")
+    implementation("androidx.fragment:fragment-ktx:1.2.3")
 
     // Lifecycle
     // https://developer.android.com/jetpack/androidx/releases/lifecycle
@@ -126,16 +126,16 @@ dependencies {
 
     // room
     // https://developer.android.com/topic/libraries/architecture/room
-    implementation("androidx.room:room-runtime:2.2.4")
-    kapt("androidx.room:room-compiler:2.2.4")
+    implementation("androidx.room:room-runtime:2.2.5")
+    kapt("androidx.room:room-compiler:2.2.5")
     // Kotlin Extensions and Coroutines support for Room
-    implementation("androidx.room:room-ktx:2.2.4")
+    implementation("androidx.room:room-ktx:2.2.5")
 
     // navigation
     // https://developer.android.com/jetpack/androidx/releases/navigation
-    implementation("androidx.navigation:navigation-runtime-ktx:2.3.0-alpha03")
-    implementation("androidx.navigation:navigation-fragment-ktx:2.3.0-alpha03")
-    implementation("androidx.navigation:navigation-ui-ktx:2.3.0-alpha03")
+    implementation("androidx.navigation:navigation-runtime-ktx:2.3.0-alpha04")
+    implementation("androidx.navigation:navigation-fragment-ktx:2.3.0-alpha04")
+    implementation("androidx.navigation:navigation-ui-ktx:2.3.0-alpha04")
     // Dynamic Feature Module Support
 //    implementation("androidx.navigation:navigation-dynamic-features-fragment:2.3.0-alpha02")
 
@@ -151,17 +151,17 @@ dependencies {
 
     // coroutines
     // https://github.com/Kotlin/kotlinx.coroutines
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.3")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.4")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.3")
 
     // gson
-    implementation("com.google.code.gson:gson:2.8.5")
+    implementation("com.google.code.gson:gson:2.8.6")
 
     // retrofit
     // https://github.com/square/retrofit
-    implementation("com.squareup.retrofit2:retrofit:2.7.1")
-    implementation("com.squareup.retrofit2:converter-gson:2.6.1")
-    implementation("com.squareup.okhttp3:logging-interceptor:4.3.1")
+    implementation("com.squareup.retrofit2:retrofit:2.7.2")
+    implementation("com.squareup.retrofit2:converter-gson:2.7.2")
+    implementation("com.squareup.okhttp3:logging-interceptor:4.4.0")
 //    implementation("com.squareup.retrofit2:adapter-rxjava2:2.6.0")
 
     // glide
@@ -197,7 +197,7 @@ dependencies {
     androidTestImplementation("android.arch.persistence.room:testing:1.1.1")
     androidTestImplementation("android.arch.core:core-testing:1.1.1")
 
-    testImplementation("com.squareup.okhttp3:mockwebserver:4.1.0")
+    testImplementation("com.squareup.okhttp3:mockwebserver:4.4.0")
     testImplementation("org.jetbrains.kotlin:kotlin-stdlib:${KotlinCompilerVersion.VERSION}")
 }
 
