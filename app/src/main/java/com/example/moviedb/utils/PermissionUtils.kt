@@ -32,8 +32,7 @@ class Activity/Fragment {
             singlePermissionCode,
             object : RequestPermissionListener {
                 override fun onPermissionRationaleShouldBeShown(requestPermission: () -> Unit) {
-                    DialogUtils.showMessage(
-                        context = this@PermissionActivity,
+                    context?.showDialog(
                         message = "Please allow permission to use this feature",
                         textPositive = "OK",
                         positiveListener = {
@@ -44,8 +43,7 @@ class Activity/Fragment {
                 }
 
                 override fun onPermissionPermanentlyDenied(openAppSetting: () -> Unit) {
-                    DialogUtils.showMessage(
-                        context = this@PermissionActivity,
+                    context?.showDialog(
                         message = "Permission Disabled, Please allow permission to use this feature",
                         textPositive = "OK",
                         positiveListener = {
@@ -77,8 +75,7 @@ class Activity/Fragment {
             multiplePermissionsCode,
             object : RequestPermissionListener {
                 override fun onPermissionRationaleShouldBeShown(requestPermission: () -> Unit) {
-                    DialogUtils.showMessage(
-                        context = this@PermissionActivity,
+                    context?.showDialog(
                         message = "Please allow permissions to use this feature",
                         textPositive = "OK",
                         positiveListener = {
@@ -89,8 +86,7 @@ class Activity/Fragment {
                 }
 
                 override fun onPermissionPermanentlyDenied(openAppSetting: () -> Unit) {
-                    DialogUtils.showMessage(
-                        context = this@PermissionActivity,
+                    context?.showDialog(
                         message = "Permission Disabled, Please allow permissions to use this feature",
                         textPositive = "OK",
                         positiveListener = {
