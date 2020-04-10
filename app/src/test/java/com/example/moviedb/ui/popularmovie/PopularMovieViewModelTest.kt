@@ -6,13 +6,15 @@ import com.example.moviedb.data.constants.MovieListType
 import com.example.moviedb.data.model.Movie
 import com.example.moviedb.data.remote.ApiParams
 import com.example.moviedb.data.repository.UserRepository
-import com.example.moviedb.factory.createMovieListResponse
+import com.example.moviedb.data.factory.createMovieListResponse
 import com.example.moviedb.mock
 import com.example.moviedb.ui.screen.popularmovie.PopularMovieViewModel
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.junit.Assert
 import org.junit.Test
 import org.mockito.Mockito
 
+@ExperimentalCoroutinesApi
 class PopularMovieViewModelTest : BaseViewModelTest() {
 
     private lateinit var viewModel: PopularMovieViewModel

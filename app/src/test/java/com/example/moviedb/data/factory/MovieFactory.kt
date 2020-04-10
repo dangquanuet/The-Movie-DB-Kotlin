@@ -1,4 +1,4 @@
-package com.example.moviedb.factory
+package com.example.moviedb.data.factory
 
 import com.example.moviedb.data.model.Movie
 import com.example.moviedb.data.remote.response.GetMovieListResponse

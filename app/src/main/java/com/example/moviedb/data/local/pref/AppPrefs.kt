@@ -10,7 +10,7 @@ class AppPrefs(
 ) : PrefHelper {
 
     companion object {
-        private const val FIRST_RUN = "FIRST_RUN"
+        const val FIRST_RUN = "FIRST_RUN"
     }
 
     override fun isFirstRun(): Boolean {

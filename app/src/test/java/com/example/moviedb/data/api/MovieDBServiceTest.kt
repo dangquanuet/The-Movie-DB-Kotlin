@@ -1,4 +1,4 @@
-package com.example.moviedb.api
+package com.example.moviedb.data.api
 
 /*
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
