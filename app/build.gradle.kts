@@ -153,6 +153,7 @@ dependencies {
     // https://github.com/Kotlin/kotlinx.coroutines
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.5")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.3")
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.3.4")
 
     // gson
     implementation("com.google.code.gson:gson:2.8.6")
