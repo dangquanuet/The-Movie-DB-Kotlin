@@ -109,9 +109,9 @@ dependencies {
 
     // List of KTX extensions
     // https://developer.android.com/kotlin/ktx/extensions-list
-    implementation("androidx.core:core-ktx:1.3.0-alpha02")
+    implementation("androidx.core:core-ktx:1.3.0-beta01")
 //    implementation("androidx.activity:activity-ktx:1.1.0")
-    implementation("androidx.fragment:fragment-ktx:1.2.3")
+    implementation("androidx.fragment:fragment-ktx:1.2.4")
 
     // Lifecycle
     // https://developer.android.com/jetpack/androidx/releases/lifecycle
@@ -151,7 +151,7 @@ dependencies {
 
     // coroutines
     // https://github.com/Kotlin/kotlinx.coroutines
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.4")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.5")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.3")
 
     // gson
@@ -177,18 +177,18 @@ dependencies {
 
     // lottie
     // https://github.com/airbnb/lottie-android
-    implementation("com.airbnb.android:lottie:3.3.1")
+    implementation("com.airbnb.android:lottie:3.4.0")
 
     // runtime permission
 //    implementation("pub.devrel:easypermissions:3.0.0")
 
     // firebase
-    implementation("com.google.firebase:firebase-analytics:17.2.3")
+    implementation("com.google.firebase:firebase-analytics:17.3.0")
     implementation("com.crashlytics.sdk.android:crashlytics:2.10.1")
 
     // unit test
     testImplementation("junit:junit:4.13")
-    testImplementation("org.mockito:mockito-core:3.2.4")
+    testImplementation("org.mockito:mockito-core:3.3.3")
     testImplementation("android.arch.core:core-testing:1.1.1")
 
     androidTestImplementation("com.android.support.test:runner:1.0.2")
