@@ -28,7 +28,7 @@
 
         <activity
             android:name="com.example.moviedb.ui.screen.MainActivity"
-            android:screenOrientation="sensorLandscape"
+            android:screenOrientation="portrait"
             android:configChanges="orientation|screenSize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

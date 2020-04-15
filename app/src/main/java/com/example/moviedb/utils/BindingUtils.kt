@@ -26,6 +26,11 @@ fun SwipeRefreshLayout.customRefreshListener(listener: SwipeRefreshLayout.OnRefr
     if (listener != null) setOnRefreshListener(listener)
 }
 
+@BindingAdapter("enableRefresh")
+fun SwipeRefreshLayout.enableRefresh(enable: Boolean?) {
+    isEnabled = enable == true
+}
+
 @BindingAdapter("isRefreshing")
 fun SwipeRefreshLayout.customRefreshing(refreshing: Boolean?) {
     isRefreshing = refreshing == true
