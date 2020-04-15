@@ -19,7 +19,7 @@ class SplashFragment : BaseFragment<FragmentSplashBinding, SplashViewModel>() {
 
     private val task = Runnable {
 //        findNavController().navigate(SplashFragmentDirections.toMain())
-        findNavController().navigate(SplashFragmentDirections.toMovieListPager())
+        navigateToOther()
     }
 
     private val activityScope = CoroutineScope(Dispatchers.Main)
@@ -28,10 +28,19 @@ class SplashFragment : BaseFragment<FragmentSplashBinding, SplashViewModel>() {
         super.onStart()
         activityScope.launch {
             delay(1000)
-//            findNavController().navigate(SplashFragmentDirections.toMain())
-            findNavController().navigate(SplashFragmentDirections.toMovieListPager())
+            navigateToOther()
         }
 //        handler.postDelayed(task, 1000)
+    }
+
+    fun navigateToOther() {
+        findNavController().navigate(
+            when (1) {
+                0 -> SplashFragmentDirections.toMovieListPager()
+                1 -> SplashFragmentDirections.toPagedMovie()
+                else -> SplashFragmentDirections.toMain()
+            }
+        )
     }
 
     override fun onStop() {

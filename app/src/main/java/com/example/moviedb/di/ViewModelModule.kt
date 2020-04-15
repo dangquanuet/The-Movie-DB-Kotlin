@@ -14,6 +14,7 @@ import com.example.moviedb.ui.screen.moviepager.movie.MovieViewModel
 import com.example.moviedb.ui.screen.oldmain.OldMainViewModel
 import com.example.moviedb.ui.screen.permission.PermissionViewModel
 import com.example.moviedb.ui.screen.popularmovie.PopularMovieViewModel
+import com.example.moviedb.ui.screen.paged.PagedMovieViewModel
 import com.example.moviedb.ui.screen.profile.ProfileViewModel
 import com.example.moviedb.ui.screen.splash.SplashViewModel
 import com.example.moviedb.ui.screen.tv.TvListViewModel
@@ -27,6 +28,7 @@ val viewModelModule = module {
     viewModel { LoginViewModel() }
     viewModel { MovieDetailViewModel(get()) }
     viewModel { PopularMovieViewModel(get()) }
+    viewModel { PagedMovieViewModel(get()) }
     viewModel { TvListViewModel(get()) }
     viewModel { PopularContainerViewModel() }
     viewModel { FavoriteContainerVIewModel() }

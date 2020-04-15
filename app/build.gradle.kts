@@ -131,6 +131,10 @@ dependencies {
     // Kotlin Extensions and Coroutines support for Room
     implementation("androidx.room:room-ktx:2.2.5")
 
+    // paging
+    // https://developer.android.com/topic/libraries/architecture/paging
+    implementation("androidx.paging:paging-runtime-ktx:2.1.2")
+
     // navigation
     // https://developer.android.com/jetpack/androidx/releases/navigation
     implementation("androidx.navigation:navigation-runtime-ktx:2.3.0-alpha04")
