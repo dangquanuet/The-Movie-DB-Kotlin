@@ -103,13 +103,13 @@ dependencies {
     implementation("androidx.legacy:legacy-support-v4:1.0.0")
     implementation("androidx.constraintlayout:constraintlayout:2.0.0-beta4")
     implementation("androidx.recyclerview:recyclerview:1.1.0")
-    implementation("com.google.android.material:material:1.2.0-alpha05")
+    implementation("com.google.android.material:material:1.2.0-alpha06")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:${KotlinCompilerVersion.VERSION}")
     implementation("androidx.multidex:multidex:2.0.1")
 
     // List of KTX extensions
     // https://developer.android.com/kotlin/ktx/extensions-list
-    implementation("androidx.core:core-ktx:1.3.0-beta01")
+    implementation("androidx.core:core-ktx:1.3.0-rc01")
 //    implementation("androidx.activity:activity-ktx:1.1.0")
     implementation("androidx.fragment:fragment-ktx:1.2.4")
 
@@ -137,9 +137,9 @@ dependencies {
 
     // navigation
     // https://developer.android.com/jetpack/androidx/releases/navigation
-    implementation("androidx.navigation:navigation-runtime-ktx:2.3.0-alpha04")
-    implementation("androidx.navigation:navigation-fragment-ktx:2.3.0-alpha04")
-    implementation("androidx.navigation:navigation-ui-ktx:2.3.0-alpha04")
+    implementation("androidx.navigation:navigation-runtime-ktx:2.3.0-alpha06")
+    implementation("androidx.navigation:navigation-fragment-ktx:2.3.0-alpha06")
+    implementation("androidx.navigation:navigation-ui-ktx:2.3.0-alpha06")
     // Dynamic Feature Module Support
 //    implementation("androidx.navigation:navigation-dynamic-features-fragment:2.3.0-alpha02")
 
@@ -157,7 +157,7 @@ dependencies {
     // https://github.com/Kotlin/kotlinx.coroutines
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.5")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.3")
-    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.3.4")
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.3.5")
 
     // gson
     implementation("com.google.code.gson:gson:2.8.6")
@@ -188,7 +188,7 @@ dependencies {
 //    implementation("pub.devrel:easypermissions:3.0.0")
 
     // firebase
-    implementation("com.google.firebase:firebase-analytics:17.3.0")
+    implementation("com.google.firebase:firebase-analytics:17.4.0")
     implementation("com.crashlytics.sdk.android:crashlytics:2.10.1")
 
     // unit test
@@ -205,173 +205,3 @@ dependencies {
     testImplementation("com.squareup.okhttp3:mockwebserver:4.4.0")
     testImplementation("org.jetbrains.kotlin:kotlin-stdlib:${KotlinCompilerVersion.VERSION}")
 }
-
-/*
-apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
-apply plugin: 'kotlin-kapt'
-apply plugin: 'org.jetbrains.kotlin.android.extensions'
-androidExtensions {
-    experimental = true
-}
-
-kotlin {
-    experimental {
-        coroutines 'enable'
-    }
-}
-
-android {
-    compileSdkVersion 27
-    buildToolsVersion "27.0.3"
-
-    defaultConfig {
-        applicationId "com.example.moviedb"
-        minSdkVersion 19
-        targetSdkVersion 28
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-    }
-
-    signingConfigs {
-        release {
-        }
-    }
-
-    buildTypes {
-        debug {
-            signingConfig signingConfigs.debug
-            buildConfigField "boolean", "MOCK_DATA", "false"
-            debuggable true
-            minifyEnabled false
-            shrinkResources false
-            useProguard false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
-
-        mock {
-            signingConfig signingConfigs.debug
-            buildConfigField "boolean", "MOCK_DATA", "true"
-            debuggable true
-            minifyEnabled false
-            shrinkResources false
-            useProguard false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
-
-        release {
-            signingConfig signingConfigs.release
-            buildConfigField "boolean", "MOCK_DATA", "false"
-            debuggable false
-            minifyEnabled true
-            shrinkResources true
-            useProguard true
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
-    }
-
-    compileOptions {
-        targetCompatibility 1.8
-        sourceCompatibility 1.8
-    }
-
-    dataBinding {
-        enabled = true
-    }
-
-    flavorDimensions "default"
-
-    productFlavors {
-        dev {
-            versionCode rootProject.ext.versionCode_dev
-            versionName rootProject.ext.versionName_dev
-            applicationIdSuffix = ".dev"
-            resValue "string", "app_name", "Movie DB DEV"
-        }
-
-        prd {
-            versionCode rootProject.ext.versionCode_product
-            versionName rootProject.ext.versionName_product
-            resValue "string", "app_name", "Movie DB"
-        }
-    }
-
-    productFlavors.all {}
-
-    applicationVariants.all { variant ->
-        def BASE_URL = "https://api.themoviedb.org/"
-        def SMALL_IMAGE_URL = "https://image.tmdb.org/t/p/w200"
-        def LARGE_IMAGE_URL = "https://image.tmdb.org/t/p/w500"
-        def ORIGINAL_IMAGE_URL = "https://image.tmdb.org/t/p/original"
-        def TMBD_API_KEY = "2cdf3a5c7cf412421485f89ace91e373"
-
-        //    if (variant.getName().contains("dev")) {
-        //      BASE_URL = "https://api.themoviedb.org/"
-        //    } else if (variant.getName().contains("stg")) {
-        //      BASE_URL = "https://api.themoviedb.org/"
-        //    } else if (variant.getName().contains("prd")) {
-        //      BASE_URL = "https://api.themoviedb.org/"
-        //    }
-
-        variant.buildConfigField "String", "BASE_URL", "\"${BASE_URL}\""
-        variant.buildConfigField "String", "SMALL_IMAGE_URL", "\"${SMALL_IMAGE_URL}\""
-        variant.buildConfigField "String", "LARGE_IMAGE_URL", "\"${LARGE_IMAGE_URL}\""
-        variant.buildConfigField "String", "ORIGINAL_IMAGE_URL", "\"${ORIGINAL_IMAGE_URL}\""
-        variant.buildConfigField "String", "TMBD_API_KEY", "\"${TMBD_API_KEY}\""
-    }
-}
-
-dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation 'com.android.support:appcompat-v7:27.1.1'
-    implementation "com.android.support:support-v4:27.1.1"
-    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
-    implementation "com.android.support:recyclerview-v7:27.1.1"
-    implementation "com.android.support:cardview-v7:27.1.1"
-    implementation "com.android.support:design:27.1.1"
-
-    //Support ReactiveX android
-    implementation 'io.reactivex.rxjava2:rxjava:2.1.17'
-    implementation 'io.reactivex.rxjava2:rxandroid:2.0.2'
-
-    // coroutines
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:0.22.5"
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:0.22.5"
-
-    //Using this for parse json data to object
-    implementation "com.google.code.gson:gson:2.8.5"
-
-    //Using retrofit library for connect api v4.data.source.remote.service
-    implementation "com.squareup.retrofit2:retrofit:2.4.0"
-    implementation "com.squareup.retrofit2:converter-gson:2.4.0"
-    implementation "com.squareup.okhttp3:logging-interceptor:3.9.1"
-    implementation "com.squareup.retrofit2:adapter-rxjava2:2.4.0"
-    implementation 'com.jakewharton.retrofit:retrofit2-kotlin-coroutines-experimental-adapter:1.0.0'
-
-    //Glide library load image
-    implementation("com.github.bumptech.glide:glide:4.7.1") {
-        exclude module: 'support-annotations'
-    }
-    kapt "com.github.bumptech.glide:compiler:4.7.1"
-
-    // room
-    implementation "android.arch.persistence.room:runtime:1.1.1"
-    kapt "android.arch.persistence.room:compiler:1.1.1"
-    // RxJava support for Room
-    implementation "android.arch.persistence.room:rxjava2:1.1.1"
-
-    // ViewModel and LiveData
-    implementation "android.arch.lifecycle:extensions:1.1.1"
-    //  kapt "android.arch.lifecycle:compiler:1.1.1"
-    // Java8 support for Lifecycles
-    implementation "android.arch.lifecycle:common-java8:1.1.1"
-    // ReactiveStreams support for LiveData
-    implementation "android.arch.lifecycle:reactivestreams:1.1.1"
-
-    // unit test
-    testImplementation 'junit:junit:4.12'
-    testImplementation 'org.mockito:mockito-core:2.19.0'
-    testImplementation "android.arch.core:core-testing:1.1.1"
-}
-*/
