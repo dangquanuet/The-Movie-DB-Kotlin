@@ -51,40 +51,43 @@ project.afterEvaluate {
                 //where store all test to run follow second way above
                 group = "coverage"
                 description =
-                        "Generate Jacoco coverage reports on the ${sourceName.capitalize()} build."
+                    "Generate Jacoco coverage reports on the ${sourceName.capitalize()} build."
                 val excludeFiles = arrayListOf(
-                        "**/R.class", "**/R$*.class", "**/BuildConfig.*", "**/Manifest*.*",
-                        "**/*Test*.*", "android/**/*.*",
-                        "**/*_MembersInjector.class",
-                        "**/Dagger*Component.class",
-                        "**/Dagger*Component\$Builder.class",
-                        "**/*_*Factory.class",
-                        "**/*ComponentImpl.class",
-                        "**/*SubComponentBuilder.class",
-                        "**/*Creator.class",
-                        "**/*Application*.*",
-                        "**/*Activity*.*",
-                        "**/*Fragment*.*",
-                        "**/*Adapter*.*",
-                        "**/*Dialog*.*",
-                        "**/*Args*.*",
-                        "**/*Companion*.*",
-                        "**/*Kt*.*"
+                    "**/R.class", "**/R$*.class", "**/BuildConfig.*", "**/Manifest*.*",
+                    "**/*Test*.*", "android/**/*.*",
+                    "**/*_MembersInjector.class",
+                    "**/Dagger*Component.class",
+                    "**/Dagger*Component\$Builder.class",
+                    "**/*_*Factory.class",
+                    "**/*ComponentImpl.class",
+                    "**/*SubComponentBuilder.class",
+                    "**/*Creator.class",
+                    "**/*Application*.*",
+                    "**/*Activity*.*",
+                    "**/*Fragment*.*",
+                    "**/*Adapter*.*",
+                    "**/*Dialog*.*",
+                    "**/*Args*.*",
+                    "**/*Companion*.*",
+                    "**/*Kt*.*",
+                    "**/com/example/moviedb/di/**/*.*",
+                    "**/com/example/moviedb/ui/navigation/**/*.*",
+                    "**/com/example/moviedb/ui/widgets/**/*.*"
                 )
 
                 //Explain to Jacoco where are you .class file java and kotlin
                 classDirectories.setFrom(
-                        fileTree("${project.buildDir}/intermediates/classes/${sourcePath}").exclude(
-                                excludeFiles
-                        ),
-                        fileTree("${project.buildDir}/tmp/kotlin-classes/${sourceName}").exclude(
-                                excludeFiles
-                        )
+                    fileTree("${project.buildDir}/intermediates/classes/${sourcePath}").exclude(
+                        excludeFiles
+                    ),
+                    fileTree("${project.buildDir}/tmp/kotlin-classes/${sourceName}").exclude(
+                        excludeFiles
+                    )
                 )
                 val coverageSourceDirs = arrayListOf(
-                        "src/main/java",
-                        "src/$productFlavorName/java",
-                        "src/$buildTypeName/java"
+                    "src/main/java",
+                    "src/$productFlavorName/java",
+                    "src/$buildTypeName/java"
                 )
 
                 additionalSourceDirs.setFrom(files(coverageSourceDirs))
@@ -183,7 +186,7 @@ android {
     kotlinOptions.jvmTarget = JavaVersion.VERSION_1_8.toString()
 
     // https://developer.android.com/topic/libraries/data-binding
-    buildFeatures{
+    buildFeatures {
         dataBinding = true
     }
 
@@ -207,6 +210,7 @@ dependencies {
     implementation("androidx.core:core-ktx:1.3.0-rc01")
 //    implementation("androidx.activity:activity-ktx:1.1.0")
     implementation("androidx.fragment:fragment-ktx:1.2.4")
+//    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.2.0")
 
     // Lifecycle
     // https://developer.android.com/jetpack/androidx/releases/lifecycle
