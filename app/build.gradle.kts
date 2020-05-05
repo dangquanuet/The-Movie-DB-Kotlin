@@ -121,8 +121,6 @@ android {
 
     buildTypes {
         getByName("debug") {
-            //Enable this for test Instrumented
-            //isTestCoverageEnabled = true
             isDebuggable = true
             isMinifyEnabled = false
             isShrinkResources = false
