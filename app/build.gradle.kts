@@ -277,18 +277,24 @@ dependencies {
     // https://github.com/InsertKoinIO/koin
 //    implementation("org.koin:koin-core:2.0.1")
 //    implementation("org.koin:koin-android:2.0.1")
-    implementation("org.koin:koin-androidx-viewmodel:2.0.1")
+    implementation("org.koin:koin-androidx-viewmodel:2.1.5")
 
     // lottie
     // https://github.com/airbnb/lottie-android
     implementation("com.airbnb.android:lottie:3.4.0")
 
     // runtime permission
+    // https://github.com/googlesamples/easypermissions
 //    implementation("pub.devrel:easypermissions:3.0.0")
 
     // firebase
+    // https://firebase.google.com/docs/android/setup
     implementation("com.google.firebase:firebase-analytics:17.4.0")
     implementation("com.crashlytics.sdk.android:crashlytics:2.10.1")
+
+    // leak canary
+    // https://square.github.io/leakcanary/
+    debugImplementation("com.squareup.leakcanary:leakcanary-android:2.2")
 
     // unit test
     testImplementation("junit:junit:4.13")

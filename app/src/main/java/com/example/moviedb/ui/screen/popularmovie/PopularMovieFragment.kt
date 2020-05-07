@@ -37,8 +37,8 @@ class PopularMovieFragment :
             itemClickListener = { toMovieDetail(it) }
         )
 
-        container.setBackgroundColor(Color.BLACK)
-        recycler_view.apply {
+        container?.setBackgroundColor(Color.BLACK)
+        recycler_view?.apply {
             layoutManager = GridLayoutManager(context, 2)
             this.adapter = adapter
         }
