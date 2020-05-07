@@ -17,7 +17,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:navGraph="@navigation/nav_graph_popular" />
+            app:navGraph="@navigation/graph_popular" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

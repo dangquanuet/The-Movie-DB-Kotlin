@@ -2,6 +2,7 @@ package com.example.moviedb.ui.screen.paged
 
 import android.graphics.Color
 import android.os.Bundle
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.moviedb.data.model.Movie
 import com.example.moviedb.databinding.FragmentPagedRefreshBinding
@@ -30,5 +31,6 @@ class PagedMovieFragment :
     }
 
     private fun toMovieDetail(movie: Movie) {
+        findNavController().navigate(PagedMovieFragmentDirections.toGraphMovieDetail(movie))
     }
 }

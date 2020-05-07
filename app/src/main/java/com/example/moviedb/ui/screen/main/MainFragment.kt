@@ -40,7 +40,7 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>() {
         navController.navigatorProvider += navigator
 
         // set navigation graph
-        navController.setGraph(R.navigation.nav_graph_main)
+        navController.setGraph(R.navigation.graph_main)
 
         bottom_nav?.setupWithNavController(navController)
     }

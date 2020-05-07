@@ -54,4 +54,29 @@
         android:id="@+id/paged_movie"
         android:name="com.example.moviedb.ui.screen.paged.PagedMovieFragment"
         tools:layout="@layout/fragment_paged_refresh" />
+
+    <dialog
+        android:id="@+id/login"
+        android:name="com.example.moviedb.ui.screen.login.LoginFragment"
+        tools:layout="@layout/fragment_login" />
+
+    <action
+        android:id="@+id/to_login"
+        app:destination="@id/login" />
+
+    <include app:graph="@navigation/graph_movie_detail" />
+
+    <action
+        android:id="@+id/to_graph_movie_detail"
+        app:destination="@id/graph_movie_detail"
+        app:enterAnim="@anim/slide_in_right"
+        app:exitAnim="@anim/slide_out_left"
+        app:popEnterAnim="@anim/slide_in_left"
+        app:popExitAnim="@anim/slide_out_right">
+
+        <argument
+            android:name="movie"
+            app:argType="com.example.moviedb.data.model.Movie" />
+    </action>
+
 </navigation>

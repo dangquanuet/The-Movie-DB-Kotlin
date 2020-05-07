@@ -2,19 +2,8 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/nav_graph_favorite"
-    app:startDestination="@+id/favorite_movie">
-
-    <fragment
-        android:id="@+id/favorite_movie"
-        android:name="com.example.moviedb.ui.screen.favoritemovie.FavoriteMovieFragment"
-        tools:layout="@layout/fragment_loadmore_refresh">
-
-        <action
-            android:id="@+id/to_movie_detail"
-            app:destination="@id/movie_detail" />
-
-    </fragment>
+    android:id="@+id/graph_movie_detail"
+    app:startDestination="@id/movie_detail">
 
     <fragment
         android:id="@+id/movie_detail"
@@ -24,6 +13,21 @@
         <argument
             android:name="movie"
             app:argType="com.example.moviedb.data.model.Movie" />
+
+        <action
+            android:id="@+id/to_image"
+            app:destination="@id/image" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/image"
+        android:name="com.example.moviedb.ui.screen.image.ImageFragment"
+        tools:layout="@layout/fragment_image">
+
+        <argument
+            android:name="imageUrl"
+            app:argType="string" />
+
     </fragment>
 
 </navigation>

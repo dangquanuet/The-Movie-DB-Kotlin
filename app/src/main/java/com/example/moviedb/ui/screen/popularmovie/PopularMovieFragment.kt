@@ -53,7 +53,7 @@ class PopularMovieFragment :
 
     private fun toMovieDetail(movie: Movie) {
         findNavController().navigate(
-            PopularMovieFragmentDirections.toMovieDetail(movie)
+            PopularMovieFragmentDirections.toGraphMovieDetail(movie)
         )
     }
 }
