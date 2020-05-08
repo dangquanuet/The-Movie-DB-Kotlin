@@ -12,7 +12,7 @@ abstract class EndlessRecyclerOnScrollListener(
 
     // The total number of items in the dataset after the last load
     private var previousTotal: Int = 0
-    private var isLoading = true
+    var isLoading = true
     private var firstVisibleItem: Int = 0
     private var visibleItemCount: Int = 0
     private var totalItemCount: Int = 0
@@ -57,8 +57,6 @@ abstract class EndlessRecyclerOnScrollListener(
             previousTotal = totalItemCount
         }
     }
-
-    // check logic load more when load fail
 
     fun resetOnLoadMore() {
         firstVisibleItem = 0

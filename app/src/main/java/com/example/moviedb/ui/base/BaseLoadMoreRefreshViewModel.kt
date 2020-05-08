@@ -145,6 +145,8 @@ abstract class BaseLoadMoreRefreshViewModel<Item>() : BaseViewModel() {
     override suspend fun onError(throwable: Throwable) {
         withContext(Dispatchers.Main) {
             super.onError(throwable)
+            onScrollListener.isLoading = false
+
             // reset load
             isRefreshing.value = false
             isLoadMore.value = false
