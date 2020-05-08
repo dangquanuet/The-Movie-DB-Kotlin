@@ -1,7 +1,6 @@
 package com.example.moviedb.ui.base
 
 import androidx.lifecycle.MutableLiveData
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.moviedb.data.constants.Constants
 import com.example.moviedb.ui.widgets.EndlessRecyclerOnScrollListener
 import kotlinx.coroutines.Dispatchers
@@ -11,11 +10,6 @@ abstract class BaseLoadMoreRefreshViewModel<Item>() : BaseViewModel() {
 
     // refresh flag
     val isRefreshing = MutableLiveData<Boolean>().apply { value = false }
-
-    // refresh listener for swipe refresh layout
-    val onRefreshListener = SwipeRefreshLayout.OnRefreshListener {
-        doRefresh()
-    }
 
     // load more flag
     val isLoadMore = MutableLiveData<Boolean>().apply { value = false }
@@ -34,7 +28,7 @@ abstract class BaseLoadMoreRefreshViewModel<Item>() : BaseViewModel() {
     }
 
     // item list
-    val listItem = MutableLiveData<ArrayList<Item>>()
+    val itemList = MutableLiveData<ArrayList<Item>>()
 
     // empty list flag
     val isEmptyList = MutableLiveData<Boolean>().apply { value = false }
@@ -48,7 +42,7 @@ abstract class BaseLoadMoreRefreshViewModel<Item>() : BaseViewModel() {
      * check first time load data
      */
     private fun isFirst() = currentPage.value == getPreFirstPage()
-            && listItem.value?.isEmpty() ?: true
+            && itemList.value?.isEmpty() ?: true
 
     /**
      * first load
@@ -123,14 +117,14 @@ abstract class BaseLoadMoreRefreshViewModel<Item>() : BaseViewModel() {
             // load success then update current page
             currentPage.value = page
             // case load first page then clear data from listItem
-            if (currentPage.value == getFirstPage()) listItem.value?.clear()
+            if (currentPage.value == getFirstPage()) itemList.value?.clear()
             // case refresh then reset load more
             if (isRefreshing.value == true) resetLoadMore()
 
             // add new data to listItem
-            val newList = listItem.value ?: ArrayList()
+            val newList = itemList.value ?: ArrayList()
             newList.addAll(items ?: listOf())
-            listItem.value = newList
+            itemList.value = newList
 
             // check last page
             isLastPage.value = items?.size ?: 0 < getNumberItemPerPage()
@@ -164,6 +158,6 @@ abstract class BaseLoadMoreRefreshViewModel<Item>() : BaseViewModel() {
      * check list is empty
      */
     private fun checkEmptyList() {
-        isEmptyList.value = listItem.value?.isEmpty() ?: true
+        isEmptyList.value = itemList.value?.isEmpty() ?: true
     }
 }

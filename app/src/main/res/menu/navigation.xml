@@ -11,9 +11,9 @@
         android:icon="@drawable/ic_gallery"
         android:title="@string/main_tab_favorite" />
 
-    <item
-        android:id="@+id/navigation_tv"
-        android:icon="@drawable/ic_gallery"
-        android:title="@string/main_tab_tv" />
+<!--    <item-->
+<!--        android:id="@+id/navigation_tv"-->
+<!--        android:icon="@drawable/ic_gallery"-->
+<!--        android:title="@string/main_tab_tv" />-->
 
 </menu>

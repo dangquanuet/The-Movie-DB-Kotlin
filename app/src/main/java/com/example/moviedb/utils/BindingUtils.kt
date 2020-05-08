@@ -21,11 +21,6 @@ import com.bumptech.glide.signature.ObjectKey
 import com.example.moviedb.BuildConfig
 import com.example.moviedb.data.constants.Constants
 
-@BindingAdapter("onRefreshListener")
-fun SwipeRefreshLayout.customRefreshListener(listener: SwipeRefreshLayout.OnRefreshListener?) {
-    if (listener != null) setOnRefreshListener(listener)
-}
-
 @BindingAdapter("enableRefresh")
 fun SwipeRefreshLayout.enableRefresh(enable: Boolean?) {
     isEnabled = enable == true

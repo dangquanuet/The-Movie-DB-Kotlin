@@ -5,12 +5,12 @@ import androidx.recyclerview.widget.DiffUtil
 import com.example.moviedb.R
 import com.example.moviedb.data.model.Cast
 import com.example.moviedb.databinding.ItemCastBinding
-import com.example.moviedb.ui.base.BaseRecyclerAdapter
+import com.example.moviedb.ui.base.BaseListAdapter
 import com.example.moviedb.utils.setSingleClick
 
 class CastAdapter(
     val itemClickListener: ((ImageView, Cast) -> Unit)? = null
-) : BaseRecyclerAdapter<Cast, ItemCastBinding>(object : DiffUtil.ItemCallback<Cast>() {
+) : BaseListAdapter<Cast, ItemCastBinding>(object : DiffUtil.ItemCallback<Cast>() {
     override fun areItemsTheSame(oldItem: Cast, newItem: Cast): Boolean {
         return oldItem.id == newItem.id
     }

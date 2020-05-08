@@ -62,12 +62,8 @@ class OldMainFragment : BaseFragment<FragmentMainBinding, OldMainViewModel>() {
             }
         } else {
             fragmentTransaction.show(newFragment)
-
-            // refresh favorite movies
-            if (newFragment is FavoriteMovieFragment) {
-                newFragment.loadData()
-            }
         }
+
         viewModel.currentTab.value = position
         fragmentTransaction.commit()
 

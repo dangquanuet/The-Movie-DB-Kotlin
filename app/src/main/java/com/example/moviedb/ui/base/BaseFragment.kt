@@ -32,13 +32,15 @@ abstract class BaseFragment<ViewBinding : ViewDataBinding, ViewModel : BaseViewM
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        viewBinding = DataBindingUtil.inflate(inflater, layoutId, container, false)
-        viewBinding.apply {
-            setVariable(BR.viewModel, viewModel)
-            root.isClickable = true
-            lifecycleOwner = viewLifecycleOwner
-            executePendingBindings()
+        if (::viewBinding.isInitialized.not()) {
+            viewBinding = DataBindingUtil.inflate(inflater, layoutId, container, false)
+            viewBinding.apply {
+                setVariable(BR.viewModel, viewModel)
+                root.isClickable = true
+                executePendingBindings()
+            }
         }
+        viewBinding.lifecycleOwner = viewLifecycleOwner
         return viewBinding.root
     }
 

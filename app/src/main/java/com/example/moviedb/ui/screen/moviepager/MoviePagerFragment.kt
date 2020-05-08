@@ -1,12 +1,13 @@
 package com.example.moviedb.ui.screen.moviepager
 
-import android.content.pm.ActivityInfo
 import android.graphics.Color
 import android.os.Bundle
+import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.Observer
 import com.example.moviedb.R
 import com.example.moviedb.data.model.Movie
 import com.example.moviedb.databinding.FragmentMoviePagerBinding
+import com.example.moviedb.ui.base.BaseListAdapter
 import com.example.moviedb.ui.base.BaseLoadMoreRefreshFragment
 import kotlinx.android.synthetic.main.fragment_movie_pager.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -38,6 +39,16 @@ class MoviePagerFragment :
 
     override val viewModel: MoviePagerViewModel by viewModel()
 
+    override val listAdapter: BaseListAdapter<Movie, out ViewDataBinding> by lazy {
+        MoviePagerAdapter(
+            itemClickListener = { toMovieDetail(it) }
+        )
+    }
+
+    override fun setupLoadMoreRefresh() {
+        // do nothing
+    }
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
@@ -45,17 +56,13 @@ class MoviePagerFragment :
             mode.value = arguments?.getInt(TYPE)
         }
 
-        val adapter = MoviePagerAdapter(
-            itemClickListener = { toMovieDetail(it) }
-        )
-
         container.setBackgroundColor(Color.BLACK)
         movie_pager?.apply {
             clipToPadding = false
             clipChildren = false
             // retain 1 page on each size
             offscreenPageLimit = 1
-            this.adapter = adapter
+            this.adapter = listAdapter
             val screenHeight = resources.displayMetrics.heightPixels
             val nextItemTranslationX = 19f * screenHeight / 60
             setPageTransformer { view, position ->
@@ -75,8 +82,8 @@ class MoviePagerFragment :
         }
 
         viewModel.apply {
-            listItem.observe(viewLifecycleOwner, Observer {
-                adapter.submitList(it)
+            itemList.observe(viewLifecycleOwner, Observer {
+                listAdapter.submitList(it)
             })
             firstLoad()
         }

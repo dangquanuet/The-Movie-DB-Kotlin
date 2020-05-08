@@ -17,10 +17,10 @@
         android:label="FavoriteContainerFragment"
         tools:layout="@layout/fragment_favorite_container" />
 
-    <keep_state_fragment
-        android:id="@+id/navigation_tv"
-        android:name="com.example.moviedb.ui.screen.tv.TvListFragment"
-        android:label="TvListFragment"
-        tools:layout="@layout/fragment_loadmore_refresh" />
+<!--    <keep_state_fragment-->
+<!--        android:id="@+id/navigation_tv"-->
+<!--        android:name="com.example.moviedb.ui.screen.tv.TvListFragment"-->
+<!--        android:label="TvListFragment"-->
+<!--        tools:layout="@layout/fragment_loadmore_refresh" />-->
 
 </navigation>

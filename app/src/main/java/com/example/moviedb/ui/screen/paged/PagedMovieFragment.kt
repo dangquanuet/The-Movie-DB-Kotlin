@@ -21,9 +21,7 @@ class PagedMovieFragment :
         )
     }
 
-    override val layoutManager by lazy {
-        GridLayoutManager(context, 2)
-    }
+    override fun getLayoutManager() = GridLayoutManager(context, 2)
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)

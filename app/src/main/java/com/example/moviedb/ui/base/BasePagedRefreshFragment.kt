@@ -15,9 +15,8 @@ abstract class BasePagedRefreshFragment<ViewBinding : ViewDataBinding, ViewModel
 
     abstract val pagedListAdapter: BasePagedListAdapter<Item, out ViewDataBinding>
 
-    open val layoutManager: RecyclerView.LayoutManager by lazy {
+    open fun getLayoutManager(): RecyclerView.LayoutManager =
         LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-    }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -31,7 +30,7 @@ abstract class BasePagedRefreshFragment<ViewBinding : ViewDataBinding, ViewModel
         refresh_layout?.setOnRefreshListener {
             viewModel.doRefresh()
         }
-        recycler_view?.layoutManager = layoutManager
+        recycler_view?.layoutManager = getLayoutManager()
         recycler_view?.adapter = pagedListAdapter
         viewModel.apply {
             itemList.observe(viewLifecycleOwner, Observer {

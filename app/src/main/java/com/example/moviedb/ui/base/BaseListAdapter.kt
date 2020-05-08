@@ -18,7 +18,7 @@ import java.util.concurrent.Executors
 /**
  * base recycler view adapter
  */
-abstract class BaseRecyclerAdapter<Item, ViewBinding : ViewDataBinding>(
+abstract class BaseListAdapter<Item, ViewBinding : ViewDataBinding>(
     callBack: DiffUtil.ItemCallback<Item>
 ) : ListAdapter<Item, BaseViewHolder<ViewBinding>>(
     AsyncDifferConfig.Builder<Item>(callBack)

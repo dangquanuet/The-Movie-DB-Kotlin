@@ -2,11 +2,13 @@ package com.example.moviedb.ui.screen.favoritemovie
 
 import android.graphics.Color
 import android.os.Bundle
-import androidx.lifecycle.Observer
+import androidx.databinding.ViewDataBinding
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.moviedb.data.model.Movie
 import com.example.moviedb.databinding.FragmentLoadmoreRefreshBinding
+import com.example.moviedb.ui.base.BaseListAdapter
 import com.example.moviedb.ui.base.BaseLoadMoreRefreshFragment
 import com.example.moviedb.ui.screen.popularmovie.PopularMovieAdapter
 import kotlinx.android.synthetic.main.fragment_loadmore_refresh.*
@@ -17,27 +19,19 @@ class FavoriteMovieFragment :
 
     override val viewModel: FavoriteMovieViewModel by viewModel()
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-
-        val adapter = PopularMovieAdapter(
+    override val listAdapter: BaseListAdapter<Movie, out ViewDataBinding> by lazy {
+        PopularMovieAdapter(
             itemClickListener = {
                 toMovieDetail(it)
             }
         )
+    }
 
+    override fun getLayoutManager(): RecyclerView.LayoutManager = GridLayoutManager(context, 2)
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
         container.setBackgroundColor(Color.BLACK)
-        recycler_view.apply {
-            layoutManager = GridLayoutManager(context, 2)
-            this.adapter = adapter
-        }
-
-        viewModel.apply {
-            listItem.observe(viewLifecycleOwner, Observer {
-                adapter.submitList(it)
-            })
-            loadData(getFirstPage())
-        }
     }
 
     fun loadData() {

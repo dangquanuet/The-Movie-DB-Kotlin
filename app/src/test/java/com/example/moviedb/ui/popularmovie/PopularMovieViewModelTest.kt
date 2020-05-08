@@ -40,7 +40,7 @@ class PopularMovieViewModelTest : BaseViewModelTest() {
                 else -> hashMap[ApiParams.SORT_BY] = ApiParams.POPULARITY_DESC
             }
             val observer = mock<Observer<List<Movie>>>()
-            viewModel.listItem.observeForever(observer)
+            viewModel.itemList.observeForever(observer)
 
             Mockito.`when`(userRepository.getMovieList(hashMap)).thenReturn(fakeData)
 
@@ -48,11 +48,11 @@ class PopularMovieViewModelTest : BaseViewModelTest() {
             viewModel.loadData(page)
 
             // then
-            Assert.assertEquals(4, viewModel.listItem.value?.size)
-            Assert.assertEquals("1", viewModel.listItem.value?.get(0)?.id)
-            Assert.assertEquals("2", viewModel.listItem.value?.get(1)?.id)
-            Assert.assertEquals("3", viewModel.listItem.value?.get(2)?.id)
-            Assert.assertEquals("4", viewModel.listItem.value?.get(3)?.id)
+            Assert.assertEquals(4, viewModel.itemList.value?.size)
+            Assert.assertEquals("1", viewModel.itemList.value?.get(0)?.id)
+            Assert.assertEquals("2", viewModel.itemList.value?.get(1)?.id)
+            Assert.assertEquals("3", viewModel.itemList.value?.get(2)?.id)
+            Assert.assertEquals("4", viewModel.itemList.value?.get(3)?.id)
 
             Mockito.verify(observer).onChanged(fakeData.results)
         }
