@@ -6,7 +6,7 @@ plugins {
     id("kotlin-android-extensions")
     id("kotlin-kapt")
     id("androidx.navigation.safeargs.kotlin")
-    id("io.fabric")
+    id("com.google.firebase.crashlytics")
     id("com.google.gms.google-services")
     jacoco
 }
@@ -199,7 +199,7 @@ dependencies {
     // common
     implementation("androidx.appcompat:appcompat:1.1.0")
     implementation("androidx.legacy:legacy-support-v4:1.0.0")
-    implementation("androidx.constraintlayout:constraintlayout:2.0.0-beta4")
+    implementation("androidx.constraintlayout:constraintlayout:2.0.0-beta5")
     implementation("androidx.recyclerview:recyclerview:1.1.0")
     implementation("com.google.android.material:material:1.2.0-alpha06")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:${KotlinCompilerVersion.VERSION}")
@@ -289,12 +289,16 @@ dependencies {
 
     // firebase
     // https://firebase.google.com/docs/android/setup
-    implementation("com.google.firebase:firebase-analytics:17.4.0")
-    implementation("com.crashlytics.sdk.android:crashlytics:2.10.1")
+    implementation("com.google.firebase:firebase-analytics:17.4.1")
+    implementation("com.google.firebase:firebase-crashlytics:17.0.0")
 
     // leak canary
     // https://square.github.io/leakcanary/
-    debugImplementation("com.squareup.leakcanary:leakcanary-android:2.2")
+//    debugImplementation("com.squareup.leakcanary:leakcanary-android:2.2")
+
+    // timber
+    // https://github.com/JakeWharton/timber
+    implementation("com.jakewharton.timber:timber:4.7.1")
 
     // unit test
     testImplementation("junit:junit:4.13")
