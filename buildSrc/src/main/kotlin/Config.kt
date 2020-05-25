@@ -16,7 +16,7 @@ object Libs {
     const val kotlinVersion = "1.3.71"
     const val appcompat = "androidx.appcompat:appcompat:1.1.0"
     const val legacySupport = "androidx.legacy:legacy-support-v4:1.0.0"
-    const val constraintLayout = "androidx.constraintlayout:constraintlayout:2.0.0-beta5"
+    const val constraintLayout = "androidx.constraintlayout:constraintlayout:2.0.0-beta6"
     const val recyclerview = "androidx.recyclerview:recyclerview:1.1.0"
     const val material = "com.google.android.material:material:1.2.0-alpha06"
     const val stdLib = "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion"
@@ -24,7 +24,7 @@ object Libs {
 
     // List of KTX extensions
     // https://developer.android.com/kotlin/ktx/extensions-list
-    const val coreKtx = "androidx.core:core-ktx:1.3.0-rc01"
+    const val coreKtx = "androidx.core:core-ktx:1.4.0-alpha01"
     const val activityKtx = "androidx.activity:activity-ktx:1.1.0"
     const val fragmentKtx = "androidx.fragment:fragment-ktx:1.2.4"
     const val lifecycleKtx = "androidx.lifecycle:lifecycle-runtime-ktx:2.2.0"
@@ -55,7 +55,7 @@ object Libs {
 
     // navigation
     // https://developer.android.com/jetpack/androidx/releases/navigation
-    const val navigationVersion = "2.3.0-alpha06"
+    const val navigationVersion = "2.3.0-beta01"
     const val navigationRuntimeKtx = "androidx.navigation:navigation-runtime-ktx:$navigationVersion"
     const val navigationFragmentKtx =
         "androidx.navigation:navigation-fragment-ktx:$navigationVersion"
@@ -109,7 +109,7 @@ object Libs {
 
     // koin
     // https://github.com/InsertKoinIO/koin
-    private const val koinVersion = "2.1.5"
+    const val koinVersion = "2.1.5"
     const val koinCore = "org.koin:koin-core:$koinVersion"
     const val koinAndroid = "org.koin:koin-android:$koinVersion"
     const val koinViewModel = "org.koin:koin-androidx-viewmodel:$koinVersion"
