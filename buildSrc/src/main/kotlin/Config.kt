@@ -13,12 +13,12 @@ object Modules {
 object Libs {
 
     // Support libs
-    const val kotlinVersion = "1.3.71"
+    const val kotlinVersion = "1.3.72"
     const val appcompat = "androidx.appcompat:appcompat:1.1.0"
     const val legacySupport = "androidx.legacy:legacy-support-v4:1.0.0"
     const val constraintLayout = "androidx.constraintlayout:constraintlayout:2.0.0-beta6"
     const val recyclerview = "androidx.recyclerview:recyclerview:1.1.0"
-    const val material = "com.google.android.material:material:1.2.0-alpha06"
+    const val material = "com.google.android.material:material:1.2.0-beta01"
     const val stdLib = "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion"
     const val multidex = "androidx.multidex:multidex:2.0.1"
 
@@ -125,7 +125,7 @@ object Libs {
 
     // firebase
     // https://firebase.google.com/docs/android/setup
-    const val firebaseAnalytics = "com.google.firebase:firebase-analytics:17.4.1"
+    const val firebaseAnalytics = "com.google.firebase:firebase-analytics:17.4.2"
     const val firebaseCrashlytics = "com.google.firebase:firebase-crashlytics:17.0.0"
 
     // eventBus
