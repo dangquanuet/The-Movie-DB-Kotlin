@@ -112,7 +112,7 @@ android {
         applicationId = "com.example.moviedb"
         minSdkVersion(17)
         compileSdkVersion(29)
-        targetSdkVersion(29)
+        targetSdkVersion(30)
         multiDexEnabled = true
         vectorDrawables {
             useSupportLibrary = true
