@@ -83,11 +83,18 @@ object Libs {
     const val gson = "com.google.code.gson:gson:2.8.6"
 
     // retrofit
+    // https://github.com/square/retrofit
     private const val retrofitVersion = "2.7.2"
     const val retrofit = "com.squareup.retrofit2:retrofit:$retrofitVersion"
     const val retrofitGson = "com.squareup.retrofit2:converter-gson:$retrofitVersion"
     const val retrofitRxjava = "com.squareup.retrofit2:adapter-rxjava2:$retrofitVersion"
     const val okLogging = "com.squareup.okhttp3:logging-interceptor:4.4.0"
+
+    // stetho
+    // http://facebook.github.io/stetho/
+    private const val stethoVersion = "1.5.1"
+    const val stetho = "com.facebook.stetho:stetho:$stethoVersion"
+    const val stethoOkhttp3 = "com.facebook.stetho:stetho-okhttp3:$stethoVersion"
 
     // glide
     // https://github.com/bumptech/glide

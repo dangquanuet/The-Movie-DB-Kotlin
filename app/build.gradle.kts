@@ -257,6 +257,11 @@ dependencies {
     implementation(Libs.okLogging)
 //    implementation(Libs.retrofitRxjava)
 
+    // stetho
+    // http://facebook.github.io/stetho/
+    implementation(Libs.stetho)
+    implementation(Libs.stethoOkhttp3)
+
     // glide
     // https://github.com/bumptech/glide
     implementation(Libs.glideRuntime)

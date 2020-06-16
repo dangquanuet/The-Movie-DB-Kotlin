@@ -4,6 +4,7 @@ import android.content.Context
 import com.example.moviedb.BuildConfig
 import com.example.moviedb.data.remote.ApiService
 import com.example.moviedb.data.remote.MockApi
+import com.facebook.stetho.okhttp3.StethoInterceptor
 import okhttp3.Cache
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -64,6 +65,7 @@ fun createOkHttpClient(
         .readTimeout(TIMEOUT.toLong(), TimeUnit.SECONDS)
         .addInterceptor(header)
         .addInterceptor(logging)
+        .addNetworkInterceptor(StethoInterceptor())
         .build()
 
 fun createAppRetrofit(
