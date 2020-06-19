@@ -2,7 +2,7 @@
 <objectAnimator xmlns:android="http://schemas.android.com/apk/res/android"
     android:duration="2000"
     android:interpolator="@android:anim/accelerate_decelerate_interpolator"
-    android:valueFrom="0f"
     android:propertyName="translationY"
+    android:valueFrom="0f"
     android:valueTo="500f"
     android:valueType="floatType" />
