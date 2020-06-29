@@ -16,7 +16,7 @@ object Libs {
     const val kotlinVersion = "1.3.72"
     const val appcompat = "androidx.appcompat:appcompat:1.1.0"
     const val legacySupport = "androidx.legacy:legacy-support-v4:1.0.0"
-    const val constraintLayout = "androidx.constraintlayout:constraintlayout:2.0.0-beta6"
+    const val constraintLayout = "androidx.constraintlayout:constraintlayout:2.0.0-beta7"
     const val recyclerview = "androidx.recyclerview:recyclerview:1.1.0"
     const val material = "com.google.android.material:material:1.3.0-alpha01"
     const val stdLib = "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion"
@@ -55,7 +55,7 @@ object Libs {
 
     // navigation
     // https://developer.android.com/jetpack/androidx/releases/navigation
-    const val navigationVersion = "2.3.0-rc01"
+    const val navigationVersion = "2.3.0"
     const val navigationRuntimeKtx = "androidx.navigation:navigation-runtime-ktx:$navigationVersion"
     const val navigationFragmentKtx =
         "androidx.navigation:navigation-fragment-ktx:$navigationVersion"
@@ -133,7 +133,7 @@ object Libs {
     // firebase
     // https://firebase.google.com/docs/android/setup
     const val firebaseAnalytics = "com.google.firebase:firebase-analytics:17.4.3"
-    const val firebaseCrashlytics = "com.google.firebase:firebase-crashlytics:17.0.1"
+    const val firebaseCrashlytics = "com.google.firebase:firebase-crashlytics:17.1.0"
 
     // eventBus
     const val eventBus = "org.greenrobot:eventbus:3.2.0"
