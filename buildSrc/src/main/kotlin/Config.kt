@@ -27,7 +27,6 @@ object Libs {
     const val coreKtx = "androidx.core:core-ktx:1.5.0-alpha01"
     const val activityKtx = "androidx.activity:activity-ktx:1.1.0"
     const val fragmentKtx = "androidx.fragment:fragment-ktx:1.2.5"
-    const val lifecycleKtx = "androidx.lifecycle:lifecycle-runtime-ktx:2.2.0"
 
     // lifecycle
     // https://developer.android.com/jetpack/androidx/releases/lifecycle
@@ -35,6 +34,7 @@ object Libs {
     const val lifecycleLiveDataKtx =
         "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycleVersion"
     const val lifecycleViewModelKtx = "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion"
+    const val lifecycleKtx = "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycleVersion"
     // alternately - if using Java8, use the following instead of lifecycle-compiler, provide @OnLifecycleEvent
     const val lifecycleJava8 = "androidx.lifecycle:lifecycle-common-java8:$lifecycleVersion"
     // Saved state module for ViewModel
@@ -123,6 +123,7 @@ object Libs {
     const val koinScope = "org.koin:koin-androidx-scope:$koinVersion"
 
     // dagger 2
+    // https://developer.android.com/training/dependency-injection/dagger-basics
 //    const val daggerCore = "com.google.dagger:dagger:${Versions.dagger}"
 //    const val daggerAndroid = "com.google.dagger:dagger-android:${Versions.dagger}"
 //    const val daggerSupport = "com.google.dagger:dagger-android-support:${Versions.dagger}"
@@ -130,9 +131,17 @@ object Libs {
 //    const val daggerProcessor = "com.google.dagger:dagger-android-processor:${Versions.dagger}"
 //    const val daggerCompiler = "com.google.dagger:dagger-compiler:${Versions.dagger}"
 
+    // dagger hilt
+    // https://developer.android.com/training/dependency-injection/hilt-android
+    const val daggerHiltVersion = "2.28-alpha"
+    const val daggerHiltAndroid = "com.google.dagger:hilt-android:$daggerHiltVersion"
+    const val daggerHiltAndroidCompiler = "com.google.dagger:hilt-android-compiler:$daggerHiltVersion"
+    const val daggerHiltViewModel = "androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha01"
+    const val daggerHiltViewModelCompiler = "androidx.hilt:hilt-compiler:1.0.0-alpha01"
+
     // firebase
     // https://firebase.google.com/docs/android/setup
-    const val firebaseAnalytics = "com.google.firebase:firebase-analytics:17.4.3"
+    const val firebaseAnalytics = "com.google.firebase:firebase-analytics-ktx:17.4.3"
     const val firebaseCrashlytics = "com.google.firebase:firebase-crashlytics:17.1.0"
 
     // eventBus

@@ -6,6 +6,7 @@ plugins {
     id("androidx.navigation.safeargs.kotlin")
     id("com.google.firebase.crashlytics")
     id("com.google.gms.google-services")
+//    id("dagger.hilt.android.plugin")
     jacoco
 }
 
@@ -208,12 +209,12 @@ dependencies {
     implementation(Libs.coreKtx)
 //    implementation(Libs.activityKtx)
     implementation(Libs.fragmentKtx)
-//    implementation(Libs.lifecycleKtx)
 
     // Lifecycle
     // https://developer.android.com/jetpack/androidx/releases/lifecycle
     implementation(Libs.lifecycleViewModelKtx)
     implementation(Libs.lifecycleLiveDataKtx)
+    implementation(Libs.lifecycleKtx)
     implementation(Libs.lifecycleJava8)
 
     // room
@@ -275,7 +276,7 @@ dependencies {
 
     // runtime permission
     // https://github.com/googlesamples/easypermissions
-    implementation(Libs.easyPermissions)
+//    implementation(Libs.easyPermissions)
 
     // firebase
     // https://firebase.google.com/docs/android/setup
@@ -284,7 +285,7 @@ dependencies {
 
     // lottie
     // https://github.com/airbnb/lottie-android
-    implementation(Libs.lottie)
+//    implementation(Libs.lottie)
 
     // timber
     // https://github.com/JakeWharton/timber
