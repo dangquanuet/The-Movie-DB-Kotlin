@@ -1,6 +1,7 @@
 package com.example.moviedb.utils
 
 import android.content.Context
+import android.content.res.Resources
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import com.example.moviedb.BuildConfig
@@ -26,7 +27,11 @@ fun Exception.safeLog() {
 /**
  * Extension method to provide simpler access to {@link View#getResources()#getString(int)}.
  */
-fun View.getString(stringResId: Int): String = resources.getString(stringResId)
+fun View.getString(stringResId: Int): String? = try {
+    resources.getString(stringResId)
+} catch (e: Resources.NotFoundException) {
+    null
+}
 
 /**
  * Extension method to show a keyboard for View.
