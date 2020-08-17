@@ -204,3 +204,9 @@
 -keepclassmembers public class * extends android.arch.lifecycle.ViewModel { public <init>(...); }
 -keepclassmembers class com.lebao.app.domain.** { public <init>(...); }
 -keepclassmembers class * { public <init>(...); }
+
+##################################
+# Crashlytics #
+##################################
+-keepattributes SourceFile,LineNumberTable        # Keep file names and line numbers.
+-keep public class * extends java.lang.Exception  # Optional: Keep custom exceptions.

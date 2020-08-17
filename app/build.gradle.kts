@@ -126,12 +126,27 @@ android {
             isDebuggable = true
             isMinifyEnabled = false
             isShrinkResources = false
+            firebaseCrashlytics {
+                mappingFileUploadEnabled = false
+            }
+//            isUseProguard = false
+        }
+        create("staging") {
+            isDebuggable = true
+            isMinifyEnabled = true
+            isShrinkResources = true
+            firebaseCrashlytics {
+                mappingFileUploadEnabled = true
+            }
 //            isUseProguard = false
         }
         getByName("release") {
             isDebuggable = false
             isMinifyEnabled = true
             isShrinkResources = true
+            firebaseCrashlytics {
+                mappingFileUploadEnabled = true
+            }
 //            isUseProguard = true
             proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
         }
