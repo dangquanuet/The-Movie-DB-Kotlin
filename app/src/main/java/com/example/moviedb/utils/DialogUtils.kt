@@ -12,6 +12,9 @@ import androidx.lifecycle.OnLifecycleEvent
 import com.example.moviedb.R
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
+/**
+ * show single loading dialog
+ */
 var loadingDialog: Dialog? = null
 
 fun Context?.showLoadingDialog(
@@ -50,6 +53,9 @@ fun dismissLLoadingDialog() {
     }
 }
 
+/**
+ * show single alert dialog
+ */
 var showingDialog: Dialog? = null
 
 fun Context?.showDialog(
@@ -84,6 +90,9 @@ fun Context?.showDialog(
                     }
                 }
             })
+        }
+        setOnDismissListener {
+            showingDialog = null
         }
         showingDialog = this
         show()
@@ -126,6 +135,9 @@ fun Context?.showDialog(
                     }
                 }
             })
+        }
+        setOnDismissListener {
+            showingDialog = null
         }
         showingDialog = this
         show()
