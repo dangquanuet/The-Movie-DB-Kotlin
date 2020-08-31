@@ -14,9 +14,9 @@ object Libs {
 
     // Support libs
     const val kotlinVersion = "1.3.72"
-    const val appcompat = "androidx.appcompat:appcompat:1.1.0"
+    const val appcompat = "androidx.appcompat:appcompat:1.2.0"
     const val legacySupport = "androidx.legacy:legacy-support-v4:1.0.0"
-    const val constraintLayout = "androidx.constraintlayout:constraintlayout:2.0.0-beta8"
+    const val constraintLayout = "androidx.constraintlayout:constraintlayout:2.0.1"
     const val recyclerview = "androidx.recyclerview:recyclerview:1.1.0"
     const val material = "com.google.android.material:material:1.3.0-alpha02"
     const val stdLib = "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion"
@@ -24,7 +24,7 @@ object Libs {
 
     // List of KTX extensions
     // https://developer.android.com/kotlin/ktx/extensions-list
-    const val coreKtx = "androidx.core:core-ktx:1.5.0-alpha01"
+    const val coreKtx = "androidx.core:core-ktx:1.5.0-alpha02"
     const val activityKtx = "androidx.activity:activity-ktx:1.1.0"
     const val fragmentKtx = "androidx.fragment:fragment-ktx:1.2.5"
 
@@ -141,8 +141,8 @@ object Libs {
 
     // firebase
     // https://firebase.google.com/docs/android/setup
-    const val firebaseAnalytics = "com.google.firebase:firebase-analytics-ktx:17.4.4"
-    const val firebaseCrashlytics = "com.google.firebase:firebase-crashlytics:17.1.1"
+    const val firebaseAnalytics = "com.google.firebase:firebase-analytics-ktx:17.5.0"
+    const val firebaseCrashlytics = "com.google.firebase:firebase-crashlytics:17.2.1"
 
     // eventBus
     const val eventBus = "org.greenrobot:eventbus:3.2.0"
