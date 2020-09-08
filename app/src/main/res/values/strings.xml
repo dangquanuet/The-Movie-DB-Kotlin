@@ -5,7 +5,7 @@
     <string name="connect_timeout">Connect Timeout</string>
     <string name="force_update_app">Please update app</string>
     <string name="server_maintain_message">Server maintain, please try again later</string>
-    <string name="unknown_error">Error, please try again later</string>
+    <string name="unknown_error">Something error, please try again later</string>
 
     <!--main screen-->
     <string name="main_tab_popular">POPULAR</string>
