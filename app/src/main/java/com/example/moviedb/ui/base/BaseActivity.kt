@@ -1,5 +1,6 @@
 package com.example.moviedb.ui.base
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
@@ -8,9 +9,11 @@ import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.Observer
 import com.example.moviedb.BR
 import com.example.moviedb.R
+import com.example.moviedb.ui.screen.MainActivity
 import com.example.moviedb.utils.dismissLLoadingDialog
 import com.example.moviedb.utils.showDialog
 import com.example.moviedb.utils.showLoadingDialog
+import kotlin.system.exitProcess
 
 abstract class BaseActivity<ViewBinding : ViewDataBinding, ViewModel : BaseViewModel> :
     AppCompatActivity() {
@@ -24,6 +27,8 @@ abstract class BaseActivity<ViewBinding : ViewDataBinding, ViewModel : BaseViewM
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        handleUncaughtException()
+
         if (::viewBinding.isInitialized.not()) {
             viewBinding = DataBindingUtil.setContentView(this, layoutId)
             viewBinding.setVariable(BR.viewModel, viewModel)
@@ -78,5 +83,26 @@ abstract class BaseActivity<ViewBinding : ViewDataBinding, ViewModel : BaseViewM
             message = message,
             textPositive = getString(R.string.ok)
         )
+    }
+
+    /**
+     * prevent uncaught exception to crash app
+     * restart app for better UX
+     */
+    protected fun handleUncaughtException() {
+        Thread.setDefaultUncaughtExceptionHandler { t, e ->
+            val intent = Intent(this, MainActivity::class.java)
+            intent.addFlags(
+                Intent.FLAG_ACTIVITY_CLEAR_TOP
+                        or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                        or Intent.FLAG_ACTIVITY_NEW_TASK
+            )
+            application?.startActivity(intent)
+            try {
+                exitProcess(2);
+            } catch (e: Exception) {
+                application?.startActivity(intent)
+            }
+        }
     }
 }
