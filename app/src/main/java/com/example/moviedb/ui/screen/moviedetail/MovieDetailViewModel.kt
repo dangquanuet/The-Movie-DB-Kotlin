@@ -1,5 +1,6 @@
 package com.example.moviedb.ui.screen.moviedetail
 
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.moviedb.data.model.Cast
@@ -10,7 +11,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class MovieDetailViewModel(
+class MovieDetailViewModel @ViewModelInject constructor(
     private val userRepository: UserRepository
 ) : BaseViewModel() {
 

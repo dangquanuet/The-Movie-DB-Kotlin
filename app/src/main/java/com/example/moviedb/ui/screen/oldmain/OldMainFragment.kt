@@ -2,13 +2,14 @@ package com.example.moviedb.ui.screen.oldmain
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import com.example.moviedb.R
 import com.example.moviedb.databinding.FragmentMainBinding
 import com.example.moviedb.ui.base.BaseFragment
-import com.example.moviedb.ui.screen.favoritemovie.FavoriteMovieFragment
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_old_main.*
-import org.koin.androidx.viewmodel.ext.android.viewModel
 
+@AndroidEntryPoint
 class OldMainFragment : BaseFragment<FragmentMainBinding, OldMainViewModel>() {
 
     companion object {
@@ -17,7 +18,7 @@ class OldMainFragment : BaseFragment<FragmentMainBinding, OldMainViewModel>() {
 
     override val layoutId: Int = R.layout.fragment_old_main
 
-    override val viewModel: OldMainViewModel by viewModel()
+    override val viewModel: OldMainViewModel by viewModels()
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)

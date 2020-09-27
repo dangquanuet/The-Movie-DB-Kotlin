@@ -1,12 +1,13 @@
 package com.example.moviedb.ui.screen.paged
 
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.paging.PageKeyedDataSource
 import com.example.moviedb.data.model.Movie
 import com.example.moviedb.data.remote.ApiParams
 import com.example.moviedb.data.repository.UserRepository
 import com.example.moviedb.ui.base.BasePagedRefreshViewModel
 
-class PagedMovieViewModel(
+class PagedMovieViewModel @ViewModelInject constructor(
     private val userRepository: UserRepository
 ) : BasePagedRefreshViewModel<Movie>() {
 

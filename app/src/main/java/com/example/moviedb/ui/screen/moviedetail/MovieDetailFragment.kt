@@ -3,6 +3,7 @@ package com.example.moviedb.ui.screen.moviedetail
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
@@ -11,14 +12,15 @@ import com.example.moviedb.R
 import com.example.moviedb.databinding.FragmentMovieDetailBinding
 import com.example.moviedb.ui.base.BaseFragment
 import com.example.moviedb.utils.setSingleClick
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_movie_detail.*
-import org.koin.androidx.viewmodel.ext.android.viewModel
 
+@AndroidEntryPoint
 class MovieDetailFragment : BaseFragment<FragmentMovieDetailBinding, MovieDetailViewModel>() {
 
     override val layoutId: Int = R.layout.fragment_movie_detail
 
-    override val viewModel: MovieDetailViewModel by viewModel()
+    override val viewModel: MovieDetailViewModel by viewModels()
 
     private val args: MovieDetailFragmentArgs by navArgs()
 
