@@ -283,12 +283,6 @@ dependencies {
     implementation(Libs.glideRuntime)
     kapt(Libs.glideCompiler)
 
-    // koin
-    // https://github.com/InsertKoinIO/koin
-//    implementation(Libs.koinCore)
-//    implementation(Libs.koinAndroid)
-    implementation(Libs.koinViewModel)
-
     //dagger hilt
     implementation(Libs.daggerHiltAndroid)
     kapt(Libs.daggerHiltAndroidCompiler)
