@@ -6,7 +6,7 @@ plugins {
     id("androidx.navigation.safeargs.kotlin")
     id("com.google.firebase.crashlytics")
     id("com.google.gms.google-services")
-//    id("dagger.hilt.android.plugin")
+    id("dagger.hilt.android.plugin")
     jacoco
 }
 
@@ -285,11 +285,11 @@ dependencies {
     implementation(Libs.glideRuntime)
     kapt(Libs.glideCompiler)
 
-    // koin
-    // https://github.com/InsertKoinIO/koin
-//    implementation(Libs.koinCore)
-//    implementation(Libs.koinAndroid)
-    implementation(Libs.koinViewModel)
+    //dagger hilt
+    implementation(Libs.daggerHiltAndroid)
+    kapt(Libs.daggerHiltAndroidCompiler)
+    implementation(Libs.daggerHiltViewModel)
+    kapt(Libs.daggerHiltViewModelCompiler)
 
     // runtime permission
     // https://github.com/googlesamples/easypermissions

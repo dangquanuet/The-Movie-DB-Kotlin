@@ -3,14 +3,15 @@ package com.example.moviedb.ui.screen.permission
 import android.Manifest
 import android.os.Bundle
 import android.widget.Toast
+import androidx.fragment.app.viewModels
 import com.example.moviedb.R
 import com.example.moviedb.databinding.FragmentPermisisonBinding
 import com.example.moviedb.ui.base.BaseFragment
 import com.example.moviedb.utils.*
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_permisison.*
-import org.koin.androidx.viewmodel.ext.android.viewModel
 
-
+@AndroidEntryPoint
 class PermissionFragment : BaseFragment<FragmentPermisisonBinding, PermissionViewModel>() {
 
     companion object {
@@ -20,7 +21,7 @@ class PermissionFragment : BaseFragment<FragmentPermisisonBinding, PermissionVie
 
     override val layoutId: Int = R.layout.fragment_permisison
 
-    override val viewModel: PermissionViewModel by viewModel()
+    override val viewModel: PermissionViewModel by viewModels()
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)

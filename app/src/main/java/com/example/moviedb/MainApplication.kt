@@ -5,25 +5,19 @@ import android.content.Intent
 import android.os.Looper
 import android.widget.Toast
 import androidx.multidex.MultiDex
-import com.example.moviedb.di.appModules
 import com.example.moviedb.ui.screen.MainActivity
 import com.facebook.stetho.Stetho
-import org.koin.android.ext.koin.androidContext
-import org.koin.core.context.startKoin
+import dagger.hilt.android.HiltAndroidApp
 import timber.log.Timber
 import kotlin.system.exitProcess
 
+@HiltAndroidApp
 class MainApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
 
         MultiDex.install(this)
-
-        startKoin {
-            androidContext(this@MainApplication)
-            modules(appModules)
-        }
 
         if (BuildConfig.DEBUG) {
             // init timber

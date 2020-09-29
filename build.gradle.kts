@@ -10,7 +10,7 @@ buildscript {
         classpath("androidx.navigation:navigation-safe-args-gradle-plugin:${Libs.navigationVersion}")
         classpath("com.google.gms:google-services:4.3.3")
         classpath("com.google.firebase:firebase-crashlytics-gradle:2.3.0")
-//        classpath("com.google.dagger:hilt-android-gradle-plugin:${Libs.daggerHiltVersion}")
+        classpath("com.google.dagger:hilt-android-gradle-plugin:${Libs.daggerHiltVersion}")
     }
 }
 

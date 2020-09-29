@@ -1,17 +1,19 @@
 package com.example.moviedb.ui.screen.splash
 
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.moviedb.R
 import com.example.moviedb.databinding.FragmentSplashBinding
 import com.example.moviedb.ui.base.BaseFragment
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.*
-import org.koin.androidx.viewmodel.ext.android.viewModel
 
+@AndroidEntryPoint
 class SplashFragment : BaseFragment<FragmentSplashBinding, SplashViewModel>() {
 
     override val layoutId: Int = R.layout.fragment_splash
 
-    override val viewModel: SplashViewModel by viewModel()
+    override val viewModel: SplashViewModel by viewModels()
 
     private val activityScope = CoroutineScope(Dispatchers.Main)
 

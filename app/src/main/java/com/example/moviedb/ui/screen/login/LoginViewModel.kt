@@ -2,12 +2,13 @@ package com.example.moviedb.ui.screen.login
 
 import android.text.TextUtils
 import androidx.core.util.PatternsCompat
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.moviedb.data.constants.Constants
 import com.example.moviedb.ui.base.BaseViewModel
 
-class LoginViewModel : BaseViewModel() {
+class LoginViewModel @ViewModelInject constructor() : BaseViewModel() {
 
     val email = MutableLiveData<String>()
     val password = MutableLiveData<String>()
