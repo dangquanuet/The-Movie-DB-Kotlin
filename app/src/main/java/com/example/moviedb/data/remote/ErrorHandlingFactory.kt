@@ -50,31 +50,31 @@ class RxCallAdapterWrapper<R>(
         return when (result) {
             is Single<*> -> {
                 result.onErrorResumeNext(Function<Throwable, SingleSource<Nothing>> { throwable ->
-                    Single.error(convertToBaseException(throwable))
+                    Single.error(throwable.toBaseException())
                 })
             }
 
             is Observable<*> -> {
                 result.onErrorResumeNext(Function<Throwable, ObservableSource<Nothing>> { throwable ->
-                    Observable.error(convertToBaseException(throwable))
+                    Observable.error(throwable.toBaseException())
                 })
             }
 
             is Completable -> {
                 result.onErrorResumeNext { throwable ->
-                    Completable.error(convertToBaseException(throwable))
+                    Completable.error(throwable.toBaseException())
                 }
             }
 
             is Flowable<*> -> {
                 result.onErrorResumeNext(Function<Throwable, Flowable<Nothing>> { throwable ->
-                    Flowable.error(convertToBaseException(throwable))
+                    Flowable.error(throwable.toBaseException())
                 })
             }
 
             is Maybe<*> -> {
                 result.onErrorResumeNext(Function<Throwable, Maybe<Nothing>> { throwable ->
-                    Maybe.error(convertToBaseException(throwable))
+                    Maybe.error(throwable.toBaseException())
                 })
             }
 
@@ -84,8 +84,8 @@ class RxCallAdapterWrapper<R>(
 }*/
 
 
-fun convertToBaseException(throwable: Throwable): BaseException =
-    when (throwable) {
+fun Throwable.toBaseException(): BaseException {
+    return when (val throwable = this) {
         is BaseException -> throwable
 
         is IOException -> BaseException.toNetworkError(throwable)
@@ -132,6 +132,7 @@ fun convertToBaseException(throwable: Throwable): BaseException =
 
         else -> BaseException.toUnexpectedError(throwable)
     }
+}
 
 class BaseException(
     val errorType: ErrorType,

@@ -111,8 +111,9 @@ android {
 
     defaultConfig {
         applicationId = "com.example.moviedb"
+        buildToolsVersion("30.0.2")
         minSdkVersion(17)
-        compileSdkVersion(29)
+        compileSdkVersion(30)
         targetSdkVersion(30)
         multiDexEnabled = true
         vectorDrawables {
@@ -139,6 +140,7 @@ android {
                 mappingFileUploadEnabled = true
             }
 //            isUseProguard = false
+            proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
         }
         getByName("release") {
             isDebuggable = false

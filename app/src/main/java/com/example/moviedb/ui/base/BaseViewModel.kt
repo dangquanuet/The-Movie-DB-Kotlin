@@ -3,7 +3,7 @@ package com.example.moviedb.ui.base
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.moviedb.data.remote.convertToBaseException
+import com.example.moviedb.data.remote.toBaseException
 import com.example.moviedb.utils.SingleLiveEvent
 import kotlinx.coroutines.*
 import java.net.ConnectException
@@ -69,7 +69,7 @@ abstract class BaseViewModel : ViewModel() {
                 }
                 else -> {
                     // convert throwable to base exception to get error information
-                    val baseException = convertToBaseException(throwable)
+                    val baseException = throwable.toBaseException()
                     when (baseException.httpCode) {
                         HttpURLConnection.HTTP_UNAUTHORIZED -> {
                             errorMessage.value = baseException.message

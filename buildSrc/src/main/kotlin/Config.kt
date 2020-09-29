@@ -1,6 +1,7 @@
 object Android {
-    const val minSdk = 21
-    const val targetSdk = 29
+    const val minSdk = 17
+    const val targetSdk = 30
+    const val compileSdk = 30
     const val applicationId = ""
 
     const val versionCode = 1
@@ -24,7 +25,7 @@ object Libs {
 
     // List of KTX extensions
     // https://developer.android.com/kotlin/ktx/extensions-list
-    const val coreKtx = "androidx.core:core-ktx:1.5.0-alpha02"
+    const val coreKtx = "androidx.core:core-ktx:1.5.0-alpha03"
     const val activityKtx = "androidx.activity:activity-ktx:1.1.0"
     const val fragmentKtx = "androidx.fragment:fragment-ktx:1.2.5"
 
