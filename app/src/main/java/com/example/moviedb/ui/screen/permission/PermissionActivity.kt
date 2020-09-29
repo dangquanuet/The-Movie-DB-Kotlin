@@ -3,18 +3,20 @@ package com.example.moviedb.ui.screen.permission
 import android.Manifest
 import android.os.Bundle
 import android.widget.Toast
+import androidx.activity.viewModels
 import com.example.moviedb.R
 import com.example.moviedb.databinding.ActivityPermissionBinding
 import com.example.moviedb.ui.base.BaseActivity
 import com.example.moviedb.utils.*
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_permisison.*
-import org.koin.androidx.viewmodel.ext.android.viewModel
 
+@AndroidEntryPoint
 class PermissionActivity : BaseActivity<ActivityPermissionBinding, PermissionViewModel>() {
 
     override val layoutId: Int = R.layout.activity_permission
 
-    override val viewModel: PermissionViewModel by viewModel()
+    override val viewModel: PermissionViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

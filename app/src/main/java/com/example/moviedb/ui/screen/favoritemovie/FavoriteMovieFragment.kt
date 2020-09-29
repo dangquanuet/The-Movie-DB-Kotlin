@@ -3,6 +3,7 @@ package com.example.moviedb.ui.screen.favoritemovie
 import android.graphics.Color
 import android.os.Bundle
 import androidx.databinding.ViewDataBinding
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -11,13 +12,14 @@ import com.example.moviedb.databinding.FragmentLoadmoreRefreshBinding
 import com.example.moviedb.ui.base.BaseListAdapter
 import com.example.moviedb.ui.base.BaseLoadMoreRefreshFragment
 import com.example.moviedb.ui.screen.popularmovie.PopularMovieAdapter
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_loadmore_refresh.*
-import org.koin.androidx.viewmodel.ext.android.viewModel
 
+@AndroidEntryPoint
 class FavoriteMovieFragment :
     BaseLoadMoreRefreshFragment<FragmentLoadmoreRefreshBinding, FavoriteMovieViewModel, Movie>() {
 
-    override val viewModel: FavoriteMovieViewModel by viewModel()
+    override val viewModel: FavoriteMovieViewModel by viewModels()
 
     override val listAdapter: BaseListAdapter<Movie, out ViewDataBinding> by lazy {
         PopularMovieAdapter(

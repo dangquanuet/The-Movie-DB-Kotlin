@@ -3,17 +3,18 @@ package com.example.moviedb.ui.screen.moviepager
 import android.graphics.Color
 import android.os.Bundle
 import androidx.databinding.ViewDataBinding
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.example.moviedb.R
 import com.example.moviedb.data.model.Movie
 import com.example.moviedb.databinding.FragmentMoviePagerBinding
 import com.example.moviedb.ui.base.BaseListAdapter
 import com.example.moviedb.ui.base.BaseLoadMoreRefreshFragment
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_movie_pager.*
-import org.koin.androidx.viewmodel.ext.android.viewModel
 import kotlin.math.abs
 
-
+@AndroidEntryPoint
 class MoviePagerFragment :
     BaseLoadMoreRefreshFragment<FragmentMoviePagerBinding, MoviePagerViewModel, Movie>() {
 
@@ -37,7 +38,7 @@ class MoviePagerFragment :
 
     override val layoutId: Int = R.layout.fragment_movie_pager
 
-    override val viewModel: MoviePagerViewModel by viewModel()
+    override val viewModel: MoviePagerViewModel by viewModels()
 
     override val listAdapter: BaseListAdapter<Movie, out ViewDataBinding> by lazy {
         MoviePagerAdapter(

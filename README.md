@@ -20,7 +20,7 @@ Gson: https://github.com/google/gson
 
 Glide: https://github.com/bumptech/glide
 
-Koin: https://github.com/InsertKoinIO/koin
+Dagger-Hilt: https://developer.android.com/training/dependency-injection/hilt-android
 
 Android X: https://developer.android.com/topic/libraries/support-library/androidx-overview
 

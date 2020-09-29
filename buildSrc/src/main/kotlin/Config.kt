@@ -113,7 +113,7 @@ object Libs {
     // lottie
     // https://github.com/airbnb/lottie-android
     const val lottie = "com.airbnb.android:lottie:3.4.0"
-
+    
     // koin
     // https://github.com/InsertKoinIO/koin
     const val koinVersion = "2.1.5"

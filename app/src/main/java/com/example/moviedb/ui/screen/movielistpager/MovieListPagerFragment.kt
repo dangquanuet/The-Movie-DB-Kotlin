@@ -1,15 +1,16 @@
 package com.example.moviedb.ui.screen.movielistpager
 
-import android.content.pm.ActivityInfo
 import android.os.Bundle
+import androidx.fragment.app.viewModels
 import androidx.viewpager2.widget.ViewPager2
 import com.example.moviedb.R
 import com.example.moviedb.data.constants.MovieListType
 import com.example.moviedb.databinding.FragmentMovieListPagerBinding
 import com.example.moviedb.ui.base.BaseFragment
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_movie_list_pager.*
-import org.koin.androidx.viewmodel.ext.android.viewModel
 
+@AndroidEntryPoint
 class MovieListPagerFragment :
     BaseFragment<FragmentMovieListPagerBinding, MovieListPagerViewModel>() {
 
@@ -19,7 +20,7 @@ class MovieListPagerFragment :
 
     override val layoutId: Int = R.layout.fragment_movie_list_pager
 
-    override val viewModel: MovieListPagerViewModel by viewModel()
+    override val viewModel: MovieListPagerViewModel by viewModels()
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
