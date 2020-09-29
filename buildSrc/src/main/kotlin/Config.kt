@@ -113,6 +113,14 @@ object Libs {
     // lottie
     // https://github.com/airbnb/lottie-android
     const val lottie = "com.airbnb.android:lottie:3.4.0"
+    
+    // koin
+    // https://github.com/InsertKoinIO/koin
+    const val koinVersion = "2.1.5"
+    const val koinCore = "org.koin:koin-core:$koinVersion"
+    const val koinAndroid = "org.koin:koin-android:$koinVersion"
+    const val koinViewModel = "org.koin:koin-androidx-viewmodel:$koinVersion"
+    const val koinScope = "org.koin:koin-androidx-scope:$koinVersion"
 
     // dagger 2
     // https://developer.android.com/training/dependency-injection/dagger-basics
