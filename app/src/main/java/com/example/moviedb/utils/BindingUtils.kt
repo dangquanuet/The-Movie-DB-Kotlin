@@ -56,27 +56,41 @@ fun ImageView.loadLocalImage(imageName: String?) {
 }
 
 @BindingAdapter(
-    value = ["imageUrl", "thumbnailUrl", "placeholder", "errorDrawable", "requestListener", "centerCrop", "fitCenter", "circleCrop", "diskCacheStrategy", "signatureKey"],
+    value = [
+        "imageUrl",
+        "thumbnailUrl",
+        "placeholder",
+        "errorDrawable",
+        "requestListener",
+        "centerCrop",
+        "fitCenter",
+        "circleCrop",
+        "skipMemoryCache",
+        "diskCacheStrategy",
+        "signatureKey"
+    ],
     requireAll = false
 )
 fun ImageView.loadImage(
     imageUrl: String? = null,
     thumbnailUrl: String? = null,
-    placeHolder: Drawable? = null,
+    placeHolderDrawable: Drawable? = null,
     errorDrawable: Drawable? = null,
     requestListener: RequestListener<Drawable>? = null,
     centerCrop: Boolean = false,
     fitCenter: Boolean = false,
     circleCrop: Boolean = false,
+    skipMemoryCache: Boolean? = null,
     diskCacheStrategy: DiskCacheStrategy? = null,
     signatureKey: String? = null
 ) {
     if (imageUrl.isNullOrBlank()) {
-        setImageDrawable(placeHolder)
+        if (placeHolderDrawable != null) setImageDrawable(placeHolderDrawable)
         return
     }
 
     val requestOptions = RequestOptions().apply {
+        if (skipMemoryCache != null) skipMemoryCache(skipMemoryCache)
 
         // cache type: https://futurestud.io/tutorials/glide-how-to-choose-the-best-caching-preference
         // Glide 4.x: DiskCacheStrategy.RESOURCE Glide 3.x: DiskCacheStrategy.RESULT caches only the final image, after reducing the resolution (and possibly transformations) (default behavior of Glide 3.x)
@@ -86,8 +100,8 @@ fun ImageView.loadImage(
         // Glide 3.x & 4.x: DiskCacheStrategy.NONE caches nothing
         diskCacheStrategy(diskCacheStrategy ?: DiskCacheStrategy.RESOURCE)
 
-        placeholder(placeHolder)
-        error(errorDrawable)
+        if (placeHolderDrawable != null) placeholder(placeHolderDrawable)
+        if (errorDrawable != null) error(errorDrawable)
 
         // crop type
         if (centerCrop) centerCrop()
