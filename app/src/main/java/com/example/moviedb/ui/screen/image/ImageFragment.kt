@@ -4,7 +4,6 @@ import android.graphics.drawable.Drawable
 import android.os.Build
 import android.os.Bundle
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.transition.TransitionInflater
 import com.bumptech.glide.load.DataSource
@@ -15,6 +14,7 @@ import com.example.moviedb.R
 import com.example.moviedb.databinding.FragmentImageBinding
 import com.example.moviedb.ui.base.BaseFragment
 import com.example.moviedb.ui.base.BaseViewModel
+import com.example.moviedb.ui.base.getNavController
 import com.example.moviedb.utils.setSingleClick
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_movie_detail.*
@@ -62,7 +62,7 @@ class ImageFragment : BaseFragment<FragmentImageBinding, BaseViewModel>() {
         }
 
         image_back?.setSingleClick {
-            findNavController().navigateUp()
+            getNavController()?.navigateUp()
         }
 
         viewModel.apply {

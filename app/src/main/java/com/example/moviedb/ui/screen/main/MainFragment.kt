@@ -3,12 +3,12 @@ package com.example.moviedb.ui.screen.main
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.plusAssign
 import androidx.navigation.ui.setupWithNavController
 import com.example.moviedb.R
 import com.example.moviedb.databinding.FragmentMainBinding
 import com.example.moviedb.ui.base.BaseFragment
+import com.example.moviedb.ui.base.getNavController
 import com.example.moviedb.ui.navigation.KeepStateNavigator
 import com.example.moviedb.ui.screen.permission.PermissionFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -28,7 +28,7 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>() {
     }
 
     private fun setupNavHost() {
-        val navController = findNavController()
+        val navController = getNavController()
 
         // get fragment
         val navHostFragment = childFragmentManager.findFragmentById(R.id.nav_host_fragment_main)!!
@@ -39,12 +39,13 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>() {
             fragmentManager = navHostFragment.childFragmentManager,
             containerId = R.id.nav_host_fragment_main
         )
-        navController.navigatorProvider += navigator
+        if (navController != null) {
+            navController.navigatorProvider += navigator
 
-        // set navigation graph
-        navController.setGraph(R.navigation.graph_main)
-
-        bottom_nav?.setupWithNavController(navController)
+            // set navigation graph
+            navController.setGraph(R.navigation.graph_main)
+            bottom_nav?.setupWithNavController(navController)
+        }
     }
 
     fun test() {

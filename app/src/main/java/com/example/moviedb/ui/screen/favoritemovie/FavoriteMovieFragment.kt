@@ -4,13 +4,13 @@ import android.graphics.Color
 import android.os.Bundle
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.moviedb.data.model.Movie
 import com.example.moviedb.databinding.FragmentLoadmoreRefreshBinding
 import com.example.moviedb.ui.base.BaseListAdapter
 import com.example.moviedb.ui.base.BaseLoadMoreRefreshFragment
+import com.example.moviedb.ui.base.getNavController
 import com.example.moviedb.ui.screen.popularmovie.PopularMovieAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_loadmore_refresh.*
@@ -41,7 +41,7 @@ class FavoriteMovieFragment :
     }
 
     private fun toMovieDetail(movie: Movie) {
-        findNavController().navigate(
+        getNavController()?.navigate(
             FavoriteMovieFragmentDirections.toGraphMovieDetail(movie)
         )
     }

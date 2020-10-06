@@ -3,11 +3,11 @@ package com.example.moviedb.ui.screen.paged
 import android.graphics.Color
 import android.os.Bundle
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.moviedb.data.model.Movie
 import com.example.moviedb.databinding.FragmentPagedRefreshBinding
 import com.example.moviedb.ui.base.BasePagedRefreshFragment
+import com.example.moviedb.ui.base.getNavController
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_paged_refresh.*
 
@@ -31,6 +31,6 @@ class PagedMovieFragment :
     }
 
     private fun toMovieDetail(movie: Movie) {
-        findNavController().navigate(PagedMovieFragmentDirections.toGraphMovieDetail(movie))
+        getNavController()?.navigate(PagedMovieFragmentDirections.toGraphMovieDetail(movie))
     }
 }

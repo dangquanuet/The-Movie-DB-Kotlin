@@ -6,11 +6,11 @@ import android.widget.ImageView
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.FragmentNavigatorExtras
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.moviedb.R
 import com.example.moviedb.databinding.FragmentMovieDetailBinding
 import com.example.moviedb.ui.base.BaseFragment
+import com.example.moviedb.ui.base.getNavController
 import com.example.moviedb.utils.setSingleClick
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_movie_detail.*
@@ -36,7 +36,7 @@ class MovieDetailFragment : BaseFragment<FragmentMovieDetailBinding, MovieDetail
             viewModel.favoriteMovie()
         }
         image_back?.setSingleClick {
-            findNavController().navigateUp()
+            getNavController()?.navigateUp()
         }
         image_backdrop?.setSingleClick {
             viewModel.movie.value?.getFullBackdropPath()?.let {
@@ -67,7 +67,7 @@ class MovieDetailFragment : BaseFragment<FragmentMovieDetailBinding, MovieDetail
     }
 
     private fun toFullImage(imageView: ImageView, imageUrl: String) {
-        findNavController().navigate(
+        getNavController()?.navigate(
             MovieDetailFragmentDirections.toImage(imageUrl),
             FragmentNavigatorExtras(
                 imageView to imageUrl

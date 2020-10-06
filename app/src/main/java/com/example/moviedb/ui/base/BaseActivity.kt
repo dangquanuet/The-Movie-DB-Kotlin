@@ -26,9 +26,13 @@ abstract class BaseActivity<ViewBinding : ViewDataBinding, ViewModel : BaseViewM
         super.onCreate(savedInstanceState)
         if (::viewBinding.isInitialized.not()) {
             viewBinding = DataBindingUtil.setContentView(this, layoutId)
-            viewBinding.setVariable(BR.viewModel, viewModel)
+            viewBinding.apply {
+                setVariable(BR.viewModel, viewModel)
+                root.isClickable = true
+                executePendingBindings()
+            }
         }
-
+        viewBinding.lifecycleOwner = this
         observeErrorEvent()
     }
 

@@ -11,7 +11,8 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.Observer
-import androidx.navigation.fragment.findNavController
+import androidx.navigation.NavController
+import androidx.navigation.fragment.NavHostFragment
 import com.example.moviedb.BR
 import com.example.moviedb.R
 import com.example.moviedb.utils.dismissLLoadingDialog
@@ -94,7 +95,7 @@ abstract class BaseFragment<ViewBinding : ViewDataBinding, ViewModel : BaseViewM
     }
 
     fun navigateUp() {
-        findNavController().navigateUp()
+        getNavController()?.navigateUp()
     }
 
     /**
@@ -176,4 +177,12 @@ abstract class BaseFragment<ViewBinding : ViewDataBinding, ViewModel : BaseViewM
         parentFragment.childFragmentManager.popBackStack()
     }
 
+}
+
+fun Fragment.getNavController(): NavController? {
+    return try {
+        NavHostFragment.findNavController(this)
+    } catch (e: IllegalStateException) {
+        null
+    }
 }

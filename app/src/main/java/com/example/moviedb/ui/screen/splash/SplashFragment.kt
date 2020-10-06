@@ -1,10 +1,10 @@
 package com.example.moviedb.ui.screen.splash
 
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
 import com.example.moviedb.R
 import com.example.moviedb.databinding.FragmentSplashBinding
 import com.example.moviedb.ui.base.BaseFragment
+import com.example.moviedb.ui.base.getNavController
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.*
 
@@ -26,7 +26,7 @@ class SplashFragment : BaseFragment<FragmentSplashBinding, SplashViewModel>() {
     }
 
     fun navigateToOther() {
-        findNavController().navigate(
+        getNavController()?.navigate(
             when (2) {
                 0 -> SplashFragmentDirections.toMovieListPager()
                 1 -> SplashFragmentDirections.toPagedMovie()

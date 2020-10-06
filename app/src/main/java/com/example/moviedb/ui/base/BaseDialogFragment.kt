@@ -11,7 +11,6 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.Observer
-import androidx.navigation.fragment.findNavController
 import com.example.moviedb.BR
 import com.example.moviedb.R
 import com.example.moviedb.utils.dismissLLoadingDialog
@@ -38,10 +37,10 @@ abstract class BaseDialogFragment<ViewBinding : ViewDataBinding, ViewModel : Bas
             viewBinding.apply {
                 setVariable(BR.viewModel, viewModel)
                 root.isClickable = true
-                lifecycleOwner = viewLifecycleOwner
                 executePendingBindings()
             }
         }
+        viewBinding.lifecycleOwner = viewLifecycleOwner
         return viewBinding.root
     }
 
@@ -92,7 +91,7 @@ abstract class BaseDialogFragment<ViewBinding : ViewDataBinding, ViewModel : Bas
     }
 
     fun navigateUp() {
-        findNavController().navigateUp()
+        getNavController()?.navigateUp()
     }
 
     /**
