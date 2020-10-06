@@ -14,17 +14,17 @@ import java.net.UnknownHostException
 abstract class BaseViewModel : ViewModel() {
 
     // loading flag
-    val isLoading = MutableLiveData<Boolean>().apply { value = false }
+    val isLoading by lazy { MutableLiveData<Boolean>(false) }
 
     // error message
-    val errorMessage = SingleLiveEvent<String>()
+    val errorMessage by lazy { SingleLiveEvent<String>() }
 
     // optional flags
-    val noInternetConnectionEvent = SingleLiveEvent<Unit>()
-    val connectTimeoutEvent = SingleLiveEvent<Unit>()
-    val forceUpdateAppEvent = SingleLiveEvent<Unit>()
-    val serverMaintainEvent = SingleLiveEvent<Unit>()
-    val unknownErrorEvent = SingleLiveEvent<Unit>()
+    val noInternetConnectionEvent by lazy { SingleLiveEvent<Unit>() }
+    val connectTimeoutEvent by lazy { SingleLiveEvent<Unit>() }
+    val forceUpdateAppEvent by lazy { SingleLiveEvent<Unit>() }
+    val serverMaintainEvent by lazy { SingleLiveEvent<Unit>() }
+    val unknownErrorEvent by lazy { SingleLiveEvent<Unit>() }
 
     // rx
 //    private val compositeDisposable = CompositeDisposable()
@@ -33,11 +33,14 @@ abstract class BaseViewModel : ViewModel() {
     // coroutines
 
     // exception handler for coroutine
-    private val exceptionHandler = CoroutineExceptionHandler { context, throwable ->
-        viewModelScope.launch {
-            onError(throwable)
+    private val exceptionHandler by lazy {
+        CoroutineExceptionHandler { context, throwable ->
+            viewModelScope.launch {
+                onError(throwable)
+            }
         }
     }
+
     /*
     private val viewModelJob = SupervisorJob()
     protected val ioContext = viewModelJob + Dispatchers.IO
@@ -48,7 +51,7 @@ abstract class BaseViewModel : ViewModel() {
     protected val uiScopeError = CoroutineScope(uiContext + exceptionHandler)
     */
     // viewModelScope with exception handler
-    protected val viewModelScopeExceptionHandler = viewModelScope + exceptionHandler
+    protected val viewModelScopeExceptionHandler by lazy { viewModelScope + exceptionHandler }
 
     /**
      * handle throwable when load fail

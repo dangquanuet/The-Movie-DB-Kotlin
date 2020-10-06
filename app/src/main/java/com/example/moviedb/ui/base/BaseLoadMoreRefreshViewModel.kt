@@ -6,6 +6,9 @@ import com.example.moviedb.ui.widgets.EndlessRecyclerOnScrollListener
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
+/**
+ * should use paging 3
+ */
 abstract class BaseLoadMoreRefreshViewModel<Item>() : BaseViewModel() {
 
     // refresh flag

@@ -8,7 +8,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.moviedb.R
 import kotlinx.android.synthetic.main.fragment_paged_refresh.*
 
-abstract class BasePagedRefreshFragment<ViewBinding : ViewDataBinding, ViewModel : BasePagedRefreshViewModel<Item>, Item> :
+/**
+ * deprecated, should use paging 3
+ */
+abstract class BasePagedRefreshFragment<ViewBinding : ViewDataBinding, ViewModel : BasePagedRefreshViewModel<Item>, Item : Any> :
     BaseFragment<ViewBinding, ViewModel>() {
 
     override val layoutId: Int = R.layout.fragment_paged_refresh

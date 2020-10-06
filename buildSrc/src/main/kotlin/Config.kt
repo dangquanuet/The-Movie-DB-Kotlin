@@ -52,7 +52,7 @@ object Libs {
 
     // paging
     // https://developer.android.com/topic/libraries/architecture/paging
-    const val paging = "androidx.paging:paging-runtime-ktx:2.1.2"
+    const val paging = "androidx.paging:paging-runtime-ktx:3.0.0-alpha07"
 
     // navigation
     // https://developer.android.com/jetpack/androidx/releases/navigation

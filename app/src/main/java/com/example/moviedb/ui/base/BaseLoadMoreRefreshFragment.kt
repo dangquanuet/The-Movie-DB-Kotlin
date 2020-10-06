@@ -8,7 +8,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.moviedb.R
 import kotlinx.android.synthetic.main.fragment_loadmore_refresh.*
 
-abstract class BaseLoadMoreRefreshFragment<ViewBinding : ViewDataBinding, ViewModel : BaseLoadMoreRefreshViewModel<Item>, Item> :
+/**
+ * should use paging 3
+ */
+abstract class BaseLoadMoreRefreshFragment<ViewBinding : ViewDataBinding, ViewModel : BaseLoadMoreRefreshViewModel<Item>, Item : Any> :
     BaseFragment<ViewBinding, ViewModel>() {
 
     override val layoutId: Int = R.layout.fragment_loadmore_refresh

@@ -27,7 +27,9 @@ class MainApplication : Application() {
             Stetho.initializeWithDefaults(this)
         }
 
-        handleUncaughtException()
+        if (BuildConfig.FLAVOR != "dev") {
+            handleUncaughtException()
+        }
     }
 
     /**
