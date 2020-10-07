@@ -11,7 +11,10 @@ import androidx.paging.PagedList
 import com.example.moviedb.data.constants.Constants
 import kotlinx.coroutines.launch
 
-abstract class BasePagedRefreshViewModel<Item> : BaseViewModel() {
+/**
+ * deprecated, should use paging 3
+ */
+abstract class BasePagedRefreshViewModel<Item : Any> : BaseViewModel() {
 
     // first page number of item list
     open val firstPage = Constants.DEFAULT_FIRST_PAGE
@@ -78,7 +81,7 @@ abstract class BasePagedRefreshViewModel<Item> : BaseViewModel() {
      * create page keyed data source
      */
     open fun createDataSource(): BasePageKeyedDataSource<Item> {
-        return object : BasePageKeyedDataSource<Item>(viewModel = this) {
+        return object : BasePageKeyedDataSource<Item>(viewModel = this@BasePagedRefreshViewModel) {
             override suspend fun loadDataSource(
                 loadInitialParams: LoadInitialParams<Int>?,
                 loadParams: LoadParams<Int>?
@@ -120,7 +123,7 @@ abstract class BasePagedRefreshViewModel<Item> : BaseViewModel() {
 /**
  * page keyed data source uses page number to request data
  */
-abstract class BasePageKeyedDataSource<Item>(
+abstract class BasePageKeyedDataSource<Item : Any>(
     private val viewModel: BasePagedRefreshViewModel<Item>
 ) : PageKeyedDataSource<Int, Item>() {
 
