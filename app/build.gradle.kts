@@ -130,7 +130,6 @@ android {
             firebaseCrashlytics {
                 mappingFileUploadEnabled = false
             }
-//            isUseProguard = false
         }
         create("staging") {
             isDebuggable = true
@@ -139,7 +138,6 @@ android {
             firebaseCrashlytics {
                 mappingFileUploadEnabled = true
             }
-//            isUseProguard = false
             proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
         }
         getByName("release") {
@@ -149,7 +147,6 @@ android {
             firebaseCrashlytics {
                 mappingFileUploadEnabled = true
             }
-//            isUseProguard = true
             proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
         }
     }

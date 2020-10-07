@@ -76,9 +76,10 @@ object Libs {
 
     // coroutines
     // https://github.com/Kotlin/kotlinx.coroutines
-    const val coroutinesCore = "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.5"
-    const val coroutinesAndroid = "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.3"
-    const val coroutinesTest = "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.3.5"
+    private const val coroutinesVersion = "1.3.9"
+    const val coroutinesCore = "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion"
+    const val coroutinesAndroid = "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutinesVersion"
+    const val coroutinesTest = "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutinesVersion"
 
     // gson
     const val gson = "com.google.code.gson:gson:2.8.6"
@@ -142,8 +143,8 @@ object Libs {
 
     // firebase
     // https://firebase.google.com/docs/android/setup
-    const val firebaseAnalytics = "com.google.firebase:firebase-analytics-ktx:17.5.0"
-    const val firebaseCrashlytics = "com.google.firebase:firebase-crashlytics:17.2.1"
+    const val firebaseAnalytics = "com.google.firebase:firebase-analytics-ktx:17.6.0"
+    const val firebaseCrashlytics = "com.google.firebase:firebase-crashlytics:17.2.2"
 
     // eventBus
     const val eventBus = "org.greenrobot:eventbus:3.2.0"
