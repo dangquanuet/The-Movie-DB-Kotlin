@@ -5,11 +5,11 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class Crew(
-    val credit_id: String?,
-    val department: String?,
-    val gender: Int?,
-    val id: String?,
-    val job: String?,
-    val name: String?,
-    val profile_path: String?
-): Parcelable
+    val credit_id: String? = null,
+    val department: String? = null,
+    val gender: Int? = null,
+    val id: String? = null,
+    val job: String? = null,
+    val name: String? = null,
+    val profile_path: String? = null
+) : Parcelable

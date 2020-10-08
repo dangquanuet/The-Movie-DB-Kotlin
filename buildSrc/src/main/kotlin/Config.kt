@@ -155,6 +155,10 @@ object Libs {
 
     const val viewpager2 = "androidx.viewpager2:viewpager2:1.0.0"
 
+    const val lombokVersion = "1.18.12"
+    const val lombok = "org.projectlombok:lombok:$lombokVersion"
+    const val annotationLombok = "org.projectlombok:lombok:$lombokVersion"
+
     // test
     const val junit = "junit:junit:4.13"
     const val mockitoCore = "org.mockito:mockito-core:3.3.3"

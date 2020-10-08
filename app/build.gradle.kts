@@ -11,7 +11,7 @@ plugins {
 }
 
 jacoco {
-    toolVersion = "0.8.5"
+    toolVersion = "0.8.6"
 }
 
 /** There are two ways to see test result:
@@ -306,6 +306,9 @@ dependencies {
     implementation(Libs.timber)
 
     implementation(Libs.viewpager2)
+
+    compileOnly(Libs.lombok)
+    annotationProcessor(Libs.annotationLombok)
 
     // unit test
     testImplementation(Libs.junit)

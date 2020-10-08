@@ -1,15 +1,11 @@
 package com.example.moviedb.data.model
 
 import android.os.Parcelable
-import androidx.room.Entity
-import androidx.room.PrimaryKey
 import com.example.moviedb.BuildConfig
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-@Entity(tableName = "tv")
 data class Tv(
-    @PrimaryKey(autoGenerate = false)
     val id: String,
     val original_name: String? = null,
     val name: String? = null,
