@@ -14,7 +14,7 @@ object Modules {
 object Libs {
 
     // Support libs
-    const val kotlinVersion = "1.3.72"
+    const val kotlinVersion = "1.4.0"
     const val appcompat = "androidx.appcompat:appcompat:1.2.0"
     const val legacySupport = "androidx.legacy:legacy-support-v4:1.0.0"
     const val constraintLayout = "androidx.constraintlayout:constraintlayout:2.0.1"
@@ -144,7 +144,8 @@ object Libs {
     // firebase
     // https://firebase.google.com/docs/android/setup
     const val firebaseAnalytics = "com.google.firebase:firebase-analytics-ktx:17.6.0"
-    const val firebaseCrashlytics = "com.google.firebase:firebase-crashlytics:17.2.2"
+    const val firebaseCrashlytics = "com.google.firebase:firebase-crashlytics-ktx:17.2.2"
+    const val firebasePerformance = "com.google.firebase:firebase-perf-ktx:19.0.9"
 
     // eventBus
     const val eventBus = "org.greenrobot:eventbus:3.2.0"

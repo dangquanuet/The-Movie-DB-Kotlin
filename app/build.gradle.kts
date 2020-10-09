@@ -7,6 +7,7 @@ plugins {
     id("com.google.firebase.crashlytics")
     id("com.google.gms.google-services")
     id("dagger.hilt.android.plugin")
+    id("com.google.firebase.firebase-perf")
     jacoco
 }
 
@@ -199,6 +200,7 @@ dependencies {
     // https://firebase.google.com/docs/android/setup
     implementation(Libs.firebaseAnalytics)
     implementation(Libs.firebaseCrashlytics)
+    implementation(Libs.firebasePerformance)
 
     // lottie
     // https://github.com/airbnb/lottie-android
@@ -211,7 +213,7 @@ dependencies {
     implementation(Libs.viewpager2)
 
     compileOnly(Libs.lombok)
-    annotationProcessor(Libs.annotationLombok)
+    kapt(Libs.annotationLombok)
 
     // unit test
     testImplementation(Libs.junit)
