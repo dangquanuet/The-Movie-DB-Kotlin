@@ -22,6 +22,9 @@
 
 -dontwarn javax.annotation.**
 
+# keep models class
+-keep class com.example.moviedb.data.model.* { *; }
+
 ##################################
 # Google Play Service #
 ##################################
