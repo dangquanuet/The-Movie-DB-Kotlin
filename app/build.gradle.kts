@@ -1,3 +1,6 @@
+import java.io.FileInputStream
+import java.util.*
+
 plugins {
     id("com.android.application")
     id("kotlin-android")
@@ -12,7 +15,6 @@ plugins {
 }
 
 android {
-
     defaultConfig {
         applicationId = "com.example.moviedb"
         buildToolsVersion("30.0.2")
@@ -26,6 +28,33 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    val debugFile = rootProject.file("signing/debug.properties")
+    val releaseFile = rootProject.file("signing/release.properties")
+    if (releaseFile.exists() && debugFile.exists()) {
+        val releaseProperties = Properties()
+        releaseProperties.load(FileInputStream(releaseFile))
+        val debugProperties = Properties()
+        debugProperties.load(FileInputStream(debugFile))
+        signingConfigs {
+            create("debug-key") {
+                storeFile = debugProperties["keystore"]?.let { rootProject.file(it) }
+                storePassword = debugProperties["storePassword"]?.toString()
+                keyAlias = debugProperties["keyAlias"]?.toString()
+                keyPassword = debugProperties["keyPassword"]?.toString()
+                isV1SigningEnabled = true
+                isV2SigningEnabled = true
+            }
+            create("release-key") {
+                storeFile = releaseProperties["keystore"]?.let { rootProject.file(it) }
+                storePassword = releaseProperties["storePassword"]?.toString()
+                keyAlias = releaseProperties["keyAlias"]?.toString()
+                keyPassword = releaseProperties["keyPassword"]?.toString()
+                isV1SigningEnabled = true
+                isV2SigningEnabled = true
+            }
+        }
+    }
+
     buildTypes {
         getByName("debug") {
             isDebuggable = true
@@ -34,6 +63,8 @@ android {
             firebaseCrashlytics {
                 mappingFileUploadEnabled = false
             }
+            applicationIdSuffix = ".debug"
+            signingConfig = signingConfigs.getByName("debug-key")
         }
         create("staging") {
             isDebuggable = true
@@ -43,6 +74,8 @@ android {
                 mappingFileUploadEnabled = true
             }
             proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
+            applicationIdSuffix = ".staging"
+            signingConfig = signingConfigs.getByName("debug-key")
         }
         getByName("release") {
             isDebuggable = false
@@ -52,6 +85,7 @@ android {
                 mappingFileUploadEnabled = true
             }
             proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
+            signingConfig = signingConfigs.getByName("release-key")
         }
     }
 

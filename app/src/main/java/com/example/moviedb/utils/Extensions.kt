@@ -4,7 +4,7 @@ import android.content.Context
 import android.content.res.Resources
 import android.view.View
 import android.view.inputmethod.InputMethodManager
-import com.example.moviedb.BuildConfig
+import com.example.moviedb.enableLogging
 
 // # Kotlin Extensions
 
@@ -21,7 +21,7 @@ import com.example.moviedb.BuildConfig
 // ## View
 
 fun Exception.safeLog() {
-    if (BuildConfig.DEBUG) printStackTrace()
+    if (enableLogging()) printStackTrace()
 }
 
 /**

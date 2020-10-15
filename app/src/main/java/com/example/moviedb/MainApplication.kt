@@ -19,15 +19,13 @@ class MainApplication : Application() {
 
         MultiDex.install(this)
 
-        if (BuildConfig.DEBUG) {
+        if (enableLogging()) {
             // init timber
             Timber.plant(Timber.DebugTree())
 
             // init stetho
             Stetho.initializeWithDefaults(this)
-        }
 
-        if (BuildConfig.FLAVOR != "dev") {
             handleUncaughtException()
         }
     }
@@ -65,3 +63,5 @@ class MainApplication : Application() {
         }
     }
 }
+
+fun enableLogging() = BuildConfig.BUILD_TYPE != "release"
