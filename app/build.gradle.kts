@@ -41,16 +41,12 @@ android {
                 storePassword = debugProperties["storePassword"]?.toString()
                 keyAlias = debugProperties["keyAlias"]?.toString()
                 keyPassword = debugProperties["keyPassword"]?.toString()
-                isV1SigningEnabled = true
-                isV2SigningEnabled = true
             }
             create("release-key") {
                 storeFile = releaseProperties["keystore"]?.let { rootProject.file(it) }
                 storePassword = releaseProperties["storePassword"]?.toString()
                 keyAlias = releaseProperties["keyAlias"]?.toString()
                 keyPassword = releaseProperties["keyPassword"]?.toString()
-                isV1SigningEnabled = true
-                isV2SigningEnabled = true
             }
         }
     }
