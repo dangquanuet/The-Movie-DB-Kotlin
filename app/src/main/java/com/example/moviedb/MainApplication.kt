@@ -8,11 +8,18 @@ import androidx.multidex.MultiDex
 import com.example.moviedb.ui.screen.MainActivity
 import com.facebook.stetho.Stetho
 import dagger.hilt.android.HiltAndroidApp
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.SupervisorJob
 import timber.log.Timber
 import kotlin.system.exitProcess
 
 @HiltAndroidApp
 class MainApplication : Application() {
+
+    // use this to run coroutines that need a longer lifetime than the calling scope (like viewModelScope) might offer in our app
+    val appScope by lazy {
+        CoroutineScope(SupervisorJob())
+    }
 
     override fun onCreate() {
         super.onCreate()
@@ -25,7 +32,7 @@ class MainApplication : Application() {
 
             // init stetho
             Stetho.initializeWithDefaults(this)
-
+        } else {
             handleUncaughtException()
         }
     }
@@ -34,7 +41,7 @@ class MainApplication : Application() {
      * prevent uncaught exception to crash app
      * restart app for better UX
      */
-    fun handleUncaughtException() {
+    private fun handleUncaughtException() {
         Thread.setDefaultUncaughtExceptionHandler { t, e ->
             object : Thread() {
                 override fun run() {
