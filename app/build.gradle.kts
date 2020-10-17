@@ -59,7 +59,6 @@ android {
             firebaseCrashlytics {
                 mappingFileUploadEnabled = false
             }
-            applicationIdSuffix = ".debug"
             signingConfig = signingConfigs.getByName("debug-key")
         }
         create("staging") {
@@ -70,7 +69,6 @@ android {
                 mappingFileUploadEnabled = true
             }
             proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
-            applicationIdSuffix = ".staging"
             signingConfig = signingConfigs.getByName("debug-key")
         }
         getByName("release") {
