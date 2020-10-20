@@ -1,4 +1,5 @@
 import java.io.FileInputStream
+import java.text.SimpleDateFormat
 import java.util.*
 
 plugins {
@@ -25,6 +26,12 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
+        versionCode = 1
+        versionName = "1.0.0"
+        setProperty(
+            "archivesBaseName",
+            "MovieDB_${SimpleDateFormat("yyyyMMdd-HHmm").format(Date())}_v${versionName}(${versionCode})"
+        )
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -87,22 +94,16 @@ android {
 
     productFlavors {
         create("dev") {
-            versionCode = 1
-            versionName = "1.0.0"
             applicationIdSuffix = ".dev"
             resValue("string", "app_name", "Movie DB Dev")
             buildConfigField("boolean", "MOCK_DATA", "false")
         }
         create("mock") {
-            versionCode = 1
-            versionName = "1.0.0"
             applicationIdSuffix = ".mock"
             resValue("string", "app_name", "Movie DB Mock")
             buildConfigField("boolean", "MOCK_DATA", "true")
         }
         create("prd") {
-            versionCode = 1
-            versionName = "1.0.0"
             resValue("string", "app_name", "Movie DB")
             buildConfigField("boolean", "MOCK_DATA", "false")
         }
@@ -115,7 +116,7 @@ android {
         buildConfigField("String", "ORIGINAL_IMAGE_URL", "\"https://image.tmdb.org/t/p/original\"")
         buildConfigField("String", "TMBD_API_KEY", "\"2cdf3a5c7cf412421485f89ace91e373\"")
 
-        when (name) {
+        when (flavorName) {
             "dev" -> {
             }
             "prd" -> {
