@@ -16,7 +16,7 @@ Coroutines: https://kotlinlang.org/docs/reference/coroutines.html
 
 Retrofit 2: https://github.com/square/retrofit
 
-Gson: https://github.com/google/gson
+Moshi: https://github.com/square/moshi
 
 Glide: https://github.com/bumptech/glide
 

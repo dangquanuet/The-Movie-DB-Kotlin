@@ -6,6 +6,7 @@ import com.example.moviedb.data.remote.ApiService
 import com.example.moviedb.data.remote.MockApi
 import com.example.moviedb.enableLogging
 import com.facebook.stetho.okhttp3.StethoInterceptor
+import com.squareup.moshi.Moshi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -15,9 +16,8 @@ import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.converter.moshi.MoshiConverterFactory
 import java.util.concurrent.TimeUnit
-import javax.inject.Inject
 import javax.inject.Named
 import javax.inject.Singleton
 
@@ -74,10 +74,11 @@ class NetworkModule {
     @Singleton
     @Provides
     fun provideAppRetrofit(
-        okHttpClient: OkHttpClient
+        okHttpClient: OkHttpClient,
+        moshi: Moshi
     ): Retrofit =
         Retrofit.Builder()
-            .addConverterFactory(GsonConverterFactory.create())
+            .addConverterFactory(MoshiConverterFactory.create(moshi))
             .baseUrl(BuildConfig.BASE_URL)
             .client(okHttpClient)
             .build()
@@ -90,11 +91,11 @@ class NetworkModule {
 
     @Singleton
     @Provides
-    fun provideMock() : Mock = Mock(BuildConfig.MOCK_DATA)
+    fun provideMock(): Mock = Mock(BuildConfig.MOCK_DATA)
 
     @Singleton
     @Provides
-    fun provideMockApi() : MockApi = MockApi()
+    fun provideMockApi(): MockApi = MockApi()
 
     class Mock(val isMock: Boolean)
 }

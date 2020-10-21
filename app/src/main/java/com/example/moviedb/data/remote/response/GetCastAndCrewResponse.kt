@@ -5,6 +5,6 @@ import com.example.moviedb.data.model.Crew
 
 class GetCastAndCrewResponse(
     val id: Int? = null,
-    val cast: ArrayList<Cast>? = null,
-    val crew: ArrayList<Crew>? = null
+    val cast: List<Cast>? = null,
+    val crew: List<Crew>? = null
 ) : BaseResponse()

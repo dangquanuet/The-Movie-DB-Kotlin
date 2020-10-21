@@ -82,13 +82,21 @@ object Libs {
     const val coroutinesTest = "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutinesVersion"
 
     // gson
+    // https://github.com/google/gson
     const val gson = "com.google.code.gson:gson:2.8.6"
+
+    // Moshi
+    // https://github.com/square/moshi
+    const val moshiVersion = "1.11.0"
+    const val moshi = "com.squareup.moshi:moshi-kotlin:$moshiVersion"
+    const val moshiCodeGen = "com.squareup.moshi:moshi-kotlin-codegen:$moshiVersion"
 
     // retrofit
     // https://github.com/square/retrofit
     private const val retrofitVersion = "2.9.0"
     const val retrofit = "com.squareup.retrofit2:retrofit:$retrofitVersion"
     const val retrofitGson = "com.squareup.retrofit2:converter-gson:$retrofitVersion"
+    const val retrofitMoshi = "com.squareup.retrofit2:converter-moshi:$retrofitVersion"
     const val retrofitRxjava = "com.squareup.retrofit2:adapter-rxjava2:$retrofitVersion"
     const val okLogging = "com.squareup.okhttp3:logging-interceptor:4.7.2"
 

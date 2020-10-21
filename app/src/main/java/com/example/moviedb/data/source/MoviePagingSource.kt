@@ -8,7 +8,7 @@ class MoviePagingSource(
     private val userRepository: UserRepository
 ) : BasePagingSource<Movie>() {
 
-    override suspend fun loadData(params: LoadParams<Int>): ArrayList<Movie>? {
+    override suspend fun loadData(params: LoadParams<Int>): List<Movie>? {
         val hashMap = HashMap<String, String>()
         hashMap[ApiParams.PAGE] = (params.key ?: getFirstPage()).toString()
         hashMap[ApiParams.SORT_BY] = ApiParams.POPULARITY_DESC

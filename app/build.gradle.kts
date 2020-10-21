@@ -195,13 +195,14 @@ dependencies {
     implementation(Libs.coroutinesAndroid)
     testImplementation(Libs.coroutinesTest)
 
-    // gson
-    implementation(Libs.gson)
+    // moshi
+    implementation(Libs.moshi)
+    kapt(Libs.moshiCodeGen)
 
     // retrofit
     // https://github.com/square/retrofit
     implementation(Libs.retrofit)
-    implementation(Libs.retrofitGson)
+    implementation(Libs.retrofitMoshi)
     implementation(Libs.okLogging)
 //    implementation(Libs.retrofitRxjava)
 

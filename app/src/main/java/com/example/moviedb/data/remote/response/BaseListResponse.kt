@@ -1,10 +1,10 @@
 package com.example.moviedb.data.remote.response
 
-import com.google.gson.annotations.SerializedName
+import com.squareup.moshi.Json
 
 open class BaseListResponse<Item>(
-    @SerializedName("page") val page: Int? = null,
-    @SerializedName("total_results") val totalResults: Int? = null,
-    @SerializedName("total_pages") val totalPages: Int? = null,
-    @SerializedName("results") var results: ArrayList<Item>? = null
+    @Json(name = "page") val page: Int? = null,
+    @Json(name = "total_results") val totalResults: Int? = null,
+    @Json(name = "total_pages") val totalPages: Int? = null,
+    @Json(name = "results") var results: List<Item>? = null
 ) : BaseResponse()

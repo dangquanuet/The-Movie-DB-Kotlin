@@ -15,7 +15,6 @@ import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
-import retrofit2.converter.gson.GsonConverterFactory
 import java.io.IOException
 import java.nio.charset.StandardCharsets
 import kotlin.test.assertEquals
@@ -36,7 +35,7 @@ class MovieDBServiceTest {
         mockWebServer = MockWebServer()
         service = Retrofit.Builder()
                 .baseUrl(mockWebServer.url("/"))
-                .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(MoshiConverterFactory.create(Moshi.Builder().build()))
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build()
                 .create<ApiService>(ApiService::class.java)

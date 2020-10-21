@@ -9,7 +9,7 @@ abstract class BasePagingSource<Item : Any> : PagingSource<Int, Item>() {
         return try {
             val page = params.key ?: getFirstPage()
             LoadResult.Page(
-                data = loadData(params = params) ?: arrayListOf(),
+                data = loadData(params = params) ?: listOf(),
                 prevKey = if (page == getFirstPage()) null else page - 1,
                 nextKey = page + 1
             )
@@ -25,7 +25,7 @@ abstract class BasePagingSource<Item : Any> : PagingSource<Int, Item>() {
      */
     abstract suspend fun loadData(
         params: LoadParams<Int>
-    ): ArrayList<Item>?
+    ): List<Item>?
 
     open fun getFirstPage(): Int = DEFAULT_FIRST_PAGE
 }

@@ -1,15 +1,13 @@
 package com.example.moviedb.data.remote
 
 import com.example.moviedb.utils.safeLog
-import com.google.gson.Gson
+import com.squareup.moshi.Moshi
 import retrofit2.HttpException
 import retrofit2.Response
 import java.io.IOException
 
 /*
 import com.example.moviedb.utils.safeLog
-import com.google.gson.Gson
-import com.google.gson.annotations.SerializedName
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import io.reactivex.*
 import io.reactivex.functions.Function
@@ -95,14 +93,14 @@ fun Throwable.toBaseException(): BaseException {
             val httpCode = throwable.code()
 
             if (response?.errorBody() == null) {
-                BaseException.toHttpError(
+                return BaseException.toHttpError(
                     httpCode = httpCode,
                     response = response
                 )
             }
 
             val serverErrorResponseBody = try {
-                response?.errorBody()?.string() ?: ""
+                response.errorBody()?.string() ?: ""
             } catch (e: Exception) {
                 e.safeLog()
                 ""
@@ -110,7 +108,8 @@ fun Throwable.toBaseException(): BaseException {
 
             val serverErrorResponse =
                 try {
-                    Gson().fromJson(serverErrorResponseBody, ServerErrorResponse::class.java)
+                    Moshi.Builder().build().adapter(ServerErrorResponse::class.java)
+                        .fromJson(serverErrorResponseBody)
                 } catch (e: Exception) {
                     e.safeLog()
                     ServerErrorResponse()
@@ -167,13 +166,16 @@ class BaseException(
                 cause = cause
             )
 
-        fun toServerError(serverErrorResponse: ServerErrorResponse, response: Response<*>?, httpCode: Int) =
-            BaseException(
-                errorType = ErrorType.SERVER,
-                serverErrorResponse = serverErrorResponse,
-                response = response,
-                httpCode = httpCode
-            )
+        fun toServerError(
+            serverErrorResponse: ServerErrorResponse,
+            response: Response<*>?,
+            httpCode: Int
+        ) = BaseException(
+            errorType = ErrorType.SERVER,
+            serverErrorResponse = serverErrorResponse,
+            response = response,
+            httpCode = httpCode
+        )
 
         fun toUnexpectedError(cause: Throwable) =
             BaseException(

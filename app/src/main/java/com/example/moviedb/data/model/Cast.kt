@@ -2,9 +2,11 @@ package com.example.moviedb.data.model
 
 import android.os.Parcelable
 import com.example.moviedb.BuildConfig
+import com.squareup.moshi.JsonClass
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
+@JsonClass(generateAdapter = true)
 data class Cast(
     val cast_id: String? = null,
     val character: String? = null,

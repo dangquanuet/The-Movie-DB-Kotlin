@@ -16,7 +16,7 @@ class MovieDetailViewModel @ViewModelInject constructor(
 ) : BaseViewModel() {
 
     val movie = MutableLiveData<Movie>()
-    val cast = MutableLiveData<ArrayList<Cast>>()
+    val cast = MutableLiveData<List<Cast>>()
     private val favoriteChanged = MutableLiveData<Boolean>().apply { value = false }
 
     fun checkFavorite(id: String) {

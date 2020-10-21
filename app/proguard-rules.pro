@@ -50,23 +50,6 @@
 
 
 ##################################
-# GSON google support #
-##################################
--keepattributes Signature
-
--keepattributes *Annotation*
-
--keep class sun.misc.Unsafe { *; }
-
--dontwarn sun.misc.**
--keep class com.google.gson.examples.android.model.** { *; }
--keep class * implements com.google.gson.TypeAdapterFactory
--keep class * implements com.google.gson.JsonSerializer
--keep class * implements com.google.gson.JsonDeserializer
--keep class com.jutt.example1.model.** { *; }
-
-
-##################################
 # Retrofit 2
 # https://github.com/square/retrofit/blob/master/retrofit/src/main/resources/META-INF/proguard/retrofit2.pro
 ##################################
