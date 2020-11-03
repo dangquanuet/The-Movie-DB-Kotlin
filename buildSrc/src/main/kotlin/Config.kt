@@ -17,7 +17,7 @@ object Libs {
     const val kotlinVersion = "1.4.0"
     const val appcompat = "androidx.appcompat:appcompat:1.2.0"
     const val legacySupport = "androidx.legacy:legacy-support-v4:1.0.0"
-    const val constraintLayout = "androidx.constraintlayout:constraintlayout:2.0.1"
+    const val constraintLayout = "androidx.constraintlayout:constraintlayout:2.0.4"
     const val recyclerview = "androidx.recyclerview:recyclerview:1.1.0"
     const val material = "com.google.android.material:material:1.3.0-alpha02"
     const val stdLib = "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion"

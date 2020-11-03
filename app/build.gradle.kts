@@ -243,7 +243,7 @@ dependencies {
     implementation(Libs.viewpager2)
 
     compileOnly(Libs.lombok)
-    kapt(Libs.annotationLombok)
+    annotationProcessor(Libs.annotationLombok)
 
     // unit test
     testImplementation(Libs.junit)
