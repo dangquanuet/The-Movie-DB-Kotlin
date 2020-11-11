@@ -62,7 +62,7 @@ fun Context?.showDialog(
     title: String? = null, message: String? = null,
     textPositive: String? = null, positiveListener: (() -> Unit)? = null,
     textNegative: String? = null, negativeListener: (() -> Unit)? = null,
-    cancelable: Boolean = false, canceledOnTouchOutside: Boolean = true
+    cancelable: Boolean = false, canceledOnTouchOutside: Boolean = false
 ): AlertDialog? {
     val context = this ?: return null
     return MaterialAlertDialogBuilder(context).apply {
@@ -103,7 +103,7 @@ fun Context?.showDialog(
     title: Int? = null, message: Int? = null,
     textPositive: Int? = null, positiveListener: (() -> Unit)? = null,
     textNegative: Int? = null, negativeListener: (() -> Unit)? = null,
-    cancelable: Boolean = false, canceledOnTouchOutside: Boolean = true
+    cancelable: Boolean = false, canceledOnTouchOutside: Boolean = false
 ): AlertDialog? {
     val context = this ?: return null
     return MaterialAlertDialogBuilder(context).apply {
