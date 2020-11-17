@@ -170,7 +170,13 @@ object Libs {
 
     // test
     const val junit = "junit:junit:4.13"
-    const val mockitoCore = "org.mockito:mockito-core:3.3.3"
+    const val mockitoVersion = "3.6.0"
+    const val mockitoCore = "org.mockito:mockito-core:$mockitoVersion"
+    const val mockitoAndroid = "org.mockito:mockito-android:$mockitoVersion"
+    const val mockkVersion = "1.10.2"
+    const val mockkCore = "io.mockk:mockk:$mockkVersion"
+    const val mockkAndroid = "io.mockk:mockk-android:$mockkVersion"
+    const val testCore = "androidx.test:core:1.3.0"
     const val archCore = "android.arch.core:core-testing:1.1.1"
 
     const val testRunner = "com.android.support.test:runner:1.0.2"

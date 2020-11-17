@@ -248,6 +248,8 @@ dependencies {
     // unit test
     testImplementation(Libs.junit)
     testImplementation(Libs.mockitoCore)
+    androidTestImplementation(Libs.mockitoAndroid)
+    testImplementation(Libs.testCore)
     testImplementation(Libs.archCore)
 }
 
