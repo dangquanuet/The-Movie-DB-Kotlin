@@ -14,18 +14,18 @@ object Modules {
 object Libs {
 
     // Support libs
-    const val kotlinVersion = "1.4.0"
+    const val kotlinVersion = "1.4.10"
     const val appcompat = "androidx.appcompat:appcompat:1.2.0"
     const val legacySupport = "androidx.legacy:legacy-support-v4:1.0.0"
-    const val constraintLayout = "androidx.constraintlayout:constraintlayout:2.0.4"
+    const val constraintLayout = "androidx.constraintlayout:constraintlayout:2.1.0-alpha1"
     const val recyclerview = "androidx.recyclerview:recyclerview:1.1.0"
-    const val material = "com.google.android.material:material:1.3.0-alpha02"
+    const val material = "com.google.android.material:material:1.3.0-alpha04"
     const val stdLib = "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion"
     const val multidex = "androidx.multidex:multidex:2.0.1"
 
     // List of KTX extensions
     // https://developer.android.com/kotlin/ktx/extensions-list
-    const val coreKtx = "androidx.core:core-ktx:1.5.0-alpha03"
+    const val coreKtx = "androidx.core:core-ktx:1.5.0-alpha05"
     const val activityKtx = "androidx.activity:activity-ktx:1.1.0"
     const val fragmentKtx = "androidx.fragment:fragment-ktx:1.2.5"
 
@@ -56,7 +56,7 @@ object Libs {
 
     // navigation
     // https://developer.android.com/jetpack/androidx/releases/navigation
-    const val navigationVersion = "2.3.0"
+    const val navigationVersion = "2.3.1"
     const val navigationRuntimeKtx = "androidx.navigation:navigation-runtime-ktx:$navigationVersion"
     const val navigationFragmentKtx =
         "androidx.navigation:navigation-fragment-ktx:$navigationVersion"
@@ -126,7 +126,7 @@ object Libs {
     
     // koin
     // https://github.com/InsertKoinIO/koin
-    const val koinVersion = "2.1.5"
+    const val koinVersion = "2.1.6"
     const val koinCore = "org.koin:koin-core:$koinVersion"
     const val koinAndroid = "org.koin:koin-android:$koinVersion"
     const val koinViewModel = "org.koin:koin-androidx-viewmodel:$koinVersion"
@@ -151,8 +151,8 @@ object Libs {
 
     // firebase
     // https://firebase.google.com/docs/android/setup
-    const val firebaseAnalytics = "com.google.firebase:firebase-analytics-ktx:17.6.0"
-    const val firebaseCrashlytics = "com.google.firebase:firebase-crashlytics-ktx:17.2.2"
+    const val firebaseAnalytics = "com.google.firebase:firebase-analytics-ktx:18.0.0"
+    const val firebaseCrashlytics = "com.google.firebase:firebase-crashlytics-ktx:17.3.0"
     const val firebasePerformance = "com.google.firebase:firebase-perf-ktx:19.0.9"
 
     // eventBus
@@ -177,7 +177,7 @@ object Libs {
     const val mockkCore = "io.mockk:mockk:$mockkVersion"
     const val mockkAndroid = "io.mockk:mockk-android:$mockkVersion"
     const val testCore = "androidx.test:core:1.3.0"
-    const val archCore = "android.arch.core:core-testing:1.1.1"
+    const val archCore = "androidx.arch.core:core-testing:2.1.0"
 
     const val testRunner = "com.android.support.test:runner:1.0.2"
     const val espressoCore = "com.android.support.test.espresso:espresso-core:3.0.2"
