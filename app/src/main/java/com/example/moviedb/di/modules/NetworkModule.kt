@@ -1,9 +1,11 @@
 package com.example.moviedb.di.modules
 
 import android.content.Context
+import android.content.res.AssetManager
 import com.example.moviedb.BuildConfig
 import com.example.moviedb.data.remote.ApiService
 import com.example.moviedb.data.remote.MockApi
+import com.example.moviedb.data.remote.MockInterceptor
 import com.example.moviedb.enableLogging
 import com.facebook.stetho.okhttp3.StethoInterceptor
 import com.squareup.moshi.Moshi
@@ -57,11 +59,20 @@ class NetworkModule {
             chain.proceed(newRequest)
         }
 
+
+    @Singleton
+    @Provides
+    @Named("mock")
+    fun provideMockInterceptor(assetManager: AssetManager): MockInterceptor =
+        MockInterceptor(assetManager)
+
     @Singleton
     @Provides
     fun provideOkHttpClient(
         @Named("logging") logging: Interceptor,
-        @Named("header") header: Interceptor
+        @Named("header") header: Interceptor,
+        @Named("mock") mockInterceptor: MockInterceptor,
+        mock: Mock
     ): OkHttpClient =
         OkHttpClient.Builder()
             .connectTimeout(TIMEOUT.toLong(), TimeUnit.SECONDS)
@@ -69,6 +80,9 @@ class NetworkModule {
             .addInterceptor(header)
             .addInterceptor(logging)
             .addNetworkInterceptor(StethoInterceptor())
+            .apply {
+                if (mock.isMock) addInterceptor(mockInterceptor)
+            }
             .build()
 
     @Singleton

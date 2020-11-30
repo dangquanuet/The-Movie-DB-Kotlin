@@ -9,16 +9,20 @@ import com.example.moviedb.data.repository.UserRepository
 import com.example.moviedb.factory.createMovieListResponse
 import com.example.moviedb.mock
 import com.example.moviedb.ui.screen.popularmovie.PopularMovieViewModel
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.junit.Assert
+import org.junit.Before
 import org.junit.Test
 import org.mockito.Mockito
 
+@ExperimentalCoroutinesApi
 class PopularMovieViewModelTest : BaseViewModelTest() {
 
     private lateinit var viewModel: PopularMovieViewModel
 
     private val userRepository = mock<UserRepository>()
 
+    @Before
     override fun setup() {
         super.setup()
         viewModel = PopularMovieViewModel(userRepository)
@@ -36,7 +40,8 @@ class PopularMovieViewModelTest : BaseViewModelTest() {
             hashMap[ApiParams.PAGE] = page.toString()
             when (viewModel.mode.value) {
                 MovieListType.POPULAR.type -> hashMap[ApiParams.SORT_BY] = ApiParams.POPULARITY_DESC
-                MovieListType.TOP_RATED.type -> hashMap[ApiParams.SORT_BY] = ApiParams.VOTE_AVERAGE_DESC
+                MovieListType.TOP_RATED.type -> hashMap[ApiParams.SORT_BY] =
+                    ApiParams.VOTE_AVERAGE_DESC
                 else -> hashMap[ApiParams.SORT_BY] = ApiParams.POPULARITY_DESC
             }
             val observer = mock<Observer<List<Movie>>>()

@@ -1,10 +1,12 @@
 package com.example.moviedb.utils
 
 import android.content.Context
+import android.content.res.AssetManager
 import android.content.res.Resources
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import com.example.moviedb.enableLogging
+import java.io.IOException
 
 // # Kotlin Extensions
 
@@ -55,6 +57,23 @@ fun View.hideKeyboard(): Boolean {
     } catch (ignored: RuntimeException) {
     }
     return false
+}
+
+/**
+ * get json string from file
+ * @param fileName: file name in the asset folder.
+ */
+fun AssetManager.getJsonStringFromFile(fileName: String): String? {
+    return try {
+        val inputStream = open(fileName)
+        val size = inputStream.available()
+        val buffer = ByteArray(size)
+        inputStream.read(buffer)
+        inputStream.close()
+        String(buffer, Charsets.UTF_8)
+    } catch (e: IOException) {
+        null
+    }
 }
 
 /*

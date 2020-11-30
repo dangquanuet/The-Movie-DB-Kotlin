@@ -2,6 +2,7 @@ package com.example.moviedb.di.modules
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.content.res.AssetManager
 import android.content.res.Resources
 import androidx.room.Room
 import com.example.moviedb.data.constants.Constants
@@ -29,6 +30,14 @@ class RepositoryModule {
     @Singleton
     @Provides
     fun provideAppContext(@ApplicationContext context: Context): Context = context
+
+    @Singleton
+    @Provides
+    fun provideResources(context: Context): Resources = context.resources
+
+    @Singleton
+    @Provides
+    fun provideAssetManager(context: Context): AssetManager = context.assets
 
     @Singleton
     @Provides
@@ -63,9 +72,6 @@ class RepositoryModule {
         movieDao: MovieDao
     ): UserRepository = UserRepositoryImpl(apiService, movieDao)
 
-    @Singleton
-    @Provides
-    fun provideResources(context: Context): Resources = context.resources
 }
 
 val VOID_JSON_ADAPTER: Any = object : Any() {
