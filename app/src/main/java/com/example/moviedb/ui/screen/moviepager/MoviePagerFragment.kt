@@ -2,9 +2,9 @@ package com.example.moviedb.ui.screen.moviepager
 
 import android.graphics.Color
 import android.os.Bundle
+import android.view.View
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import com.example.moviedb.R
 import com.example.moviedb.data.model.Movie
 import com.example.moviedb.databinding.FragmentMoviePagerBinding
@@ -50,8 +50,8 @@ class MoviePagerFragment :
         // do nothing
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         viewModel.apply {
             mode.value = arguments?.getInt(TYPE)
@@ -83,7 +83,7 @@ class MoviePagerFragment :
         }
 
         viewModel.apply {
-            itemList.observe(viewLifecycleOwner, Observer {
+            itemList.observe(viewLifecycleOwner, {
                 listAdapter.submitList(it)
             })
             firstLoad()

@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.navArgs
 import com.example.moviedb.R
@@ -55,12 +54,9 @@ class MovieDetailFragment : BaseFragment<FragmentMovieDetailBinding, MovieDetail
         if (recycler_cast?.adapter == null) {
             recycler_cast?.adapter = castAdapter
         }
-    }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
         viewModel.apply {
-            cast.observe(viewLifecycleOwner, Observer {
+            cast.observe(viewLifecycleOwner, {
                 castAdapter.submitList(it)
             })
         }

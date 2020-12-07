@@ -1,6 +1,7 @@
 package com.example.moviedb.ui.screen.oldmain
 
 import android.os.Bundle
+import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.moviedb.R
@@ -20,8 +21,8 @@ class OldMainFragment : BaseFragment<FragmentMainBinding, OldMainViewModel>() {
 
     override val viewModel: OldMainViewModel by viewModels()
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         initBottomNavigation()
     }
 

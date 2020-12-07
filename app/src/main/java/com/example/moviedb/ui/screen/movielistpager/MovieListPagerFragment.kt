@@ -1,6 +1,7 @@
 package com.example.moviedb.ui.screen.movielistpager
 
 import android.os.Bundle
+import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.viewpager2.widget.ViewPager2
 import com.example.moviedb.R
@@ -22,8 +23,8 @@ class MovieListPagerFragment :
 
     override val viewModel: MovieListPagerViewModel by viewModels()
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         val movieListPagerAdapter = MovieListPagerAdapter(
             ArrayList<MovieListType>().apply {
                 add(MovieListType.POPULAR)

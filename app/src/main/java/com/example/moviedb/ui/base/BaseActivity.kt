@@ -5,7 +5,6 @@ import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
-import androidx.lifecycle.Observer
 import com.example.moviedb.BR
 import com.example.moviedb.R
 import com.example.moviedb.utils.dismissLLoadingDialog
@@ -38,25 +37,25 @@ abstract class BaseActivity<ViewBinding : ViewDataBinding, ViewModel : BaseViewM
 
     protected fun observeErrorEvent() {
         viewModel.apply {
-            isLoading.observe(this@BaseActivity, Observer {
+            isLoading.observe(this@BaseActivity, {
                 handleLoading(it == true)
             })
-            errorMessage.observe(this@BaseActivity, Observer {
+            errorMessage.observe(this@BaseActivity, {
                 handleErrorMessage(it)
             })
-            noInternetConnectionEvent.observe(this@BaseActivity, Observer {
+            noInternetConnectionEvent.observe(this@BaseActivity, {
                 handleErrorMessage(getString(R.string.no_internet_connection))
             })
-            connectTimeoutEvent.observe(this@BaseActivity, Observer {
+            connectTimeoutEvent.observe(this@BaseActivity, {
                 handleErrorMessage(getString(R.string.connect_timeout))
             })
-            forceUpdateAppEvent.observe(this@BaseActivity, Observer {
+            forceUpdateAppEvent.observe(this@BaseActivity, {
                 handleErrorMessage(getString(R.string.force_update_app))
             })
-            serverMaintainEvent.observe(this@BaseActivity, Observer {
+            serverMaintainEvent.observe(this@BaseActivity, {
                 handleErrorMessage(getString(R.string.server_maintain_message))
             })
-            unknownErrorEvent.observe(this@BaseActivity, Observer {
+            unknownErrorEvent.observe(this@BaseActivity, {
                 handleErrorMessage(getString(R.string.unknown_error))
             })
         }

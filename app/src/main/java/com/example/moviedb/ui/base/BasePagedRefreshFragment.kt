@@ -1,8 +1,8 @@
 package com.example.moviedb.ui.base
 
 import android.os.Bundle
+import android.view.View
 import androidx.databinding.ViewDataBinding
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.moviedb.R
@@ -21,8 +21,8 @@ abstract class BasePagedRefreshFragment<ViewBinding : ViewDataBinding, ViewModel
     open fun getLayoutManager(): RecyclerView.LayoutManager =
         LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         setupPagedRefresh()
     }
 
@@ -36,7 +36,7 @@ abstract class BasePagedRefreshFragment<ViewBinding : ViewDataBinding, ViewModel
         recycler_view?.layoutManager = getLayoutManager()
         recycler_view?.adapter = pagedListAdapter
         viewModel.apply {
-            itemList.observe(viewLifecycleOwner, Observer {
+            itemList.observe(viewLifecycleOwner, {
                 pagedListAdapter.submitList(it)
             })
         }

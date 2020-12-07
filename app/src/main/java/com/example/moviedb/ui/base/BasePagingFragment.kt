@@ -1,6 +1,7 @@
 package com.example.moviedb.ui.base
 
 import android.os.Bundle
+import android.view.View
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
@@ -19,8 +20,8 @@ abstract class BasePagingFragment<ViewBinding : ViewDataBinding, ViewModel : Bas
 
     open fun getLayoutManager(): RecyclerView.LayoutManager = GridLayoutManager(context, 2)
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         setupPaging()
     }
 

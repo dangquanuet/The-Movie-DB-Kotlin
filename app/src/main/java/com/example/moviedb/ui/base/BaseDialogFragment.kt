@@ -10,7 +10,6 @@ import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
-import androidx.lifecycle.Observer
 import com.example.moviedb.BR
 import com.example.moviedb.R
 import com.example.moviedb.utils.dismissLLoadingDialog
@@ -44,25 +43,25 @@ abstract class BaseDialogFragment<ViewBinding : ViewDataBinding, ViewModel : Bas
         return viewBinding.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         viewModel.apply {
-            isLoading.observe(viewLifecycleOwner, Observer {
+            isLoading.observe(viewLifecycleOwner, {
                 handleLoading(it == true)
             })
-            errorMessage.observe(viewLifecycleOwner, Observer {
+            errorMessage.observe(viewLifecycleOwner, {
                 handleErrorMessage(it)
             })
-            noInternetConnectionEvent.observe(viewLifecycleOwner, Observer {
+            noInternetConnectionEvent.observe(viewLifecycleOwner, {
                 handleErrorMessage(getString(R.string.no_internet_connection))
             })
-            connectTimeoutEvent.observe(viewLifecycleOwner, Observer {
+            connectTimeoutEvent.observe(viewLifecycleOwner, {
                 handleErrorMessage(getString(R.string.connect_timeout))
             })
-            forceUpdateAppEvent.observe(viewLifecycleOwner, Observer {
+            forceUpdateAppEvent.observe(viewLifecycleOwner, {
                 handleErrorMessage(getString(R.string.force_update_app))
             })
-            serverMaintainEvent.observe(viewLifecycleOwner, Observer {
+            serverMaintainEvent.observe(viewLifecycleOwner, {
                 handleErrorMessage(getString(R.string.server_maintain_message))
             })
         }

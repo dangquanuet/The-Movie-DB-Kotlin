@@ -2,6 +2,7 @@ package com.example.moviedb.ui.screen.favoritemovie
 
 import android.graphics.Color
 import android.os.Bundle
+import android.view.View
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
@@ -31,8 +32,8 @@ class FavoriteMovieFragment :
 
     override fun getLayoutManager(): RecyclerView.LayoutManager = GridLayoutManager(context, 2)
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         container.setBackgroundColor(Color.BLACK)
     }
 

@@ -2,6 +2,7 @@ package com.example.moviedb.ui.screen.permission
 
 import android.Manifest
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import com.example.moviedb.R
@@ -23,8 +24,8 @@ class PermissionFragment : BaseFragment<FragmentPermisisonBinding, PermissionVie
 
     override val viewModel: PermissionViewModel by viewModels()
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         button_1?.setSingleClick { requestSinglePermissionWithListener() }
         button_2?.setSingleClick { requestMultiplePermissionWithListener() }
     }

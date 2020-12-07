@@ -2,6 +2,7 @@ package com.example.moviedb.ui.screen.paged
 
 import android.graphics.Color
 import android.os.Bundle
+import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.moviedb.data.model.Movie
@@ -25,8 +26,8 @@ class PagedMovieFragment :
 
     override fun getLayoutManager() = GridLayoutManager(context, 2)
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         container?.setBackgroundColor(Color.BLACK)
     }
 
