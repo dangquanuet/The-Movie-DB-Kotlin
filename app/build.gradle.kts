@@ -143,6 +143,120 @@ android {
 
 dependencies {
     // common
+    implementation("androidx.appcompat:appcompat:1.2.0")
+    implementation("androidx.legacy:legacy-support-v4:1.0.0")
+    implementation("androidx.constraintlayout:constraintlayout:2.1.0-alpha1")
+    implementation("androidx.recyclerview:recyclerview:1.1.0")
+    implementation("com.google.android.material:material:1.3.0-alpha04")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.4.10")
+    implementation("androidx.multidex:multidex:2.0.1")
+
+    // List of KTX extensions
+    // https://developer.android.com/kotlin/ktx/extensions-list
+    implementation("androidx.core:core-ktx:1.5.0-alpha05")
+    implementation("androidx.activity:activity-ktx:1.2.0-beta02")
+    implementation("androidx.fragment:fragment-ktx:1.3.0-beta02")
+
+    // Lifecycle
+    // https://developer.android.com/jetpack/androidx/releases/lifecycle
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0")
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.2.0")
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.2.0")
+    implementation("androidx.lifecycle:lifecycle-common-java8:2.2.0")
+
+    // Preferences DataStore
+    // https://android-developers.googleblog.com/2020/09/prefer-storing-data-with-jetpack.html
+    implementation("androidx.datastore:datastore-preferences:1.0.0-alpha05")
+
+    // room
+    // https://developer.android.com/topic/libraries/architecture/room
+    implementation("androidx.room:room-runtime:2.2.5")
+    kapt("androidx.room:room-compiler:2.2.5")
+    implementation("androidx.room:room-ktx:2.2.5")
+
+    // paging
+    // https://developer.android.com/topic/libraries/architecture/paging
+    implementation("androidx.paging:paging-runtime-ktx:3.0.0-alpha10")
+
+    // navigation
+    // https://developer.android.com/jetpack/androidx/releases/navigation
+    implementation("androidx.navigation:navigation-runtime-ktx:2.3.2")
+    implementation("androidx.navigation:navigation-fragment-ktx:2.3.2")
+    implementation("androidx.navigation:navigation-ui-ktx:2.3.2")
+
+    // coroutines
+    // https://github.com/Kotlin/kotlinx.coroutines
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.1")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.1")
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.3.9")
+
+    // moshi
+    implementation("com.squareup.moshi:moshi-kotlin:1.11.0")
+    kapt("com.squareup.moshi:moshi-kotlin-codegen:1.11.0")
+
+    // retrofit
+    // https://github.com/square/retrofit
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:converter-moshi:2.9.0")
+    implementation("com.squareup.okhttp3:logging-interceptor:4.7.2")
+
+    // stetho
+    // http://facebook.github.io/stetho/
+    implementation("com.facebook.stetho:stetho:1.5.1")
+    implementation("com.facebook.stetho:stetho-okhttp3:1.5.1")
+
+    // glide
+    // https://github.com/bumptech/glide
+    implementation("com.github.bumptech.glide:glide:4.11.0")
+    kapt("com.github.bumptech.glide:compiler:4.11.0")
+
+    //dagger hilt
+    implementation("com.google.dagger:hilt-android:2.28-alpha")
+    kapt("com.google.dagger:hilt-android-compiler:2.28-alpha")
+    implementation("androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha02")
+    kapt("androidx.hilt:hilt-compiler:1.0.0-alpha02")
+
+    // runtime permission
+    // https://github.com/googlesamples/easypermissions
+    implementation("pub.devrel:easypermissions:3.0.0")
+
+    // firebase
+    // https://firebase.google.com/docs/android/setup
+    implementation("com.google.firebase:firebase-analytics:18.0.0")
+    implementation("com.google.firebase:firebase-crashlytics:17.3.0")
+    implementation("com.google.firebase:firebase-perf-ktx:19.0.10")
+
+    // lottie
+    // https://github.com/airbnb/lottie-android
+    implementation("com.airbnb.android:lottie:3.4.0")
+
+    // timber
+    // https://github.com/JakeWharton/timber
+    implementation("com.jakewharton.timber:timber:4.7.1")
+
+    // viewpager2
+    implementation("androidx.viewpager2:viewpager2:1.0.0")
+
+    // unit test
+    testImplementation("junit:junit:4.13")
+    testImplementation("org.mockito:mockito-core:3.6.0")
+    testImplementation("android.arch.core:core-testing:1.1.1")
+
+    androidTestImplementation("com.android.support.test:runner:1.0.2")
+    androidTestImplementation("com.android.support.test.espresso:espresso-core:3.0.2")
+
+    androidTestImplementation("android.arch.persistence.room:testing:1.1.1")
+    androidTestImplementation("android.arch.core:core-testing:1.1.1")
+
+    testImplementation("com.squareup.okhttp3:mockwebserver:4.4.0")
+    testImplementation("org.jetbrains.kotlin:kotlin-stdlib:1.4.20")
+
+
+    /**
+     * for buildSrc
+     */
+/*
+    // common
     implementation(Libs.appcompat)
     implementation(Libs.legacySupport)
     implementation(Libs.constraintLayout)
@@ -154,7 +268,7 @@ dependencies {
     // List of KTX extensions
     // https://developer.android.com/kotlin/ktx/extensions-list
     implementation(Libs.coreKtx)
-//    implementation(Libs.activityKtx)
+    implementation(Libs.activityKtx)
     implementation(Libs.fragmentKtx)
 
     // Lifecycle
@@ -251,6 +365,7 @@ dependencies {
     androidTestImplementation(Libs.mockitoAndroid)
     testImplementation(Libs.testCore)
     testImplementation(Libs.archCore)
+    */
 }
 
 jacoco {

@@ -26,8 +26,8 @@ object Libs {
     // List of KTX extensions
     // https://developer.android.com/kotlin/ktx/extensions-list
     const val coreKtx = "androidx.core:core-ktx:1.5.0-alpha05"
-    const val activityKtx = "androidx.activity:activity-ktx:1.1.0"
-    const val fragmentKtx = "androidx.fragment:fragment-ktx:1.2.5"
+    const val activityKtx = "androidx.activity:activity-ktx:1.2.0-alpha05"
+    const val fragmentKtx = "androidx.fragment:fragment-ktx:1.3.0-alpha05"
 
     // lifecycle
     // https://developer.android.com/jetpack/androidx/releases/lifecycle
@@ -61,7 +61,6 @@ object Libs {
     const val navigationFragmentKtx =
         "androidx.navigation:navigation-fragment-ktx:$navigationVersion"
     const val navigationUiKtx = "androidx.navigation:navigation-ui-ktx:$navigationVersion"
-
     // Dynamic Feature Module Support
     const val navigationDynamicModule =
         "androidx.navigation:navigation-dynamic-features-fragment::$navigationVersion"
