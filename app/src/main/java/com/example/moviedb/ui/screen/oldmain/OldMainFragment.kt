@@ -5,13 +5,12 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.moviedb.R
-import com.example.moviedb.databinding.FragmentMainBinding
+import com.example.moviedb.databinding.FragmentOldMainBinding
 import com.example.moviedb.ui.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_old_main.*
 
 @AndroidEntryPoint
-class OldMainFragment : BaseFragment<FragmentMainBinding, OldMainViewModel>() {
+class OldMainFragment : BaseFragment<FragmentOldMainBinding, OldMainViewModel>() {
 
     companion object {
         private const val FRAGMENT_TAG = "FRAGMENT_TAG"
@@ -27,16 +26,16 @@ class OldMainFragment : BaseFragment<FragmentMainBinding, OldMainViewModel>() {
     }
 
     private fun initBottomNavigation() {
-        layout_tab_popular.setOnClickListener {
+        viewBinding.layoutTabPopular.layoutItemBottomNav.setOnClickListener {
             onClickBottomNavigationItem(Tab.POPULAR.position)
         }
-        layout_tab_rated.setOnClickListener {
+        viewBinding.layoutTabRated.layoutItemBottomNav.setOnClickListener {
             onClickBottomNavigationItem(Tab.TOP_RATED.position)
         }
-        layout_tab_favorite.setOnClickListener {
+        viewBinding.layoutTabFavorite.layoutItemBottomNav.setOnClickListener {
             onClickBottomNavigationItem(Tab.FAVORITE.position)
         }
-        layout_tab_profile.setOnClickListener {
+        viewBinding.layoutTabProfile.layoutItemBottomNav.setOnClickListener {
             onClickBottomNavigationItem(Tab.PROFILE.position)
         }
         onClickBottomNavigationItem(Tab.POPULAR.position)

@@ -12,7 +12,6 @@ import com.example.moviedb.ui.base.BaseFragment
 import com.example.moviedb.ui.base.getNavController
 import com.example.moviedb.utils.setSingleClick
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_movie_detail.*
 
 @AndroidEntryPoint
 class MovieDetailFragment : BaseFragment<FragmentMovieDetailBinding, MovieDetailViewModel>() {
@@ -31,15 +30,15 @@ class MovieDetailFragment : BaseFragment<FragmentMovieDetailBinding, MovieDetail
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        button_favorite?.setOnClickListener {
+        viewBinding.buttonFavorite.setOnClickListener {
             viewModel.favoriteMovie()
         }
-        image_back?.setSingleClick {
+        viewBinding.imageBack.setSingleClick {
             getNavController()?.navigateUp()
         }
-        image_backdrop?.setSingleClick {
+        viewBinding.imageBackdrop.setSingleClick {
             viewModel.movie.value?.getFullBackdropPath()?.let {
-                toFullImage(image_backdrop, it)
+                toFullImage(viewBinding.imageBackdrop, it)
             }
         }
 
@@ -51,8 +50,8 @@ class MovieDetailFragment : BaseFragment<FragmentMovieDetailBinding, MovieDetail
             }
         }
 
-        if (recycler_cast?.adapter == null) {
-            recycler_cast?.adapter = castAdapter
+        if (viewBinding.recyclerCast.adapter == null) {
+            viewBinding.recyclerCast.adapter = castAdapter
         }
 
         viewModel.apply {

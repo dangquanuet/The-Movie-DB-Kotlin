@@ -9,7 +9,6 @@ import com.example.moviedb.data.constants.MovieListType
 import com.example.moviedb.databinding.FragmentMovieListPagerBinding
 import com.example.moviedb.ui.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_movie_list_pager.*
 
 @AndroidEntryPoint
 class MovieListPagerFragment :
@@ -32,7 +31,7 @@ class MovieListPagerFragment :
             }, this
         )
 
-        movie_list_pager?.apply {
+        viewBinding.movieListPager.apply {
             clipToPadding = false
             clipChildren = false
             // retain 1 page on each size

@@ -5,13 +5,14 @@ import android.os.Bundle
 import android.view.View
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.moviedb.R
 import com.example.moviedb.data.model.Movie
 import com.example.moviedb.databinding.FragmentMoviePagerBinding
 import com.example.moviedb.ui.base.BaseListAdapter
 import com.example.moviedb.ui.base.BaseLoadMoreRefreshFragment
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_movie_pager.*
 import kotlin.math.abs
 
 @AndroidEntryPoint
@@ -46,6 +47,10 @@ class MoviePagerFragment :
         )
     }
 
+    override val swipeRefreshLayout: SwipeRefreshLayout? = null
+
+    override val recyclerView: RecyclerView? = null
+
     override fun setupLoadMoreRefresh() {
         // do nothing
     }
@@ -57,8 +62,8 @@ class MoviePagerFragment :
             mode.value = arguments?.getInt(TYPE)
         }
 
-        container.setBackgroundColor(Color.BLACK)
-        movie_pager?.apply {
+        viewBinding.container.setBackgroundColor(Color.BLACK)
+        viewBinding.moviePager.apply {
             clipToPadding = false
             clipChildren = false
             // retain 1 page on each size

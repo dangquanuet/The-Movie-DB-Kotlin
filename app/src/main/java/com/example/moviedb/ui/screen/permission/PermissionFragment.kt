@@ -10,7 +10,6 @@ import com.example.moviedb.databinding.FragmentPermisisonBinding
 import com.example.moviedb.ui.base.BaseFragment
 import com.example.moviedb.utils.*
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_permisison.*
 
 @AndroidEntryPoint
 class PermissionFragment : BaseFragment<FragmentPermisisonBinding, PermissionViewModel>() {
@@ -26,8 +25,8 @@ class PermissionFragment : BaseFragment<FragmentPermisisonBinding, PermissionVie
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        button_1?.setSingleClick { requestSinglePermissionWithListener() }
-        button_2?.setSingleClick { requestMultiplePermissionWithListener() }
+        viewBinding.button1.setSingleClick { requestSinglePermissionWithListener() }
+        viewBinding.button2.setSingleClick { requestMultiplePermissionWithListener() }
     }
 
     // single permission

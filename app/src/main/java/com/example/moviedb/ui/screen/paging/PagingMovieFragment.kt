@@ -2,6 +2,8 @@ package com.example.moviedb.ui.screen.paging
 
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.moviedb.data.model.Movie
 import com.example.moviedb.databinding.FragmentPagingBinding
 import com.example.moviedb.ui.base.BasePagingAdapter
@@ -23,6 +25,12 @@ class PagingMovieFragment :
             }
         )
     }
+
+    override val swipeRefreshLayout: SwipeRefreshLayout
+        get() = viewBinding.refreshLayout
+
+    override val recyclerView: RecyclerView
+        get() = viewBinding.recyclerView
 
     private fun toMovieDetail(movie: Movie) {
         getNavController()?.navigate(PagedMovieFragmentDirections.toGraphMovieDetail(movie))

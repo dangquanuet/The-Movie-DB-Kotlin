@@ -18,7 +18,6 @@ import com.example.moviedb.ui.base.BaseViewModel
 import com.example.moviedb.ui.base.getNavController
 import com.example.moviedb.utils.setSingleClick
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_movie_detail.*
 import kotlinx.coroutines.*
 
 @AndroidEntryPoint
@@ -62,7 +61,7 @@ class ImageFragment : BaseFragment<FragmentImageBinding, BaseViewModel>() {
             }
         }
 
-        image_back?.setSingleClick {
+        viewBinding.imageBack.setSingleClick {
             getNavController()?.navigateUp()
         }
 

@@ -5,8 +5,8 @@ import android.view.View
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.moviedb.R
-import kotlinx.android.synthetic.main.fragment_loadmore_refresh.*
 
 /**
  * should use paging 3
@@ -17,6 +17,10 @@ abstract class BaseLoadMoreRefreshFragment<ViewBinding : ViewDataBinding, ViewMo
     override val layoutId: Int = R.layout.fragment_loadmore_refresh
 
     abstract val listAdapter: BaseListAdapter<Item, out ViewDataBinding>
+
+    abstract val swipeRefreshLayout: SwipeRefreshLayout?
+
+    abstract val recyclerView: RecyclerView?
 
     open fun getLayoutManager(): RecyclerView.LayoutManager =
         LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
@@ -30,11 +34,12 @@ abstract class BaseLoadMoreRefreshFragment<ViewBinding : ViewDataBinding, ViewMo
      * setup default loadMore refresh
      */
     open fun setupLoadMoreRefresh() {
-        refresh_layout?.setOnRefreshListener {
+        swipeRefreshLayout?.setOnRefreshListener {
             viewModel.doRefresh()
         }
-        recycler_view?.layoutManager = getLayoutManager()
-        recycler_view?.adapter = listAdapter
+        recyclerView?.layoutManager = getLayoutManager()
+        recyclerView?.adapter = listAdapter
+        recyclerView?.setHasFixedSize(true)
         viewModel.apply {
             itemList.observe(viewLifecycleOwner, {
                 listAdapter.submitList(it)
@@ -49,6 +54,6 @@ abstract class BaseLoadMoreRefreshFragment<ViewBinding : ViewDataBinding, ViewMo
 
     override fun onDestroyView() {
         super.onDestroyView()
-        recycler_view?.adapter = null
+        recyclerView?.adapter = null
     }
 }

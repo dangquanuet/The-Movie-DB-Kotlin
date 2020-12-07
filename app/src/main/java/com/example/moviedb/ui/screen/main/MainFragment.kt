@@ -12,7 +12,6 @@ import com.example.moviedb.ui.base.getNavController
 import com.example.moviedb.ui.navigation.KeepStateNavigator
 import com.example.moviedb.ui.screen.permission.PermissionFragment
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_main.*
 
 @AndroidEntryPoint
 class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>() {
@@ -44,7 +43,7 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>() {
 
             // set navigation graph
             navController.setGraph(R.navigation.graph_main)
-            bottom_nav?.setupWithNavController(navController)
+            viewBinding.bottomNav.setupWithNavController(navController)
         }
     }
 

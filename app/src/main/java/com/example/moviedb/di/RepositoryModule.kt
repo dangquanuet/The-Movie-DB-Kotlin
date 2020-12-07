@@ -1,4 +1,4 @@
-package com.example.moviedb.di.modules
+package com.example.moviedb.di
 
 import android.content.Context
 import android.content.SharedPreferences
@@ -20,7 +20,6 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ApplicationComponent
 import dagger.hilt.android.qualifiers.ApplicationContext
-import okio.IOException
 import javax.inject.Singleton
 
 @InstallIn(ApplicationComponent::class)
@@ -72,18 +71,4 @@ class RepositoryModule {
         movieDao: MovieDao
     ): UserRepository = UserRepositoryImpl(apiService, movieDao)
 
-}
-
-val VOID_JSON_ADAPTER: Any = object : Any() {
-    @FromJson
-    @Throws(IOException::class)
-    fun fromJson(reader: JsonReader): Void? {
-        return reader.nextNull()
-    }
-
-    @ToJson
-    @Throws(IOException::class)
-    fun toJson(writer: JsonWriter, v: Void?) {
-        writer.nullValue()
-    }
 }

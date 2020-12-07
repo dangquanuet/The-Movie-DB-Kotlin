@@ -66,15 +66,6 @@
         android:name="com.example.moviedb.ui.screen.paging.PagingMovieFragment"
         tools:layout="@layout/fragment_paging" />
 
-    <dialog
-        android:id="@+id/login"
-        android:name="com.example.moviedb.ui.screen.login.LoginFragment"
-        tools:layout="@layout/fragment_login" />
-
-    <action
-        android:id="@+id/to_login"
-        app:destination="@id/login" />
-
     <include app:graph="@navigation/graph_movie_detail" />
 
     <action

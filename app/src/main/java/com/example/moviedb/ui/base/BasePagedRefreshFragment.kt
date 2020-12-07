@@ -5,8 +5,8 @@ import android.view.View
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.moviedb.R
-import kotlinx.android.synthetic.main.fragment_paged_refresh.*
 
 /**
  * deprecated, should use paging 3
@@ -17,6 +17,10 @@ abstract class BasePagedRefreshFragment<ViewBinding : ViewDataBinding, ViewModel
     override val layoutId: Int = R.layout.fragment_paged_refresh
 
     abstract val pagedListAdapter: BasePagedListAdapter<Item, out ViewDataBinding>
+
+    abstract val swipeRefreshLayout: SwipeRefreshLayout?
+
+    abstract val recyclerView: RecyclerView?
 
     open fun getLayoutManager(): RecyclerView.LayoutManager =
         LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
@@ -30,11 +34,12 @@ abstract class BasePagedRefreshFragment<ViewBinding : ViewDataBinding, ViewModel
      * setup default paged refresh
      */
     open fun setupPagedRefresh() {
-        refresh_layout?.setOnRefreshListener {
+        swipeRefreshLayout?.setOnRefreshListener {
             viewModel.doRefresh()
         }
-        recycler_view?.layoutManager = getLayoutManager()
-        recycler_view?.adapter = pagedListAdapter
+        recyclerView?.layoutManager = getLayoutManager()
+        recyclerView?.adapter = pagedListAdapter
+        recyclerView?.setHasFixedSize(true)
         viewModel.apply {
             itemList.observe(viewLifecycleOwner, {
                 pagedListAdapter.submitList(it)

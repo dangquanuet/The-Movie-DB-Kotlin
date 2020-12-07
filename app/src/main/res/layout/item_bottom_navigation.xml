@@ -22,6 +22,7 @@
     </data>
 
     <LinearLayout
+        android:id="@+id/layout_item_bottom_nav"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/black"

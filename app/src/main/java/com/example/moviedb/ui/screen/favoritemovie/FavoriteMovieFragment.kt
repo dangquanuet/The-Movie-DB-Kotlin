@@ -7,6 +7,7 @@ import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.moviedb.data.model.Movie
 import com.example.moviedb.databinding.FragmentLoadmoreRefreshBinding
 import com.example.moviedb.ui.base.BaseListAdapter
@@ -14,7 +15,6 @@ import com.example.moviedb.ui.base.BaseLoadMoreRefreshFragment
 import com.example.moviedb.ui.base.getNavController
 import com.example.moviedb.ui.screen.popularmovie.PopularMovieAdapter
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_loadmore_refresh.*
 
 @AndroidEntryPoint
 class FavoriteMovieFragment :
@@ -30,11 +30,17 @@ class FavoriteMovieFragment :
         )
     }
 
+    override val swipeRefreshLayout: SwipeRefreshLayout
+        get() = viewBinding.refreshLayout
+
+    override val recyclerView: RecyclerView
+        get() = viewBinding.recyclerView
+
     override fun getLayoutManager(): RecyclerView.LayoutManager = GridLayoutManager(context, 2)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        container.setBackgroundColor(Color.BLACK)
+        viewBinding.container.setBackgroundColor(Color.BLACK)
     }
 
     fun loadData() {
