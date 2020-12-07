@@ -1,4 +1,4 @@
-package com.example.moviedb.di.modules
+package com.example.moviedb.di
 
 import android.content.Context
 import android.content.res.AssetManager
@@ -59,7 +59,6 @@ class NetworkModule {
             chain.proceed(newRequest)
         }
 
-
     @Singleton
     @Provides
     @Named("mock")
@@ -81,7 +80,7 @@ class NetworkModule {
             .addInterceptor(logging)
             .addNetworkInterceptor(StethoInterceptor())
             .apply {
-                if (mock.isMock) addInterceptor(mockInterceptor)
+                if (BuildConfig.DEBUG && mock.isMock) addInterceptor(mockInterceptor)
             }
             .build()
 
