@@ -1,10 +1,11 @@
-package com.example.moviedb.ui.base
+package com.example.moviedb.ui.base.paging
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import androidx.paging.*
 import com.example.moviedb.data.constants.Constants
 import com.example.moviedb.data.source.BasePagingSource
+import com.example.moviedb.ui.base.BaseViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 

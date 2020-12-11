@@ -5,7 +5,6 @@ import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
-import androidx.paging.PagedListAdapter
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.AsyncDifferConfig
 import androidx.recyclerview.widget.DiffUtil
@@ -51,41 +50,6 @@ abstract class BaseListAdapter<Item : Any, ViewBinding : ViewDataBinding>(
     override fun submitList(list: List<Item>?) {
         super.submitList(ArrayList<Item>(list ?: listOf()))
     }
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<ViewBinding> {
-        return BaseViewHolder(DataBindingUtil.inflate<ViewBinding>(
-            LayoutInflater.from(parent.context),
-            getLayoutRes(viewType),
-            parent, false
-        ).apply {
-            bindFirstTime(this)
-        })
-    }
-
-    override fun onBindViewHolder(holder: BaseViewHolder<ViewBinding>, position: Int) {
-        val item: Item? = getItem(position)
-        holder.binding.setVariable(BR.item, item)
-        if (item != null) {
-            bindView(holder.binding, item, position)
-        }
-        holder.binding.executePendingBindings()
-
-        holder.itemView.startAnimation(
-            AnimationUtils.loadAnimation(
-                holder.itemView.context,
-                R.anim.fade_in
-            )
-        )
-    }
-}
-
-/**
- * paging 2 adapter
- */
-abstract class BasePagedListAdapter<Item : Any, ViewBinding : ViewDataBinding>(
-    callBack: DiffUtil.ItemCallback<Item>
-) : PagedListAdapter<Item, BaseViewHolder<ViewBinding>>(callBack),
-    BaseRecyclerAdapter<Item, ViewBinding> {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<ViewBinding> {
         return BaseViewHolder(DataBindingUtil.inflate<ViewBinding>(

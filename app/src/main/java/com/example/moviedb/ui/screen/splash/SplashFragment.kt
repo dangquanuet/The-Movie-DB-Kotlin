@@ -29,7 +29,6 @@ class SplashFragment : BaseFragment<FragmentSplashBinding, SplashViewModel>() {
         getNavController()?.navigate(
             when (2) {
                 0 -> SplashFragmentDirections.toMovieListPager()
-                1 -> SplashFragmentDirections.toPagedMovie()
                 2 -> SplashFragmentDirections.toPagingMovie()
                 else -> SplashFragmentDirections.toMain()
             }

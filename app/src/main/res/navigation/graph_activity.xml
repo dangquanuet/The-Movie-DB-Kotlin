@@ -29,12 +29,6 @@
             app:popUpToInclusive="true" />
 
         <action
-            android:id="@+id/to_paged_movie"
-            app:destination="@id/paged_movie"
-            app:popUpTo="@id/splash"
-            app:popUpToInclusive="true" />
-
-        <action
             android:id="@+id/to_paging_movie"
             app:destination="@id/paging_movie"
             app:popUpTo="@id/splash"
@@ -55,11 +49,6 @@
         android:id="@+id/movie_pager"
         android:name="com.example.moviedb.ui.screen.moviepager.MoviePagerFragment"
         tools:layout="@layout/fragment_movie_pager" />
-
-    <fragment
-        android:id="@+id/paged_movie"
-        android:name="com.example.moviedb.ui.screen.paged.PagedMovieFragment"
-        tools:layout="@layout/fragment_paged_refresh" />
 
     <fragment
         android:id="@+id/paging_movie"

@@ -1,7 +1,8 @@
-package com.example.moviedb.ui.base
+package com.example.moviedb.ui.base.loadmorerefresh
 
 import androidx.lifecycle.MutableLiveData
 import com.example.moviedb.data.constants.Constants
+import com.example.moviedb.ui.base.BaseViewModel
 import com.example.moviedb.ui.widgets.EndlessRecyclerOnScrollListener
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext

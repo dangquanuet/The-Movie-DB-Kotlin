@@ -11,7 +11,7 @@ import com.example.moviedb.R
 import com.example.moviedb.data.model.Movie
 import com.example.moviedb.databinding.FragmentMoviePagerBinding
 import com.example.moviedb.ui.base.BaseListAdapter
-import com.example.moviedb.ui.base.BaseLoadMoreRefreshFragment
+import com.example.moviedb.ui.base.loadmorerefresh.BaseLoadMoreRefreshFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlin.math.abs
 

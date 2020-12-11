@@ -1,4 +1,4 @@
-package com.example.moviedb.ui.base
+package com.example.moviedb.ui.base.loadmorerefresh
 
 import android.os.Bundle
 import android.view.View
@@ -7,6 +7,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.moviedb.R
+import com.example.moviedb.ui.base.BaseFragment
+import com.example.moviedb.ui.base.BaseListAdapter
 
 /**
  * should use paging 3

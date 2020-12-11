@@ -5,7 +5,7 @@ import com.example.moviedb.data.model.Movie
 import com.example.moviedb.data.repository.UserRepository
 import com.example.moviedb.data.source.BasePagingSource
 import com.example.moviedb.data.source.MoviePagingSource
-import com.example.moviedb.ui.base.BasePagingViewModel
+import com.example.moviedb.ui.base.paging.BasePagingViewModel
 
 class PagingMovieViewModel @ViewModelInject constructor(
     private val userRepository: UserRepository

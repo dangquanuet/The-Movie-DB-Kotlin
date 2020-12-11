@@ -7,9 +7,8 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.moviedb.data.model.Movie
 import com.example.moviedb.databinding.FragmentPagingBinding
 import com.example.moviedb.ui.base.BasePagingAdapter
-import com.example.moviedb.ui.base.BasePagingFragment
+import com.example.moviedb.ui.base.paging.BasePagingFragment
 import com.example.moviedb.ui.base.getNavController
-import com.example.moviedb.ui.screen.paged.PagedMovieFragmentDirections
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -33,6 +32,6 @@ class PagingMovieFragment :
         get() = viewBinding.recyclerView
 
     private fun toMovieDetail(movie: Movie) {
-        getNavController()?.navigate(PagedMovieFragmentDirections.toGraphMovieDetail(movie))
+        getNavController()?.navigate(PagingMovieFragmentDirections.toGraphMovieDetail(movie))
     }
 }

@@ -4,7 +4,7 @@ import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.viewModelScope
 import com.example.moviedb.data.model.Movie
 import com.example.moviedb.data.repository.UserRepository
-import com.example.moviedb.ui.base.BaseLoadMoreRefreshViewModel
+import com.example.moviedb.ui.base.loadmorerefresh.BaseLoadMoreRefreshViewModel
 import kotlinx.coroutines.launch
 
 class FavoriteMovieViewModel @ViewModelInject constructor(

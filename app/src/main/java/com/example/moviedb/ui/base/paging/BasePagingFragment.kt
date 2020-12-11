@@ -1,4 +1,4 @@
-package com.example.moviedb.ui.base
+package com.example.moviedb.ui.base.paging
 
 import android.os.Bundle
 import android.view.View
@@ -8,6 +8,8 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.moviedb.R
+import com.example.moviedb.ui.base.BaseFragment
+import com.example.moviedb.ui.base.BasePagingAdapter
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 

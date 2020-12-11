@@ -11,7 +11,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.moviedb.data.model.Movie
 import com.example.moviedb.databinding.FragmentLoadmoreRefreshBinding
 import com.example.moviedb.ui.base.BaseListAdapter
-import com.example.moviedb.ui.base.BaseLoadMoreRefreshFragment
+import com.example.moviedb.ui.base.loadmorerefresh.BaseLoadMoreRefreshFragment
 import com.example.moviedb.ui.base.getNavController
 import com.example.moviedb.ui.screen.popularmovie.PopularMovieAdapter
 import dagger.hilt.android.AndroidEntryPoint
