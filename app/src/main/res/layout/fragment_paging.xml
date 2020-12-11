@@ -8,7 +8,7 @@
 
         <variable
             name="viewModel"
-            type="com.example.moviedb.ui.base.BasePagingViewModel&lt;Object>" />
+            type="com.example.moviedb.ui.base.paging.BasePagingViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -34,12 +34,13 @@
 
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-        <ProgressBar
+        <androidx.core.widget.ContentLoadingProgressBar
             android:id="@+id/progress_loading"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="@dimen/dp_48"
+            android:layout_height="@dimen/dp_48"
             android:layout_marginBottom="@dimen/dp_16"
-            android:visibility="@{ viewModel.isLoading ? View.VISIBLE : View.GONE }"
+            app:isLoading="@{  viewModel.isLoading }"
             app:layout_constraintBottom_toTopOf="@id/text_empty"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

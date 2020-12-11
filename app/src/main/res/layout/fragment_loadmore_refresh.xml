@@ -8,7 +8,7 @@
 
         <variable
             name="viewModel"
-            type="com.example.moviedb.ui.base.BaseLoadMoreRefreshViewModel&lt;Object>" />
+            type="com.example.moviedb.ui.base.loadmorerefresh.BaseLoadMoreRefreshViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -17,23 +17,12 @@
         android:layout_height="match_parent"
         android:background="@color/white">
 
-        <ProgressBar
-            android:id="@+id/progress_load_more"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp_4"
-            android:layout_marginBottom="@dimen/dp_4"
-            android:visibility="@{ viewModel.isLoadMore ? View.VISIBLE : View.GONE }"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:id="@+id/refresh_layout"
             android:layout_width="0dp"
             android:layout_height="0dp"
             app:isRefreshing="@{ viewModel.isRefreshing }"
-            app:layout_constraintBottom_toTopOf="@id/progress_load_more"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -46,14 +35,17 @@
 
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-        <ProgressBar
+        <androidx.core.widget.ContentLoadingProgressBar
             android:id="@+id/progress_loading"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="@{ viewModel.isLoading ? View.VISIBLE : View.GONE }"
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="@dimen/dp_48"
+            android:layout_height="@dimen/dp_48"
+            android:layout_marginBottom="@dimen/dp_16"
+            app:isLoading="@{  viewModel.isLoading }"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

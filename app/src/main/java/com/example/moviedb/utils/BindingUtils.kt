@@ -9,6 +9,7 @@ import android.webkit.WebView
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.DrawableRes
+import androidx.core.widget.ContentLoadingProgressBar
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -53,6 +54,11 @@ fun ImageView.loadLocalImage(imageName: String?) {
             .load(resources.getIdentifier(imageName, "drawable", BuildConfig.APPLICATION_ID))
             .into(this)
     }
+}
+
+@BindingAdapter(value = ["isLoading"])
+fun ContentLoadingProgressBar.show(isLoading: Boolean?) {
+    if (isLoading == true) show() else hide()
 }
 
 @BindingAdapter(
