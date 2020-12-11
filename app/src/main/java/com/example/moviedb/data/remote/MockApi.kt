@@ -12,7 +12,7 @@ import java.net.UnknownHostException
 class MockApi(
 ) : ApiService {
 
-    override suspend fun getDiscoverMovieAsync(
+    override suspend fun getDiscoverMovie(
         hashMap: HashMap<String, String>
     ): GetMovieListResponse =
         when (HttpURLConnection.HTTP_UNAUTHORIZED) {
@@ -55,19 +55,19 @@ class MockApi(
             else -> GetMovieListResponse()
         }
 
-    override suspend fun getMovieAsync(
+    override suspend fun getMovie(
         hashMap: HashMap<String, String>
     ): Movie = Movie("1")
 
-    override suspend fun getMovieCreditsAsync(movieId: String): GetCastAndCrewResponse {
+    override suspend fun getMovieCredits(movieId: String): GetCastAndCrewResponse {
         return GetCastAndCrewResponse()
     }
 
-    override suspend fun getMovieImagesAsync(movieId: String): GetMovieImages {
+    override suspend fun getMovieImages(movieId: String): GetMovieImages {
         return GetMovieImages()
     }
 
-    override suspend fun getDiscoverTvAsync(
+    override suspend fun getDiscoverTv(
         hashMap: HashMap<String, String>
     ): GetTvListResponse =
         when (HttpURLConnection.HTTP_INTERNAL_ERROR) {

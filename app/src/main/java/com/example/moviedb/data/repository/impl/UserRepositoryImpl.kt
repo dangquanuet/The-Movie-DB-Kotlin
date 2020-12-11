@@ -17,17 +17,17 @@ class UserRepositoryImpl @Inject constructor(
     override suspend fun getMovieList(
         hashMap: HashMap<String, String>
     ): GetMovieListResponse {
-        return apiService.getDiscoverMovieAsync(hashMap)
+        return apiService.getDiscoverMovie(hashMap)
     }
 
     override suspend fun getCastAndCrew(movieId: String): GetCastAndCrewResponse {
-        return apiService.getMovieCreditsAsync(movieId)
+        return apiService.getMovieCredits(movieId)
     }
 
     override suspend fun getTvList3(
         hashMap: HashMap<String, String>
     ): GetTvListResponse {
-        return apiService.getDiscoverTvAsync(hashMap)
+        return apiService.getDiscoverTv(hashMap)
     }
 
     override suspend fun insertDB(
