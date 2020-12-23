@@ -1,6 +1,7 @@
-package com.example.moviedb
+package com.example.moviedb.ui
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import com.example.moviedb.utils.TestCoroutineRule
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.junit.Before
 import org.junit.Rule

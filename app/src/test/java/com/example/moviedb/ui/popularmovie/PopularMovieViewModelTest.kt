@@ -1,19 +1,19 @@
 package com.example.moviedb.ui.popularmovie
 
 import androidx.lifecycle.Observer
-import com.example.moviedb.BaseViewModelTest
 import com.example.moviedb.data.constants.MovieListType
 import com.example.moviedb.data.model.Movie
 import com.example.moviedb.data.remote.ApiParams
 import com.example.moviedb.data.repository.UserRepository
 import com.example.moviedb.factory.createMovieListResponse
-import com.example.moviedb.mock
+import com.example.moviedb.ui.BaseViewModelTest
 import com.example.moviedb.ui.screen.popularmovie.PopularMovieViewModel
+import com.example.moviedb.utils.mock
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
-import org.mockito.Mockito
+import org.mockito.Mockito.*
 
 @ExperimentalCoroutinesApi
 class PopularMovieViewModelTest : BaseViewModelTest() {
@@ -47,19 +47,19 @@ class PopularMovieViewModelTest : BaseViewModelTest() {
             val observer = mock<Observer<List<Movie>>>()
             viewModel.itemList.observeForever(observer)
 
-            Mockito.`when`(userRepository.getMovieList(hashMap)).thenReturn(fakeData)
+            `when`(userRepository.getMovieList(hashMap)).thenReturn(fakeData)
 
             // when
             viewModel.loadData(page)
 
             // then
             Assert.assertEquals(4, viewModel.itemList.value?.size)
-            Assert.assertEquals("1", viewModel.itemList.value?.get(0)?.id)
-            Assert.assertEquals("2", viewModel.itemList.value?.get(1)?.id)
-            Assert.assertEquals("3", viewModel.itemList.value?.get(2)?.id)
-            Assert.assertEquals("4", viewModel.itemList.value?.get(3)?.id)
+            Assert.assertEquals("1", viewModel.itemList.value?.getOrNull(0)?.id)
+            Assert.assertEquals("2", viewModel.itemList.value?.getOrNull(1)?.id)
+            Assert.assertEquals("3", viewModel.itemList.value?.getOrNull(2)?.id)
+            Assert.assertEquals("4", viewModel.itemList.value?.getOrNull(3)?.id)
 
-            Mockito.verify(observer).onChanged(fakeData.results)
+            verify(observer).onChanged(fakeData.results)
         }
     }
 }
