@@ -13,12 +13,12 @@ class TestCoroutineRule : TestRule {
     private val testCoroutineDispatcher = TestCoroutineDispatcher()
     private val testCoroutineScope = TestCoroutineScope(testCoroutineDispatcher)
 
-    override fun apply(base: Statement?, description: Description?) = object : Statement() {
+    override fun apply(base: Statement, description: Description?) = object : Statement() {
         @Throws(Throwable::class)
         override fun evaluate() {
             Dispatchers.setMain(testCoroutineDispatcher)
 
-            base?.evaluate()
+            base.evaluate()
 
             Dispatchers.resetMain()
 

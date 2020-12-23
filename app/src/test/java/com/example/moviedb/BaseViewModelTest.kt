@@ -16,6 +16,6 @@ open class BaseViewModelTest {
 
     @Before
     open fun setup() {
-        MockitoAnnotations.openMocks(this)
+        MockitoAnnotations.initMocks(this)
     }
 }
