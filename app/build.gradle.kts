@@ -18,7 +18,7 @@ plugins {
 android {
     defaultConfig {
         applicationId = "com.example.moviedb"
-        buildToolsVersion("30.0.2")
+        buildToolsVersion("30.0.3")
         minSdkVersion(17)
         compileSdkVersion(30)
         targetSdkVersion(30)
@@ -145,17 +145,17 @@ dependencies {
     // common
     implementation("androidx.appcompat:appcompat:1.2.0")
     implementation("androidx.legacy:legacy-support-v4:1.0.0")
-    implementation("androidx.constraintlayout:constraintlayout:2.1.0-alpha1")
+    implementation("androidx.constraintlayout:constraintlayout:2.1.0-alpha2")
     implementation("androidx.recyclerview:recyclerview:1.1.0")
-    implementation("com.google.android.material:material:1.3.0-alpha04")
+    implementation("com.google.android.material:material:1.3.0-beta01")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.4.10")
     implementation("androidx.multidex:multidex:2.0.1")
 
     // List of KTX extensions
     // https://developer.android.com/kotlin/ktx/extensions-list
     implementation("androidx.core:core-ktx:1.5.0-alpha05")
-    implementation("androidx.activity:activity-ktx:1.2.0-beta02")
-    implementation("androidx.fragment:fragment-ktx:1.3.0-beta02")
+    implementation("androidx.activity:activity-ktx:1.2.0-rc01")
+    implementation("androidx.fragment:fragment-ktx:1.3.0-rc01")
 
     // Lifecycle
     // https://developer.android.com/jetpack/androidx/releases/lifecycle
@@ -170,13 +170,13 @@ dependencies {
 
     // room
     // https://developer.android.com/topic/libraries/architecture/room
-    implementation("androidx.room:room-runtime:2.2.5")
-    kapt("androidx.room:room-compiler:2.2.5")
-    implementation("androidx.room:room-ktx:2.2.5")
+    implementation("androidx.room:room-runtime:2.2.6")
+    kapt("androidx.room:room-compiler:2.2.6")
+    implementation("androidx.room:room-ktx:2.2.6")
 
     // paging
     // https://developer.android.com/topic/libraries/architecture/paging
-    implementation("androidx.paging:paging-runtime-ktx:3.0.0-alpha10")
+    implementation("androidx.paging:paging-runtime-ktx:3.0.0-alpha11")
 
     // navigation
     // https://developer.android.com/jetpack/androidx/releases/navigation
@@ -224,7 +224,7 @@ dependencies {
     // https://firebase.google.com/docs/android/setup
     implementation("com.google.firebase:firebase-analytics:18.0.0")
     implementation("com.google.firebase:firebase-crashlytics:17.3.0")
-    implementation("com.google.firebase:firebase-perf-ktx:19.0.10")
+    implementation("com.google.firebase:firebase-perf-ktx:19.0.11")
 
     // lottie
     // https://github.com/airbnb/lottie-android
@@ -240,6 +240,8 @@ dependencies {
     // unit test
     testImplementation("junit:junit:4.13")
     testImplementation("org.mockito:mockito-core:3.6.0")
+    testImplementation("org.mockito:mockito-inline:3.3.3")
+//    testImplementation("io.mockk:mockk:1.10.2")
     testImplementation("android.arch.core:core-testing:1.1.1")
 
     androidTestImplementation("com.android.support.test:runner:1.0.2")
