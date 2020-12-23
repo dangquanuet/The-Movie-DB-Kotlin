@@ -26,7 +26,7 @@ class DateUtils {
      * return null
      */
     @Test
-    fun stringToDate_stringIsEmpty() {
+    fun `string_toDate, when string is empty then return null`() {
         assertEquals(
             null,
             emptyString.toDate(format_yyyyMMdd)
@@ -38,7 +38,7 @@ class DateUtils {
      * return null
      */
     @Test
-    fun stringToDate_stringIsBlank() {
+    fun `string_toDate, when string ss blank then return null`() {
         assertEquals(
             null,
             blankString.toDate(format_yyyyMMdd)
@@ -50,7 +50,7 @@ class DateUtils {
      * return null
      */
     @Test
-    fun stringToDate_formatIsEmpty() {
+    fun `string_toDate, when format is empty then return null`() {
         assertEquals(
             null,
             timeString_yyyyMMdd.toDate(emptyString)
@@ -62,7 +62,7 @@ class DateUtils {
      * return null
      */
     @Test
-    fun stringToDate_formatIsBlank() {
+    fun `string_toDate, when format is blank then return null`() {
         assertEquals(
             null,
             timeString_yyyyMMdd.toDate(blankString)
@@ -74,7 +74,7 @@ class DateUtils {
      * return success
      */
     @Test
-    fun stringToDate_success() {
+    fun `string_toDate, when string and format are valid then return success`() {
         assertEquals(
             timeDate,
             timeString_yyyyMMdd_HHmmss.toDate(format_yyyyMMdd_HHmmss)
@@ -86,7 +86,7 @@ class DateUtils {
      * return null
      */
     @Test
-    fun stringToDate_formatIllegal() {
+    fun `string_toDate, when format is illegal then return null`() {
         assertEquals(
             null,
             timeString_yyyyMMdd_HHmmss.toDate(format_illegal)
@@ -98,7 +98,7 @@ class DateUtils {
      * return null
      */
     @Test
-    fun stringToTimeLong_stringIsEmpty() {
+    fun `string_toTimeLong, when string is empty then return null`() {
         assertEquals(
             null,
             emptyString.toTimeLong(format_yyyyMMdd)
@@ -110,7 +110,7 @@ class DateUtils {
      * return null
      */
     @Test
-    fun stringToTimeLong_stringIsBlank() {
+    fun `string_toTimeLong, when string is blank then return null`() {
         assertEquals(
             null,
             blankString.toTimeLong(format_yyyyMMdd)
@@ -122,7 +122,7 @@ class DateUtils {
      * return null
      */
     @Test
-    fun stringToTimeLong_formatIsEmpty() {
+    fun `string_toTimeLong, when format is empty then return null`() {
         assertEquals(
             null,
             timeString_yyyyMMdd.toTimeLong(emptyString)
@@ -134,7 +134,7 @@ class DateUtils {
      * return null
      */
     @Test
-    fun stringToTimeLong_formatIsBlank() {
+    fun `string_toTimeLong, when format is blank then return null`() {
         assertEquals(
             null,
             timeString_yyyyMMdd.toTimeLong(blankString)
@@ -146,7 +146,7 @@ class DateUtils {
      * return success
      */
     @Test
-    fun stringToTimeLong_success() {
+    fun `string_toTimeLong, when string and format are valid then return success`() {
         assertEquals(
             timeLongMilliseconds,
             timeString_yyyyMMdd_HHmmss.toTimeLong(format_yyyyMMdd_HHmmss)
@@ -158,7 +158,7 @@ class DateUtils {
      * return null
      */
     @Test
-    fun stringToTimeLong_formatIllegal() {
+    fun `string_toTimeLong, when format is illegal then return null`() {
         assertEquals(
             null,
             timeString_yyyyMMdd_HHmmss.toTimeLong(format_illegal)
@@ -170,7 +170,7 @@ class DateUtils {
      * return null
      */
     @Test
-    fun longToTimeString_formatIsEmpty() {
+    fun `long_toTimeString, when format is empty then return null`() {
         assertEquals(
             null,
             timeLongMilliseconds.toTimeString(emptyString)
@@ -182,7 +182,7 @@ class DateUtils {
      * return null
      */
     @Test
-    fun longToTimeString_formatIsBlank() {
+    fun `long_toTimeString, when format is blank then return null`() {
         assertEquals(
             null,
             timeLongMilliseconds.toTimeString(blankString)
@@ -194,7 +194,7 @@ class DateUtils {
      * return success
      */
     @Test
-    fun longToTimeString_formatFull() {
+    fun `long_toTimeString, when format is full then return string`() {
         assertEquals(
             timeString_yyyyMMdd_HHmmss,
             timeLongMilliseconds.toTimeString(format_yyyyMMdd_HHmmss)
@@ -206,7 +206,7 @@ class DateUtils {
      * return success
      */
     @Test
-    fun longToTimeString_formatShort() {
+    fun `long_toTimeString, when format is short then return string`() {
         assertEquals(
             timeString_yyyyMMdd,
             timeLongMilliseconds.toTimeString(format_yyyyMMdd)
@@ -218,7 +218,7 @@ class DateUtils {
      * return null
      */
     @Test
-    fun longToTimeString_formatIllegal() {
+    fun `long_toTimeString when format is illegal then return null`() {
         assertEquals(
             null,
             timeLongMilliseconds.toTimeString(format_illegal)
@@ -230,7 +230,7 @@ class DateUtils {
      * return null
      */
     @Test
-    fun stringChangeTimeFormat_stringIsEmpty() {
+    fun `string_changeTimeFormat when string is empty then return null`() {
         assertEquals(
             null,
             emptyString.changeTimeFormat(format_yyyyMMdd, format_ddMMyyyy)
@@ -242,7 +242,7 @@ class DateUtils {
      * return null
      */
     @Test
-    fun stringChangeTimeFormat_stringIsBlank() {
+    fun `string_changeTimeFormat when string is blank then return null`() {
         assertEquals(
             null,
             blankString.changeTimeFormat(format_yyyyMMdd, format_ddMMyyyy)
@@ -254,7 +254,7 @@ class DateUtils {
      * return null
      */
     @Test
-    fun stringChangeTimeFormat_oldFormatIsEmpty() {
+    fun `string changeTimeFormat when oldFormat is empty then return null`() {
         assertEquals(
             null,
             timeString_yyyyMMdd.changeTimeFormat(emptyString, format_ddMMyyyy)
@@ -266,7 +266,7 @@ class DateUtils {
      * return null
      */
     @Test
-    fun stringChangeTimeFormat_oldFormatIsBlank() {
+    fun `string_changeTimeFormat when oldFormat is blank then return null`() {
         assertEquals(
             null,
             timeString_yyyyMMdd.changeTimeFormat(blankString, format_ddMMyyyy)
@@ -278,7 +278,7 @@ class DateUtils {
      * return null
      */
     @Test
-    fun stringChangeTimeFormat_oldFormatIllegal() {
+    fun `string_changeTimeFormat when oldFormat is illegal then return null`() {
         assertEquals(
             null,
             timeString_yyyyMMdd.changeTimeFormat(format_illegal, format_yyyyMMdd)
@@ -290,7 +290,7 @@ class DateUtils {
      * return null
      */
     @Test
-    fun stringChangeTimeFormat_newFormatIsEmpty() {
+    fun `string_changeTimeFormat when newFormat is empty then return null`() {
         assertEquals(
             null,
             timeString_yyyyMMdd.changeTimeFormat(format_yyyyMMdd, emptyString)
@@ -302,7 +302,7 @@ class DateUtils {
      * return null
      */
     @Test
-    fun stringChangeTimeFormat_newFormatIsBlank() {
+    fun `string_changeTimeFormat when newFormat is blank then return null`() {
         assertEquals(
             null,
             timeString_yyyyMMdd.changeTimeFormat(format_yyyyMMdd, blankString)
@@ -314,7 +314,7 @@ class DateUtils {
      * return null
      */
     @Test
-    fun stringChangeTimeFormat_newFormatIllegal() {
+    fun `string_changeTimeFormat when newFormat is illegal then return null`() {
         assertEquals(
             null,
             timeString_yyyyMMdd.changeTimeFormat(format_yyyyMMdd, format_illegal)
@@ -326,7 +326,7 @@ class DateUtils {
      * return success
      */
     @Test
-    fun stringChangeTimeFormat_success() {
+    fun `string_changeTimeFormat when string and params are valid then return success`() {
         assertEquals(
             timeString_ddMMyyyy,
             timeString_yyyyMMdd.changeTimeFormat(format_yyyyMMdd, format_ddMMyyyy)
@@ -338,7 +338,7 @@ class DateUtils {
      * return null
      */
     @Test
-    fun dateToTimeString_formatIsEmpty() {
+    fun `date_toTimeString when format is empty then return null`() {
         assertEquals(
             null,
             timeDate.toTimeString(emptyString)
@@ -350,7 +350,7 @@ class DateUtils {
      * return null
      */
     @Test
-    fun dateToTimeString_formatIsBlank() {
+    fun `date_toTimeString when format is blank then return null`() {
         assertEquals(
             null,
             timeDate.toTimeString(blankString)
@@ -362,7 +362,7 @@ class DateUtils {
      * return null
      */
     @Test
-    fun dateToTimeString_formatIllegal() {
+    fun `date_toTimeString when format is illegal then return null`() {
         assertEquals(
             null,
             timeDate.toTimeString(format_illegal)
@@ -374,7 +374,7 @@ class DateUtils {
      * return success
      */
     @Test
-    fun dateToTimeString_success() {
+    fun `date_toTimeString when format is valid then return success`() {
         assertEquals(
             timeString_ddMMyyyy,
             timeDate.toTimeString(format_ddMMyyyy)
@@ -382,7 +382,7 @@ class DateUtils {
     }
 
     @Test
-    fun dateToCalendar_success() {
+    fun `date_toCalendar when format is valid then return success`() {
         assertEquals(
             timeCalendar,
             timeDate.toCalendar()
