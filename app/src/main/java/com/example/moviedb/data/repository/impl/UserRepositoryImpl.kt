@@ -3,10 +3,12 @@ package com.example.moviedb.data.repository.impl
 import com.example.moviedb.data.local.dao.MovieDao
 import com.example.moviedb.data.model.Movie
 import com.example.moviedb.data.remote.ApiService
+import com.example.moviedb.data.repository.Result
 import com.example.moviedb.data.remote.response.GetCastAndCrewResponse
 import com.example.moviedb.data.remote.response.GetMovieListResponse
 import com.example.moviedb.data.remote.response.GetTvListResponse
 import com.example.moviedb.data.repository.UserRepository
+import com.example.moviedb.data.repository.safeApiCall
 import javax.inject.Inject
 
 class UserRepositoryImpl @Inject constructor(
@@ -20,8 +22,8 @@ class UserRepositoryImpl @Inject constructor(
         return apiService.getDiscoverMovie(hashMap)
     }
 
-    override suspend fun getCastAndCrew(movieId: String): GetCastAndCrewResponse {
-        return apiService.getMovieCredits(movieId)
+    override suspend fun getCastAndCrew(movieId: String): Result<GetCastAndCrewResponse> {
+        return safeApiCall { apiService.getMovieCredits(movieId) }
     }
 
     override suspend fun getTvList3(

@@ -13,7 +13,7 @@ interface UserRepository {
 
     suspend fun getCastAndCrew(
         movieId: String
-    ): GetCastAndCrewResponse
+    ): Result<GetCastAndCrewResponse>
 
     suspend fun getTvList3(
         hashMap: HashMap<String, String>
