@@ -242,17 +242,10 @@ dependencies {
     testImplementation("org.mockito:mockito-core:3.6.0")
     testImplementation("org.mockito:mockito-inline:3.3.3")
 //    testImplementation("io.mockk:mockk:1.10.2")
-    testImplementation("android.arch.core:core-testing:1.1.1")
-
-    androidTestImplementation("com.android.support.test:runner:1.0.2")
-    androidTestImplementation("com.android.support.test.espresso:espresso-core:3.0.2")
-
-    androidTestImplementation("android.arch.persistence.room:testing:1.1.1")
-    androidTestImplementation("android.arch.core:core-testing:1.1.1")
-
+    testImplementation("androidx.arch.core:core-testing:2.1.0")
     testImplementation("com.squareup.okhttp3:mockwebserver:4.4.0")
     testImplementation("org.jetbrains.kotlin:kotlin-stdlib:1.4.20")
-
+    testImplementation("org.robolectric:robolectric:4.3")
 
     /**
      * for buildSrc
