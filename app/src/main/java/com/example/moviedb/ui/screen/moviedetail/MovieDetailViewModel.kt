@@ -6,7 +6,6 @@ import androidx.lifecycle.viewModelScope
 import com.example.moviedb.data.model.Cast
 import com.example.moviedb.data.model.Movie
 import com.example.moviedb.data.repository.UserRepository
-import com.example.moviedb.data.repository.then
 import com.example.moviedb.ui.base.BaseViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -64,7 +63,7 @@ class MovieDetailViewModel @ViewModelInject constructor(
         if (cast.value != null) return
         viewModelScope.launch {
             userRepository.getCastAndCrew(movieId)
-                .then({
+                .fold({
                     cast.value = it.cast
                 }, {
                     onError(it)

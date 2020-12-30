@@ -7,9 +7,9 @@ import kotlinx.coroutines.withContext
 suspend fun <T : Any> safeApiCall(apiCall: suspend () -> T): Result<T> {
     return withContext(Dispatchers.IO) {
         try {
-            Result.Success(apiCall.invoke())
+            Result.success(apiCall.invoke())
         } catch (throwable: Throwable) {
-            Result.Error(throwable)
+            Result.failure(throwable)
         }
     }
 }
