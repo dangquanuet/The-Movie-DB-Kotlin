@@ -65,11 +65,7 @@ abstract class BaseActivity<ViewBinding : ViewDataBinding, ViewModel : BaseViewM
      * override this if not use loading dialog (example progress bar)
      */
     open fun handleLoading(isLoading: Boolean) {
-        if (isLoading) showLoading() else dismissLLoadingDialog()
-    }
-
-    fun showLoading() {
-        showLoadingDialog()
+        if (isLoading) showLoadingDialog() else dismissLLoadingDialog()
     }
 
     fun handleErrorMessage(message: String?) {

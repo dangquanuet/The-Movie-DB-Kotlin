@@ -75,11 +75,7 @@ abstract class BaseFragment<ViewBinding : ViewDataBinding, ViewModel : BaseViewM
      * override this if not use loading dialog (example progress bar)
      */
     open fun handleLoading(isLoading: Boolean) {
-        if (isLoading) showLoading() else dismissLLoadingDialog()
-    }
-
-    fun showLoading() {
-        context?.showLoadingDialog()
+        if (isLoading) showLoadingDialog() else dismissLLoadingDialog()
     }
 
     fun handleErrorMessage(message: String?) {
@@ -87,7 +83,7 @@ abstract class BaseFragment<ViewBinding : ViewDataBinding, ViewModel : BaseViewM
 
         dismissLLoadingDialog()
 
-        context?.showDialog(
+        showDialog(
             message = message,
             textPositive = getString(R.string.ok)
         )

@@ -74,16 +74,12 @@ abstract class BaseDialogFragment<ViewBinding : ViewDataBinding, ViewModel : Bas
         if (isLoading) showLoadingDialog() else dismissLLoadingDialog()
     }
 
-    fun showLoadingDialog() {
-        context?.showLoadingDialog()
-    }
-
     fun handleErrorMessage(message: String?) {
         if (message.isNullOrBlank()) return
 
         dismissLLoadingDialog()
 
-        context?.showDialog(
+        showDialog(
             message = message,
             textPositive = getString(R.string.ok)
         )
