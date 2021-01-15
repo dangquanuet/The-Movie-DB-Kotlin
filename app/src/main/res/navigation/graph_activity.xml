@@ -11,12 +11,6 @@
         tools:layout="@layout/fragment_splash">
 
         <action
-            android:id="@+id/to_main"
-            app:destination="@id/main"
-            app:popUpTo="@id/splash"
-            app:popUpToInclusive="true" />
-
-        <action
             android:id="@+id/to_movie_list_pager"
             app:destination="@id/movie_list_pager"
             app:popUpTo="@id/splash"
@@ -34,11 +28,6 @@
             app:popUpTo="@id/splash"
             app:popUpToInclusive="true" />
     </fragment>
-
-    <fragment
-        android:id="@+id/main"
-        android:name="com.example.moviedb.ui.screen.main.MainFragment"
-        tools:layout="@layout/fragment_main" />
 
     <fragment
         android:id="@+id/movie_list_pager"

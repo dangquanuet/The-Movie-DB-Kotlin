@@ -5,17 +5,18 @@ import androidx.lifecycle.lifecycleScope
 import com.example.moviedb.R
 import com.example.moviedb.databinding.FragmentSplashBinding
 import com.example.moviedb.ui.base.BaseFragment
+import com.example.moviedb.ui.base.BaseViewModel
 import com.example.moviedb.ui.base.getNavController
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class SplashFragment : BaseFragment<FragmentSplashBinding, SplashViewModel>() {
+class SplashFragment : BaseFragment<FragmentSplashBinding, BaseViewModel>() {
 
     override val layoutId: Int = R.layout.fragment_splash
 
-    override val viewModel: SplashViewModel by viewModels()
+    override val viewModel: BaseViewModel by viewModels()
 
     override fun onStart() {
         super.onStart()
@@ -27,10 +28,9 @@ class SplashFragment : BaseFragment<FragmentSplashBinding, SplashViewModel>() {
 
     private fun navigateToOther() {
         getNavController()?.navigate(
-            when (2) {
+            when (1) {
                 0 -> SplashFragmentDirections.toMovieListPager()
-                2 -> SplashFragmentDirections.toPagingMovie()
-                else -> SplashFragmentDirections.toMain()
+                else -> SplashFragmentDirections.toPagingMovie()
             }
         )
     }

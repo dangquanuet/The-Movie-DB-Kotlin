@@ -5,7 +5,7 @@ import android.content.Intent
 import android.os.Looper
 import android.widget.Toast
 import androidx.multidex.MultiDex
-import com.example.moviedb.ui.screen.MainActivity
+import com.example.moviedb.ui.screen.main.MainActivity
 import com.facebook.stetho.Stetho
 import dagger.hilt.android.HiltAndroidApp
 import kotlinx.coroutines.CoroutineScope

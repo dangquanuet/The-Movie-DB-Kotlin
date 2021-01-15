@@ -8,11 +8,12 @@ import androidx.fragment.app.viewModels
 import com.example.moviedb.R
 import com.example.moviedb.databinding.FragmentPermisisonBinding
 import com.example.moviedb.ui.base.BaseFragment
+import com.example.moviedb.ui.base.BaseViewModel
 import com.example.moviedb.utils.*
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class PermissionFragment : BaseFragment<FragmentPermisisonBinding, PermissionViewModel>() {
+class PermissionFragment : BaseFragment<FragmentPermisisonBinding, BaseViewModel>() {
 
     companion object {
         const val TAG = "PermissionFragment"
@@ -21,7 +22,7 @@ class PermissionFragment : BaseFragment<FragmentPermisisonBinding, PermissionVie
 
     override val layoutId: Int = R.layout.fragment_permisison
 
-    override val viewModel: PermissionViewModel by viewModels()
+    override val viewModel: BaseViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

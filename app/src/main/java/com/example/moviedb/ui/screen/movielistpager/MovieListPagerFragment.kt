@@ -8,19 +8,16 @@ import com.example.moviedb.R
 import com.example.moviedb.data.constants.MovieListType
 import com.example.moviedb.databinding.FragmentMovieListPagerBinding
 import com.example.moviedb.ui.base.BaseFragment
+import com.example.moviedb.ui.base.BaseViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MovieListPagerFragment :
-    BaseFragment<FragmentMovieListPagerBinding, MovieListPagerViewModel>() {
-
-    companion object {
-        const val TAG = "MovieListPagerFragment"
-    }
+    BaseFragment<FragmentMovieListPagerBinding, BaseViewModel>() {
 
     override val layoutId: Int = R.layout.fragment_movie_list_pager
 
-    override val viewModel: MovieListPagerViewModel by viewModels()
+    override val viewModel: BaseViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

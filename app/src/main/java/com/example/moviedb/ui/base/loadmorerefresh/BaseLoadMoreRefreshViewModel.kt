@@ -4,8 +4,6 @@ import androidx.lifecycle.MutableLiveData
 import com.example.moviedb.data.constants.Constants
 import com.example.moviedb.ui.base.BaseViewModel
 import com.example.moviedb.ui.widgets.EndlessRecyclerOnScrollListener
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 
 /**
  * should use paging 3
@@ -16,7 +14,7 @@ abstract class BaseLoadMoreRefreshViewModel<Item>() : BaseViewModel() {
     val isRefreshing = MutableLiveData<Boolean>().apply { value = false }
 
     // load more flag
-    val isLoadMore = MutableLiveData<Boolean>().apply { value = false }
+    private val isLoadMore = MutableLiveData<Boolean>().apply { value = false }
 
     // current page
     private val currentPage = MutableLiveData<Int>().apply { value = getPreFirstPage() }
@@ -116,48 +114,44 @@ abstract class BaseLoadMoreRefreshViewModel<Item>() : BaseViewModel() {
     /**
      * handle load success
      */
-    suspend fun onLoadSuccess(page: Int, items: List<Item>?) {
-        withContext(Dispatchers.Main) {
-            // load success then update current page
-            currentPage.value = page
-            // case load first page then clear data from listItem
-            if (currentPage.value == getFirstPage()) itemList.value?.clear()
-            // case refresh then reset load more
-            if (isRefreshing.value == true) resetLoadMore()
+    fun onLoadSuccess(page: Int, items: List<Item>?) {
+        // load success then update current page
+        currentPage.value = page
+        // case load first page then clear data from listItem
+        if (currentPage.value == getFirstPage()) itemList.value?.clear()
+        // case refresh then reset load more
+        if (isRefreshing.value == true) resetLoadMore()
 
-            // add new data to listItem
-            val newList = itemList.value ?: ArrayList()
-            newList.addAll(items ?: listOf())
-            itemList.value = newList
+        // add new data to listItem
+        val newList = itemList.value ?: ArrayList()
+        newList.addAll(items ?: listOf())
+        itemList.value = newList
 
-            // check last page
-            isLastPage.value = items?.size ?: 0 < getNumberItemPerPage()
+        // check last page
+        isLastPage.value = items?.size ?: 0 < getNumberItemPerPage()
 
-            // reset load
-            hideLoading()
-            isRefreshing.value = false
-            isLoadMore.value = false
+        // reset load
+        hideLoading()
+        isRefreshing.value = false
+        isLoadMore.value = false
 
-            // check empty list
-            checkEmptyList()
-        }
+        // check empty list
+        checkEmptyList()
     }
 
     /**
      * handle load fail
      */
-    override suspend fun onError(throwable: Throwable) {
-        withContext(Dispatchers.Main) {
-            super.onError(throwable)
-            onScrollListener.isLoading = false
+    override fun onError(throwable: Throwable) {
+        super.onError(throwable)
+        onScrollListener.isLoading = false
 
-            // reset load
-            isRefreshing.value = false
-            isLoadMore.value = false
+        // reset load
+        isRefreshing.value = false
+        isLoadMore.value = false
 
-            // check empty list
-            checkEmptyList()
-        }
+        // check empty list
+        checkEmptyList()
     }
 
     /**

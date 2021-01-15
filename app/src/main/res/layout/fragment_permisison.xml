@@ -4,9 +4,6 @@
 
     <data>
 
-        <variable
-            name="viewModel"
-            type="com.example.moviedb.ui.screen.permission.PermissionViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

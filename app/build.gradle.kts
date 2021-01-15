@@ -156,7 +156,7 @@ dependencies {
 
     // List of KTX extensions
     // https://developer.android.com/kotlin/ktx/extensions-list
-    implementation("androidx.core:core-ktx:1.5.0-alpha05")
+    implementation("androidx.core:core-ktx:1.5.0-beta01")
     implementation("androidx.activity:activity-ktx:1.2.0-rc01")
     implementation("androidx.fragment:fragment-ktx:1.3.0-rc01")
 
@@ -169,7 +169,7 @@ dependencies {
 
     // Preferences DataStore
     // https://android-developers.googleblog.com/2020/09/prefer-storing-data-with-jetpack.html
-    implementation("androidx.datastore:datastore-preferences:1.0.0-alpha05")
+    implementation("androidx.datastore:datastore-preferences:1.0.0-alpha06")
 
     // room
     // https://developer.android.com/topic/libraries/architecture/room
@@ -179,7 +179,7 @@ dependencies {
 
     // paging
     // https://developer.android.com/topic/libraries/architecture/paging
-    implementation("androidx.paging:paging-runtime-ktx:3.0.0-alpha11")
+    implementation("androidx.paging:paging-runtime-ktx:3.0.0-alpha12")
 
     // navigation
     // https://developer.android.com/jetpack/androidx/releases/navigation

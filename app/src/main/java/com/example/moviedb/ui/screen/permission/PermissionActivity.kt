@@ -7,15 +7,16 @@ import androidx.activity.viewModels
 import com.example.moviedb.R
 import com.example.moviedb.databinding.ActivityPermissionBinding
 import com.example.moviedb.ui.base.BaseActivity
+import com.example.moviedb.ui.base.BaseViewModel
 import com.example.moviedb.utils.*
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class PermissionActivity : BaseActivity<ActivityPermissionBinding, PermissionViewModel>() {
+class PermissionActivity : BaseActivity<ActivityPermissionBinding, BaseViewModel>() {
 
     override val layoutId: Int = R.layout.activity_permission
 
-    override val viewModel: PermissionViewModel by viewModels()
+    override val viewModel: BaseViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

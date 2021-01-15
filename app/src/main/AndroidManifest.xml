@@ -27,7 +27,7 @@
         android:usesCleartextTraffic="true">
 
         <activity
-            android:name="com.example.moviedb.ui.screen.MainActivity"
+            android:name="com.example.moviedb.ui.screen.main.MainActivity"
             android:configChanges="orientation|screenSize"
             android:theme="@style/Theme.MyApplication.NoActionBar">
             <intent-filter>
