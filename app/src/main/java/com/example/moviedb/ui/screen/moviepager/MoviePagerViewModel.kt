@@ -1,7 +1,6 @@
 package com.example.moviedb.ui.screen.moviepager
 
 import android.content.res.Resources
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.moviedb.data.constants.MovieListType
@@ -9,9 +8,12 @@ import com.example.moviedb.data.model.Movie
 import com.example.moviedb.data.remote.ApiParams
 import com.example.moviedb.data.repository.UserRepository
 import com.example.moviedb.ui.base.loadmorerefresh.BaseLoadMoreRefreshViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class MoviePagerViewModel @ViewModelInject constructor(
+@HiltViewModel
+class MoviePagerViewModel @Inject constructor(
     val resources: Resources,
     private val userRepository: UserRepository
 ) : BaseLoadMoreRefreshViewModel<Movie>() {

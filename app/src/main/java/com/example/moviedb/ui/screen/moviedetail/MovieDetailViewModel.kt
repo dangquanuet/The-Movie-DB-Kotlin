@@ -1,17 +1,19 @@
 package com.example.moviedb.ui.screen.moviedetail
 
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.moviedb.data.model.Cast
 import com.example.moviedb.data.model.Movie
 import com.example.moviedb.data.repository.UserRepository
 import com.example.moviedb.ui.base.BaseViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-class MovieDetailViewModel @ViewModelInject constructor(
+@HiltViewModel
+class MovieDetailViewModel @Inject constructor(
     private val userRepository: UserRepository
 ) : BaseViewModel() {
 

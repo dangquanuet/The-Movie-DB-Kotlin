@@ -1,10 +1,12 @@
 package com.example.moviedb.ui.screen.oldmain
 
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.MutableLiveData
 import com.example.moviedb.ui.base.BaseViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class OldMainViewModel @ViewModelInject constructor(): BaseViewModel() {
+@HiltViewModel
+class OldMainViewModel @Inject constructor() : BaseViewModel() {
 
     val currentTab = MutableLiveData<Int>()
 

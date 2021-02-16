@@ -1,9 +1,14 @@
 package com.example.moviedb.data.source
 
 import androidx.paging.PagingSource
+import androidx.paging.PagingState
 import com.example.moviedb.data.constants.Constants.DEFAULT_FIRST_PAGE
 
 abstract class BasePagingSource<Item : Any> : PagingSource<Int, Item>() {
+
+    override fun getRefreshKey(state: PagingState<Int, Item>): Int? {
+        return state.anchorPosition
+    }
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Item> {
         return try {

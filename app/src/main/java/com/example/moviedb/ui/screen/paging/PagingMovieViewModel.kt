@@ -1,13 +1,15 @@
 package com.example.moviedb.ui.screen.paging
 
-import androidx.hilt.lifecycle.ViewModelInject
 import com.example.moviedb.data.model.Movie
 import com.example.moviedb.data.repository.UserRepository
 import com.example.moviedb.data.source.BasePagingSource
 import com.example.moviedb.data.source.MoviePagingSource
 import com.example.moviedb.ui.base.paging.BasePagingViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class PagingMovieViewModel @ViewModelInject constructor(
+@HiltViewModel
+class PagingMovieViewModel @Inject constructor(
     private val userRepository: UserRepository
 ) : BasePagingViewModel<Movie>() {
 

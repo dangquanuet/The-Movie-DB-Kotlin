@@ -7,12 +7,11 @@ import com.example.moviedb.data.remote.ApiService
 import com.example.moviedb.data.remote.MockApi
 import com.example.moviedb.data.remote.MockInterceptor
 import com.example.moviedb.enableLogging
-import com.facebook.stetho.okhttp3.StethoInterceptor
 import com.squareup.moshi.Moshi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ApplicationComponent
+import dagger.hilt.components.SingletonComponent
 import okhttp3.Cache
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -23,7 +22,7 @@ import java.util.concurrent.TimeUnit
 import javax.inject.Named
 import javax.inject.Singleton
 
-@InstallIn(ApplicationComponent::class)
+@InstallIn(SingletonComponent::class)
 @Module
 class NetworkModule {
 
@@ -78,7 +77,7 @@ class NetworkModule {
             .readTimeout(TIMEOUT.toLong(), TimeUnit.SECONDS)
             .addInterceptor(header)
             .addInterceptor(logging)
-            .addNetworkInterceptor(StethoInterceptor())
+//            .addNetworkInterceptor(StethoInterceptor())
             .apply {
                 if (BuildConfig.DEBUG && mock.isMock) addInterceptor(mockInterceptor)
             }

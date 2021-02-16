@@ -1,6 +1,5 @@
 package com.example.moviedb.ui.screen.popularmovie
 
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.moviedb.data.constants.MovieListType
@@ -8,10 +7,12 @@ import com.example.moviedb.data.model.Movie
 import com.example.moviedb.data.remote.ApiParams
 import com.example.moviedb.data.repository.UserRepository
 import com.example.moviedb.ui.base.loadmorerefresh.BaseLoadMoreRefreshViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-
-class PopularMovieViewModel @ViewModelInject constructor(
+@HiltViewModel
+class PopularMovieViewModel @Inject constructor(
     private val userRepository: UserRepository
 ) : BaseLoadMoreRefreshViewModel<Movie>() {
 
