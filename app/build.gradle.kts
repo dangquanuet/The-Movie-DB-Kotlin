@@ -226,7 +226,7 @@ dependencies {
 
     // lottie
     // https://github.com/airbnb/lottie-android
-    implementation("com.airbnb.android:lottie:3.4.0")
+//    implementation("com.airbnb.android:lottie:3.4.2")
 
     // timber
     // https://github.com/JakeWharton/timber
