@@ -5,7 +5,7 @@ import java.util.*
 plugins {
     id("com.android.application")
     id("kotlin-android")
-    id("kotlin-android-extensions")
+    id("kotlin-parcelize")
     id("kotlin-kapt")
     id("androidx.navigation.safeargs.kotlin")
     id("com.google.firebase.crashlytics")
@@ -131,9 +131,6 @@ android {
     // https://developer.android.com/topic/libraries/data-binding
     buildFeatures {
         dataBinding = true
-    }
-    androidExtensions {
-        isExperimental = true
     }
 }
 
