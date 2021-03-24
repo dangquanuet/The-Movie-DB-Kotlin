@@ -21,7 +21,6 @@ import com.example.moviedb.utils.showLoadingDialog
 abstract class BaseFragment<ViewBinding : ViewDataBinding, ViewModel : BaseViewModel> : Fragment() {
 
     protected lateinit var viewBinding: ViewBinding
-
     protected abstract val viewModel: ViewModel
 
     @get:LayoutRes
@@ -32,20 +31,22 @@ abstract class BaseFragment<ViewBinding : ViewDataBinding, ViewModel : BaseViewM
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        if (::viewBinding.isInitialized.not()) {
-            viewBinding = DataBindingUtil.inflate(inflater, layoutId, container, false)
-            viewBinding.apply {
-                setVariable(BR.viewModel, viewModel)
-                root.isClickable = true
-                executePendingBindings()
-            }
+        viewBinding = DataBindingUtil.inflate(inflater, layoutId, container, false)
+        viewBinding.apply {
+            setVariable(BR.viewModel, viewModel)
+            viewBinding.lifecycleOwner = viewLifecycleOwner
+            root.isClickable = true
+            executePendingBindings()
         }
-        viewBinding.lifecycleOwner = viewLifecycleOwner
         return viewBinding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        observerEvents()
+    }
+
+    private fun observerEvents() {
         viewModel.apply {
             isLoading.observe(viewLifecycleOwner, {
                 handleLoading(it == true)
@@ -74,15 +75,13 @@ abstract class BaseFragment<ViewBinding : ViewDataBinding, ViewModel : BaseViewM
     /**
      * override this if not use loading dialog (example progress bar)
      */
-    open fun handleLoading(isLoading: Boolean) {
+    protected open fun handleLoading(isLoading: Boolean) {
         if (isLoading) showLoadingDialog() else dismissLLoadingDialog()
     }
 
-    fun handleErrorMessage(message: String?) {
+    protected open fun handleErrorMessage(message: String?) {
         if (message.isNullOrBlank()) return
-
         dismissLLoadingDialog()
-
         showDialog(
             message = message,
             textPositive = getString(R.string.ok)

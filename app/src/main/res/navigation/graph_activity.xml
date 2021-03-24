@@ -9,22 +9,24 @@
         android:id="@+id/splash"
         android:name="com.example.moviedb.ui.screen.splash.SplashFragment"
         tools:layout="@layout/fragment_splash">
-
         <action
-            android:id="@+id/to_movie_list_pager"
+            android:id="@+id/toMovieListPager"
             app:destination="@id/movie_list_pager"
             app:popUpTo="@id/splash"
             app:popUpToInclusive="true" />
-
         <action
-            android:id="@+id/to_movie_pager"
+            android:id="@+id/toMoviePager"
             app:destination="@id/movie_pager"
             app:popUpTo="@id/splash"
             app:popUpToInclusive="true" />
-
         <action
-            android:id="@+id/to_paging_movie"
+            android:id="@+id/toPagingMovie"
             app:destination="@id/paging_movie"
+            app:popUpTo="@id/splash"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/toPopularMovie"
+            app:destination="@id/popularMovie"
             app:popUpTo="@id/splash"
             app:popUpToInclusive="true" />
     </fragment>
@@ -44,16 +46,20 @@
         android:name="com.example.moviedb.ui.screen.paging.PagingMovieFragment"
         tools:layout="@layout/fragment_paging" />
 
+    <fragment
+        android:id="@+id/popularMovie"
+        android:name="com.example.moviedb.ui.screen.popularmovie.PopularMovieFragment"
+        tools:layout="@layout/fragment_loadmore_refresh" />
+
     <include app:graph="@navigation/graph_movie_detail" />
 
     <action
-        android:id="@+id/to_graph_movie_detail"
+        android:id="@+id/toGraphMovieDetail"
         app:destination="@id/graph_movie_detail"
         app:enterAnim="@anim/slide_in_right"
         app:exitAnim="@anim/slide_out_left"
         app:popEnterAnim="@anim/slide_in_left"
         app:popExitAnim="@anim/slide_out_right">
-
         <argument
             android:name="movie"
             app:argType="com.example.moviedb.data.model.Movie" />

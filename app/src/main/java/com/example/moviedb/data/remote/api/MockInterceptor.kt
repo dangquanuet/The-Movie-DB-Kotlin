@@ -1,8 +1,7 @@
-package com.example.moviedb.data.remote
+package com.example.moviedb.data.remote.api
 
 import android.content.res.AssetManager
 import com.example.moviedb.BuildConfig
-import com.example.moviedb.utils.getJsonStringFromFile
 import okhttp3.Interceptor
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.Protocol
@@ -13,18 +12,23 @@ import java.net.HttpURLConnection
 class MockInterceptor(
     private val assets: AssetManager
 ) : Interceptor {
-
     companion object {
-        const val DISCOVER_MOVIE = "discover/movie"
-        const val MOCK_DISCOVER_MOVIE = "mock_discover_movie.json"
+        private const val MOCK_DISCOVER_MOVIE = "mock_discover_movie.json"
     }
 
+    /**
+     * add mock_response.json to mock
+     * comment to use real api
+     */
     @Throws(IllegalAccessError::class)
     override fun intercept(chain: Interceptor.Chain): Response {
         if (BuildConfig.DEBUG) {
             val uri = chain.request().url.toUri().toString()
             val responseString = when {
-                uri.contains(DISCOVER_MOVIE) -> assets.getJsonStringFromFile(MOCK_DISCOVER_MOVIE)
+                uri.contains("default") -> ""
+
+                // mock api
+//                uri.contains(ApiPath.DISCOVER_MOVIE) -> assets.getJsonStringFromFile(MOCK_DISCOVER_MOVIE)
                 else -> null
             }
 

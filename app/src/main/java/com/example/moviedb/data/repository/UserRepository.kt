@@ -4,7 +4,6 @@ import com.example.moviedb.data.model.Movie
 import com.example.moviedb.data.remote.response.GetCastAndCrewResponse
 import com.example.moviedb.data.remote.response.GetMovieListResponse
 import com.example.moviedb.data.remote.response.GetTvListResponse
-import kotlin.Result
 
 interface UserRepository {
 
@@ -14,7 +13,7 @@ interface UserRepository {
 
     suspend fun getCastAndCrew(
         movieId: String
-    ): Result<GetCastAndCrewResponse>
+    ): GetCastAndCrewResponse
 
     suspend fun getTvList3(
         hashMap: HashMap<String, String>

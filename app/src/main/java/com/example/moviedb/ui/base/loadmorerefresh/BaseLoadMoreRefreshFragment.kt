@@ -17,11 +17,8 @@ abstract class BaseLoadMoreRefreshFragment<ViewBinding : ViewDataBinding, ViewMo
     BaseFragment<ViewBinding, ViewModel>() {
 
     override val layoutId: Int = R.layout.fragment_loadmore_refresh
-
     abstract val listAdapter: BaseListAdapter<Item, out ViewDataBinding>
-
     abstract val swipeRefreshLayout: SwipeRefreshLayout?
-
     abstract val recyclerView: RecyclerView?
 
     open fun getLayoutManager(): RecyclerView.LayoutManager =

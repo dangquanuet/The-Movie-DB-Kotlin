@@ -19,7 +19,7 @@ android {
     defaultConfig {
         applicationId = "com.example.moviedb"
         buildToolsVersion("30.0.3")
-        minSdkVersion(17)
+        minSdkVersion(23)
         compileSdkVersion(30)
         targetSdkVersion(30)
         multiDexEnabled = true
@@ -90,15 +90,16 @@ android {
         }
     }
 
-    flavorDimensions("default")
-
+    flavorDimensions("server")
     productFlavors {
         create("dev") {
+            dimension("server")
             applicationIdSuffix = ".dev"
             resValue("string", "app_name", "Movie DB Dev")
             buildConfigField("boolean", "MOCK_DATA", "true")
         }
         create("prd") {
+            dimension("server")
             resValue("string", "app_name", "Movie DB")
             buildConfigField("boolean", "MOCK_DATA", "false")
         }
@@ -123,17 +124,14 @@ android {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
-
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_1_8.toString()
         freeCompilerArgs = listOf("-Xallow-result-return-type")
     }
-
     // https://developer.android.com/topic/libraries/data-binding
     buildFeatures {
         dataBinding = true
     }
-
     androidExtensions {
         isExperimental = true
     }
@@ -143,17 +141,17 @@ dependencies {
     // common
     implementation("androidx.appcompat:appcompat:1.2.0")
     implementation("androidx.legacy:legacy-support-v4:1.0.0")
-    implementation("androidx.constraintlayout:constraintlayout:2.1.0-alpha2")
+    implementation("androidx.constraintlayout:constraintlayout:2.1.0-beta01")
     implementation("androidx.recyclerview:recyclerview:1.1.0")
     implementation("com.google.android.material:material:1.3.0")
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.4.10")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.4.21")
     implementation("androidx.multidex:multidex:2.0.1")
 
     // List of KTX extensions
     // https://developer.android.com/kotlin/ktx/extensions-list
-    implementation("androidx.core:core-ktx:1.5.0-beta01")
-    implementation("androidx.activity:activity-ktx:1.3.0-alpha02")
-    implementation("androidx.fragment:fragment-ktx:1.3.0")
+    implementation("androidx.core:core-ktx:1.5.0-beta03")
+    implementation("androidx.activity:activity-ktx:1.3.0-alpha04")
+    implementation("androidx.fragment:fragment-ktx:1.3.1")
 
     // Lifecycle
     // https://developer.android.com/jetpack/androidx/releases/lifecycle
@@ -164,7 +162,7 @@ dependencies {
 
     // Preferences DataStore
     // https://android-developers.googleblog.com/2020/09/prefer-storing-data-with-jetpack.html
-    implementation("androidx.datastore:datastore-preferences:1.0.0-alpha06")
+    implementation("androidx.datastore:datastore-preferences:1.0.0-alpha08")
 
     // room
     // https://developer.android.com/topic/libraries/architecture/room
@@ -174,13 +172,13 @@ dependencies {
 
     // paging
     // https://developer.android.com/topic/libraries/architecture/paging
-    implementation("androidx.paging:paging-runtime-ktx:3.0.0-beta01")
+    implementation("androidx.paging:paging-runtime-ktx:3.0.0-beta02")
 
     // navigation
     // https://developer.android.com/jetpack/androidx/releases/navigation
-    implementation("androidx.navigation:navigation-runtime-ktx:2.3.3")
-    implementation("androidx.navigation:navigation-fragment-ktx:2.3.3")
-    implementation("androidx.navigation:navigation-ui-ktx:2.3.3")
+    implementation("androidx.navigation:navigation-runtime-ktx:2.3.4")
+    implementation("androidx.navigation:navigation-fragment-ktx:2.3.4")
+    implementation("androidx.navigation:navigation-ui-ktx:2.3.4")
 
     // coroutines
     // https://github.com/Kotlin/kotlinx.coroutines
@@ -196,7 +194,7 @@ dependencies {
     // https://github.com/square/retrofit
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:converter-moshi:2.9.0")
-    implementation("com.squareup.okhttp3:logging-interceptor:4.7.2")
+    implementation("com.squareup.okhttp3:logging-interceptor:4.8.0")
 
     // stetho
     // http://facebook.github.io/stetho/
@@ -209,10 +207,10 @@ dependencies {
     kapt("com.github.bumptech.glide:compiler:4.11.0")
 
     //dagger hilt
-    implementation("com.google.dagger:hilt-android:2.31-alpha")
+    implementation("com.google.dagger:hilt-android:2.33-beta")
     kapt("com.google.dagger:hilt-android-compiler:2.31.2-alpha")
     implementation("androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha03")
-    kapt("androidx.hilt:hilt-compiler:1.0.0-alpha03")
+    kapt("androidx.hilt:hilt-compiler:1.0.0-beta01")
 
     // runtime permission
     // https://github.com/googlesamples/easypermissions
@@ -221,7 +219,7 @@ dependencies {
     // firebase
     // https://firebase.google.com/docs/android/setup
     implementation("com.google.firebase:firebase-analytics:18.0.2")
-    implementation("com.google.firebase:firebase-crashlytics:17.3.1")
+    implementation("com.google.firebase:firebase-crashlytics:17.4.0")
 //    implementation("com.google.firebase:firebase-perf-ktx:19.1.0")
 
     // lottie
@@ -236,13 +234,13 @@ dependencies {
     implementation("androidx.viewpager2:viewpager2:1.0.0")
 
     // unit test
-    testImplementation("junit:junit:4.13")
+    testImplementation("junit:junit:4.13.2")
     testImplementation("org.mockito:mockito-core:3.6.0")
     testImplementation("org.mockito:mockito-inline:3.3.3")
 //    testImplementation("io.mockk:mockk:1.10.2")
     testImplementation("androidx.arch.core:core-testing:2.1.0")
     testImplementation("com.squareup.okhttp3:mockwebserver:4.4.0")
-    testImplementation("org.jetbrains.kotlin:kotlin-stdlib:1.4.30")
+    testImplementation("org.jetbrains.kotlin:kotlin-stdlib:1.4.31")
     testImplementation("org.robolectric:robolectric:4.3")
 
     /**

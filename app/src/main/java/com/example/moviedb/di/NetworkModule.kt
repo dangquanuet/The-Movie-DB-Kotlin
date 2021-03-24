@@ -4,8 +4,7 @@ import android.content.Context
 import android.content.res.AssetManager
 import com.example.moviedb.BuildConfig
 import com.example.moviedb.data.remote.ApiService
-import com.example.moviedb.data.remote.MockApi
-import com.example.moviedb.data.remote.MockInterceptor
+import com.example.moviedb.data.remote.api.MockInterceptor
 import com.example.moviedb.enableLogging
 import com.squareup.moshi.Moshi
 import dagger.Module
@@ -26,7 +25,7 @@ import javax.inject.Singleton
 @Module
 class NetworkModule {
 
-    val TIMEOUT = 10
+    private val TIMEOUT = 10L
 
     @Singleton
     @Provides
@@ -69,17 +68,16 @@ class NetworkModule {
     fun provideOkHttpClient(
         @Named("logging") logging: Interceptor,
         @Named("header") header: Interceptor,
-        @Named("mock") mockInterceptor: MockInterceptor,
-        mock: Mock
+        @Named("mock") mockInterceptor: MockInterceptor
     ): OkHttpClient =
         OkHttpClient.Builder()
-            .connectTimeout(TIMEOUT.toLong(), TimeUnit.SECONDS)
-            .readTimeout(TIMEOUT.toLong(), TimeUnit.SECONDS)
+            .connectTimeout(TIMEOUT, TimeUnit.SECONDS)
+            .readTimeout(TIMEOUT, TimeUnit.SECONDS)
             .addInterceptor(header)
             .addInterceptor(logging)
 //            .addNetworkInterceptor(StethoInterceptor())
             .apply {
-                if (BuildConfig.DEBUG && mock.isMock) addInterceptor(mockInterceptor)
+                if (BuildConfig.DEBUG && BuildConfig.MOCK_DATA) addInterceptor(mockInterceptor)
             }
             .build()
 
@@ -97,17 +95,6 @@ class NetworkModule {
 
     @Singleton
     @Provides
-    fun provideApiService(retrofit: Retrofit, mockApi: MockApi, mock: Mock): ApiService =
-        if (mock.isMock) mockApi
-        else retrofit.create(ApiService::class.java)
-
-    @Singleton
-    @Provides
-    fun provideMock(): Mock = Mock(BuildConfig.MOCK_DATA)
-
-    @Singleton
-    @Provides
-    fun provideMockApi(): MockApi = MockApi()
-
-    class Mock(val isMock: Boolean)
+    fun provideApiService(retrofit: Retrofit): ApiService =
+        retrofit.create(ApiService::class.java)
 }

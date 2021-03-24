@@ -16,7 +16,7 @@ import java.net.UnknownHostException
 open class BaseViewModel : ViewModel() {
 
     // loading flag
-    val isLoading by lazy { MutableLiveData<Boolean>(false) }
+    val isLoading by lazy { MutableLiveData(false) }
 
     // error message
     val errorMessage by lazy { SingleLiveEvent<String>() }
@@ -41,7 +41,7 @@ open class BaseViewModel : ViewModel() {
     /**
      * handle throwable when load fail
      */
-    open fun onError(throwable: Throwable) {
+    protected open fun onError(throwable: Throwable) {
         when (throwable) {
             // case no internet connection
             is UnknownHostException -> {

@@ -64,12 +64,11 @@ class MovieDetailViewModel @Inject constructor(
     fun loadCastAndCrew(movieId: String) {
         if (cast.value != null) return
         viewModelScope.launch {
-            userRepository.getCastAndCrew(movieId)
-                .fold({
-                    cast.value = it.cast
-                }, {
-                    onError(it)
-                })
+            try {
+                cast.value = userRepository.getCastAndCrew(movieId).cast ?: listOf()
+            } catch (e: Throwable) {
+                onError(e)
+            }
         }
     }
 }

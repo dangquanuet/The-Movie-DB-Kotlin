@@ -15,7 +15,6 @@ abstract class BaseActivity<ViewBinding : ViewDataBinding, ViewModel : BaseViewM
     AppCompatActivity() {
 
     protected lateinit var viewBinding: ViewBinding
-
     protected abstract val viewModel: ViewModel
 
     @get:LayoutRes
@@ -23,19 +22,17 @@ abstract class BaseActivity<ViewBinding : ViewDataBinding, ViewModel : BaseViewM
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if (::viewBinding.isInitialized.not()) {
-            viewBinding = DataBindingUtil.setContentView(this, layoutId)
-            viewBinding.apply {
-                setVariable(BR.viewModel, viewModel)
-                root.isClickable = true
-                executePendingBindings()
-            }
+        viewBinding = DataBindingUtil.setContentView(this, layoutId)
+        viewBinding.apply {
+            setVariable(BR.viewModel, viewModel)
+            viewBinding.lifecycleOwner = this@BaseActivity
+            root.isClickable = true
+            executePendingBindings()
         }
-        viewBinding.lifecycleOwner = this
         observeErrorEvent()
     }
 
-    protected fun observeErrorEvent() {
+    private fun observeErrorEvent() {
         viewModel.apply {
             isLoading.observe(this@BaseActivity, {
                 handleLoading(it == true)
@@ -64,15 +61,13 @@ abstract class BaseActivity<ViewBinding : ViewDataBinding, ViewModel : BaseViewM
     /**
      * override this if not use loading dialog (example progress bar)
      */
-    open fun handleLoading(isLoading: Boolean) {
+    protected open fun handleLoading(isLoading: Boolean) {
         if (isLoading) showLoadingDialog() else dismissLLoadingDialog()
     }
 
-    fun handleErrorMessage(message: String?) {
+    protected open fun handleErrorMessage(message: String?) {
         if (message.isNullOrBlank()) return
-
         dismissLLoadingDialog()
-
         showDialog(
             message = message,
             textPositive = getString(R.string.ok)

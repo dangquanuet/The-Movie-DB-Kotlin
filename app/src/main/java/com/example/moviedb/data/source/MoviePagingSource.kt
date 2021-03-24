@@ -1,7 +1,7 @@
 package com.example.moviedb.data.source
 
 import com.example.moviedb.data.model.Movie
-import com.example.moviedb.data.remote.ApiParams
+import com.example.moviedb.data.remote.api.ApiParams
 import com.example.moviedb.data.repository.UserRepository
 
 class MoviePagingSource(

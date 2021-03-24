@@ -3,7 +3,6 @@ package com.example.moviedb.utils
 import android.content.res.ColorStateList
 import android.graphics.drawable.Drawable
 import android.net.Uri
-import android.os.SystemClock
 import android.view.View
 import android.webkit.WebView
 import android.widget.ImageView
@@ -138,11 +137,9 @@ fun View.setClickSafe(listener: View.OnClickListener?) {
         var lastClickTime: Long = 0
 
         override fun onClick(v: View) {
-            if (SystemClock.elapsedRealtime() - lastClickTime < Constants.THRESHOLD_CLICK_TIME) {
-                return
-            }
+            if (System.currentTimeMillis() - lastClickTime < Constants.THRESHOLD_CLICK_TIME) return
             listener?.onClick(v)
-            lastClickTime = SystemClock.elapsedRealtime()
+            lastClickTime = System.currentTimeMillis()
         }
     })
 }
@@ -153,10 +150,8 @@ fun View.setSingleClick(execution: () -> Unit) {
         var lastClickTime: Long = 0
 
         override fun onClick(p0: View?) {
-            if (SystemClock.elapsedRealtime() - lastClickTime < Constants.THRESHOLD_CLICK_TIME) {
-                return
-            }
-            lastClickTime = SystemClock.elapsedRealtime()
+            if (System.currentTimeMillis() - lastClickTime < Constants.THRESHOLD_CLICK_TIME) return
+            lastClickTime = System.currentTimeMillis()
             execution.invoke()
         }
     })

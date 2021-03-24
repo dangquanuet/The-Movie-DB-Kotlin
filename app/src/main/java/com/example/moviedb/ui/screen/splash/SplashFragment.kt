@@ -1,5 +1,7 @@
 package com.example.moviedb.ui.screen.splash
 
+import android.os.Bundle
+import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.example.moviedb.R
@@ -15,11 +17,10 @@ import kotlinx.coroutines.launch
 class SplashFragment : BaseFragment<FragmentSplashBinding, BaseViewModel>() {
 
     override val layoutId: Int = R.layout.fragment_splash
-
     override val viewModel: BaseViewModel by viewModels()
 
-    override fun onStart() {
-        super.onStart()
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         lifecycleScope.launch {
             delay(1000)
             navigateToOther()
@@ -30,6 +31,7 @@ class SplashFragment : BaseFragment<FragmentSplashBinding, BaseViewModel>() {
         getNavController()?.navigate(
             when (1) {
                 0 -> SplashFragmentDirections.toMovieListPager()
+                1 -> SplashFragmentDirections.toPopularMovie()
                 else -> SplashFragmentDirections.toPagingMovie()
             }
         )

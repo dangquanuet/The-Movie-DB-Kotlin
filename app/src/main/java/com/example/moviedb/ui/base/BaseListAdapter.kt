@@ -68,13 +68,6 @@ abstract class BaseListAdapter<Item : Any, ViewBinding : ViewDataBinding>(
             bindView(holder.binding, item, position)
         }
         holder.binding.executePendingBindings()
-
-        holder.itemView.startAnimation(
-            AnimationUtils.loadAnimation(
-                holder.itemView.context,
-                R.anim.fade_in
-            )
-        )
     }
 }
 
@@ -104,13 +97,6 @@ abstract class BasePagingAdapter<Item : Any, ViewBinding : ViewDataBinding>(
             bindView(holder.binding, item, position)
         }
         holder.binding.executePendingBindings()
-
-        holder.itemView.startAnimation(
-            AnimationUtils.loadAnimation(
-                holder.itemView.context,
-                R.anim.fade_in
-            )
-        )
     }
 }
 

@@ -11,8 +11,8 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.moviedb.data.model.Movie
 import com.example.moviedb.databinding.FragmentLoadmoreRefreshBinding
 import com.example.moviedb.ui.base.BaseListAdapter
-import com.example.moviedb.ui.base.loadmorerefresh.BaseLoadMoreRefreshFragment
 import com.example.moviedb.ui.base.getNavController
+import com.example.moviedb.ui.base.loadmorerefresh.BaseLoadMoreRefreshFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -20,16 +20,13 @@ class PopularMovieFragment :
     BaseLoadMoreRefreshFragment<FragmentLoadmoreRefreshBinding, PopularMovieViewModel, Movie>() {
 
     override val viewModel: PopularMovieViewModel by viewModels()
-
     override val listAdapter: BaseListAdapter<Movie, out ViewDataBinding> by lazy {
         PopularMovieAdapter(
             itemClickListener = { toMovieDetail(it) }
         )
     }
-
     override val swipeRefreshLayout: SwipeRefreshLayout
         get() = viewBinding.refreshLayout
-
     override val recyclerView: RecyclerView
         get() = viewBinding.recyclerView
 

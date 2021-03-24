@@ -96,12 +96,12 @@ abstract class BaseLoadMoreRefreshViewModel<Item>() : BaseViewModel() {
     /**
      * override if need change number visible threshold
      */
-    open fun getLoadMoreThreshold() = Constants.DEFAULT_NUM_VISIBLE_THRESHOLD
+    protected open fun getLoadMoreThreshold() = Constants.DEFAULT_NUM_VISIBLE_THRESHOLD
 
     /**
      * override if need change number item per page
      */
-    open fun getNumberItemPerPage() = Constants.DEFAULT_ITEM_PER_PAGE
+    protected open fun getNumberItemPerPage() = Constants.DEFAULT_ITEM_PER_PAGE
 
     /**
      * reset load more
