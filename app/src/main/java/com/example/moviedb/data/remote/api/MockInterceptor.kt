@@ -27,7 +27,20 @@ class MockInterceptor(
             val responseString = when {
                 uri.contains("default") -> ""
 
-                // mock api
+                // mock http code
+                /*uri.contains(ApiPath.DISCOVER_MOVIE) -> return chain.proceed(chain.request())
+                    .newBuilder()
+                    .code(404)
+                    .protocol(Protocol.HTTP_2)
+                    .message("responseString")
+                    .body(
+                        "responseString".toByteArray()
+                            .toResponseBody("application/json".toMediaTypeOrNull())
+                    )
+                    .addHeader("content-type", "application/json")
+                    .build()*/
+
+                // mock api response
 //                uri.contains(ApiPath.DISCOVER_MOVIE) -> assets.getJsonStringFromFile(MOCK_DISCOVER_MOVIE)
                 else -> null
             }

@@ -66,17 +66,21 @@ class NetworkModule {
     @Singleton
     @Provides
     fun provideOkHttpClient(
-        @Named("logging") logging: Interceptor,
         @Named("header") header: Interceptor,
         @Named("mock") mockInterceptor: MockInterceptor
     ): OkHttpClient =
         OkHttpClient.Builder()
             .connectTimeout(TIMEOUT, TimeUnit.SECONDS)
             .readTimeout(TIMEOUT, TimeUnit.SECONDS)
+            .writeTimeout(TIMEOUT, TimeUnit.SECONDS)
             .addInterceptor(header)
-            .addInterceptor(logging)
-//            .addNetworkInterceptor(StethoInterceptor())
             .apply {
+                //            .addNetworkInterceptor(StethoInterceptor())
+                if (enableLogging()) {
+                    val loggingInterceptor = HttpLoggingInterceptor()
+                    loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
+                    addInterceptor(loggingInterceptor)
+                }
                 if (BuildConfig.DEBUG && BuildConfig.MOCK_DATA) addInterceptor(mockInterceptor)
             }
             .build()
