@@ -21,7 +21,7 @@
             app:popUpToInclusive="true" />
         <action
             android:id="@+id/toPagingMovie"
-            app:destination="@id/paging_movie"
+            app:destination="@id/pagingMovie"
             app:popUpTo="@id/splash"
             app:popUpToInclusive="true" />
         <action
@@ -32,17 +32,17 @@
     </fragment>
 
     <fragment
-        android:id="@+id/movie_list_pager"
+        android:id="@+id/movieListPager"
         android:name="com.example.moviedb.ui.screen.movielistpager.MovieListPagerFragment"
         tools:layout="@layout/fragment_movie_list_pager" />
 
     <fragment
-        android:id="@+id/movie_pager"
+        android:id="@+id/moviePager"
         android:name="com.example.moviedb.ui.screen.moviepager.MoviePagerFragment"
         tools:layout="@layout/fragment_movie_pager" />
 
     <fragment
-        android:id="@+id/paging_movie"
+        android:id="@+id/pagingMovie"
         android:name="com.example.moviedb.ui.screen.paging.PagingMovieFragment"
         tools:layout="@layout/fragment_paging" />
 
@@ -55,7 +55,7 @@
 
     <action
         android:id="@+id/toGraphMovieDetail"
-        app:destination="@id/graph_movie_detail"
+        app:destination="@id/graphMovieDetail"
         app:enterAnim="@anim/slide_in_right"
         app:exitAnim="@anim/slide_out_left"
         app:popEnterAnim="@anim/slide_in_left"

@@ -2,24 +2,23 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/graph_favorite"
-    app:startDestination="@+id/favorite_movie">
+    android:id="@+id/graphFavorite"
+    app:startDestination="@+id/favoriteMovie">
 
     <fragment
-        android:id="@+id/favorite_movie"
+        android:id="@+id/favoriteMovie"
         android:name="com.example.moviedb.ui.screen.favoritemovie.FavoriteMovieFragment"
         tools:layout="@layout/fragment_loadmore_refresh" />
 
     <include app:graph="@navigation/graph_movie_detail" />
 
     <action
-        android:id="@+id/to_graph_movie_detail"
-        app:destination="@id/graph_movie_detail"
+        android:id="@+id/toGraphMovieDetail"
+        app:destination="@id/graphMovieDetail"
         app:enterAnim="@anim/slide_in_right"
         app:exitAnim="@anim/slide_out_left"
         app:popEnterAnim="@anim/slide_in_left"
         app:popExitAnim="@anim/slide_out_right">
-
         <argument
             android:name="movie"
             app:argType="com.example.moviedb.data.model.Movie" />

@@ -2,20 +2,18 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/graph_movie_detail"
-    app:startDestination="@id/movie_detail">
+    android:id="@+id/graphMovieDetail"
+    app:startDestination="@id/movieDetail">
 
     <fragment
-        android:id="@+id/movie_detail"
+        android:id="@+id/movieDetail"
         android:name="com.example.moviedb.ui.screen.moviedetail.MovieDetailFragment"
         tools:layout="@layout/fragment_movie_detail">
-
         <argument
             android:name="movie"
             app:argType="com.example.moviedb.data.model.Movie" />
-
         <action
-            android:id="@+id/to_image"
+            android:id="@+id/toImage"
             app:destination="@id/image" />
     </fragment>
 
@@ -23,11 +21,9 @@
         android:id="@+id/image"
         android:name="com.example.moviedb.ui.screen.image.ImageFragment"
         tools:layout="@layout/fragment_image">
-
         <argument
             android:name="imageUrl"
             app:argType="string" />
-
     </fragment>
 
 </navigation>

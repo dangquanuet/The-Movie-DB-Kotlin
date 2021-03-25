@@ -2,32 +2,29 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/graph_popular"
-    app:startDestination="@+id/popular_movie">
+    android:id="@+id/graphPopular"
+    app:startDestination="@+id/popularMovie">
 
     <fragment
-        android:id="@+id/popular_movie"
+        android:id="@+id/popularMovie"
         android:name="com.example.moviedb.ui.screen.popularmovie.PopularMovieFragment"
         tools:layout="@layout/fragment_loadmore_refresh">
-
         <argument
             android:name="type"
             android:defaultValue="@null"
             app:argType="java.lang.Integer"
             app:nullable="true" />
-
     </fragment>
 
     <include app:graph="@navigation/graph_movie_detail" />
 
     <action
-        android:id="@+id/to_graph_movie_detail"
-        app:destination="@id/graph_movie_detail"
+        android:id="@+id/toGraphMovieDetail"
+        app:destination="@id/graphMovieDetail"
         app:enterAnim="@anim/slide_in_right"
         app:exitAnim="@anim/slide_out_left"
         app:popEnterAnim="@anim/slide_in_left"
         app:popExitAnim="@anim/slide_out_right">
-
         <argument
             android:name="movie"
             app:argType="com.example.moviedb.data.model.Movie" />
