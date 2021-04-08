@@ -11,7 +11,6 @@ plugins {
     id("com.google.firebase.crashlytics")
     id("com.google.gms.google-services")
     id("dagger.hilt.android.plugin")
-//    id("com.google.firebase.firebase-perf")
     jacoco
 }
 
@@ -111,7 +110,6 @@ android {
         buildConfigField("String", "LARGE_IMAGE_URL", "\"https://image.tmdb.org/t/p/w500\"")
         buildConfigField("String", "ORIGINAL_IMAGE_URL", "\"https://image.tmdb.org/t/p/original\"")
         buildConfigField("String", "TMBD_API_KEY", "\"2cdf3a5c7cf412421485f89ace91e373\"")
-
         when (flavorName) {
             "dev" -> {
             }
@@ -139,23 +137,23 @@ dependencies {
     implementation("androidx.appcompat:appcompat:1.2.0")
     implementation("androidx.legacy:legacy-support-v4:1.0.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.0-beta01")
-    implementation("androidx.recyclerview:recyclerview:1.1.0")
+    implementation("androidx.recyclerview:recyclerview:1.2.0")
     implementation("com.google.android.material:material:1.3.0")
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.4.21")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.4.31")
     implementation("androidx.multidex:multidex:2.0.1")
 
     // List of KTX extensions
     // https://developer.android.com/kotlin/ktx/extensions-list
-    implementation("androidx.core:core-ktx:1.5.0-beta03")
-    implementation("androidx.activity:activity-ktx:1.3.0-alpha04")
-    implementation("androidx.fragment:fragment-ktx:1.3.1")
+    implementation("androidx.core:core-ktx:1.6.0-alpha01")
+    implementation("androidx.activity:activity-ktx:1.3.0-alpha06")
+    implementation("androidx.fragment:fragment-ktx:1.3.2")
 
     // Lifecycle
     // https://developer.android.com/jetpack/androidx/releases/lifecycle
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.0")
-    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.3.0")
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.3.0")
-    implementation("androidx.lifecycle:lifecycle-common-java8:2.3.0")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1")
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.3.1")
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.3.1")
+    implementation("androidx.lifecycle:lifecycle-common-java8:2.3.1")
 
     // Preferences DataStore
     // https://android-developers.googleblog.com/2020/09/prefer-storing-data-with-jetpack.html
@@ -169,13 +167,13 @@ dependencies {
 
     // paging
     // https://developer.android.com/topic/libraries/architecture/paging
-    implementation("androidx.paging:paging-runtime-ktx:3.0.0-beta02")
+    implementation("androidx.paging:paging-runtime-ktx:3.0.0-beta03")
 
     // navigation
     // https://developer.android.com/jetpack/androidx/releases/navigation
-    implementation("androidx.navigation:navigation-runtime-ktx:2.3.4")
-    implementation("androidx.navigation:navigation-fragment-ktx:2.3.4")
-    implementation("androidx.navigation:navigation-ui-ktx:2.3.4")
+    implementation("androidx.navigation:navigation-runtime-ktx:2.3.5")
+    implementation("androidx.navigation:navigation-fragment-ktx:2.3.5")
+    implementation("androidx.navigation:navigation-ui-ktx:2.3.5")
 
     // coroutines
     // https://github.com/Kotlin/kotlinx.coroutines
@@ -216,8 +214,7 @@ dependencies {
     // firebase
     // https://firebase.google.com/docs/android/setup
     implementation("com.google.firebase:firebase-analytics:18.0.2")
-    implementation("com.google.firebase:firebase-crashlytics:17.4.0")
-//    implementation("com.google.firebase:firebase-perf-ktx:19.1.0")
+    implementation("com.google.firebase:firebase-crashlytics:17.4.1")
 
     // lottie
     // https://github.com/airbnb/lottie-android
@@ -237,7 +234,7 @@ dependencies {
 //    testImplementation("io.mockk:mockk:1.10.2")
     testImplementation("androidx.arch.core:core-testing:2.1.0")
     testImplementation("com.squareup.okhttp3:mockwebserver:4.4.0")
-    testImplementation("org.jetbrains.kotlin:kotlin-stdlib:1.4.31")
+    testImplementation("org.jetbrains.kotlin:kotlin-stdlib:1.4.32")
     testImplementation("org.robolectric:robolectric:4.3")
 
     /**
@@ -332,7 +329,6 @@ dependencies {
     // https://firebase.google.com/docs/android/setup
     implementation(Libs.firebaseAnalytics)
     implementation(Libs.firebaseCrashlytics)
-    implementation(Libs.firebasePerformance)
 
     // lottie
     // https://github.com/airbnb/lottie-android
