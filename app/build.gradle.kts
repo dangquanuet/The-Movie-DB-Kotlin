@@ -144,9 +144,9 @@ dependencies {
 
     // List of KTX extensions
     // https://developer.android.com/kotlin/ktx/extensions-list
-    implementation("androidx.core:core-ktx:1.6.0-alpha01")
-    implementation("androidx.activity:activity-ktx:1.3.0-alpha06")
-    implementation("androidx.fragment:fragment-ktx:1.3.2")
+    implementation("androidx.core:core-ktx:1.6.0-alpha02")
+    implementation("androidx.activity:activity-ktx:1.3.0-alpha07")
+    implementation("androidx.fragment:fragment-ktx:1.3.3")
 
     // Lifecycle
     // https://developer.android.com/jetpack/androidx/releases/lifecycle
@@ -157,17 +157,17 @@ dependencies {
 
     // Preferences DataStore
     // https://android-developers.googleblog.com/2020/09/prefer-storing-data-with-jetpack.html
-    implementation("androidx.datastore:datastore-preferences:1.0.0-alpha08")
+    implementation("androidx.datastore:datastore-preferences:1.0.0-beta01")
 
     // room
     // https://developer.android.com/topic/libraries/architecture/room
-    implementation("androidx.room:room-runtime:2.2.6")
-    kapt("androidx.room:room-compiler:2.2.6")
-    implementation("androidx.room:room-ktx:2.2.6")
+    implementation("androidx.room:room-runtime:2.3.0")
+    kapt("androidx.room:room-compiler:2.3.0")
+    implementation("androidx.room:room-ktx:2.3.0")
 
     // paging
     // https://developer.android.com/topic/libraries/architecture/paging
-    implementation("androidx.paging:paging-runtime-ktx:3.0.0-beta03")
+    implementation("androidx.paging:paging-runtime-ktx:3.0.0-rc01")
 
     // navigation
     // https://developer.android.com/jetpack/androidx/releases/navigation
@@ -177,8 +177,8 @@ dependencies {
 
     // coroutines
     // https://github.com/Kotlin/kotlinx.coroutines
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.1")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.1")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.3")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.3")
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.3.9")
 
     // moshi
@@ -213,7 +213,7 @@ dependencies {
 
     // firebase
     // https://firebase.google.com/docs/android/setup
-    implementation("com.google.firebase:firebase-analytics:18.0.2")
+    implementation("com.google.firebase:firebase-analytics:18.0.3")
     implementation("com.google.firebase:firebase-crashlytics:17.4.1")
 
     // lottie
