@@ -136,7 +136,7 @@ dependencies {
     // common
     implementation("androidx.appcompat:appcompat:1.2.0")
     implementation("androidx.legacy:legacy-support-v4:1.0.0")
-    implementation("androidx.constraintlayout:constraintlayout:2.1.0-beta01")
+    implementation("androidx.constraintlayout:constraintlayout:2.1.0-beta02")
     implementation("androidx.recyclerview:recyclerview:1.2.0")
     implementation("com.google.android.material:material:1.3.0")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.4.31")
@@ -202,8 +202,8 @@ dependencies {
     kapt("com.github.bumptech.glide:compiler:4.11.0")
 
     //dagger hilt
-    implementation("com.google.dagger:hilt-android:2.33-beta")
-    kapt("com.google.dagger:hilt-android-compiler:2.31.2-alpha")
+    implementation("com.google.dagger:hilt-android:2.35")
+    kapt("com.google.dagger:hilt-android-compiler:2.35.1")
     implementation("androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha03")
     kapt("androidx.hilt:hilt-compiler:1.0.0-beta01")
 
@@ -230,12 +230,12 @@ dependencies {
     // unit test
     testImplementation("junit:junit:4.13.2")
     testImplementation("org.mockito:mockito-core:3.6.0")
-    testImplementation("org.mockito:mockito-inline:3.3.3")
-//    testImplementation("io.mockk:mockk:1.10.2")
+//    testImplementation("org.mockito:mockito-inline:3.3.3")
+    testImplementation("io.mockk:mockk:1.10.2")
     testImplementation("androidx.arch.core:core-testing:2.1.0")
     testImplementation("com.squareup.okhttp3:mockwebserver:4.4.0")
     testImplementation("org.jetbrains.kotlin:kotlin-stdlib:1.4.32")
-    testImplementation("org.robolectric:robolectric:4.3")
+//    testImplementation("org.robolectric:robolectric:4.3")
 
     /**
      * for buildSrc
