@@ -1,6 +1,7 @@
 import java.io.FileInputStream
 import java.text.SimpleDateFormat
 import java.util.*
+import com.google.firebase.crashlytics.buildtools.gradle.CrashlyticsExtension
 
 plugins {
     id("com.android.application")
@@ -8,8 +9,8 @@ plugins {
     id("kotlin-parcelize")
     id("kotlin-kapt")
     id("androidx.navigation.safeargs.kotlin")
-    id("com.google.firebase.crashlytics")
     id("com.google.gms.google-services")
+    id("com.google.firebase.crashlytics")
     id("dagger.hilt.android.plugin")
     jacoco
 }
@@ -62,7 +63,7 @@ android {
             isDebuggable = true
             isMinifyEnabled = false
             isShrinkResources = false
-            firebaseCrashlytics {
+            configure<CrashlyticsExtension> {
                 mappingFileUploadEnabled = false
             }
             signingConfig = signingConfigs.getByName("debug-key")
@@ -71,7 +72,7 @@ android {
             isDebuggable = true
             isMinifyEnabled = true
             isShrinkResources = true
-            firebaseCrashlytics {
+            configure<CrashlyticsExtension> {
                 mappingFileUploadEnabled = true
             }
             proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
@@ -81,7 +82,7 @@ android {
             isDebuggable = false
             isMinifyEnabled = true
             isShrinkResources = true
-            firebaseCrashlytics {
+            configure<CrashlyticsExtension> {
                 mappingFileUploadEnabled = true
             }
             proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
@@ -134,19 +135,19 @@ android {
 
 dependencies {
     // common
-    implementation("androidx.appcompat:appcompat:1.2.0")
+    implementation("androidx.appcompat:appcompat:1.3.0")
     implementation("androidx.legacy:legacy-support-v4:1.0.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.0-beta02")
-    implementation("androidx.recyclerview:recyclerview:1.2.0")
-    implementation("com.google.android.material:material:1.3.0")
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.4.31")
+    implementation("androidx.recyclerview:recyclerview:1.2.1")
+    implementation("com.google.android.material:material:1.4.0")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.5.10")
     implementation("androidx.multidex:multidex:2.0.1")
 
     // List of KTX extensions
     // https://developer.android.com/kotlin/ktx/extensions-list
-    implementation("androidx.core:core-ktx:1.6.0-alpha02")
-    implementation("androidx.activity:activity-ktx:1.3.0-alpha07")
-    implementation("androidx.fragment:fragment-ktx:1.3.3")
+    implementation("androidx.core:core-ktx:1.7.0-alpha01")
+    implementation("androidx.activity:activity-ktx:1.3.0-rc02")
+    implementation("androidx.fragment:fragment-ktx:1.3.5")
 
     // Lifecycle
     // https://developer.android.com/jetpack/androidx/releases/lifecycle
@@ -157,7 +158,7 @@ dependencies {
 
     // Preferences DataStore
     // https://android-developers.googleblog.com/2020/09/prefer-storing-data-with-jetpack.html
-    implementation("androidx.datastore:datastore-preferences:1.0.0-beta01")
+    implementation("androidx.datastore:datastore-preferences:1.0.0-rc01")
 
     // room
     // https://developer.android.com/topic/libraries/architecture/room
@@ -167,7 +168,7 @@ dependencies {
 
     // paging
     // https://developer.android.com/topic/libraries/architecture/paging
-    implementation("androidx.paging:paging-runtime-ktx:3.0.0-rc01")
+    implementation("androidx.paging:paging-runtime-ktx:3.1.0-alpha02")
 
     // navigation
     // https://developer.android.com/jetpack/androidx/releases/navigation
@@ -177,13 +178,13 @@ dependencies {
 
     // coroutines
     // https://github.com/Kotlin/kotlinx.coroutines
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.3")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.3")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.0")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.0")
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.3.9")
 
     // moshi
-    implementation("com.squareup.moshi:moshi-kotlin:1.11.0")
-    kapt("com.squareup.moshi:moshi-kotlin-codegen:1.11.0")
+    implementation("com.squareup.moshi:moshi-kotlin:1.12.0")
+    kapt("com.squareup.moshi:moshi-kotlin-codegen:1.12.0")
 
     // retrofit
     // https://github.com/square/retrofit
@@ -193,19 +194,19 @@ dependencies {
 
     // stetho
     // http://facebook.github.io/stetho/
-//    implementation("com.facebook.stetho:stetho:1.5.1")
-//    implementation("com.facebook.stetho:stetho-okhttp3:1.5.1")
+    implementation("com.facebook.stetho:stetho:1.5.1")
+    implementation("com.facebook.stetho:stetho-okhttp3:1.5.1")
 
     // glide
     // https://github.com/bumptech/glide
-    implementation("com.github.bumptech.glide:glide:4.11.0")
-    kapt("com.github.bumptech.glide:compiler:4.11.0")
+    implementation("com.github.bumptech.glide:glide:4.12.0")
+    kapt("com.github.bumptech.glide:compiler:4.12.0")
 
     //dagger hilt
     implementation("com.google.dagger:hilt-android:2.35")
     kapt("com.google.dagger:hilt-android-compiler:2.35.1")
     implementation("androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha03")
-    kapt("androidx.hilt:hilt-compiler:1.0.0-beta01")
+    kapt("androidx.hilt:hilt-compiler:1.0.0")
 
     // runtime permission
     // https://github.com/googlesamples/easypermissions
@@ -213,8 +214,8 @@ dependencies {
 
     // firebase
     // https://firebase.google.com/docs/android/setup
-    implementation("com.google.firebase:firebase-analytics:18.0.3")
-    implementation("com.google.firebase:firebase-crashlytics:17.4.1")
+    implementation("com.google.firebase:firebase-analytics:19.0.0")
+    implementation("com.google.firebase:firebase-crashlytics:18.1.0")
 
     // lottie
     // https://github.com/airbnb/lottie-android
@@ -229,12 +230,12 @@ dependencies {
 
     // unit test
     testImplementation("junit:junit:4.13.2")
-    testImplementation("org.mockito:mockito-core:3.6.0")
+    testImplementation("org.mockito:mockito-core:3.11.1")
 //    testImplementation("org.mockito:mockito-inline:3.3.3")
     testImplementation("io.mockk:mockk:1.10.2")
     testImplementation("androidx.arch.core:core-testing:2.1.0")
-    testImplementation("com.squareup.okhttp3:mockwebserver:4.4.0")
-    testImplementation("org.jetbrains.kotlin:kotlin-stdlib:1.4.32")
+    testImplementation("com.squareup.okhttp3:mockwebserver:5.0.0-alpha.2")
+    testImplementation("org.jetbrains.kotlin:kotlin-stdlib:1.5.10")
 //    testImplementation("org.robolectric:robolectric:4.3")
 
     /**
