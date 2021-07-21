@@ -6,11 +6,14 @@ import com.example.moviedb.BuildConfig
 import com.example.moviedb.data.remote.ApiService
 import com.example.moviedb.data.remote.api.MockInterceptor
 import com.example.moviedb.enableLogging
+import com.facebook.stetho.okhttp3.StethoInterceptor
+import com.localebro.okhttpprofiler.OkHttpProfilerInterceptor
 import com.squareup.moshi.Moshi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import okhttp3.Authenticator
 import okhttp3.Cache
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -66,21 +69,21 @@ class NetworkModule {
     @Singleton
     @Provides
     fun provideOkHttpClient(
+        @Named("logging") logging: Interceptor,
         @Named("header") header: Interceptor,
+//        authenticator: Authenticator,
         @Named("mock") mockInterceptor: MockInterceptor
     ): OkHttpClient =
         OkHttpClient.Builder()
             .connectTimeout(TIMEOUT, TimeUnit.SECONDS)
             .readTimeout(TIMEOUT, TimeUnit.SECONDS)
             .writeTimeout(TIMEOUT, TimeUnit.SECONDS)
-            .addInterceptor(header)
             .apply {
-                //            .addNetworkInterceptor(StethoInterceptor())
-                if (enableLogging()) {
-                    val loggingInterceptor = HttpLoggingInterceptor()
-                    loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
-                    addInterceptor(loggingInterceptor)
-                }
+                addInterceptor(logging)
+                if (BuildConfig.DEBUG) addNetworkInterceptor(StethoInterceptor())
+                if (BuildConfig.DEBUG) addInterceptor(OkHttpProfilerInterceptor())
+                addInterceptor(header)
+//                authenticator(authenticator)
                 if (BuildConfig.DEBUG && BuildConfig.MOCK_DATA) addInterceptor(mockInterceptor)
             }
             .build()

@@ -29,6 +29,7 @@
         <activity
             android:name="com.example.moviedb.ui.screen.main.MainActivity"
             android:configChanges="orientation|screenSize"
+            android:exported="true"
             android:theme="@style/Theme.MyApplication.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -38,7 +39,9 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".ui.screen.permission.PermissionActivity">
+        <activity
+            android:name=".ui.screen.permission.PermissionActivity"
+            android:exported="false">
             <!--<intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />

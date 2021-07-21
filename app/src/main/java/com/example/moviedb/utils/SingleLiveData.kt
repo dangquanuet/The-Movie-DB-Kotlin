@@ -10,7 +10,7 @@ import java.util.concurrent.atomic.AtomicBoolean
  * Description: Custom mutable live data that used for single event
  *              such as navigation (for configuration change), show toast..
  */
-class SingleLiveEvent<T> : MutableLiveData<T>() {
+class SingleLiveData<T> : MutableLiveData<T>() {
 
     private val pending = AtomicBoolean(false)
 

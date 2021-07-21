@@ -4,7 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.moviedb.data.remote.toBaseException
-import com.example.moviedb.utils.SingleLiveEvent
+import com.example.moviedb.utils.SingleLiveData
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.plus
@@ -19,14 +19,14 @@ open class BaseViewModel : ViewModel() {
     val isLoading by lazy { MutableLiveData(false) }
 
     // error message
-    val errorMessage by lazy { SingleLiveEvent<String>() }
+    val errorMessage by lazy { SingleLiveData<String>() }
 
     // optional flags
-    val noInternetConnectionEvent by lazy { SingleLiveEvent<Unit>() }
-    val connectTimeoutEvent by lazy { SingleLiveEvent<Unit>() }
-    val forceUpdateAppEvent by lazy { SingleLiveEvent<Unit>() }
-    val serverMaintainEvent by lazy { SingleLiveEvent<Unit>() }
-    val unknownErrorEvent by lazy { SingleLiveEvent<Unit>() }
+    val noInternetConnectionEvent by lazy { SingleLiveData<Unit>() }
+    val connectTimeoutEvent by lazy { SingleLiveData<Unit>() }
+    val forceUpdateAppEvent by lazy { SingleLiveData<Unit>() }
+    val serverMaintainEvent by lazy { SingleLiveData<Unit>() }
+    val unknownErrorEvent by lazy { SingleLiveData<Unit>() }
 
     // exception handler for coroutine
     private val exceptionHandler by lazy {

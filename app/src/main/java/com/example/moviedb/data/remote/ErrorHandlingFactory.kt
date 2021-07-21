@@ -1,9 +1,9 @@
 package com.example.moviedb.data.remote
 
-import com.example.moviedb.utils.safeLog
 import com.squareup.moshi.Moshi
 import retrofit2.HttpException
 import retrofit2.Response
+import timber.log.Timber
 import java.io.IOException
 
 /*
@@ -102,7 +102,7 @@ fun Throwable.toBaseException(): BaseException {
             val serverErrorResponseBody = try {
                 response.errorBody()?.string() ?: ""
             } catch (e: Exception) {
-                e.safeLog()
+                Timber.e(e)
                 ""
             }
 
@@ -111,7 +111,7 @@ fun Throwable.toBaseException(): BaseException {
                     Moshi.Builder().build().adapter(ServerErrorResponse::class.java)
                         .fromJson(serverErrorResponseBody)
                 } catch (e: Exception) {
-                    e.safeLog()
+                    Timber.e(e)
                     ServerErrorResponse()
                 }
 

@@ -4,7 +4,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.moviedb.data.constants.Constants
-import com.example.moviedb.utils.safeLog
+import timber.log.Timber
 
 abstract class EndlessRecyclerOnScrollListener(
     threshold: Int = Constants.DEFAULT_NUM_VISIBLE_THRESHOLD
@@ -34,7 +34,7 @@ abstract class EndlessRecyclerOnScrollListener(
                 firstVisibleItem = layoutManager.findFirstVisibleItemPosition()
             }
             else -> {
-                Exception("Unsupported LayoutManage").safeLog()
+                Timber.e("Unsupported LayoutManage")
             }
         }
 

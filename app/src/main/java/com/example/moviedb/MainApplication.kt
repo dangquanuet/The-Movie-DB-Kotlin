@@ -6,6 +6,7 @@ import android.os.Looper
 import android.widget.Toast
 import androidx.multidex.MultiDex
 import com.example.moviedb.ui.screen.main.MainActivity
+import com.facebook.stetho.Stetho
 import dagger.hilt.android.HiltAndroidApp
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
@@ -30,9 +31,9 @@ class MainApplication : Application() {
             Timber.plant(Timber.DebugTree())
 
             // init stetho
-//            Stetho.initializeWithDefaults(this)
+            Stetho.initializeWithDefaults(this)
         } else {
-            handleUncaughtException()
+//            handleUncaughtException()
         }
     }
 

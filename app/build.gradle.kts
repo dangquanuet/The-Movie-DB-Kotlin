@@ -20,8 +20,8 @@ android {
         applicationId = "com.example.moviedb"
         buildToolsVersion("30.0.3")
         minSdkVersion(23)
-        compileSdkVersion(30)
-        targetSdkVersion(30)
+        compileSdkVersion(31)
+        targetSdkVersion(31)
         multiDexEnabled = true
         vectorDrawables {
             useSupportLibrary = true
@@ -191,6 +191,10 @@ dependencies {
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:converter-moshi:2.9.0")
     implementation("com.squareup.okhttp3:logging-interceptor:4.8.0")
+
+    // OkHttpProfiler
+    // https://github.com/itkacher/OkHttpProfiler
+    implementation("com.localebro:okhttpprofiler:1.0.8")
 
     // stetho
     // http://facebook.github.io/stetho/

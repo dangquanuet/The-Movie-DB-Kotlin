@@ -1,5 +1,6 @@
 package com.example.moviedb.utils
 
+import timber.log.Timber
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -16,7 +17,7 @@ fun String.toDate(
     return try {
         SimpleDateFormat(format, locale).parse(this)
     } catch (e: Exception) {
-        e.safeLog()
+        Timber.e(e)
         null
     }
 }
@@ -42,7 +43,7 @@ fun Long.toTimeString(
     return try {
         SimpleDateFormat(format, locale).format(Date(this))
     } catch (e: Exception) {
-        e.safeLog()
+        Timber.e(e)
         null
     }
 }
@@ -64,7 +65,7 @@ fun String.changeTimeFormat(
         if (date != null) simpleDateFormat.format(date)
         else null
     } catch (e: Exception) {
-        e.safeLog()
+        Timber.e(e)
         null
     }
 }
@@ -79,7 +80,7 @@ fun Date.toTimeString(format: String, locale: Locale = Locale.getDefault()): Str
     else try {
         SimpleDateFormat(format, locale).format(this)
     } catch (e: Exception) {
-        e.safeLog()
+        Timber.e(e)
         null
     }
 }

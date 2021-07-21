@@ -22,10 +22,6 @@ import java.io.IOException
 
 // ## View
 
-fun Exception.safeLog() {
-    if (enableLogging()) printStackTrace()
-}
-
 /**
  * Extension method to provide simpler access to {@link View#getResources()#getString(int)}.
  */
