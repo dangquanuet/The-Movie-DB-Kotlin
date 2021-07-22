@@ -1,11 +1,11 @@
 package com.example.moviedb.ui.screen.moviedetail
 
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.moviedb.data.model.Cast
 import com.example.moviedb.data.model.Movie
 import com.example.moviedb.data.repository.UserRepository
 import com.example.moviedb.ui.base.BaseViewModel
+import com.example.moviedb.utils.SingleLiveData
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -17,9 +17,8 @@ class MovieDetailViewModel @Inject constructor(
     private val userRepository: UserRepository
 ) : BaseViewModel() {
 
-    val movie = MutableLiveData<Movie>()
-    val cast = MutableLiveData<List<Cast>>()
-    private val favoriteChanged = MutableLiveData<Boolean>().apply { value = false }
+    val movie = SingleLiveData<Movie>()
+    val cast = SingleLiveData<List<Cast>>()
 
     fun checkFavorite(id: String) {
         viewModelScope.launch {
@@ -44,8 +43,6 @@ class MovieDetailViewModel @Inject constructor(
         val newMovie = movie.value
         newMovie?.isFavorite = movie.value?.isFavorite != true
         movie.value = newMovie
-
-        favoriteChanged.value = true
 
         newMovie?.let {
             viewModelScope.launch {

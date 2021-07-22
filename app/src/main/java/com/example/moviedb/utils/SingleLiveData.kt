@@ -9,6 +9,7 @@ import java.util.concurrent.atomic.AtomicBoolean
  * https://medium.com/androiddevelopers/livedata-with-snackbar-navigation-and-other-events-the-singleliveevent-case-ac2622673150
  * Description: Custom mutable live data that used for single event
  *              such as navigation (for configuration change), show toast..
+ * NOTE: can has only 1 observer
  */
 class SingleLiveData<T> : MutableLiveData<T>() {
 

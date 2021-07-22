@@ -1,6 +1,5 @@
 package com.example.moviedb.ui.base
 
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.moviedb.data.remote.toBaseException
@@ -16,7 +15,7 @@ import java.net.UnknownHostException
 open class BaseViewModel : ViewModel() {
 
     // loading flag
-    val isLoading by lazy { MutableLiveData(false) }
+    val isLoading by lazy { SingleLiveData<Boolean>().apply { value = false } }
 
     // error message
     val errorMessage by lazy { SingleLiveData<String>() }
