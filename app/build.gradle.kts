@@ -1,7 +1,7 @@
+import com.google.firebase.crashlytics.buildtools.gradle.CrashlyticsExtension
 import java.io.FileInputStream
 import java.text.SimpleDateFormat
 import java.util.*
-import com.google.firebase.crashlytics.buildtools.gradle.CrashlyticsExtension
 
 plugins {
     id("com.android.application")
@@ -18,10 +18,10 @@ plugins {
 android {
     defaultConfig {
         applicationId = "com.example.moviedb"
-        buildToolsVersion("30.0.3")
-        minSdkVersion(23)
-        compileSdkVersion(31)
-        targetSdkVersion(31)
+        buildToolsVersion = "30.0.3"
+        minSdk = 23
+        compileSdk = 31
+        targetSdk = 31
         multiDexEnabled = true
         vectorDrawables {
             useSupportLibrary = true
@@ -93,13 +93,13 @@ android {
     flavorDimensions("server")
     productFlavors {
         create("dev") {
-            dimension("server")
+//            dimension("server")
             applicationIdSuffix = ".dev"
             resValue("string", "app_name", "Movie DB Dev")
             buildConfigField("boolean", "MOCK_DATA", "true")
         }
         create("prd") {
-            dimension("server")
+//            dimension("server")
             resValue("string", "app_name", "Movie DB")
             buildConfigField("boolean", "MOCK_DATA", "false")
         }
@@ -120,11 +120,11 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility(JavaVersion.VERSION_11)
+        targetCompatibility(JavaVersion.VERSION_11)
     }
     kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_1_8.toString()
+        jvmTarget = "11"
         freeCompilerArgs = listOf("-Xallow-result-return-type")
     }
     // https://developer.android.com/topic/libraries/data-binding
@@ -135,9 +135,9 @@ android {
 
 dependencies {
     // common
-    implementation("androidx.appcompat:appcompat:1.3.0")
+    implementation("androidx.appcompat:appcompat:1.3.1")
     implementation("androidx.legacy:legacy-support-v4:1.0.0")
-    implementation("androidx.constraintlayout:constraintlayout:2.1.0-beta02")
+    implementation("androidx.constraintlayout:constraintlayout:2.1.0-rc01")
     implementation("androidx.recyclerview:recyclerview:1.2.1")
     implementation("com.google.android.material:material:1.4.0")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.5.10")
@@ -146,8 +146,8 @@ dependencies {
     // List of KTX extensions
     // https://developer.android.com/kotlin/ktx/extensions-list
     implementation("androidx.core:core-ktx:1.7.0-alpha01")
-    implementation("androidx.activity:activity-ktx:1.3.0-rc02")
-    implementation("androidx.fragment:fragment-ktx:1.3.5")
+    implementation("androidx.activity:activity-ktx:1.3.0")
+    implementation("androidx.fragment:fragment-ktx:1.3.6")
 
     // Lifecycle
     // https://developer.android.com/jetpack/androidx/releases/lifecycle
@@ -158,7 +158,7 @@ dependencies {
 
     // Preferences DataStore
     // https://android-developers.googleblog.com/2020/09/prefer-storing-data-with-jetpack.html
-    implementation("androidx.datastore:datastore-preferences:1.0.0-rc01")
+    implementation("androidx.datastore:datastore-preferences:1.0.0-rc02")
 
     // room
     // https://developer.android.com/topic/libraries/architecture/room
@@ -168,7 +168,7 @@ dependencies {
 
     // paging
     // https://developer.android.com/topic/libraries/architecture/paging
-    implementation("androidx.paging:paging-runtime-ktx:3.1.0-alpha02")
+    implementation("androidx.paging:paging-runtime-ktx:3.1.0-alpha03")
 
     // navigation
     // https://developer.android.com/jetpack/androidx/releases/navigation
@@ -219,7 +219,7 @@ dependencies {
     // firebase
     // https://firebase.google.com/docs/android/setup
     implementation("com.google.firebase:firebase-analytics:19.0.0")
-    implementation("com.google.firebase:firebase-crashlytics:18.1.0")
+    implementation("com.google.firebase:firebase-crashlytics:18.2.0")
 
     // lottie
     // https://github.com/airbnb/lottie-android
