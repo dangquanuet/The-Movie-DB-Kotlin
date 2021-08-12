@@ -55,7 +55,7 @@ class TestSpyMock {
         assertEquals(text, spyList[100])
     }
 
-    @Test
+    /*@Test
     fun `test student`() {
         val student = spy<Student>()
 
@@ -67,5 +67,5 @@ class TestSpyMock {
         // This let's you check that no other methods where called on this object.
         // You call it after you have verified the expected method calls.
         verifyNoMoreInteractions(student)
-    }
+    }*/
 }

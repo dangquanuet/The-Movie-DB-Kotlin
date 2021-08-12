@@ -90,7 +90,7 @@ android {
         }
     }
 
-    flavorDimensions("server")
+    flavorDimensions.addAll(listOf("server"))
     productFlavors {
         create("dev") {
 //            dimension("server")
@@ -137,16 +137,17 @@ dependencies {
     // common
     implementation("androidx.appcompat:appcompat:1.3.1")
     implementation("androidx.legacy:legacy-support-v4:1.0.0")
-    implementation("androidx.constraintlayout:constraintlayout:2.1.0-rc01")
+    implementation("androidx.constraintlayout:constraintlayout:2.1.0")
     implementation("androidx.recyclerview:recyclerview:1.2.1")
     implementation("com.google.android.material:material:1.4.0")
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.5.10")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.5.21")
+    implementation("org.jetbrains.kotlin:kotlin-reflect:1.5.21")
     implementation("androidx.multidex:multidex:2.0.1")
 
     // List of KTX extensions
     // https://developer.android.com/kotlin/ktx/extensions-list
     implementation("androidx.core:core-ktx:1.7.0-alpha01")
-    implementation("androidx.activity:activity-ktx:1.3.0")
+    implementation("androidx.activity:activity-ktx:1.3.1")
     implementation("androidx.fragment:fragment-ktx:1.3.6")
 
     // Lifecycle
@@ -158,7 +159,7 @@ dependencies {
 
     // Preferences DataStore
     // https://android-developers.googleblog.com/2020/09/prefer-storing-data-with-jetpack.html
-    implementation("androidx.datastore:datastore-preferences:1.0.0-rc02")
+    implementation("androidx.datastore:datastore-preferences:1.0.0")
 
     // room
     // https://developer.android.com/topic/libraries/architecture/room
@@ -180,7 +181,7 @@ dependencies {
     // https://github.com/Kotlin/kotlinx.coroutines
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.0")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.0")
-    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.3.9")
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.5.0")
 
     // moshi
     implementation("com.squareup.moshi:moshi-kotlin:1.12.0")
@@ -219,7 +220,7 @@ dependencies {
     // firebase
     // https://firebase.google.com/docs/android/setup
     implementation("com.google.firebase:firebase-analytics:19.0.0")
-    implementation("com.google.firebase:firebase-crashlytics:18.2.0")
+    implementation("com.google.firebase:firebase-crashlytics:18.2.1")
 
     // lottie
     // https://github.com/airbnb/lottie-android
@@ -239,7 +240,7 @@ dependencies {
     testImplementation("io.mockk:mockk:1.10.2")
     testImplementation("androidx.arch.core:core-testing:2.1.0")
     testImplementation("com.squareup.okhttp3:mockwebserver:5.0.0-alpha.2")
-    testImplementation("org.jetbrains.kotlin:kotlin-stdlib:1.5.10")
+    testImplementation("org.jetbrains.kotlin:kotlin-stdlib:1.5.21")
 //    testImplementation("org.robolectric:robolectric:4.3")
 
     /**
