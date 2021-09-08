@@ -18,7 +18,7 @@ plugins {
 android {
     defaultConfig {
         applicationId = "com.example.moviedb"
-        buildToolsVersion = "30.0.3"
+        buildToolsVersion = "31.0.0"
         minSdk = 23
         compileSdk = 31
         targetSdk = 31
@@ -140,13 +140,13 @@ dependencies {
     implementation("androidx.constraintlayout:constraintlayout:2.1.0")
     implementation("androidx.recyclerview:recyclerview:1.2.1")
     implementation("com.google.android.material:material:1.4.0")
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.5.21")
-    implementation("org.jetbrains.kotlin:kotlin-reflect:1.5.21")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.5.30")
+    implementation("org.jetbrains.kotlin:kotlin-reflect:1.5.30")
     implementation("androidx.multidex:multidex:2.0.1")
 
     // List of KTX extensions
     // https://developer.android.com/kotlin/ktx/extensions-list
-    implementation("androidx.core:core-ktx:1.7.0-alpha01")
+    implementation("androidx.core:core-ktx:1.7.0-alpha02")
     implementation("androidx.activity:activity-ktx:1.3.1")
     implementation("androidx.fragment:fragment-ktx:1.3.6")
 
@@ -208,8 +208,8 @@ dependencies {
     kapt("com.github.bumptech.glide:compiler:4.12.0")
 
     //dagger hilt
-    implementation("com.google.dagger:hilt-android:2.35")
-    kapt("com.google.dagger:hilt-android-compiler:2.35.1")
+    implementation("com.google.dagger:hilt-android:2.38.1")
+    kapt("com.google.dagger:hilt-android-compiler:2.38.1")
     implementation("androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha03")
     kapt("androidx.hilt:hilt-compiler:1.0.0")
 
@@ -219,7 +219,7 @@ dependencies {
 
     // firebase
     // https://firebase.google.com/docs/android/setup
-    implementation("com.google.firebase:firebase-analytics:19.0.0")
+    implementation("com.google.firebase:firebase-analytics:19.0.1")
     implementation("com.google.firebase:firebase-crashlytics:18.2.1")
 
     // lottie
@@ -240,7 +240,7 @@ dependencies {
     testImplementation("io.mockk:mockk:1.10.2")
     testImplementation("androidx.arch.core:core-testing:2.1.0")
     testImplementation("com.squareup.okhttp3:mockwebserver:5.0.0-alpha.2")
-    testImplementation("org.jetbrains.kotlin:kotlin-stdlib:1.5.21")
+    testImplementation("org.jetbrains.kotlin:kotlin-stdlib:1.5.30")
 //    testImplementation("org.robolectric:robolectric:4.3")
 
     /**
