@@ -6,7 +6,7 @@ import com.example.moviedb.data.constants.MovieListType
 import com.example.moviedb.ui.screen.moviepager.MoviePagerFragment
 
 class MovieListPagerAdapter(
-    val typeList: ArrayList<MovieListType>,
+    private val typeList: ArrayList<MovieListType>,
     val fragment: Fragment
 ) : FragmentStateAdapter(fragment) {
 

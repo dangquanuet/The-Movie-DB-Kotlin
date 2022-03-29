@@ -17,11 +17,8 @@ abstract class BasePagingFragment<ViewBinding : ViewDataBinding, ViewModel : Bas
     BaseFragment<ViewBinding, ViewModel>() {
 
     override val layoutId: Int = R.layout.fragment_paging
-
     abstract val pagingAdapter: BasePagingAdapter<Item, out ViewDataBinding>
-
     abstract val swipeRefreshLayout: SwipeRefreshLayout?
-
     abstract val recyclerView: RecyclerView?
 
     open fun getLayoutManager(): RecyclerView.LayoutManager = GridLayoutManager(context, 2)

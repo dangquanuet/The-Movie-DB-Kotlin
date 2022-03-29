@@ -11,7 +11,6 @@ import dagger.hilt.android.AndroidEntryPoint
 class MainActivity : BaseActivity<ActivityMainBinding, BaseViewModel>() {
 
     override val viewModel: BaseViewModel by viewModels()
-
     override val layoutId: Int = R.layout.activity_main
 
 }

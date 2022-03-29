@@ -88,9 +88,9 @@ class MoviePagerFragment :
         }
 
         viewModel.apply {
-            itemList.observe(viewLifecycleOwner, {
+            itemList.observe(viewLifecycleOwner) {
                 listAdapter.submitList(it)
-            })
+            }
             firstLoad()
         }
     }

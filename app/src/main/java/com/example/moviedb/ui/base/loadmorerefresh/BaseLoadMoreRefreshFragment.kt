@@ -40,9 +40,9 @@ abstract class BaseLoadMoreRefreshFragment<ViewBinding : ViewDataBinding, ViewMo
         recyclerView?.adapter = listAdapter
         recyclerView?.setHasFixedSize(true)
         viewModel.apply {
-            itemList.observe(viewLifecycleOwner, {
+            itemList.observe(viewLifecycleOwner) {
                 listAdapter.submitList(it)
-            })
+            }
             firstLoad()
         }
     }

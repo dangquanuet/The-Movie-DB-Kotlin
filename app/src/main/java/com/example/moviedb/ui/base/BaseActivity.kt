@@ -34,27 +34,27 @@ abstract class BaseActivity<ViewBinding : ViewDataBinding, ViewModel : BaseViewM
 
     private fun observeErrorEvent() {
         viewModel.apply {
-            isLoading.observe(this@BaseActivity, {
+            isLoading.observe(this@BaseActivity) {
                 handleLoading(it == true)
-            })
-            errorMessage.observe(this@BaseActivity, {
+            }
+            errorMessage.observe(this@BaseActivity) {
                 handleErrorMessage(it)
-            })
-            noInternetConnectionEvent.observe(this@BaseActivity, {
+            }
+            noInternetConnectionEvent.observe(this@BaseActivity) {
                 handleErrorMessage(getString(R.string.no_internet_connection))
-            })
-            connectTimeoutEvent.observe(this@BaseActivity, {
+            }
+            connectTimeoutEvent.observe(this@BaseActivity) {
                 handleErrorMessage(getString(R.string.connect_timeout))
-            })
-            forceUpdateAppEvent.observe(this@BaseActivity, {
+            }
+            forceUpdateAppEvent.observe(this@BaseActivity) {
                 handleErrorMessage(getString(R.string.force_update_app))
-            })
-            serverMaintainEvent.observe(this@BaseActivity, {
+            }
+            serverMaintainEvent.observe(this@BaseActivity) {
                 handleErrorMessage(getString(R.string.server_maintain_message))
-            })
-            unknownErrorEvent.observe(this@BaseActivity, {
+            }
+            unknownErrorEvent.observe(this@BaseActivity) {
                 handleErrorMessage(getString(R.string.unknown_error))
-            })
+            }
         }
     }
 

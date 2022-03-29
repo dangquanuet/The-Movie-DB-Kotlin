@@ -1,17 +1,18 @@
 package com.example.moviedb.data.model
 
 import android.os.Parcelable
+import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
 @JsonClass(generateAdapter = true)
 data class Poster(
-    val aspect_ratio: Double? = null,
-    val file_path: String? = null,
-    val height: Int? = null,
-    val iso_639_1: String? = null,
-    val vote_average: Int? = null,
-    val vote_count: Int? = null,
-    val width: Int? = null
+    @Json(name = "aspect_ratio") val aspectRatio: Double? = null,
+    @Json(name = "file_path") val filePath: String? = null,
+    @Json(name = "height") val height: Int? = null,
+    @Json(name = "iso_639_1") val iso6391: String? = null,
+    @Json(name = "vote_average") val voteAverage: Int? = null,
+    @Json(name = "vote_count") val voteCount: Int? = null,
+    @Json(name = "width") val width: Int? = null
 ) : Parcelable

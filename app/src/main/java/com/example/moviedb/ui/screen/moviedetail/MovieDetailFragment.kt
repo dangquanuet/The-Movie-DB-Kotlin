@@ -55,9 +55,9 @@ class MovieDetailFragment : BaseFragment<FragmentMovieDetailBinding, MovieDetail
         }
 
         viewModel.apply {
-            cast.observe(viewLifecycleOwner, {
+            cast.observe(viewLifecycleOwner) {
                 castAdapter.submitList(it)
-            })
+            }
         }
     }
 

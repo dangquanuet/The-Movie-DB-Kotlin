@@ -21,11 +21,11 @@ class SingleLiveData<T> : MutableLiveData<T>() {
     }
 
     override fun observe(owner: LifecycleOwner, observer: Observer<in T>) {
-        super.observe(owner, {
+        super.observe(owner) {
             if (pending.compareAndSet(true, false)) {
                 observer.onChanged(it)
             }
-        })
+        }
     }
 
     /**

@@ -63,7 +63,7 @@ class MainApplication : Application() {
             )
             startActivity(intent)
             try {
-                exitProcess(2);
+                exitProcess(2)
             } catch (e: Exception) {
                 startActivity(intent)
             }

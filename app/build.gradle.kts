@@ -146,16 +146,16 @@ dependencies {
 
     // List of KTX extensions
     // https://developer.android.com/kotlin/ktx/extensions-list
-    implementation("androidx.core:core-ktx:1.8.0-alpha03")
+    implementation("androidx.core:core-ktx:1.9.0-alpha02")
     implementation("androidx.activity:activity-ktx:1.4.0")
     implementation("androidx.fragment:fragment-ktx:1.4.1")
 
     // Lifecycle
     // https://developer.android.com/jetpack/androidx/releases/lifecycle
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.0")
-    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.4.0")
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.4.0")
-    implementation("androidx.lifecycle:lifecycle-common-java8:2.4.0")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.1")
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.4.1")
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.4.1")
+    implementation("androidx.lifecycle:lifecycle-common-java8:2.4.1")
 
     // Preferences DataStore
     // https://android-developers.googleblog.com/2020/09/prefer-storing-data-with-jetpack.html
@@ -163,13 +163,13 @@ dependencies {
 
     // room
     // https://developer.android.com/topic/libraries/architecture/room
-    implementation("androidx.room:room-runtime:2.4.1")
-    kapt("androidx.room:room-compiler:2.4.1")
-    implementation("androidx.room:room-ktx:2.4.1")
+    implementation("androidx.room:room-runtime:2.4.2")
+    kapt("androidx.room:room-compiler:2.4.2")
+    implementation("androidx.room:room-ktx:2.4.2")
 
     // paging
     // https://developer.android.com/topic/libraries/architecture/paging
-    implementation("androidx.paging:paging-runtime-ktx:3.1.0")
+    implementation("androidx.paging:paging-runtime-ktx:3.1.1")
 
     // navigation
     // https://developer.android.com/jetpack/androidx/releases/navigation
@@ -219,8 +219,8 @@ dependencies {
 
     // firebase
     // https://firebase.google.com/docs/android/setup
-    implementation("com.google.firebase:firebase-analytics:20.0.2")
-    implementation("com.google.firebase:firebase-crashlytics:18.2.7")
+    implementation("com.google.firebase:firebase-analytics:20.1.2")
+    implementation("com.google.firebase:firebase-crashlytics:18.2.9")
 
     // lottie
     // https://github.com/airbnb/lottie-android
