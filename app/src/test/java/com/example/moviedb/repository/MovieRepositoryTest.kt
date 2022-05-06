@@ -7,7 +7,7 @@ import com.example.moviedb.data.local.dao.MovieDao
 import com.example.moviedb.data.model.Movie
 import com.example.moviedb.data.remote.response.GetMovieListResponse
 import com.example.moviedb.data.repository.impl.UserRepositoryImpl
-import com.example.moviedb.data.remote.ApiService
+import com.example.moviedb.data.remote.api.ApiService
 import io.reactivex.Observable
 import io.reactivex.Single
 import org.junit.Before

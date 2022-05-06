@@ -3,17 +3,14 @@ package com.example.moviedb.di
 import android.content.Context
 import android.content.res.AssetManager
 import com.example.moviedb.BuildConfig
-import com.example.moviedb.data.remote.ApiService
+import com.example.moviedb.data.remote.api.ApiService
 import com.example.moviedb.data.remote.api.MockInterceptor
-import com.example.moviedb.enableLogging
-import com.facebook.stetho.okhttp3.StethoInterceptor
-import com.localebro.okhttpprofiler.OkHttpProfilerInterceptor
+import com.example.moviedb.isDevMode
 import com.squareup.moshi.Moshi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import okhttp3.Authenticator
 import okhttp3.Cache
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -40,7 +37,7 @@ class NetworkModule {
     @Named("logging")
     fun provideLoggingInterceptor(): Interceptor =
         HttpLoggingInterceptor().apply {
-            level = if (enableLogging()) HttpLoggingInterceptor.Level.BODY
+            level = if (isDevMode()) HttpLoggingInterceptor.Level.BODY
             else HttpLoggingInterceptor.Level.NONE
         }
 
@@ -80,8 +77,7 @@ class NetworkModule {
             .writeTimeout(TIMEOUT, TimeUnit.SECONDS)
             .apply {
                 addInterceptor(logging)
-                if (BuildConfig.DEBUG) addNetworkInterceptor(StethoInterceptor())
-                if (BuildConfig.DEBUG) addInterceptor(OkHttpProfilerInterceptor())
+//                if (BuildConfig.DEBUG) addInterceptor(OkHttpProfilerInterceptor())
                 addInterceptor(header)
 //                authenticator(authenticator)
                 if (BuildConfig.DEBUG && BuildConfig.MOCK_DATA) addInterceptor(mockInterceptor)

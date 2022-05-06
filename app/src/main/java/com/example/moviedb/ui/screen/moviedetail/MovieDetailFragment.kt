@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.navArgs
 import com.example.moviedb.R
@@ -12,16 +13,14 @@ import com.example.moviedb.ui.base.BaseFragment
 import com.example.moviedb.ui.base.getNavController
 import com.example.moviedb.utils.setSingleClick
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
 
 @AndroidEntryPoint
 class MovieDetailFragment : BaseFragment<FragmentMovieDetailBinding, MovieDetailViewModel>() {
 
     override val layoutId: Int = R.layout.fragment_movie_detail
-
     override val viewModel: MovieDetailViewModel by viewModels()
-
     private val args: MovieDetailFragmentArgs by navArgs()
-
     private val castAdapter = CastAdapter(itemClickListener = { imageView, cast ->
         cast.getFullProfilePath()?.let {
             toFullImage(imageView, it)
@@ -41,7 +40,6 @@ class MovieDetailFragment : BaseFragment<FragmentMovieDetailBinding, MovieDetail
                 toFullImage(viewBinding.imageBackdrop, it)
             }
         }
-
         viewModel.apply {
             args.movie.let {
                 movie.value = it
@@ -49,14 +47,12 @@ class MovieDetailFragment : BaseFragment<FragmentMovieDetailBinding, MovieDetail
                 loadCastAndCrew(it.id)
             }
         }
-
         if (viewBinding.recyclerCast.adapter == null) {
             viewBinding.recyclerCast.adapter = castAdapter
         }
-
-        viewModel.apply {
-            cast.observe(viewLifecycleOwner) {
-                castAdapter.submitList(it)
+        lifecycleScope.launchWhenStarted {
+            viewModel.castList.collectLatest { castList ->
+                castAdapter.submitList(castList)
             }
         }
     }

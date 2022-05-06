@@ -1,7 +1,6 @@
-package com.example.moviedb.data.remote
+package com.example.moviedb.data.remote.api
 
 import com.example.moviedb.data.model.Movie
-import com.example.moviedb.data.remote.api.ApiPath
 import com.example.moviedb.data.remote.response.GetCastAndCrewResponse
 import com.example.moviedb.data.remote.response.GetMovieImages
 import com.example.moviedb.data.remote.response.GetMovieListResponse

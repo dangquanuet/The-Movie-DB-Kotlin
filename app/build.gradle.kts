@@ -146,7 +146,7 @@ dependencies {
 
     // List of KTX extensions
     // https://developer.android.com/kotlin/ktx/extensions-list
-    implementation("androidx.core:core-ktx:1.9.0-alpha02")
+    implementation("androidx.core:core-ktx:1.9.0-alpha03")
     implementation("androidx.activity:activity-ktx:1.4.0")
     implementation("androidx.fragment:fragment-ktx:1.4.1")
 
@@ -199,8 +199,8 @@ dependencies {
 
     // stetho
     // http://facebook.github.io/stetho/
-    implementation("com.facebook.stetho:stetho:1.5.1")
-    implementation("com.facebook.stetho:stetho-okhttp3:1.5.1")
+//    implementation("com.facebook.stetho:stetho:1.5.1")
+//    implementation("com.facebook.stetho:stetho-okhttp3:1.5.1")
 
     // glide
     // https://github.com/bumptech/glide
@@ -220,7 +220,7 @@ dependencies {
     // firebase
     // https://firebase.google.com/docs/android/setup
     implementation("com.google.firebase:firebase-analytics:20.1.2")
-    implementation("com.google.firebase:firebase-crashlytics:18.2.9")
+    implementation("com.google.firebase:firebase-crashlytics:18.2.10")
 
     // lottie
     // https://github.com/airbnb/lottie-android
@@ -240,7 +240,7 @@ dependencies {
     testImplementation("io.mockk:mockk:1.10.2")
     testImplementation("androidx.arch.core:core-testing:2.1.0")
     testImplementation("com.squareup.okhttp3:mockwebserver:5.0.0-alpha.2")
-    testImplementation("org.jetbrains.kotlin:kotlin-stdlib:1.6.10")
+    testImplementation("org.jetbrains.kotlin:kotlin-stdlib:1.6.21")
 //    testImplementation("org.robolectric:robolectric:4.3")
 
     /**
@@ -421,7 +421,6 @@ project.afterEvaluate {
                     "**/com/example/moviedb/ui/navigation/**/*.*",
                     "**/com/example/moviedb/ui/widgets/**/*.*"
                 )
-
                 //Explain to Jacoco where are you .class file java and kotlin
                 classDirectories.setFrom(
                     fileTree("${project.buildDir}/intermediates/classes/${sourcePath}").exclude(
@@ -436,15 +435,11 @@ project.afterEvaluate {
                     "src/$productFlavorName/java",
                     "src/$buildTypeName/java"
                 )
-
                 additionalSourceDirs.setFrom(files(coverageSourceDirs))
-
                 //Explain to Jacoco where is your source code
                 sourceDirectories.setFrom(files(coverageSourceDirs))
-
                 //execute file .exec to generate data report
                 executionData.setFrom(files("${project.buildDir}/jacoco/${testTaskName}.exec"))
-
                 reports {
                     xml.isEnabled = true
                     html.isEnabled = true

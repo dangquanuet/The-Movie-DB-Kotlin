@@ -8,6 +8,8 @@ import com.example.moviedb.ui.base.BaseViewModel
 import com.example.moviedb.utils.SingleLiveData
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -18,7 +20,8 @@ class MovieDetailViewModel @Inject constructor(
 ) : BaseViewModel() {
 
     val movie = SingleLiveData<Movie>()
-    val cast = SingleLiveData<List<Cast>>()
+    private val _castList = MutableStateFlow<List<Cast>>(emptyList())
+    val castList = _castList.asStateFlow()
 
     fun checkFavorite(id: String) {
         viewModelScope.launch {
@@ -59,10 +62,10 @@ class MovieDetailViewModel @Inject constructor(
      * load cast and crew
      */
     fun loadCastAndCrew(movieId: String) {
-        if (cast.value != null) return
+        if (_castList.value.isNotEmpty()) return
         viewModelScope.launch {
             try {
-                cast.value = userRepository.getCastAndCrew(movieId).cast ?: listOf()
+                _castList.emit(userRepository.getCastAndCrew(movieId).cast ?: emptyList())
             } catch (e: Throwable) {
                 onError(e)
             }

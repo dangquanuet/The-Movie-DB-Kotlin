@@ -5,7 +5,6 @@ import android.content.res.AssetManager
 import android.content.res.Resources
 import android.view.View
 import android.view.inputmethod.InputMethodManager
-import com.example.moviedb.enableLogging
 import java.io.IOException
 
 // # Kotlin Extensions

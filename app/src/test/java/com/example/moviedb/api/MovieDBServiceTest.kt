@@ -2,7 +2,7 @@ package com.example.moviedb.api
 
 /*
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.example.moviedb.data.remote.ApiService
+import com.example.moviedb.data.remote.api.ApiService
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
 import okhttp3.mockwebserver.RecordedRequest
