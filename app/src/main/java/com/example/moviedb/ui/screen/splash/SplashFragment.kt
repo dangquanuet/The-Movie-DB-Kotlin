@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.whenStarted
 import com.example.moviedb.R
 import com.example.moviedb.databinding.FragmentSplashBinding
 import com.example.moviedb.ui.base.BaseFragment
@@ -22,8 +23,10 @@ class SplashFragment : BaseFragment<FragmentSplashBinding, BaseViewModel>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         lifecycleScope.launch {
-            delay(1000)
-            navigateToOther()
+            whenStarted {
+                delay(1000)
+                navigateToOther()
+            }
         }
     }
 
