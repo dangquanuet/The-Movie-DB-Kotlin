@@ -35,7 +35,7 @@ class ImageFragment : BaseFragment<FragmentImageBinding, BaseViewModel>() {
         super.onViewCreated(view, savedInstanceState)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             sharedElementEnterTransition =
-                TransitionInflater.from(context).inflateTransition(android.R.transition.move)
+                TransitionInflater.from(requireContext()).inflateTransition(android.R.transition.move)
         }
 
         viewBinding.imageRequestListener = object : RequestListener<Drawable> {

@@ -21,7 +21,7 @@ android {
         buildToolsVersion = "31.0.0"
         minSdk = 23
         compileSdk = 31
-        targetSdk = 31
+        targetSdk = 32
         multiDexEnabled = true
         vectorDrawables {
             useSupportLibrary = true
@@ -139,9 +139,9 @@ dependencies {
     implementation("androidx.legacy:legacy-support-v4:1.0.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.3")
     implementation("androidx.recyclerview:recyclerview:1.2.1")
-    implementation("com.google.android.material:material:1.5.0")
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.6.10")
-    implementation("org.jetbrains.kotlin:kotlin-reflect:1.6.10")
+    implementation("com.google.android.material:material:1.6.0")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.6.21")
+    implementation("org.jetbrains.kotlin:kotlin-reflect:1.6.21")
     implementation("androidx.multidex:multidex:2.0.1")
 
     // List of KTX extensions
@@ -173,9 +173,9 @@ dependencies {
 
     // navigation
     // https://developer.android.com/jetpack/androidx/releases/navigation
-    implementation("androidx.navigation:navigation-runtime-ktx:2.3.5")
-    implementation("androidx.navigation:navigation-fragment-ktx:2.3.5")
-    implementation("androidx.navigation:navigation-ui-ktx:2.3.5")
+    implementation("androidx.navigation:navigation-runtime-ktx:2.4.2")
+    implementation("androidx.navigation:navigation-fragment-ktx:2.4.2")
+    implementation("androidx.navigation:navigation-ui-ktx:2.4.2")
 
     // coroutines
     // https://github.com/Kotlin/kotlinx.coroutines
@@ -184,8 +184,8 @@ dependencies {
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.5.0")
 
     // moshi
-    implementation("com.squareup.moshi:moshi-kotlin:1.12.0")
-    kapt("com.squareup.moshi:moshi-kotlin-codegen:1.12.0")
+    implementation("com.squareup.moshi:moshi-kotlin:1.13.0")
+    kapt("com.squareup.moshi:moshi-kotlin-codegen:1.13.0")
 
     // retrofit
     // https://github.com/square/retrofit
@@ -219,7 +219,7 @@ dependencies {
 
     // firebase
     // https://firebase.google.com/docs/android/setup
-    implementation("com.google.firebase:firebase-analytics:20.1.2")
+    implementation("com.google.firebase:firebase-analytics:21.0.0")
     implementation("com.google.firebase:firebase-crashlytics:18.2.10")
 
     // lottie
@@ -441,8 +441,8 @@ project.afterEvaluate {
                 //execute file .exec to generate data report
                 executionData.setFrom(files("${project.buildDir}/jacoco/${testTaskName}.exec"))
                 reports {
-                    xml.isEnabled = true
-                    html.isEnabled = true
+                    xml.required.set(true)
+                    html.required.set(true)
                 }
                 dependsOn(testTaskName)
             }

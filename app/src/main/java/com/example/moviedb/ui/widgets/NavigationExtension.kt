@@ -1,4 +1,4 @@
-package com.example.moviedb.ui.navigation
+package com.example.moviedb.ui.widgets
 
 /*
 https://github.com/googlesamples/android-architecture-components/blob/master/NavigationAdvancedSample/app/src/main/java/com/example/android/navigationadvancedsample/NavigationExtensions.kt
@@ -7,7 +7,6 @@ https://github.com/googlesamples/android-architecture-components/blob/master/Nav
 import android.content.Intent
 import android.util.SparseArray
 import androidx.core.util.forEach
-import androidx.core.util.set
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -182,7 +181,7 @@ private fun BottomNavigationView.setupItemReselected(
         val navController = selectedFragment.navController
         // Pop the back stack to the start destination of the current navController graph
         navController.popBackStack(
-            navController.graph.startDestination, false
+            navController.graph.startDestinationId, false
         )
     }
 }
