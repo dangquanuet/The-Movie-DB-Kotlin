@@ -20,8 +20,8 @@ android {
         applicationId = "com.example.moviedb"
         buildToolsVersion = "31.0.0"
         minSdk = 23
-        compileSdk = 31
-        targetSdk = 32
+        compileSdkPreview = "Tiramisu"
+        targetSdkPreview = "Tiramisu"
         multiDexEnabled = true
         vectorDrawables {
             useSupportLibrary = true
@@ -93,13 +93,13 @@ android {
     flavorDimensions.addAll(listOf("server"))
     productFlavors {
         create("dev") {
-//            dimension("server")
+            dimension = "server"
             applicationIdSuffix = ".dev"
             resValue("string", "app_name", "Movie DB Dev")
             buildConfigField("boolean", "MOCK_DATA", "true")
         }
         create("prd") {
-//            dimension("server")
+            dimension = "server"
             resValue("string", "app_name", "Movie DB")
             buildConfigField("boolean", "MOCK_DATA", "false")
         }
@@ -125,7 +125,7 @@ android {
     }
     kotlinOptions {
         jvmTarget = "11"
-        freeCompilerArgs = listOf("-Xallow-result-return-type")
+//        freeCompilerArgs = listOf("-Xallow-result-return-type")
     }
     // https://developer.android.com/topic/libraries/data-binding
     buildFeatures {
@@ -135,18 +135,18 @@ android {
 
 dependencies {
     // common
-    implementation("androidx.appcompat:appcompat:1.4.1")
+    implementation("androidx.appcompat:appcompat:1.4.2")
     implementation("androidx.legacy:legacy-support-v4:1.0.0")
-    implementation("androidx.constraintlayout:constraintlayout:2.1.3")
+    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation("androidx.recyclerview:recyclerview:1.2.1")
-    implementation("com.google.android.material:material:1.6.0")
+    implementation("com.google.android.material:material:1.6.1")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.6.21")
     implementation("org.jetbrains.kotlin:kotlin-reflect:1.6.21")
     implementation("androidx.multidex:multidex:2.0.1")
 
     // List of KTX extensions
     // https://developer.android.com/kotlin/ktx/extensions-list
-    implementation("androidx.core:core-ktx:1.9.0-alpha03")
+    implementation("androidx.core:core-ktx:1.9.0-alpha04")
     implementation("androidx.activity:activity-ktx:1.4.0")
     implementation("androidx.fragment:fragment-ktx:1.4.1")
 
@@ -181,7 +181,7 @@ dependencies {
     // https://github.com/Kotlin/kotlinx.coroutines
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.0")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.2")
-    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.5.0")
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.5.2")
 
     // moshi
     implementation("com.squareup.moshi:moshi-kotlin:1.13.0")
@@ -220,7 +220,7 @@ dependencies {
     // firebase
     // https://firebase.google.com/docs/android/setup
     implementation("com.google.firebase:firebase-analytics:21.0.0")
-    implementation("com.google.firebase:firebase-crashlytics:18.2.10")
+    implementation("com.google.firebase:firebase-crashlytics:18.2.11")
 
     // lottie
     // https://github.com/airbnb/lottie-android
