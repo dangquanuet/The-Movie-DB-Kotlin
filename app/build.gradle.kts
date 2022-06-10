@@ -18,10 +18,10 @@ plugins {
 android {
     defaultConfig {
         applicationId = "com.example.moviedb"
-        buildToolsVersion = "31.0.0"
+        buildToolsVersion = "33.0.0"
         minSdk = 23
-        compileSdkPreview = "Tiramisu"
-        targetSdkPreview = "Tiramisu"
+        compileSdk = 33
+        targetSdk = 33
         multiDexEnabled = true
         vectorDrawables {
             useSupportLibrary = true
