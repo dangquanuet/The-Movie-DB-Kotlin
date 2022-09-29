@@ -147,8 +147,8 @@ dependencies {
     // List of KTX extensions
     // https://developer.android.com/kotlin/ktx/extensions-list
     implementation("androidx.core:core-ktx:1.9.0")
-    implementation("androidx.activity:activity-ktx:1.5.1")
-    implementation("androidx.fragment:fragment-ktx:1.5.2")
+    implementation("androidx.activity:activity-ktx:1.6.0")
+    implementation("androidx.fragment:fragment-ktx:1.5.3")
 
     // Lifecycle
     // https://developer.android.com/jetpack/androidx/releases/lifecycle
@@ -220,8 +220,10 @@ dependencies {
 
     // firebase
     // https://firebase.google.com/docs/android/setup
-    implementation("com.google.firebase:firebase-analytics:21.1.1")
-    implementation("com.google.firebase:firebase-crashlytics:18.2.13")
+    implementation(platform("com.google.firebase:firebase-bom:30.5.0"))
+    implementation("com.google.firebase:firebase-analytics-ktx")
+    implementation("com.google.firebase:firebase-crashlytics-ktx")
+    implementation("com.google.firebase:firebase-messaging-ktx")
 
     // lottie
     // https://github.com/airbnb/lottie-android
