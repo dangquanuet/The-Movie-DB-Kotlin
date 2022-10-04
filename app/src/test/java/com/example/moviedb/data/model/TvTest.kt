@@ -16,7 +16,7 @@ class TvTest {
     @Test
     fun getFullPosterPath_posterPathIsBlank() {
         Assert.assertEquals(
-            null, Tv(id = "1", poster_path = "   ").getFullPosterPath()
+            null, Tv(id = "1", posterPath = "   ").getFullPosterPath()
         )
     }
 
@@ -25,7 +25,7 @@ class TvTest {
         val path = "123"
         Assert.assertEquals(
             BuildConfig.SMALL_IMAGE_URL + path,
-            Tv(id = "1", poster_path = path).getFullPosterPath()
+            Tv(id = "1", posterPath = path).getFullPosterPath()
         )
     }
 }

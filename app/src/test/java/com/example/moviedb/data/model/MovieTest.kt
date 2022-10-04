@@ -16,7 +16,7 @@ class MovieTest {
     @Test
     fun getFullBackdropPath_backdropPathIsBlank() {
         assertEquals(
-            null, Movie(id = "1", backdrop_path = "   ").getFullBackdropPath()
+            null, Movie(id = "1", backdropPath = "   ").getFullBackdropPath()
         )
     }
 
@@ -25,7 +25,7 @@ class MovieTest {
         val path = "123"
         assertEquals(
             BuildConfig.SMALL_IMAGE_URL + path,
-            Movie(id = "1", backdrop_path = path).getFullBackdropPath()
+            Movie(id = "1", backdropPath = path).getFullBackdropPath()
         )
     }
 
@@ -39,7 +39,7 @@ class MovieTest {
     @Test
     fun getFullPosterPath_posterPathIsBlank() {
         assertEquals(
-            null, Movie(id = "1", poster_path = "   ").getFullPosterPath()
+            null, Movie(id = "1", posterPath = "   ").getFullPosterPath()
         )
     }
 
@@ -48,7 +48,7 @@ class MovieTest {
         val path = "123"
         assertEquals(
             BuildConfig.SMALL_IMAGE_URL + path,
-            Movie(id = "1", poster_path = path).getFullPosterPath()
+            Movie(id = "1", posterPath = path).getFullPosterPath()
         )
     }
 }

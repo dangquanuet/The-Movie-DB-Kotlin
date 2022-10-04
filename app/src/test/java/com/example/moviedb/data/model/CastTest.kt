@@ -15,7 +15,7 @@ class CastTest {
     @Test
     fun getFullProfilePath_profilePathIsBlank() {
         Assert.assertEquals(
-            null, Cast(id = "1", profile_path = "   ").getFullProfilePath()
+            null, Cast(id = "1", profilePath = "   ").getFullProfilePath()
         )
     }
 
@@ -24,7 +24,7 @@ class CastTest {
         val path = "123"
         Assert.assertEquals(
             BuildConfig.SMALL_IMAGE_URL + path,
-            Cast(id = "1", profile_path = path).getFullProfilePath()
+            Cast(id = "1", profilePath = path).getFullProfilePath()
         )
     }
 }

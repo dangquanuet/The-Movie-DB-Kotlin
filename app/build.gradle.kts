@@ -16,6 +16,7 @@ plugins {
 }
 
 android {
+    namespace = "com.example.moviedb"
     defaultConfig {
         applicationId = "com.example.moviedb"
         buildToolsVersion = "33.0.0"
@@ -366,7 +367,7 @@ kapt {
 }
 
 jacoco {
-    toolVersion = "0.8.6"
+    toolVersion = "0.8.8"
 }
 
 /** There are two ways to see test result:
