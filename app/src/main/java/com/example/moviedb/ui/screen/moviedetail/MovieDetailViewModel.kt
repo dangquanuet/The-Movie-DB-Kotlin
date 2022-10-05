@@ -19,7 +19,7 @@ class MovieDetailViewModel @Inject constructor(
     private val userRepository: UserRepository
 ) : BaseViewModel() {
 
-    val movie = SingleLiveData<Movie>()
+    val movie = SingleLiveData<Movie?>()
     private val _castList = MutableStateFlow<List<Cast>>(emptyList())
     val castList = _castList.asStateFlow()
 
@@ -29,9 +29,9 @@ class MovieDetailViewModel @Inject constructor(
                 val favoriteMovie = userRepository.getMovieLocal(id)
                 withContext(Dispatchers.Main) {
                     if (favoriteMovie?.isFavorite == true) {
-                        val newMoview = movie.value
-                        newMoview?.isFavorite = true
-                        movie.value = newMoview
+                        val newMovie = movie.value
+                        newMovie?.isFavorite = true
+                        movie.value = newMovie
                     } else {
                         movie.value?.isFavorite = false
                     }

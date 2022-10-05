@@ -69,7 +69,7 @@ android {
             }
             signingConfig = signingConfigs.getByName("debug-key")
         }
-        create("staging") {
+        create("beta") {
             isDebuggable = true
             isMinifyEnabled = true
             isShrinkResources = true
@@ -131,6 +131,14 @@ android {
     // https://developer.android.com/topic/libraries/data-binding
     buildFeatures {
         dataBinding = true
+        compose = true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.3.0"
+    }
+    lint {
+        checkReleaseBuilds = false
+        abortOnError = false
     }
 }
 
@@ -144,6 +152,33 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.7.10")
     implementation("org.jetbrains.kotlin:kotlin-reflect:1.7.10")
     implementation("androidx.multidex:multidex:2.0.1")
+
+    // compose
+    // https://developer.android.com/jetpack/compose/interop/adding
+    // Integration with activities
+    implementation("androidx.activity:activity-compose:1.6.0")
+    // Animations
+    implementation("androidx.compose.animation:animation:1.2.1")
+    // Integration with ViewModels
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.5.1")
+    // https://developer.android.com/jetpack/compose/setup
+    implementation("androidx.compose.ui:ui:1.2.1")
+    // Tooling support (Previews, etc.)
+    implementation("androidx.compose.ui:ui-tooling:1.2.1")
+    // Foundation (Border, Background, Box, Image, Scroll, shapes, animations, etc.)
+    implementation("androidx.compose.foundation:foundation:1.2.1")
+    // Material Design
+    implementation("androidx.compose.material:material:1.2.1")
+    implementation("androidx.compose.material3:material3:1.0.0-beta03")
+    // Material design icons
+    implementation("androidx.compose.material:material-icons-core:1.2.1")
+    implementation("androidx.compose.material:material-icons-extended:1.2.1")
+    // Integration with observables
+    implementation("androidx.compose.runtime:runtime-livedata:1.2.1")
+    implementation("androidx.compose.runtime:runtime-rxjava2:1.2.1")
+    // UI Tests
+    androidTestImplementation("androidx.compose.ui:ui-test-junit4:1.2.1")
+    debugImplementation("androidx.compose.ui:ui-test-manifest:1.2.1")
 
     // List of KTX extensions
     // https://developer.android.com/kotlin/ktx/extensions-list

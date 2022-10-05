@@ -25,7 +25,7 @@
         android:usesCleartextTraffic="true">
 
         <activity
-            android:name="com.example.moviedb.ui.screen.main.MainActivity"
+            android:name="com.example.moviedb.compose.main.ComposeActivity"
             android:configChanges="orientation|screenSize"
             android:exported="true"
             android:theme="@style/Theme.MyApplication.NoActionBar">
