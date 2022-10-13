@@ -10,6 +10,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.example.moviedb.BuildConfig
 import com.example.moviedb.compose.theme.ComposeAppTheme
 
 class ComposeActivity : ComponentActivity() {
@@ -22,7 +23,7 @@ class ComposeActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    Greeting("Android")
+                    Greeting("Android Compose ${BuildConfig.FLAVOR}${BuildConfig.BUILD_TYPE}")
                 }
             }
         }
@@ -31,7 +32,7 @@ class ComposeActivity : ComponentActivity() {
 
 @Composable
 fun Greeting(name: String) {
-    Text(text = "Hello $name!")
+    Text(text = "Hello $name")
 }
 
 @Preview(showBackground = true)

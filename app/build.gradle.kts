@@ -69,7 +69,7 @@ android {
             }
             signingConfig = signingConfigs.getByName("debug-key")
         }
-        create("beta") {
+        /*create("beta") {
             isDebuggable = true
             isMinifyEnabled = true
             isShrinkResources = true
@@ -78,7 +78,7 @@ android {
             }
             proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
             signingConfig = signingConfigs.getByName("debug-key")
-        }
+        }*/
         getByName("release") {
             isDebuggable = false
             isMinifyEnabled = true
@@ -162,14 +162,14 @@ dependencies {
     // Integration with ViewModels
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.5.1")
     // https://developer.android.com/jetpack/compose/setup
-    implementation("androidx.compose.ui:ui:1.2.1")
+    implementation("androidx.compose.ui:ui:1.3.0-rc01")
     // Tooling support (Previews, etc.)
     implementation("androidx.compose.ui:ui-tooling:1.2.1")
     // Foundation (Border, Background, Box, Image, Scroll, shapes, animations, etc.)
     implementation("androidx.compose.foundation:foundation:1.2.1")
     // Material Design
     implementation("androidx.compose.material:material:1.2.1")
-    implementation("androidx.compose.material3:material3:1.0.0-beta03")
+    implementation("androidx.compose.material3:material3:1.0.0-rc01")
     // Material design icons
     implementation("androidx.compose.material:material-icons-core:1.2.1")
     implementation("androidx.compose.material:material-icons-extended:1.2.1")
@@ -220,14 +220,14 @@ dependencies {
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4")
 
     // moshi
-    implementation("com.squareup.moshi:moshi-kotlin:1.13.0")
-    kapt("com.squareup.moshi:moshi-kotlin-codegen:1.13.0")
+    implementation("com.squareup.moshi:moshi-kotlin:1.14.0")
+    kapt("com.squareup.moshi:moshi-kotlin-codegen:1.14.0")
 
     // retrofit
     // https://github.com/square/retrofit
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:converter-moshi:2.9.0")
-    implementation("com.squareup.okhttp3:logging-interceptor:4.10.0")
+    implementation("com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.10")
 
     // OkHttpProfiler
     // https://github.com/itkacher/OkHttpProfiler
@@ -240,12 +240,12 @@ dependencies {
 
     // glide
     // https://github.com/bumptech/glide
-    implementation("com.github.bumptech.glide:glide:4.13.2")
-    kapt("com.github.bumptech.glide:compiler:4.12.0")
+    implementation("com.github.bumptech.glide:glide:4.14.2")
+    kapt("com.github.bumptech.glide:compiler:4.14.2")
 
     // dagger hilt
-    implementation("com.google.dagger:hilt-android:2.42")
-    kapt("com.google.dagger:hilt-android-compiler:2.42")
+    implementation("com.google.dagger:hilt-android:2.44")
+    kapt("com.google.dagger:hilt-android-compiler:2.44")
     implementation("androidx.hilt:hilt-navigation-fragment:1.0.0")
 //    implementation("androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha03")
     kapt("androidx.hilt:hilt-compiler:1.0.0")
@@ -256,7 +256,7 @@ dependencies {
 
     // firebase
     // https://firebase.google.com/docs/android/setup
-    implementation(platform("com.google.firebase:firebase-bom:30.5.0"))
+    implementation(platform("com.google.firebase:firebase-bom:31.0.0"))
     implementation("com.google.firebase:firebase-analytics-ktx")
     implementation("com.google.firebase:firebase-crashlytics-ktx")
     implementation("com.google.firebase:firebase-messaging-ktx")
@@ -267,19 +267,19 @@ dependencies {
 
     // timber
     // https://github.com/JakeWharton/timber
-    implementation("com.jakewharton.timber:timber:4.7.1")
+    implementation("com.jakewharton.timber:timber:5.0.1")
 
     // viewpager2
     implementation("androidx.viewpager2:viewpager2:1.0.0")
 
     // unit test
     testImplementation("junit:junit:4.13.2")
-    testImplementation("org.mockito:mockito-core:3.11.1")
+    testImplementation("org.mockito:mockito-core:4.8.1")
 //    testImplementation("org.mockito:mockito-inline:3.3.3")
-    testImplementation("io.mockk:mockk:1.10.2")
+    testImplementation("io.mockk:mockk:1.13.2")
     testImplementation("androidx.arch.core:core-testing:2.1.0")
     testImplementation("com.squareup.okhttp3:mockwebserver:5.0.0-alpha.2")
-    testImplementation("org.jetbrains.kotlin:kotlin-stdlib:1.7.10")
+    testImplementation("org.jetbrains.kotlin:kotlin-stdlib:1.7.20")
 //    testImplementation("org.robolectric:robolectric:4.3")
 
     /**
