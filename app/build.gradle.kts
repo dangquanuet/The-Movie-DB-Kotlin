@@ -134,7 +134,7 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.3.0"
+        kotlinCompilerExtensionVersion = "1.3.2"
     }
     lint {
         checkReleaseBuilds = false
@@ -148,43 +148,43 @@ dependencies {
     implementation("androidx.legacy:legacy-support-v4:1.0.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation("androidx.recyclerview:recyclerview:1.2.1")
-    implementation("com.google.android.material:material:1.6.1")
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.7.10")
-    implementation("org.jetbrains.kotlin:kotlin-reflect:1.7.10")
+    implementation("com.google.android.material:material:1.7.0")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.7.20")
+    implementation("org.jetbrains.kotlin:kotlin-reflect:1.7.20")
     implementation("androidx.multidex:multidex:2.0.1")
 
     // compose
     // https://developer.android.com/jetpack/compose/interop/adding
     // Integration with activities
-    implementation("androidx.activity:activity-compose:1.6.0")
+    implementation("androidx.activity:activity-compose:1.6.1")
     // Animations
-    implementation("androidx.compose.animation:animation:1.2.1")
+    implementation("androidx.compose.animation:animation:1.3.0")
     // Integration with ViewModels
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.5.1")
     // https://developer.android.com/jetpack/compose/setup
-    implementation("androidx.compose.ui:ui:1.3.0-rc01")
+    implementation("androidx.compose.ui:ui:1.4.0-alpha01")
     // Tooling support (Previews, etc.)
-    implementation("androidx.compose.ui:ui-tooling:1.2.1")
+    implementation("androidx.compose.ui:ui-tooling:1.3.0")
     // Foundation (Border, Background, Box, Image, Scroll, shapes, animations, etc.)
-    implementation("androidx.compose.foundation:foundation:1.2.1")
+    implementation("androidx.compose.foundation:foundation:1.3.0")
     // Material Design
-    implementation("androidx.compose.material:material:1.2.1")
-    implementation("androidx.compose.material3:material3:1.0.0-rc01")
+    implementation("androidx.compose.material:material:1.3.0")
+    implementation("androidx.compose.material3:material3:1.1.0-alpha01")
     // Material design icons
-    implementation("androidx.compose.material:material-icons-core:1.2.1")
-    implementation("androidx.compose.material:material-icons-extended:1.2.1")
+    implementation("androidx.compose.material:material-icons-core:1.3.0")
+    implementation("androidx.compose.material:material-icons-extended:1.3.0")
     // Integration with observables
-    implementation("androidx.compose.runtime:runtime-livedata:1.2.1")
-    implementation("androidx.compose.runtime:runtime-rxjava2:1.2.1")
+    implementation("androidx.compose.runtime:runtime-livedata:1.3.0")
+    implementation("androidx.compose.runtime:runtime-rxjava2:1.3.0")
     // UI Tests
-    androidTestImplementation("androidx.compose.ui:ui-test-junit4:1.2.1")
-    debugImplementation("androidx.compose.ui:ui-test-manifest:1.2.1")
+    androidTestImplementation("androidx.compose.ui:ui-test-junit4:1.3.0")
+    debugImplementation("androidx.compose.ui:ui-test-manifest:1.3.0")
 
     // List of KTX extensions
     // https://developer.android.com/kotlin/ktx/extensions-list
     implementation("androidx.core:core-ktx:1.9.0")
-    implementation("androidx.activity:activity-ktx:1.6.0")
-    implementation("androidx.fragment:fragment-ktx:1.5.3")
+    implementation("androidx.activity:activity-ktx:1.6.1")
+    implementation("androidx.fragment:fragment-ktx:1.5.4")
 
     // Lifecycle
     // https://developer.android.com/jetpack/androidx/releases/lifecycle
@@ -209,9 +209,9 @@ dependencies {
 
     // navigation
     // https://developer.android.com/jetpack/androidx/releases/navigation
-    implementation("androidx.navigation:navigation-runtime-ktx:2.5.2")
-    implementation("androidx.navigation:navigation-fragment-ktx:2.5.2")
-    implementation("androidx.navigation:navigation-ui-ktx:2.5.2")
+    implementation("androidx.navigation:navigation-runtime-ktx:2.5.3")
+    implementation("androidx.navigation:navigation-fragment-ktx:2.5.3")
+    implementation("androidx.navigation:navigation-ui-ktx:2.5.3")
 
     // coroutines
     // https://github.com/Kotlin/kotlinx.coroutines
