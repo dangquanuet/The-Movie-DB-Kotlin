@@ -1,11 +1,11 @@
 package com.example.moviedb.data.local.pref
 
+import kotlinx.coroutines.flow.Flow
+
 interface PrefHelper {
 
-    fun isFirstRun(): Boolean
+    suspend fun isFirstRun(): Flow<Boolean>
 
-    fun remove(key: String)
-
-    fun clear()
+    suspend fun clear()
 
 }

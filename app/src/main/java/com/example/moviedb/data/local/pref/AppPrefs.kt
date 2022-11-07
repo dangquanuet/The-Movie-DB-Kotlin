@@ -1,34 +1,35 @@
 package com.example.moviedb.data.local.pref
 
-import android.content.SharedPreferences
-import androidx.core.content.edit
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.*
 import com.squareup.moshi.Moshi
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 class AppPrefs @Inject constructor(
-    private val sharedPreferences: SharedPreferences,
-    val moshi: Moshi
+    private val dataStore: DataStore<Preferences>,
+    private val moshi: Moshi
 ) : PrefHelper {
 
-    companion object {
-        private const val FIRST_RUN = "FIRST_RUN"
+    private object Key {
+        val FIRST_RUN = booleanPreferencesKey("first_run")
     }
 
-    override fun isFirstRun(): Boolean {
-        val isFirstRun = sharedPreferences.getBoolean(FIRST_RUN, true)
-        if (isFirstRun) {
-            sharedPreferences.edit { putBoolean(FIRST_RUN, false) }
+    override suspend fun isFirstRun(): Flow<Boolean> =
+        dataStore.data.map { pref ->
+            val firstRun = pref[Key.FIRST_RUN] ?: true
+            if (firstRun) {
+                dataStore.edit { pref ->
+                    pref[Key.FIRST_RUN] = false
+                }
+            }
+            firstRun
         }
-        return isFirstRun
-    }
 
-    override fun remove(key: String) {
-        sharedPreferences.edit {
-            remove(key)
+    override suspend fun clear() {
+        dataStore.edit { pref ->
+            pref.clear()
         }
-    }
-
-    override fun clear() {
-        sharedPreferences.edit { clear() }
     }
 }
