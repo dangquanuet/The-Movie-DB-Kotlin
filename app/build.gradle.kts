@@ -155,30 +155,36 @@ dependencies {
 
     // compose
     // https://developer.android.com/jetpack/compose/interop/adding
-    // Integration with activities
-    implementation("androidx.activity:activity-compose:1.6.1")
-    // Animations
-    implementation("androidx.compose.animation:animation:1.3.0")
-    // Integration with ViewModels
-    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.5.1")
     // https://developer.android.com/jetpack/compose/setup
-    implementation("androidx.compose.ui:ui:1.4.0-alpha01")
-    // Tooling support (Previews, etc.)
-    implementation("androidx.compose.ui:ui-tooling:1.3.0")
+    val composeBom = platform("androidx.compose:compose-bom:2022.10.00")
+    implementation(composeBom)
+    androidTestImplementation(composeBom)
+    // Android Studio Preview support
+    implementation("androidx.compose.ui:ui-tooling-preview")
+    debugImplementation("androidx.compose.ui:ui-tooling")
+    // Animations
+    implementation("androidx.compose.animation:animation")
     // Foundation (Border, Background, Box, Image, Scroll, shapes, animations, etc.)
-    implementation("androidx.compose.foundation:foundation:1.3.0")
+    implementation("androidx.compose.foundation:foundation")
     // Material Design
-    implementation("androidx.compose.material:material:1.3.0")
-    implementation("androidx.compose.material3:material3:1.1.0-alpha01")
-    // Material design icons
-    implementation("androidx.compose.material:material-icons-core:1.3.0")
-    implementation("androidx.compose.material:material-icons-extended:1.3.0")
-    // Integration with observables
-    implementation("androidx.compose.runtime:runtime-livedata:1.3.0")
-    implementation("androidx.compose.runtime:runtime-rxjava2:1.3.0")
+    implementation("androidx.compose.material3:material3")
+    // Optional - Included automatically by material, only add when you need
+    // the icons but not the material library (e.g. when using Material3 or a
+    // custom design system based on Foundation)
+    implementation("androidx.compose.material:material-icons-core")
+    // Optional - Add full set of material icons
+    implementation("androidx.compose.material:material-icons-extended")
+    // Optional - Add window size utils
+    implementation("androidx.compose.material3:material3-window-size-class")
+    // Optional - Integration with activities
+    implementation("androidx.activity:activity-compose:1.6.1")
+    // Optional - Integration with ViewModels
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.5.1")
+    // Optional - Integration with LiveData
+    implementation("androidx.compose.runtime:runtime-livedata")
     // UI Tests
-    androidTestImplementation("androidx.compose.ui:ui-test-junit4:1.3.0")
-    debugImplementation("androidx.compose.ui:ui-test-manifest:1.3.0")
+    androidTestImplementation("androidx.compose.ui:ui-test-junit4")
+    debugImplementation("androidx.compose.ui:ui-test-manifest")
 
     // List of KTX extensions
     // https://developer.android.com/kotlin/ktx/extensions-list
