@@ -15,77 +15,82 @@ import javax.inject.Named
 class UserRepositoryImpl @Inject constructor(
     private val apiService: ApiService,
     private val movieDao: MovieDao,
-    @Named("io") private val ioDispatcher: CoroutineDispatcher
+    @Named("io") private val io: CoroutineDispatcher
 ) : UserRepository {
 
     override suspend fun getMovieList(
         hashMap: HashMap<String, String>
-    ): GetMovieListResponse = withContext(ioDispatcher) {
+    ): GetMovieListResponse = withContext(io) {
         apiService.getDiscoverMovie(hashMap)
     }
 
+    override suspend fun getMovieById(movieId: String): Movie =
+        withContext(io) {
+            apiService.getMovie(movieId = movieId)
+        }
+
     override suspend fun getCastAndCrew(movieId: String): GetCastAndCrewResponse =
-        withContext(ioDispatcher) {
+        withContext(io) {
             apiService.getMovieCredits(movieId)
         }
 
     override suspend fun getTvList3(
         hashMap: HashMap<String, String>
-    ): GetTvListResponse = withContext(ioDispatcher) {
+    ): GetTvListResponse = withContext(io) {
         apiService.getDiscoverTv(hashMap)
     }
 
     override suspend fun insertDB(
         list: List<Movie>
-    ) = withContext(ioDispatcher) {
+    ) = withContext(io) {
         movieDao.insert(list)
     }
 
     override suspend fun updateDB(
         movie: Movie
-    ) = withContext(ioDispatcher) {
+    ) = withContext(io) {
         movieDao.update(movie)
     }
 
-    override suspend fun getMovieListLocal(): List<Movie>? = withContext(ioDispatcher) {
+    override suspend fun getMovieListLocal(): List<Movie>? = withContext(io) {
         movieDao.getMovieList()
     }
 
-    override suspend fun getMovieLocal(id: String): Movie? = withContext(ioDispatcher) {
+    override suspend fun getMovieLocal(id: String): Movie? = withContext(io) {
         movieDao.getMovie(id)
     }
 
-    override suspend fun insertLocal(movie: Movie) = withContext(ioDispatcher) {
+    override suspend fun insertLocal(movie: Movie) = withContext(io) {
         movieDao.insert(movie)
     }
 
-    override suspend fun insertLocal(list: List<Movie>) = withContext(ioDispatcher) {
+    override suspend fun insertLocal(list: List<Movie>) = withContext(io) {
         movieDao.insert(list)
     }
 
-    override suspend fun updateLocal(movie: Movie) = withContext(ioDispatcher) {
+    override suspend fun updateLocal(movie: Movie) = withContext(io) {
         movieDao.update(movie)
     }
 
-    override suspend fun deleteMovieLocal(movie: Movie) = withContext(ioDispatcher) {
+    override suspend fun deleteMovieLocal(movie: Movie) = withContext(io) {
         movieDao.deleteMovie(movie)
     }
 
-    override suspend fun deleteMovieLocal(id: String) = withContext(ioDispatcher) {
+    override suspend fun deleteMovieLocal(id: String) = withContext(io) {
         movieDao.deleteMovie(id)
     }
 
-    override suspend fun deleteAllLocal() = withContext(ioDispatcher) {
+    override suspend fun deleteAllLocal() = withContext(io) {
         movieDao.deleteAll()
     }
 
     override suspend fun getMoviePageLocal(pageSize: Int, pageIndex: Int): List<Movie>? =
-        withContext(ioDispatcher) {
+        withContext(io) {
             movieDao.getMoviePage(pageSize, pageIndex)
         }
 
     override suspend fun getFavoriteLocal(pageSize: Int, pageIndex: Int): List<Movie>? =
-        withContext(ioDispatcher) {
+        withContext(io) {
             movieDao.getFavorite(pageSize = pageSize, pageIndex = pageIndex)
         }
 }

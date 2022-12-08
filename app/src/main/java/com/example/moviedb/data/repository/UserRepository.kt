@@ -11,6 +11,10 @@ interface UserRepository {
         hashMap: HashMap<String, String> = HashMap()
     ): GetMovieListResponse
 
+    suspend fun getMovieById(
+        movieId: String
+    ): Movie
+
     suspend fun getCastAndCrew(
         movieId: String
     ): GetCastAndCrewResponse

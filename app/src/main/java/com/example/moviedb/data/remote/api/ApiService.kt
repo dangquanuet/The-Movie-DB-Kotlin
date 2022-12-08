@@ -14,7 +14,7 @@ interface ApiService {
     suspend fun getDiscoverMovie(@QueryMap hashMap: HashMap<String, String> = HashMap()): GetMovieListResponse
 
     @GET("3/movie/{movie_id}")
-    suspend fun getMovie(@QueryMap hashMap: HashMap<String, String> = HashMap()): Movie
+    suspend fun getMovie(@Path("movie_id") movieId: String): Movie
 
     @GET("3/movie/{movie_id}/credits")
     suspend fun getMovieCredits(@Path("movie_id") movieId: String): GetCastAndCrewResponse

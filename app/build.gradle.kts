@@ -153,39 +153,6 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-reflect:1.7.20")
     implementation("androidx.multidex:multidex:2.0.1")
 
-    // compose
-    // https://developer.android.com/jetpack/compose/interop/adding
-    // https://developer.android.com/jetpack/compose/setup
-    val composeBom = platform("androidx.compose:compose-bom:2022.10.00")
-    implementation(composeBom)
-    androidTestImplementation(composeBom)
-    // Android Studio Preview support
-    implementation("androidx.compose.ui:ui-tooling-preview")
-    debugImplementation("androidx.compose.ui:ui-tooling")
-    // Animations
-    implementation("androidx.compose.animation:animation")
-    // Foundation (Border, Background, Box, Image, Scroll, shapes, animations, etc.)
-    implementation("androidx.compose.foundation:foundation")
-    // Material Design
-    implementation("androidx.compose.material3:material3")
-    // Optional - Included automatically by material, only add when you need
-    // the icons but not the material library (e.g. when using Material3 or a
-    // custom design system based on Foundation)
-    implementation("androidx.compose.material:material-icons-core")
-    // Optional - Add full set of material icons
-    implementation("androidx.compose.material:material-icons-extended")
-    // Optional - Add window size utils
-    implementation("androidx.compose.material3:material3-window-size-class")
-    // Optional - Integration with activities
-    implementation("androidx.activity:activity-compose:1.6.1")
-    // Optional - Integration with ViewModels
-    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.5.1")
-    // Optional - Integration with LiveData
-    implementation("androidx.compose.runtime:runtime-livedata")
-    // UI Tests
-    androidTestImplementation("androidx.compose.ui:ui-test-junit4")
-    debugImplementation("androidx.compose.ui:ui-test-manifest")
-
     // List of KTX extensions
     // https://developer.android.com/kotlin/ktx/extensions-list
     implementation("androidx.core:core-ktx:1.9.0")
@@ -401,6 +368,61 @@ dependencies {
     testImplementation(Libs.testCore)
     testImplementation(Libs.archCore)
     */
+
+    // compose
+    // https://developer.android.com/jetpack/compose/interop/adding
+    // https://developer.android.com/jetpack/compose/setup
+    val composeBom = platform("androidx.compose:compose-bom:2022.10.00")
+    implementation(composeBom)
+    androidTestImplementation(composeBom)
+    // Android Studio Preview support
+    implementation("androidx.compose.ui:ui-tooling-preview")
+    debugImplementation("androidx.compose.ui:ui-tooling")
+    // Animations
+    implementation("androidx.compose.animation:animation")
+    // Foundation (Border, Background, Box, Image, Scroll, shapes, animations, etc.)
+    implementation("androidx.compose.foundation:foundation")
+    // or Material Design 2
+    implementation("androidx.compose.material:material")
+    // Material Design
+    implementation("androidx.compose.material3:material3")
+    // Constraint layout
+    implementation("androidx.constraintlayout:constraintlayout-compose:1.0.1")
+    // Optional - Included automatically by material, only add when you need
+    // the icons but not the material library (e.g. when using Material3 or a
+    // custom design system based on Foundation)
+//    implementation("androidx.compose.material:material-icons-core")
+    // Optional - Add full set of material icons
+    implementation("androidx.compose.material:material-icons-extended")
+    // Optional - Add window size utils
+    implementation("androidx.compose.material3:material3-window-size-class")
+    // Optional - Integration with activities
+    implementation("androidx.activity:activity-compose:1.6.1")
+    // Optional - Integration with ViewModels
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.5.1")
+    // Optional - Integration with LiveData
+    implementation("androidx.compose.runtime:runtime-livedata")
+    // UI Tests
+    androidTestImplementation("androidx.compose.ui:ui-test-junit4")
+    debugImplementation("androidx.compose.ui:ui-test-manifest")
+    // navigation
+    implementation("androidx.navigation:navigation-compose:2.5.3")
+    implementation("androidx.hilt:hilt-navigation-compose:1.0.0")
+    // https://github.com/skydoves/landscapist
+    implementation("com.github.skydoves:landscapist-bom:2.1.0")
+    implementation("com.github.skydoves:landscapist-glide")
+    implementation("com.github.skydoves:landscapist-placeholder")
+    // https://google.github.io/accompanist/
+    // https://github.com/google/accompanist
+    val accompanistVersion = "0.28.0"
+    implementation("com.google.accompanist:accompanist-systemuicontroller:$accompanistVersion")
+    implementation("com.google.accompanist:accompanist-pager:$accompanistVersion")
+    implementation("com.google.accompanist:accompanist-permissions:$accompanistVersion")
+    implementation("com.google.accompanist:accompanist-placeholder:$accompanistVersion")
+    implementation("com.google.accompanist:accompanist-navigation-animation:$accompanistVersion")
+    implementation("com.google.accompanist:accompanist-navigation-material:$accompanistVersion")
+    implementation("com.google.accompanist:accompanist-webview:$accompanistVersion")
+    implementation("com.google.accompanist:accompanist-adaptive:$accompanistVersion")
 }
 
 kapt {
