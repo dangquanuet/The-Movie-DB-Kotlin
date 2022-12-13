@@ -2,7 +2,7 @@ package com.example.moviedb.ui.screen.popularmovie
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.example.moviedb.data.constants.MovieListType
+import com.example.moviedb.data.constant.MovieListType
 import com.example.moviedb.data.model.Movie
 import com.example.moviedb.data.remote.api.ApiParams
 import com.example.moviedb.data.repository.UserRepository

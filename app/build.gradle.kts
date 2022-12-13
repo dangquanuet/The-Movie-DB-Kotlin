@@ -157,7 +157,7 @@ dependencies {
     // https://developer.android.com/kotlin/ktx/extensions-list
     implementation("androidx.core:core-ktx:1.9.0")
     implementation("androidx.activity:activity-ktx:1.6.1")
-    implementation("androidx.fragment:fragment-ktx:1.5.4")
+    implementation("androidx.fragment:fragment-ktx:1.5.5")
 
     // Lifecycle
     // https://developer.android.com/jetpack/androidx/releases/lifecycle
@@ -217,8 +217,8 @@ dependencies {
     kapt("com.github.bumptech.glide:compiler:4.14.2")
 
     // dagger hilt
-    implementation("com.google.dagger:hilt-android:2.44")
-    kapt("com.google.dagger:hilt-android-compiler:2.44")
+    implementation("com.google.dagger:hilt-android:2.44.2")
+    kapt("com.google.dagger:hilt-android-compiler:2.44.2")
     implementation("androidx.hilt:hilt-navigation-fragment:1.0.0")
 //    implementation("androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha03")
     kapt("androidx.hilt:hilt-compiler:1.0.0")
@@ -229,7 +229,7 @@ dependencies {
 
     // firebase
     // https://firebase.google.com/docs/android/setup
-    implementation(platform("com.google.firebase:firebase-bom:31.0.0"))
+    implementation(platform("com.google.firebase:firebase-bom:31.1.1"))
     implementation("com.google.firebase:firebase-analytics-ktx")
     implementation("com.google.firebase:firebase-crashlytics-ktx")
     implementation("com.google.firebase:firebase-messaging-ktx")
@@ -247,9 +247,9 @@ dependencies {
 
     // unit test
     testImplementation("junit:junit:4.13.2")
-    testImplementation("org.mockito:mockito-core:4.8.1")
+    testImplementation("org.mockito:mockito-core:4.9.0")
 //    testImplementation("org.mockito:mockito-inline:3.3.3")
-    testImplementation("io.mockk:mockk:1.13.2")
+    testImplementation("io.mockk:mockk:1.13.3")
     testImplementation("androidx.arch.core:core-testing:2.1.0")
     testImplementation("com.squareup.okhttp3:mockwebserver:5.0.0-alpha.2")
     testImplementation("org.jetbrains.kotlin:kotlin-stdlib:1.7.20")
@@ -372,7 +372,7 @@ dependencies {
     // compose
     // https://developer.android.com/jetpack/compose/interop/adding
     // https://developer.android.com/jetpack/compose/setup
-    val composeBom = platform("androidx.compose:compose-bom:2022.10.00")
+    val composeBom = platform("androidx.compose:compose-bom:2022.12.00")
     implementation(composeBom)
     androidTestImplementation(composeBom)
     // Android Studio Preview support

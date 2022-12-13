@@ -19,7 +19,7 @@ import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.signature.ObjectKey
 import com.example.moviedb.BuildConfig
-import com.example.moviedb.data.constants.Constants
+import com.example.moviedb.data.constant.Constants
 
 @BindingAdapter("enableRefresh")
 fun SwipeRefreshLayout.enableRefresh(enable: Boolean?) {

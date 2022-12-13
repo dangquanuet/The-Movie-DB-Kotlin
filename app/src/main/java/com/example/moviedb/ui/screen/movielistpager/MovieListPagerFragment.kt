@@ -5,7 +5,7 @@ import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.viewpager2.widget.ViewPager2
 import com.example.moviedb.R
-import com.example.moviedb.data.constants.MovieListType
+import com.example.moviedb.data.constant.MovieListType
 import com.example.moviedb.databinding.FragmentMovieListPagerBinding
 import com.example.moviedb.ui.base.BaseFragment
 import com.example.moviedb.ui.base.BaseViewModel

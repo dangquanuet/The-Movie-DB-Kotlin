@@ -1,4 +1,4 @@
-package com.example.moviedb.data.constants
+package com.example.moviedb.data.constant
 
 enum class MovieListType(val type: Int) {
     POPULAR(0),

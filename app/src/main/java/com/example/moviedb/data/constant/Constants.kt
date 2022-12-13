@@ -1,4 +1,4 @@
-package com.example.moviedb.data.constants
+package com.example.moviedb.data.constant
 
 object Constants {
     const val DEFAULT_FIRST_PAGE = 1

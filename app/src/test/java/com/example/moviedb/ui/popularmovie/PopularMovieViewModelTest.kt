@@ -1,7 +1,7 @@
 package com.example.moviedb.ui.popularmovie
 
 import androidx.lifecycle.Observer
-import com.example.moviedb.data.constants.MovieListType
+import com.example.moviedb.data.constant.MovieListType
 import com.example.moviedb.data.model.Movie
 import com.example.moviedb.data.remote.api.ApiParams
 import com.example.moviedb.data.repository.UserRepository

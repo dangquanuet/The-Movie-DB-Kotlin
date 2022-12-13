@@ -20,6 +20,7 @@
     <string name="login_button_login">Login</string>
 
     <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
     <string name="summary">Summary</string>
 
 </resources>

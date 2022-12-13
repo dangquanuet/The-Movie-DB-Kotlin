@@ -9,7 +9,7 @@ import androidx.datastore.preferences.core.PreferenceDataStoreFactory
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStoreFile
 import androidx.room.Room
-import com.example.moviedb.data.constants.Constants
+import com.example.moviedb.data.constant.Constants
 import com.example.moviedb.data.local.dao.MovieDao
 import com.example.moviedb.data.local.db.AppDatabase
 import com.example.moviedb.data.local.pref.AppPrefs

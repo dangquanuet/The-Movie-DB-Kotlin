@@ -2,7 +2,7 @@ package com.example.moviedb.ui.screen.movielistpager
 
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.example.moviedb.data.constants.MovieListType
+import com.example.moviedb.data.constant.MovieListType
 import com.example.moviedb.ui.screen.moviepager.MoviePagerFragment
 
 class MovieListPagerAdapter(

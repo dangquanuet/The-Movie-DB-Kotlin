@@ -2,7 +2,7 @@ package com.example.moviedb.data.source
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.example.moviedb.data.constants.Constants.DEFAULT_FIRST_PAGE
+import com.example.moviedb.data.constant.Constants.DEFAULT_FIRST_PAGE
 
 abstract class BasePagingSource<Item : Any> : PagingSource<Int, Item>() {
 

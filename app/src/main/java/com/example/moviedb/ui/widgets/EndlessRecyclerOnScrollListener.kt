@@ -3,7 +3,7 @@ package com.example.moviedb.ui.widgets
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.moviedb.data.constants.Constants
+import com.example.moviedb.data.constant.Constants
 import timber.log.Timber
 
 abstract class EndlessRecyclerOnScrollListener(
