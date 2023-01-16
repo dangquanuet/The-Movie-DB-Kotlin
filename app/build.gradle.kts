@@ -15,6 +15,7 @@ plugins {
     jacoco
 }
 
+@Suppress("UnstableApiUsage")
 android {
     namespace = "com.example.moviedb"
     defaultConfig {
@@ -144,7 +145,7 @@ android {
 
 dependencies {
     // common
-    implementation("androidx.appcompat:appcompat:1.5.1")
+    implementation("androidx.appcompat:appcompat:1.6.0")
     implementation("androidx.legacy:legacy-support-v4:1.0.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation("androidx.recyclerview:recyclerview:1.2.1")
@@ -172,9 +173,9 @@ dependencies {
 
     // room
     // https://developer.android.com/topic/libraries/architecture/room
-    implementation("androidx.room:room-runtime:2.4.3")
-    kapt("androidx.room:room-compiler:2.4.3")
-    implementation("androidx.room:room-ktx:2.4.3")
+    implementation("androidx.room:room-runtime:2.5.0")
+    kapt("androidx.room:room-compiler:2.5.0")
+    implementation("androidx.room:room-ktx:2.5.0")
 
     // paging
     // https://developer.android.com/topic/libraries/architecture/paging
@@ -247,12 +248,12 @@ dependencies {
 
     // unit test
     testImplementation("junit:junit:4.13.2")
-    testImplementation("org.mockito:mockito-core:4.9.0")
+    testImplementation("org.mockito:mockito-core:5.0.0")
 //    testImplementation("org.mockito:mockito-inline:3.3.3")
     testImplementation("io.mockk:mockk:1.13.3")
     testImplementation("androidx.arch.core:core-testing:2.1.0")
     testImplementation("com.squareup.okhttp3:mockwebserver:5.0.0-alpha.2")
-    testImplementation("org.jetbrains.kotlin:kotlin-stdlib:1.7.20")
+    testImplementation("org.jetbrains.kotlin:kotlin-stdlib:1.8.0")
 //    testImplementation("org.robolectric:robolectric:4.3")
 
     /**
@@ -372,9 +373,8 @@ dependencies {
     // compose
     // https://developer.android.com/jetpack/compose/interop/adding
     // https://developer.android.com/jetpack/compose/setup
-    val composeBom = platform("androidx.compose:compose-bom:2022.12.00")
-    implementation(composeBom)
-    androidTestImplementation(composeBom)
+    implementation("androidx.compose:compose-bom:2023.01.00")
+    androidTestImplementation("androidx.compose:compose-bom:2023.01.00")
     // Android Studio Preview support
     implementation("androidx.compose.ui:ui-tooling-preview")
     debugImplementation("androidx.compose.ui:ui-tooling")
@@ -409,7 +409,7 @@ dependencies {
     implementation("androidx.navigation:navigation-compose:2.5.3")
     implementation("androidx.hilt:hilt-navigation-compose:1.0.0")
     // https://github.com/skydoves/landscapist
-    implementation("com.github.skydoves:landscapist-bom:2.1.0")
+    implementation("com.github.skydoves:landscapist-bom:2.1.1")
     implementation("com.github.skydoves:landscapist-glide")
     implementation("com.github.skydoves:landscapist-placeholder")
     // https://google.github.io/accompanist/

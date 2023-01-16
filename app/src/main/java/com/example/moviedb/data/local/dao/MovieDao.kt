@@ -1,11 +1,6 @@
 package com.example.moviedb.data.local.dao
 
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy.IGNORE
-import androidx.room.OnConflictStrategy.REPLACE
-import androidx.room.Query
+import androidx.room.*
 import com.example.moviedb.data.model.Movie
 
 @Dao
@@ -16,13 +11,13 @@ interface MovieDao {
     @Query("SELECT * FROM movie WHERE movie.id = :id")
     suspend fun getMovie(id: String): Movie?
 
-    @Insert(onConflict = IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(movie: Movie)
 
-    @Insert(onConflict = IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(list: List<Movie>)
 
-    @Insert(onConflict = REPLACE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun update(movie: Movie)
 
     @Delete
