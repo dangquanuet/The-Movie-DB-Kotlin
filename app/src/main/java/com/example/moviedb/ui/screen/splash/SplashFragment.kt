@@ -11,26 +11,34 @@ import com.example.moviedb.ui.base.BaseFragment
 import com.example.moviedb.ui.base.BaseViewModel
 import com.example.moviedb.ui.base.getNavController
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class SplashFragment : BaseFragment<FragmentSplashBinding, BaseViewModel>() {
 
     override val layoutId: Int = R.layout.fragment_splash
-    override val viewModel: BaseViewModel by viewModels()
+    override val viewModel: SplashViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         lifecycleScope.launch {
             whenStarted {
-                delay(1000)
-                navigateToOther()
+                viewModel.splashViewStateFlow.collect { state ->
+                    when (state) {
+                        is SplashViewState.Idle -> {
+                            // do nothing
+                        }
+                        is SplashViewState.NavigateToHome -> {
+                            navigateToHome()
+                        }
+                    }
+                }
             }
         }
+        viewModel.showSplash()
     }
 
-    private fun navigateToOther() {
+    private fun navigateToHome() {
         getNavController()?.navigate(
             when (1) {
                 0 -> SplashFragmentDirections.toMovieListPager()
