@@ -135,7 +135,7 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.3.2"
+        kotlinCompilerExtensionVersion = "1.4.0"
     }
     lint {
         checkReleaseBuilds = false
@@ -145,13 +145,13 @@ android {
 
 dependencies {
     // common
-    implementation("androidx.appcompat:appcompat:1.6.0")
+    implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("androidx.legacy:legacy-support-v4:1.0.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
-    implementation("androidx.recyclerview:recyclerview:1.2.1")
-    implementation("com.google.android.material:material:1.7.0")
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.7.20")
-    implementation("org.jetbrains.kotlin:kotlin-reflect:1.7.20")
+    implementation("androidx.recyclerview:recyclerview:1.3.0")
+    implementation("com.google.android.material:material:1.8.0")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.10")
+    implementation("org.jetbrains.kotlin:kotlin-reflect:1.8.0")
     implementation("androidx.multidex:multidex:2.0.1")
 
     // List of KTX extensions
@@ -162,10 +162,10 @@ dependencies {
 
     // Lifecycle
     // https://developer.android.com/jetpack/androidx/releases/lifecycle
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1")
-    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.5.1")
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.5.1")
-    implementation("androidx.lifecycle:lifecycle-common-java8:2.5.1")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.0")
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.6.0")
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.0")
+    implementation("androidx.lifecycle:lifecycle-common-java8:2.6.0")
 
     // Preferences DataStore
     // https://android-developers.googleblog.com/2020/09/prefer-storing-data-with-jetpack.html
@@ -214,12 +214,12 @@ dependencies {
 
     // glide
     // https://github.com/bumptech/glide
-    implementation("com.github.bumptech.glide:glide:4.14.2")
-    kapt("com.github.bumptech.glide:compiler:4.14.2")
+    implementation("com.github.bumptech.glide:glide:4.15.1")
+    kapt("com.github.bumptech.glide:compiler:4.15.1")
 
     // dagger hilt
-    implementation("com.google.dagger:hilt-android:2.44.2")
-    kapt("com.google.dagger:hilt-android-compiler:2.44.2")
+    implementation("com.google.dagger:hilt-android:2.45")
+    kapt("com.google.dagger:hilt-android-compiler:2.45")
     implementation("androidx.hilt:hilt-navigation-fragment:1.0.0")
 //    implementation("androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha03")
     kapt("androidx.hilt:hilt-compiler:1.0.0")
@@ -230,7 +230,7 @@ dependencies {
 
     // firebase
     // https://firebase.google.com/docs/android/setup
-    implementation(platform("com.google.firebase:firebase-bom:31.1.1"))
+    implementation(platform("com.google.firebase:firebase-bom:31.2.3"))
     implementation("com.google.firebase:firebase-analytics-ktx")
     implementation("com.google.firebase:firebase-crashlytics-ktx")
     implementation("com.google.firebase:firebase-messaging-ktx")
@@ -248,12 +248,12 @@ dependencies {
 
     // unit test
     testImplementation("junit:junit:4.13.2")
-    testImplementation("org.mockito:mockito-core:5.0.0")
+    testImplementation("org.mockito:mockito-core:5.2.0")
 //    testImplementation("org.mockito:mockito-inline:3.3.3")
-    testImplementation("io.mockk:mockk:1.13.3")
-    testImplementation("androidx.arch.core:core-testing:2.1.0")
+    testImplementation("io.mockk:mockk:1.13.4")
+    testImplementation("androidx.arch.core:core-testing:2.2.0")
     testImplementation("com.squareup.okhttp3:mockwebserver:5.0.0-alpha.2")
-    testImplementation("org.jetbrains.kotlin:kotlin-stdlib:1.8.0")
+    testImplementation("org.jetbrains.kotlin:kotlin-stdlib:1.8.10")
 //    testImplementation("org.robolectric:robolectric:4.3")
 
     /**
@@ -399,7 +399,7 @@ dependencies {
     // Optional - Integration with activities
     implementation("androidx.activity:activity-compose:1.6.1")
     // Optional - Integration with ViewModels
-    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.5.1")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.0")
     // Optional - Integration with LiveData
     implementation("androidx.compose.runtime:runtime-livedata")
     // UI Tests
@@ -409,7 +409,7 @@ dependencies {
     implementation("androidx.navigation:navigation-compose:2.5.3")
     implementation("androidx.hilt:hilt-navigation-compose:1.0.0")
     // https://github.com/skydoves/landscapist
-    implementation("com.github.skydoves:landscapist-bom:2.1.1")
+    implementation("com.github.skydoves:landscapist-bom:2.1.7")
     implementation("com.github.skydoves:landscapist-glide")
     implementation("com.github.skydoves:landscapist-placeholder")
     // https://google.github.io/accompanist/
