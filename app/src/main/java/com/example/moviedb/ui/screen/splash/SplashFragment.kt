@@ -3,8 +3,9 @@ package com.example.moviedb.ui.screen.splash
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.whenStarted
+import androidx.lifecycle.repeatOnLifecycle
 import com.example.moviedb.R
 import com.example.moviedb.databinding.FragmentSplashBinding
 import com.example.moviedb.ui.base.BaseFragment
@@ -22,12 +23,13 @@ class SplashFragment : BaseFragment<FragmentSplashBinding, BaseViewModel>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         lifecycleScope.launch {
-            whenStarted {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.splashViewStateFlow.collect { state ->
                     when (state) {
                         is SplashViewState.Idle -> {
                             // do nothing
                         }
+
                         is SplashViewState.NavigateToHome -> {
                             navigateToHome()
                         }

@@ -12,7 +12,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
-import com.example.moviedb.R
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 /**
@@ -93,10 +92,10 @@ fun BottomNavigationView.setupWithNavController(
                     // to it, creating the fixed started destination.
                     fragmentManager.beginTransaction()
                         .setCustomAnimations(
-                            R.anim.nav_default_enter_anim,
-                            R.anim.nav_default_exit_anim,
-                            R.anim.nav_default_pop_enter_anim,
-                            R.anim.nav_default_pop_exit_anim
+                            androidx.navigation.ui.R.anim.nav_default_enter_anim,
+                            androidx.navigation.ui.R.anim.nav_default_exit_anim,
+                            androidx.navigation.ui.R.anim.nav_default_pop_enter_anim,
+                            androidx.navigation.ui.R.anim.nav_default_pop_exit_anim
                         )
                         .attach(selectedFragment)
                         .setPrimaryNavigationFragment(selectedFragment)

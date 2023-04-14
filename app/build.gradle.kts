@@ -92,16 +92,17 @@ android {
         }
     }
 
-    flavorDimensions.addAll(listOf("server"))
+    val serverDimension = "server"
+    flavorDimensions.addAll(listOf(serverDimension))
     productFlavors {
         create("dev") {
-            dimension = "server"
+            dimension = serverDimension
             applicationIdSuffix = ".dev"
             resValue("string", "app_name", "Movie DB Dev")
             buildConfigField("boolean", "MOCK_DATA", "true")
         }
         create("prd") {
-            dimension = "server"
+            dimension = serverDimension
             resValue("string", "app_name", "Movie DB")
             buildConfigField("boolean", "MOCK_DATA", "false")
         }
@@ -120,13 +121,12 @@ android {
             }
         }
     }
-
     compileOptions {
-        sourceCompatibility(JavaVersion.VERSION_11)
-        targetCompatibility(JavaVersion.VERSION_11)
+        sourceCompatibility(JavaVersion.VERSION_17)
+        targetCompatibility(JavaVersion.VERSION_17)
     }
     kotlinOptions {
-        jvmTarget = "11"
+        jvmTarget = JavaVersion.VERSION_17.toString()
 //        freeCompilerArgs = listOf("-Xallow-result-return-type")
     }
     // https://developer.android.com/topic/libraries/data-binding
@@ -135,7 +135,7 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.4.0"
+        kotlinCompilerExtensionVersion = "1.4.7"
     }
     lint {
         checkReleaseBuilds = false
@@ -149,23 +149,23 @@ dependencies {
     implementation("androidx.legacy:legacy-support-v4:1.0.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation("androidx.recyclerview:recyclerview:1.3.0")
-    implementation("com.google.android.material:material:1.8.0")
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.10")
-    implementation("org.jetbrains.kotlin:kotlin-reflect:1.8.0")
+    implementation("com.google.android.material:material:1.9.0")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.21")
+    implementation("org.jetbrains.kotlin:kotlin-reflect:1.8.21")
     implementation("androidx.multidex:multidex:2.0.1")
 
     // List of KTX extensions
     // https://developer.android.com/kotlin/ktx/extensions-list
-    implementation("androidx.core:core-ktx:1.9.0")
-    implementation("androidx.activity:activity-ktx:1.6.1")
-    implementation("androidx.fragment:fragment-ktx:1.5.5")
+    implementation("androidx.core:core-ktx:1.10.0")
+    implementation("androidx.activity:activity-ktx:1.7.1")
+    implementation("androidx.fragment:fragment-ktx:1.5.7")
 
     // Lifecycle
     // https://developer.android.com/jetpack/androidx/releases/lifecycle
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.0")
-    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.6.0")
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.0")
-    implementation("androidx.lifecycle:lifecycle-common-java8:2.6.0")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1")
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.6.1")
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.1")
+    implementation("androidx.lifecycle:lifecycle-common-java8:2.6.1")
 
     // Preferences DataStore
     // https://android-developers.googleblog.com/2020/09/prefer-storing-data-with-jetpack.html
@@ -173,9 +173,9 @@ dependencies {
 
     // room
     // https://developer.android.com/topic/libraries/architecture/room
-    implementation("androidx.room:room-runtime:2.5.0")
-    kapt("androidx.room:room-compiler:2.5.0")
-    implementation("androidx.room:room-ktx:2.5.0")
+    implementation("androidx.room:room-runtime:2.5.1")
+    kapt("androidx.room:room-compiler:2.5.1")
+    implementation("androidx.room:room-ktx:2.5.1")
 
     // paging
     // https://developer.android.com/topic/libraries/architecture/paging
@@ -189,9 +189,9 @@ dependencies {
 
     // coroutines
     // https://github.com/Kotlin/kotlinx.coroutines
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4")
-    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.0")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.0")
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.0")
 
     // moshi
     implementation("com.squareup.moshi:moshi-kotlin:1.14.0")
@@ -230,7 +230,7 @@ dependencies {
 
     // firebase
     // https://firebase.google.com/docs/android/setup
-    implementation(platform("com.google.firebase:firebase-bom:31.2.3"))
+    implementation(platform("com.google.firebase:firebase-bom:32.0.0"))
     implementation("com.google.firebase:firebase-analytics-ktx")
     implementation("com.google.firebase:firebase-crashlytics-ktx")
     implementation("com.google.firebase:firebase-messaging-ktx")
@@ -248,12 +248,12 @@ dependencies {
 
     // unit test
     testImplementation("junit:junit:4.13.2")
-    testImplementation("org.mockito:mockito-core:5.2.0")
+    testImplementation("org.mockito:mockito-core:5.3.1")
 //    testImplementation("org.mockito:mockito-inline:3.3.3")
-    testImplementation("io.mockk:mockk:1.13.4")
+    testImplementation("io.mockk:mockk:1.13.5")
     testImplementation("androidx.arch.core:core-testing:2.2.0")
     testImplementation("com.squareup.okhttp3:mockwebserver:5.0.0-alpha.2")
-    testImplementation("org.jetbrains.kotlin:kotlin-stdlib:1.8.10")
+    testImplementation("org.jetbrains.kotlin:kotlin-stdlib:1.8.21")
 //    testImplementation("org.robolectric:robolectric:4.3")
 
     /**
@@ -373,19 +373,23 @@ dependencies {
     // compose
     // https://developer.android.com/jetpack/compose/interop/adding
     // https://developer.android.com/jetpack/compose/setup
-    implementation("androidx.compose:compose-bom:2023.01.00")
-    androidTestImplementation("androidx.compose:compose-bom:2023.01.00")
-    // Android Studio Preview support
-    implementation("androidx.compose.ui:ui-tooling-preview")
-    debugImplementation("androidx.compose.ui:ui-tooling")
-    // Animations
-    implementation("androidx.compose.animation:animation")
+//    implementation("androidx.compose.compiler:compiler:1.4.5")
+//    implementation("androidx.compose:compose-bom:2023.04.00")
+//    androidTestImplementation("androidx.compose:compose-bom:2023.04.00")
     // Foundation (Border, Background, Box, Image, Scroll, shapes, animations, etc.)
-    implementation("androidx.compose.foundation:foundation")
+    implementation("androidx.compose.foundation:foundation:1.4.3")
     // or Material Design 2
-    implementation("androidx.compose.material:material")
-    // Material Design
-    implementation("androidx.compose.material3:material3")
+    implementation("androidx.compose.material:material:1.4.3")
+    // Material Design 3
+    implementation("androidx.compose.material3:material3:1.1.0-rc01")
+    // Android Studio Preview support
+    implementation("androidx.compose.ui:ui-tooling-preview:1.4.3")
+    debugImplementation("androidx.compose.ui:ui-tooling:1.4.3")
+    // UI Tests
+    androidTestImplementation("androidx.compose.ui:ui-test-junit4:1.5.0-alpha03")
+    debugImplementation("androidx.compose.ui:ui-test-manifest:1.4.3")
+    // Animations
+    implementation("androidx.compose.animation:animation:1.4.3")
     // Constraint layout
     implementation("androidx.constraintlayout:constraintlayout-compose:1.0.1")
     // Optional - Included automatically by material, only add when you need
@@ -393,25 +397,22 @@ dependencies {
     // custom design system based on Foundation)
 //    implementation("androidx.compose.material:material-icons-core")
     // Optional - Add full set of material icons
-    implementation("androidx.compose.material:material-icons-extended")
+    implementation("androidx.compose.material:material-icons-extended:1.4.3")
     // Optional - Add window size utils
-    implementation("androidx.compose.material3:material3-window-size-class")
+    implementation("androidx.compose.material3:material3-window-size-class:1.0.1")
     // Optional - Integration with activities
-    implementation("androidx.activity:activity-compose:1.6.1")
+    implementation("androidx.activity:activity-compose:1.7.1")
     // Optional - Integration with ViewModels
-    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.0")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.1")
     // Optional - Integration with LiveData
-    implementation("androidx.compose.runtime:runtime-livedata")
-    // UI Tests
-    androidTestImplementation("androidx.compose.ui:ui-test-junit4")
-    debugImplementation("androidx.compose.ui:ui-test-manifest")
+    implementation("androidx.compose.runtime:runtime-livedata:1.4.3")
     // navigation
     implementation("androidx.navigation:navigation-compose:2.5.3")
     implementation("androidx.hilt:hilt-navigation-compose:1.0.0")
     // https://github.com/skydoves/landscapist
-    implementation("com.github.skydoves:landscapist-bom:2.1.7")
-    implementation("com.github.skydoves:landscapist-glide")
-    implementation("com.github.skydoves:landscapist-placeholder")
+//    implementation("com.github.skydoves:landscape-bom:2.1.7")
+    implementation("com.github.skydoves:landscapist-glide:2.1.13")
+    implementation("com.github.skydoves:landscapist-placeholder:2.1.13")
     // https://google.github.io/accompanist/
     // https://github.com/google/accompanist
     val accompanistVersion = "0.28.0"
@@ -461,15 +462,27 @@ project.afterEvaluate {
                 sourceName = buildTypeName
             } else {
                 sourcePath = "${productFlavorName}/${buildTypeName}"
-                sourceName = "${productFlavorName}${buildTypeName.capitalize()}"
+                sourceName = "${productFlavorName}${buildTypeName.replaceFirstChar {
+                    if (it.isLowerCase()) it.titlecase(
+                        Locale.getDefault()
+                    ) else it.toString()
+                }}"
             }
-            val testTaskName = "test${sourceName.capitalize()}UnitTest"
+            val testTaskName = "test${sourceName.replaceFirstChar {
+                if (it.isLowerCase()) it.titlecase(
+                    Locale.getDefault()
+                ) else it.toString()
+            }}UnitTest"
             // Create coverage task of form 'testFlavorTypeCoverage' depending on 'testFlavorTypeUnitTest'
             task<JacocoReport>("${testTaskName}Coverage") {
                 //where store all test to run follow second way above
                 group = "coverage"
                 description =
-                    "Generate Jacoco coverage reports on the ${sourceName.capitalize()} build."
+                    "Generate Jacoco coverage reports on the ${sourceName.replaceFirstChar {
+                        if (it.isLowerCase()) it.titlecase(
+                            Locale.getDefault()
+                        ) else it.toString()
+                    }} build."
                 val excludeFiles = arrayListOf(
                     "**/R.class", "**/R$*.class", "**/BuildConfig.*", "**/Manifest*.*",
                     "**/*Test*.*", "android/**/*.*",

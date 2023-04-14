@@ -4,7 +4,9 @@ import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.navArgs
 import com.example.moviedb.R
@@ -14,6 +16,7 @@ import com.example.moviedb.ui.base.getNavController
 import com.example.moviedb.utils.setSingleClick
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MovieDetailFragment : BaseFragment<FragmentMovieDetailBinding, MovieDetailViewModel>() {
@@ -50,9 +53,11 @@ class MovieDetailFragment : BaseFragment<FragmentMovieDetailBinding, MovieDetail
         if (viewBinding.recyclerCast.adapter == null) {
             viewBinding.recyclerCast.adapter = castAdapter
         }
-        lifecycleScope.launchWhenStarted {
-            viewModel.castList.collectLatest { castList ->
-                castAdapter.submitList(castList)
+        lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.castList.collectLatest { castList ->
+                    castAdapter.submitList(castList)
+                }
             }
         }
     }
