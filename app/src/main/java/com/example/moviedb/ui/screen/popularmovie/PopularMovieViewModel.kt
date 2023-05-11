@@ -1,6 +1,5 @@
 package com.example.moviedb.ui.screen.popularmovie
 
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.moviedb.data.constant.MovieListType
 import com.example.moviedb.data.model.Movie
@@ -8,6 +7,7 @@ import com.example.moviedb.data.remote.api.ApiParams
 import com.example.moviedb.data.repository.UserRepository
 import com.example.moviedb.ui.base.loadmorerefresh.BaseLoadMoreRefreshViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -16,7 +16,7 @@ class PopularMovieViewModel @Inject constructor(
     private val userRepository: UserRepository
 ) : BaseLoadMoreRefreshViewModel<Movie>() {
 
-    val mode = MutableLiveData<Int>().apply { value = MovieListType.POPULAR.type }
+    val mode = MutableStateFlow(MovieListType.POPULAR.type)
 
     override fun loadData(page: Int) {
         val hashMap = HashMap<String, String>()

@@ -5,14 +5,18 @@ import android.os.Bundle
 import android.view.View
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.moviedb.R
+import com.example.moviedb.data.constant.MovieListType
 import com.example.moviedb.data.model.Movie
 import com.example.moviedb.databinding.FragmentMoviePagerBinding
 import com.example.moviedb.ui.base.BaseListAdapter
 import com.example.moviedb.ui.base.loadmorerefresh.BaseLoadMoreRefreshFragment
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 import kotlin.math.abs
 
 @AndroidEntryPoint
@@ -59,7 +63,7 @@ class MoviePagerFragment :
         super.onViewCreated(view, savedInstanceState)
 
         viewModel.apply {
-            mode.value = arguments?.getInt(TYPE)
+            mode.value = arguments?.getInt(TYPE) ?: MovieListType.POPULAR.type
         }
 
         viewBinding.container.setBackgroundColor(Color.BLACK)
@@ -86,12 +90,11 @@ class MoviePagerFragment :
 //                view.translationY = abs(position) * ((MAX_SCALE - scaleY) / 2 * view.height)
             }
         }
-
-        viewModel.apply {
-            itemList.observe(viewLifecycleOwner) {
+        lifecycleScope.launch {
+            viewModel.itemList.collectLatest {
                 listAdapter.submitList(it)
             }
-            firstLoad()
+            viewModel.firstLoad()
         }
     }
 

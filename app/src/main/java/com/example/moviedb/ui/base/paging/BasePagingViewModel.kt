@@ -1,12 +1,17 @@
 package com.example.moviedb.ui.base.paging
 
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import androidx.paging.*
+import androidx.paging.CombinedLoadStates
+import androidx.paging.LoadState
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
+import androidx.paging.cachedIn
 import com.example.moviedb.data.constant.Constants
 import com.example.moviedb.data.source.BasePagingSource
 import com.example.moviedb.ui.base.BaseViewModel
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 
 abstract class BasePagingViewModel<Item : Any> : BaseViewModel() {
@@ -16,10 +21,10 @@ abstract class BasePagingViewModel<Item : Any> : BaseViewModel() {
     }
 
     // refresh flag
-    val isRefresh by lazy { MutableLiveData(false) }
+    val isRefresh by lazy { MutableStateFlow(false) }
 
     // empty list flag
-    val isEmptyList by lazy { MutableLiveData(false) }
+    val isEmptyList by lazy { MutableStateFlow(false) }
 
     // number item per page
     protected open val pageSize by lazy { Constants.DEFAULT_ITEM_PER_PAGE }
@@ -86,7 +91,7 @@ abstract class BasePagingViewModel<Item : Any> : BaseViewModel() {
     /**
      * handler error
      */
-    override fun onError(throwable: Throwable) {
+    override suspend fun onError(throwable: Throwable) {
         super.onError(throwable)
         // reset load
         hideLoadRefresh()

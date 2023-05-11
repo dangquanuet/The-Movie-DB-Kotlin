@@ -3,12 +3,15 @@ package com.example.moviedb.ui.base.loadmorerefresh
 import android.os.Bundle
 import android.view.View
 import androidx.databinding.ViewDataBinding
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.moviedb.R
 import com.example.moviedb.ui.base.BaseFragment
 import com.example.moviedb.ui.base.BaseListAdapter
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 /**
  * should use paging 3
@@ -39,11 +42,11 @@ abstract class BaseLoadMoreRefreshFragment<ViewBinding : ViewDataBinding, ViewMo
         recyclerView?.layoutManager = getLayoutManager()
         recyclerView?.adapter = listAdapter
         recyclerView?.setHasFixedSize(true)
-        viewModel.apply {
-            itemList.observe(viewLifecycleOwner) {
+        lifecycleScope.launch {
+            viewModel.itemList.collectLatest {
                 listAdapter.submitList(it)
             }
-            firstLoad()
+            viewModel.firstLoad()
         }
     }
 

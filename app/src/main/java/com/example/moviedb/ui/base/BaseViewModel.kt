@@ -3,8 +3,9 @@ package com.example.moviedb.ui.base
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.moviedb.data.remote.toBaseException
-import com.example.moviedb.utils.SingleLiveData
 import kotlinx.coroutines.CoroutineExceptionHandler
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.plus
 import java.net.ConnectException
@@ -15,17 +16,17 @@ import java.net.UnknownHostException
 open class BaseViewModel : ViewModel() {
 
     // loading flag
-    val isLoading by lazy { SingleLiveData<Boolean>().apply { value = false } }
+    val isLoading by lazy { MutableStateFlow(false) }
 
     // error message
-    val errorMessage by lazy { SingleLiveData<String>() }
+    val errorMessage by lazy { MutableSharedFlow<String>() }
 
     // optional flags
-    val noInternetConnectionEvent by lazy { SingleLiveData<Unit>() }
-    val connectTimeoutEvent by lazy { SingleLiveData<Unit>() }
-    val forceUpdateAppEvent by lazy { SingleLiveData<Unit>() }
-    val serverMaintainEvent by lazy { SingleLiveData<Unit>() }
-    val unknownErrorEvent by lazy { SingleLiveData<Unit>() }
+    val noInternetConnectionEvent by lazy { MutableSharedFlow<Unit>() }
+    val connectTimeoutEvent by lazy { MutableSharedFlow<Unit>() }
+    val forceUpdateAppEvent by lazy { MutableSharedFlow<Unit>() }
+    val serverMaintainEvent by lazy { MutableSharedFlow<Unit>() }
+    val unknownErrorEvent by lazy { MutableSharedFlow<Unit>() }
 
     // exception handler for coroutine
     private val exceptionHandler by lazy {
@@ -40,31 +41,35 @@ open class BaseViewModel : ViewModel() {
     /**
      * handle throwable when load fail
      */
-    protected open fun onError(throwable: Throwable) {
+    protected open suspend fun onError(throwable: Throwable) {
         when (throwable) {
             // case no internet connection
             is UnknownHostException -> {
-                noInternetConnectionEvent.call()
+                noInternetConnectionEvent.emit(Unit)
             }
+
             is ConnectException -> {
-                noInternetConnectionEvent.call()
+                noInternetConnectionEvent.emit(Unit)
             }
             // case request time out
             is SocketTimeoutException -> {
-                connectTimeoutEvent.call()
+                connectTimeoutEvent.emit(Unit)
             }
+
             else -> {
                 // convert throwable to base exception to get error information
                 val baseException = throwable.toBaseException()
                 when (baseException.httpCode) {
                     HttpURLConnection.HTTP_UNAUTHORIZED -> {
-                        errorMessage.value = baseException.message
+                        errorMessage.emit(baseException.message ?: "")
                     }
+
                     HttpURLConnection.HTTP_INTERNAL_ERROR -> {
-                        errorMessage.value = baseException.message
+                        errorMessage.emit(baseException.message ?: "")
                     }
+
                     else -> {
-                        unknownErrorEvent.call()
+                        unknownErrorEvent.emit(Unit)
                     }
                 }
             }
@@ -72,8 +77,8 @@ open class BaseViewModel : ViewModel() {
         hideLoading()
     }
 
-    open fun showError(e: Throwable) {
-        errorMessage.value = e.message
+    open suspend fun showError(e: Throwable) {
+        errorMessage.emit(e.message ?: "")
     }
 
     fun showLoading() {

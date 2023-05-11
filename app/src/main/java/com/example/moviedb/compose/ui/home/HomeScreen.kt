@@ -41,8 +41,8 @@ fun HomeScreen(
     navController: NavController,
     viewModel: PopularMovieViewModel = hiltViewModel()
 ) {
-    val movieList by viewModel.itemList.observeAsState(listOf())
-    val refreshing by viewModel.isRefreshing.observeAsState(false)
+    val movieList by viewModel.itemList.collectAsState(listOf())
+    val refreshing by viewModel.isRefreshing.collectAsState(false)
     val pullRefreshState = rememberPullRefreshState(refreshing, { viewModel.doRefresh() })
     val scrollState = rememberLazyGridState()
     val endOfListReached by remember {

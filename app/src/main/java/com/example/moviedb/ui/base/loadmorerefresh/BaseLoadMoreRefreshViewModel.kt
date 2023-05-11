@@ -1,9 +1,9 @@
 package com.example.moviedb.ui.base.loadmorerefresh
 
-import androidx.lifecycle.MutableLiveData
 import com.example.moviedb.data.constant.Constants
 import com.example.moviedb.ui.base.BaseViewModel
 import com.example.moviedb.ui.widgets.EndlessRecyclerOnScrollListener
+import kotlinx.coroutines.flow.MutableStateFlow
 
 /**
  * should use paging 3
@@ -11,16 +11,16 @@ import com.example.moviedb.ui.widgets.EndlessRecyclerOnScrollListener
 abstract class BaseLoadMoreRefreshViewModel<Item>() : BaseViewModel() {
 
     // refresh flag
-    val isRefreshing = MutableLiveData<Boolean>().apply { value = false }
+    val isRefreshing = MutableStateFlow(false)
 
     // load more flag
-    private val isLoadMore = MutableLiveData<Boolean>().apply { value = false }
+    private val isLoadMore = MutableStateFlow(false)
 
     // current page
-    private val currentPage = MutableLiveData<Int>().apply { value = getPreFirstPage() }
+    private val currentPage = MutableStateFlow(getPreFirstPage())
 
     // last page flag
-    private val isLastPage = MutableLiveData<Boolean>().apply { value = false }
+    private val isLastPage = MutableStateFlow(false)
 
     // scroll listener for recycler view
     val onScrollListener = object : EndlessRecyclerOnScrollListener(getLoadMoreThreshold()) {
@@ -30,10 +30,10 @@ abstract class BaseLoadMoreRefreshViewModel<Item>() : BaseViewModel() {
     }
 
     // item list
-    val itemList = MutableLiveData<ArrayList<Item>>()
+    val itemList = MutableStateFlow(arrayListOf<Item>())
 
     // empty list flag
-    val isEmptyList = MutableLiveData<Boolean>().apply { value = false }
+    val isEmptyList = MutableStateFlow(false)
 
     /**
      * load data
@@ -44,7 +44,7 @@ abstract class BaseLoadMoreRefreshViewModel<Item>() : BaseViewModel() {
      * check first time load data
      */
     private fun isFirst() = currentPage.value == getPreFirstPage()
-            && itemList.value?.isEmpty() ?: true
+            && itemList.value.isEmpty()
 
     /**
      * first load
@@ -57,7 +57,7 @@ abstract class BaseLoadMoreRefreshViewModel<Item>() : BaseViewModel() {
     }
 
     fun doRefresh() {
-        if (isLoading.value == true || isRefreshing.value == true) return
+        if (isLoading.value || isRefreshing.value) return
         isRefreshing.value = true
         refreshData()
     }
@@ -70,10 +70,7 @@ abstract class BaseLoadMoreRefreshViewModel<Item>() : BaseViewModel() {
     }
 
     fun doLoadMore() {
-        if (isLoading.value == true
-            || isRefreshing.value == true
-            || isLoadMore.value == true
-            || isLastPage.value == true
+        if (isLoading.value || isRefreshing.value || isLoadMore.value || isLastPage.value
         ) return
         isLoadMore.value = true
         loadMore()
@@ -83,7 +80,7 @@ abstract class BaseLoadMoreRefreshViewModel<Item>() : BaseViewModel() {
      * load next page
      */
     protected fun loadMore() {
-        loadData(currentPage.value?.plus(1) ?: getFirstPage())
+        loadData(currentPage.value.plus(1))
     }
 
     /**
@@ -118,9 +115,9 @@ abstract class BaseLoadMoreRefreshViewModel<Item>() : BaseViewModel() {
         // load success then update current page
         currentPage.value = page
         // case load first page then clear data from listItem
-        if (currentPage.value == getFirstPage()) itemList.value?.clear()
+        if (currentPage.value == getFirstPage()) itemList.value.clear()
         // case refresh then reset load more
-        if (isRefreshing.value == true) resetLoadMore()
+        if (isRefreshing.value) resetLoadMore()
 
         // add new data to listItem
         val newList = itemList.value ?: ArrayList()
@@ -128,7 +125,7 @@ abstract class BaseLoadMoreRefreshViewModel<Item>() : BaseViewModel() {
         itemList.value = newList
 
         // check last page
-        isLastPage.value = items?.size ?: 0 < getNumberItemPerPage()
+        isLastPage.value = (items?.size ?: 0) < getNumberItemPerPage()
 
         // reset load
         hideLoading()
@@ -142,7 +139,7 @@ abstract class BaseLoadMoreRefreshViewModel<Item>() : BaseViewModel() {
     /**
      * handle load fail
      */
-    override fun onError(throwable: Throwable) {
+    override suspend fun onError(throwable: Throwable) {
         super.onError(throwable)
         onScrollListener.isLoading = false
 
@@ -158,6 +155,6 @@ abstract class BaseLoadMoreRefreshViewModel<Item>() : BaseViewModel() {
      * check list is empty
      */
     private fun checkEmptyList() {
-        isEmptyList.value = itemList.value?.isEmpty() ?: true
+        isEmptyList.value = itemList.value.isEmpty() ?: true
     }
 }

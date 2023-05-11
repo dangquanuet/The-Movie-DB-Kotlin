@@ -5,11 +5,14 @@ import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
+import androidx.lifecycle.lifecycleScope
 import com.example.moviedb.BR
 import com.example.moviedb.R
 import com.example.moviedb.utils.dismissLLoadingDialog
 import com.example.moviedb.utils.showDialog
 import com.example.moviedb.utils.showLoadingDialog
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 abstract class BaseActivity<ViewBinding : ViewDataBinding, ViewModel : BaseViewModel> :
     AppCompatActivity() {
@@ -33,26 +36,26 @@ abstract class BaseActivity<ViewBinding : ViewDataBinding, ViewModel : BaseViewM
     }
 
     private fun observeErrorEvent() {
-        viewModel.apply {
-            isLoading.observe(this@BaseActivity) {
-                handleLoading(it == true)
+        lifecycleScope.launch {
+            viewModel.isLoading.collectLatest {
+                handleLoading(it)
             }
-            errorMessage.observe(this@BaseActivity) {
+            viewModel.errorMessage.collectLatest {
                 handleErrorMessage(it)
             }
-            noInternetConnectionEvent.observe(this@BaseActivity) {
+            viewModel.noInternetConnectionEvent.collectLatest {
                 handleErrorMessage(getString(R.string.no_internet_connection))
             }
-            connectTimeoutEvent.observe(this@BaseActivity) {
+            viewModel.connectTimeoutEvent.collectLatest {
                 handleErrorMessage(getString(R.string.connect_timeout))
             }
-            forceUpdateAppEvent.observe(this@BaseActivity) {
+            viewModel.forceUpdateAppEvent.collectLatest {
                 handleErrorMessage(getString(R.string.force_update_app))
             }
-            serverMaintainEvent.observe(this@BaseActivity) {
+            viewModel.serverMaintainEvent.collectLatest {
                 handleErrorMessage(getString(R.string.server_maintain_message))
             }
-            unknownErrorEvent.observe(this@BaseActivity) {
+            viewModel.unknownErrorEvent.collectLatest {
                 handleErrorMessage(getString(R.string.unknown_error))
             }
         }

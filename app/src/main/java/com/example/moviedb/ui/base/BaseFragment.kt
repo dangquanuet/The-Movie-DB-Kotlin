@@ -10,6 +10,7 @@ import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.example.moviedb.BR
@@ -17,6 +18,8 @@ import com.example.moviedb.R
 import com.example.moviedb.utils.dismissLLoadingDialog
 import com.example.moviedb.utils.showDialog
 import com.example.moviedb.utils.showLoadingDialog
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 abstract class BaseFragment<ViewBinding : ViewDataBinding, ViewModel : BaseViewModel> : Fragment() {
 
@@ -47,26 +50,26 @@ abstract class BaseFragment<ViewBinding : ViewDataBinding, ViewModel : BaseViewM
     }
 
     private fun observerEvents() {
-        viewModel.apply {
-            isLoading.observe(viewLifecycleOwner) {
-                handleLoading(it == true)
+        lifecycleScope.launch {
+            viewModel.isLoading.collectLatest {
+                handleLoading(it)
             }
-            errorMessage.observe(viewLifecycleOwner) {
+            viewModel.errorMessage.collectLatest {
                 handleErrorMessage(it)
             }
-            noInternetConnectionEvent.observe(viewLifecycleOwner) {
+            viewModel.noInternetConnectionEvent.collectLatest {
                 handleErrorMessage(getString(R.string.no_internet_connection))
             }
-            connectTimeoutEvent.observe(viewLifecycleOwner) {
+            viewModel.connectTimeoutEvent.collectLatest {
                 handleErrorMessage(getString(R.string.connect_timeout))
             }
-            forceUpdateAppEvent.observe(viewLifecycleOwner) {
+            viewModel.forceUpdateAppEvent.collectLatest {
                 handleErrorMessage(getString(R.string.force_update_app))
             }
-            serverMaintainEvent.observe(viewLifecycleOwner) {
+            viewModel.serverMaintainEvent.collectLatest {
                 handleErrorMessage(getString(R.string.server_maintain_message))
             }
-            unknownErrorEvent.observe(viewLifecycleOwner) {
+            viewModel.unknownErrorEvent.collectLatest {
                 handleErrorMessage(getString(R.string.unknown_error))
             }
         }
