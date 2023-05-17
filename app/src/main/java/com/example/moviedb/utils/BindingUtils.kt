@@ -118,7 +118,7 @@ fun ImageView.loadImage(
         }
     }
 
-    GlideApp.with(context).load(imageUrl).apply {
+    Glide.with(context).load(imageUrl).apply {
         transition(DrawableTransitionOptions.withCrossFade())
         addListener(requestListener)
         // breaks sharedElementEnterTransition

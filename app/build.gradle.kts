@@ -7,6 +7,7 @@ plugins {
     id("com.android.application")
     id("kotlin-android")
     id("kotlin-parcelize")
+    id("com.google.devtools.ksp")
     id("kotlin-kapt")
     id("androidx.navigation.safeargs.kotlin")
     id("com.google.gms.google-services")
@@ -127,7 +128,6 @@ android {
     }
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_17.toString()
-//        freeCompilerArgs = listOf("-Xallow-result-return-type")
     }
     // https://developer.android.com/topic/libraries/data-binding
     buildFeatures {
@@ -156,14 +156,14 @@ dependencies {
 
     // List of KTX extensions
     // https://developer.android.com/kotlin/ktx/extensions-list
-    implementation("androidx.core:core-ktx:1.10.0")
-    implementation("androidx.activity:activity-ktx:1.7.1")
+    implementation("androidx.core:core-ktx:1.10.1")
+    implementation("androidx.activity:activity-ktx:1.7.2")
     implementation("androidx.fragment:fragment-ktx:1.5.7")
 
     // Lifecycle
     // https://developer.android.com/jetpack/androidx/releases/lifecycle
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1")
-    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.6.1")
+//    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.6.1")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.1")
     implementation("androidx.lifecycle:lifecycle-common-java8:2.6.1")
 
@@ -174,7 +174,7 @@ dependencies {
     // room
     // https://developer.android.com/topic/libraries/architecture/room
     implementation("androidx.room:room-runtime:2.5.1")
-    kapt("androidx.room:room-compiler:2.5.1")
+    ksp("androidx.room:room-compiler:2.5.1")
     implementation("androidx.room:room-ktx:2.5.1")
 
     // paging
@@ -189,13 +189,13 @@ dependencies {
 
     // coroutines
     // https://github.com/Kotlin/kotlinx.coroutines
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.0")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.0")
-    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.0")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.1")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.1")
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.1")
 
     // moshi
-    implementation("com.squareup.moshi:moshi-kotlin:1.14.0")
-    kapt("com.squareup.moshi:moshi-kotlin-codegen:1.14.0")
+    implementation("com.squareup.moshi:moshi-kotlin:1.15.0")
+    ksp("com.squareup.moshi:moshi-kotlin-codegen:1.15.0")
 
     // retrofit
     // https://github.com/square/retrofit
@@ -215,13 +215,12 @@ dependencies {
     // glide
     // https://github.com/bumptech/glide
     implementation("com.github.bumptech.glide:glide:4.15.1")
-    kapt("com.github.bumptech.glide:compiler:4.15.1")
+    ksp("com.github.bumptech.glide:ksp:4.15.1")
 
     // dagger hilt
-    implementation("com.google.dagger:hilt-android:2.45")
-    kapt("com.google.dagger:hilt-android-compiler:2.45")
+    implementation("com.google.dagger:hilt-android:2.46.1")
+    kapt("com.google.dagger:hilt-android-compiler:2.46.1")
     implementation("androidx.hilt:hilt-navigation-fragment:1.0.0")
-//    implementation("androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha03")
     kapt("androidx.hilt:hilt-compiler:1.0.0")
 
     // runtime permission
@@ -381,12 +380,12 @@ dependencies {
     // or Material Design 2
     implementation("androidx.compose.material:material:1.4.3")
     // Material Design 3
-    implementation("androidx.compose.material3:material3:1.1.0-rc01")
+    implementation("androidx.compose.material3:material3:1.1.0")
     // Android Studio Preview support
     implementation("androidx.compose.ui:ui-tooling-preview:1.4.3")
     debugImplementation("androidx.compose.ui:ui-tooling:1.4.3")
     // UI Tests
-    androidTestImplementation("androidx.compose.ui:ui-test-junit4:1.5.0-alpha03")
+    androidTestImplementation("androidx.compose.ui:ui-test-junit4:1.4.3")
     debugImplementation("androidx.compose.ui:ui-test-manifest:1.4.3")
     // Animations
     implementation("androidx.compose.animation:animation:1.4.3")
@@ -399,20 +398,22 @@ dependencies {
     // Optional - Add full set of material icons
     implementation("androidx.compose.material:material-icons-extended:1.4.3")
     // Optional - Add window size utils
-    implementation("androidx.compose.material3:material3-window-size-class:1.0.1")
+    implementation("androidx.compose.material3:material3-window-size-class:1.1.0")
     // Optional - Integration with activities
-    implementation("androidx.activity:activity-compose:1.7.1")
+    implementation("androidx.activity:activity-compose:1.7.2")
     // Optional - Integration with ViewModels
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.1")
     // Optional - Integration with LiveData
-    implementation("androidx.compose.runtime:runtime-livedata:1.4.3")
+//    implementation("androidx.compose.runtime:runtime-livedata:1.4.3")
+    // Lifecycle utilities for Compose
+    implementation("androidx.lifecycle:lifecycle-runtime-compose:2.6.1")
     // navigation
     implementation("androidx.navigation:navigation-compose:2.5.3")
     implementation("androidx.hilt:hilt-navigation-compose:1.0.0")
     // https://github.com/skydoves/landscapist
 //    implementation("com.github.skydoves:landscape-bom:2.1.7")
-    implementation("com.github.skydoves:landscapist-glide:2.1.13")
-    implementation("com.github.skydoves:landscapist-placeholder:2.1.13")
+    implementation("com.github.skydoves:landscapist-glide:2.2.0")
+    implementation("com.github.skydoves:landscapist-placeholder:2.2.0")
     // https://google.github.io/accompanist/
     // https://github.com/google/accompanist
     val accompanistVersion = "0.28.0"

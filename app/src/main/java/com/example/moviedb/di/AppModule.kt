@@ -1,7 +1,6 @@
 package com.example.moviedb.di
 
 import android.content.Context
-import android.content.SharedPreferences
 import android.content.res.AssetManager
 import android.content.res.Resources
 import androidx.datastore.core.DataStore
@@ -38,10 +37,10 @@ class AppModule {
     @Provides
     fun provideAssetManager(context: Context): AssetManager = context.assets
 
-    @Singleton
+    /*@Singleton
     @Provides
     fun provideSharedPrefs(context: Context): SharedPreferences =
-        context.getSharedPreferences(context.packageName, Context.MODE_PRIVATE)
+        context.getSharedPreferences(context.packageName, Context.MODE_PRIVATE)*/
 
     @Singleton
     @Provides
