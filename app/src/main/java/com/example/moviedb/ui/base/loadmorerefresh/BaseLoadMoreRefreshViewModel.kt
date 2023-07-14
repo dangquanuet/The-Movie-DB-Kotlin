@@ -57,9 +57,14 @@ abstract class BaseLoadMoreRefreshViewModel<Item>() : BaseViewModel() {
     }
 
     fun doRefresh() {
-        if (isLoading.value || isRefreshing.value) return
-        isRefreshing.value = true
-        refreshData()
+        when {
+            isLoading() || isRefreshing.value -> {}
+
+            else -> {
+                isRefreshing.value = true
+                refreshData()
+            }
+        }
     }
 
     /**
@@ -70,10 +75,18 @@ abstract class BaseLoadMoreRefreshViewModel<Item>() : BaseViewModel() {
     }
 
     fun doLoadMore() {
-        if (isLoading.value || isRefreshing.value || isLoadMore.value || isLastPage.value
-        ) return
-        isLoadMore.value = true
-        loadMore()
+        when {
+            isLoading()
+                    || isRefreshing.value
+                    || isLoadMore.value
+                    || isLastPage.value -> {
+            }
+
+            else -> {
+                isLoadMore.value = true
+                loadMore()
+            }
+        }
     }
 
     /**
@@ -120,20 +133,24 @@ abstract class BaseLoadMoreRefreshViewModel<Item>() : BaseViewModel() {
         if (isRefreshing.value) resetLoadMore()
 
         // add new data to listItem
-        val newList = itemList.value ?: ArrayList()
-        newList.addAll(items ?: listOf())
-        itemList.value = newList
+        if (items?.isNotEmpty() == true) {
+            itemList.value = arrayListOf<Item>().apply {
+                addAll(itemList.value)
+                addAll(items)
+            }
+        }
 
         // check last page
         isLastPage.value = (items?.size ?: 0) < getNumberItemPerPage()
 
         // reset load
-        hideLoading()
+//        hideLoading()
         isRefreshing.value = false
         isLoadMore.value = false
 
         // check empty list
         checkEmptyList()
+        showSuccess()
     }
 
     /**
@@ -155,6 +172,6 @@ abstract class BaseLoadMoreRefreshViewModel<Item>() : BaseViewModel() {
      * check list is empty
      */
     private fun checkEmptyList() {
-        isEmptyList.value = itemList.value.isEmpty() ?: true
+        isEmptyList.value = itemList.value.isEmpty()
     }
 }

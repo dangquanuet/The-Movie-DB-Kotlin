@@ -12,6 +12,7 @@ import com.example.moviedb.ui.base.BaseFragment
 import com.example.moviedb.ui.base.BaseViewModel
 import com.example.moviedb.ui.base.getNavController
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -22,9 +23,14 @@ class SplashFragment : BaseFragment<FragmentSplashBinding, BaseViewModel>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        observeEvents()
+        viewModel.showSplash()
+    }
+
+    private fun observeEvents() {
         lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.splashViewStateFlow.collect { state ->
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.splashViewStateFlow.collectLatest { state ->
                     when (state) {
                         is SplashViewState.Idle -> {
                             // do nothing
@@ -37,7 +43,6 @@ class SplashFragment : BaseFragment<FragmentSplashBinding, BaseViewModel>() {
                 }
             }
         }
-        viewModel.showSplash()
     }
 
     private fun navigateToHome() {

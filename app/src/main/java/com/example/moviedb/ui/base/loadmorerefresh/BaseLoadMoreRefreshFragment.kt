@@ -3,7 +3,9 @@ package com.example.moviedb.ui.base.loadmorerefresh
 import android.os.Bundle
 import android.view.View
 import androidx.databinding.ViewDataBinding
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -43,11 +45,13 @@ abstract class BaseLoadMoreRefreshFragment<ViewBinding : ViewDataBinding, ViewMo
         recyclerView?.adapter = listAdapter
         recyclerView?.setHasFixedSize(true)
         lifecycleScope.launch {
-            viewModel.itemList.collectLatest {
-                listAdapter.submitList(it)
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.itemList.collectLatest {
+                    listAdapter.submitList(it)
+                }
             }
-            viewModel.firstLoad()
         }
+        viewModel.firstLoad()
     }
 
     override fun handleLoading(isLoading: Boolean) {

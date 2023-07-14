@@ -101,7 +101,7 @@ abstract class BasePagingViewModel<Item : Any> : BaseViewModel() {
      * hide loading, load more and refresh indicator
      */
     private fun hideLoadRefresh() {
-        hideLoading()
+//        hideLoading()
         isRefresh.value = false
     }
 }

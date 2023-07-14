@@ -10,14 +10,14 @@ import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import com.example.moviedb.BR
 import com.example.moviedb.R
-import com.example.moviedb.utils.dismissLLoadingDialog
-import com.example.moviedb.utils.showDialog
-import com.example.moviedb.utils.showLoadingDialog
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 abstract class BaseDialogFragment<ViewBinding : ViewDataBinding, ViewModel : BaseViewModel> :
     DialogFragment() {
@@ -28,11 +28,14 @@ abstract class BaseDialogFragment<ViewBinding : ViewDataBinding, ViewModel : Bas
     @get:LayoutRes
     protected abstract val layoutId: Int
 
+    protected val baseActivity by lazy { activity as BaseActivity<*, *> }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        Timber.d("onCreateView ${javaClass.simpleName}")
         viewBinding = DataBindingUtil.inflate(inflater, layoutId, container, false)
         viewBinding.apply {
             setVariable(BR.viewModel, viewModel)
@@ -45,31 +48,29 @@ abstract class BaseDialogFragment<ViewBinding : ViewDataBinding, ViewModel : Bas
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        Timber.d("onViewCreated ${javaClass.simpleName}")
         observerEvents()
     }
 
     private fun observerEvents() {
         lifecycleScope.launch {
-            viewModel.isLoading.collectLatest {
-                handleLoading(it)
-            }
-            viewModel.errorMessage.collectLatest {
-                handleErrorMessage(it)
-            }
-            viewModel.noInternetConnectionEvent.collectLatest {
-                handleErrorMessage(getString(R.string.no_internet_connection))
-            }
-            viewModel.connectTimeoutEvent.collectLatest {
-                handleErrorMessage(getString(R.string.connect_timeout))
-            }
-            viewModel.forceUpdateAppEvent.collectLatest {
-                handleErrorMessage(getString(R.string.force_update_app))
-            }
-            viewModel.serverMaintainEvent.collectLatest {
-                handleErrorMessage(getString(R.string.server_maintain_message))
-            }
-            viewModel.unknownErrorEvent.collectLatest {
-                handleErrorMessage(getString(R.string.unknown_error))
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.uiState.collectLatest { uiState ->
+                    when (uiState) {
+                        is UiState.Loading -> {
+                            handleLoading(isLoading = true)
+                        }
+
+                        is UiState.Error -> {
+                            handleLoading(isLoading = false)
+                            handleError(uiState.errorType)
+                        }
+
+                        else -> {
+                            handleLoading(isLoading = false)
+                        }
+                    }
+                }
             }
         }
     }
@@ -78,16 +79,75 @@ abstract class BaseDialogFragment<ViewBinding : ViewDataBinding, ViewModel : Bas
      * override this if not use loading dialog (example progress bar)
      */
     protected open fun handleLoading(isLoading: Boolean) {
-        if (isLoading) showLoadingDialog() else dismissLLoadingDialog()
+        if (isLoading) baseActivity.showLoadingDialog()
+        else baseActivity.dismissLLoadingDialog()
+    }
+
+    protected fun handleError(errorType: ErrorType) {
+        when (errorType) {
+            ErrorType.NoInternetConnection -> {
+                handleErrorMessage(getString(R.string.no_internet_connection))
+            }
+
+            ErrorType.ConnectTimeout -> {
+                handleErrorMessage(getString(R.string.connect_timeout))
+            }
+
+            ErrorType.UnAuthorized -> {
+                handleErrorMessage(getString(R.string.unknown_error))
+            }
+
+            ErrorType.ForceUpdateApp -> {
+                handleErrorMessage(getString(R.string.force_update_app))
+            }
+
+            ErrorType.ServerMaintain -> {
+                handleErrorMessage(getString(R.string.server_maintain_message))
+            }
+
+            is ErrorType.UnknownError -> {
+                handleErrorMessage(getString(R.string.unknown_error))
+            }
+        }
     }
 
     protected open fun handleErrorMessage(message: String?) {
         if (message.isNullOrBlank()) return
-        dismissLLoadingDialog()
-        showDialog(
+        baseActivity.dismissLLoadingDialog()
+        baseActivity.showDialog(
             message = message,
-            textPositive = getString(R.string.ok)
+            firstText = getString(R.string.ok)
         )
+    }
+
+    override fun onStart() {
+        super.onStart()
+        Timber.d("onStart ${javaClass.simpleName}")
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Timber.d("onResume ${javaClass.simpleName}")
+    }
+
+    override fun onPause() {
+        super.onPause()
+        Timber.d("onPause ${javaClass.simpleName}")
+    }
+
+    override fun onStop() {
+        super.onStop()
+        Timber.d("onStop ${javaClass.simpleName}")
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        Timber.d("onDestroyView ${javaClass.simpleName}")
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        Timber.d("onDestroy ${javaClass.simpleName}")
     }
 
     fun navigateUp() {

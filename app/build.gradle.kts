@@ -1,5 +1,4 @@
 import com.google.firebase.crashlytics.buildtools.gradle.CrashlyticsExtension
-import java.io.FileInputStream
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -21,10 +20,10 @@ android {
     namespace = "com.example.moviedb"
     defaultConfig {
         applicationId = "com.example.moviedb"
-        buildToolsVersion = "33.0.0"
+        buildToolsVersion = "34.0.0"
         minSdk = 23
         compileSdk = 33
-        targetSdk = 33
+        targetSdk = 34
         multiDexEnabled = true
         vectorDrawables {
             useSupportLibrary = true
@@ -37,30 +36,6 @@ android {
         )
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
-
-    val debugFile = rootProject.file("signing/debug.properties")
-    val releaseFile = rootProject.file("signing/release.properties")
-    if (releaseFile.exists() && debugFile.exists()) {
-        val releaseProperties = Properties()
-        releaseProperties.load(FileInputStream(releaseFile))
-        val debugProperties = Properties()
-        debugProperties.load(FileInputStream(debugFile))
-        signingConfigs {
-            create("debug-key") {
-                storeFile = debugProperties["keystore"]?.let { rootProject.file(it) }
-                storePassword = debugProperties["storePassword"]?.toString()
-                keyAlias = debugProperties["keyAlias"]?.toString()
-                keyPassword = debugProperties["keyPassword"]?.toString()
-            }
-            create("release-key") {
-                storeFile = releaseProperties["keystore"]?.let { rootProject.file(it) }
-                storePassword = releaseProperties["storePassword"]?.toString()
-                keyAlias = releaseProperties["keyAlias"]?.toString()
-                keyPassword = releaseProperties["keyPassword"]?.toString()
-            }
-        }
-    }
-
     buildTypes {
         getByName("debug") {
             isDebuggable = true
@@ -69,7 +44,6 @@ android {
             configure<CrashlyticsExtension> {
                 mappingFileUploadEnabled = false
             }
-            signingConfig = signingConfigs.getByName("debug-key")
         }
         /*create("beta") {
             isDebuggable = true
@@ -79,7 +53,6 @@ android {
                 mappingFileUploadEnabled = true
             }
             proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
-            signingConfig = signingConfigs.getByName("debug-key")
         }*/
         getByName("release") {
             isDebuggable = false
@@ -89,7 +62,6 @@ android {
                 mappingFileUploadEnabled = true
             }
             proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
-            signingConfig = signingConfigs.getByName("release-key")
         }
     }
 
@@ -101,11 +73,41 @@ android {
             applicationIdSuffix = ".dev"
             resValue("string", "app_name", "Movie DB Dev")
             buildConfigField("boolean", "MOCK_DATA", "true")
+            val keyFile = rootProject.file("signing/debug.properties")
+            if (keyFile.exists()) {
+                val properties = Properties()
+                properties.load(keyFile.inputStream())
+                val signKeyName = "dev-key"
+                signingConfigs {
+                    create(signKeyName) {
+                        storeFile = properties["keystore"]?.let { rootProject.file(it) }
+                        storePassword = properties["storePassword"]?.toString()
+                        keyAlias = properties["keyAlias"]?.toString()
+                        keyPassword = properties["keyPassword"]?.toString()
+                    }
+                }
+                signingConfig = signingConfigs.getByName(signKeyName)
+            }
         }
         create("prd") {
             dimension = serverDimension
             resValue("string", "app_name", "Movie DB")
             buildConfigField("boolean", "MOCK_DATA", "false")
+            val keyFile = rootProject.file("signing/release.properties")
+            if (keyFile.exists()) {
+                val properties = Properties()
+                properties.load(keyFile.inputStream())
+                val signKeyName = "prd-key"
+                signingConfigs {
+                    create(signKeyName) {
+                        storeFile = properties["keystore"]?.let { rootProject.file(it) }
+                        storePassword = properties["storePassword"]?.toString()
+                        keyAlias = properties["keyAlias"]?.toString()
+                        keyPassword = properties["keyPassword"]?.toString()
+                    }
+                }
+                signingConfig = signingConfigs.getByName(signKeyName)
+            }
         }
     }
 
@@ -118,6 +120,7 @@ android {
         when (flavorName) {
             "dev" -> {
             }
+
             "prd" -> {
             }
         }
@@ -135,7 +138,8 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.4.7"
+        // check version here https://developer.android.com/jetpack/androidx/releases/compose-kotlin
+        kotlinCompilerExtensionVersion = "1.4.8"
     }
     lint {
         checkReleaseBuilds = false
@@ -150,15 +154,15 @@ dependencies {
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation("androidx.recyclerview:recyclerview:1.3.0")
     implementation("com.google.android.material:material:1.9.0")
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.21")
-    implementation("org.jetbrains.kotlin:kotlin-reflect:1.8.21")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.22")
+    implementation("org.jetbrains.kotlin:kotlin-reflect:1.8.22")
     implementation("androidx.multidex:multidex:2.0.1")
 
     // List of KTX extensions
     // https://developer.android.com/kotlin/ktx/extensions-list
     implementation("androidx.core:core-ktx:1.10.1")
     implementation("androidx.activity:activity-ktx:1.7.2")
-    implementation("androidx.fragment:fragment-ktx:1.5.7")
+    implementation("androidx.fragment:fragment-ktx:1.6.0")
 
     // Lifecycle
     // https://developer.android.com/jetpack/androidx/releases/lifecycle
@@ -173,9 +177,9 @@ dependencies {
 
     // room
     // https://developer.android.com/topic/libraries/architecture/room
-    implementation("androidx.room:room-runtime:2.5.1")
-    ksp("androidx.room:room-compiler:2.5.1")
-    implementation("androidx.room:room-ktx:2.5.1")
+    implementation("androidx.room:room-runtime:2.5.2")
+    ksp("androidx.room:room-compiler:2.5.2")
+    implementation("androidx.room:room-ktx:2.5.2")
 
     // paging
     // https://developer.android.com/topic/libraries/architecture/paging
@@ -183,15 +187,15 @@ dependencies {
 
     // navigation
     // https://developer.android.com/jetpack/androidx/releases/navigation
-    implementation("androidx.navigation:navigation-runtime-ktx:2.5.3")
-    implementation("androidx.navigation:navigation-fragment-ktx:2.5.3")
-    implementation("androidx.navigation:navigation-ui-ktx:2.5.3")
+    implementation("androidx.navigation:navigation-runtime-ktx:2.6.0")
+    implementation("androidx.navigation:navigation-fragment-ktx:2.6.0")
+    implementation("androidx.navigation:navigation-ui-ktx:2.6.0")
 
     // coroutines
     // https://github.com/Kotlin/kotlinx.coroutines
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.1")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.1")
-    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.1")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.2")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.2")
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.2")
 
     // moshi
     implementation("com.squareup.moshi:moshi-kotlin:1.15.0")
@@ -229,7 +233,7 @@ dependencies {
 
     // firebase
     // https://firebase.google.com/docs/android/setup
-    implementation(platform("com.google.firebase:firebase-bom:32.0.0"))
+    implementation(platform("com.google.firebase:firebase-bom:32.1.1"))
     implementation("com.google.firebase:firebase-analytics-ktx")
     implementation("com.google.firebase:firebase-crashlytics-ktx")
     implementation("com.google.firebase:firebase-messaging-ktx")
@@ -247,127 +251,127 @@ dependencies {
 
     // unit test
     testImplementation("junit:junit:4.13.2")
-    testImplementation("org.mockito:mockito-core:5.3.1")
+    testImplementation("org.mockito:mockito-core:5.4.0")
 //    testImplementation("org.mockito:mockito-inline:3.3.3")
     testImplementation("io.mockk:mockk:1.13.5")
     testImplementation("androidx.arch.core:core-testing:2.2.0")
     testImplementation("com.squareup.okhttp3:mockwebserver:5.0.0-alpha.2")
-    testImplementation("org.jetbrains.kotlin:kotlin-stdlib:1.8.21")
+    testImplementation("org.jetbrains.kotlin:kotlin-stdlib:1.9.0")
 //    testImplementation("org.robolectric:robolectric:4.3")
 
     /**
      * for buildSrc
      */
-/*
-    // common
-    implementation(Libs.appcompat)
-    implementation(Libs.legacySupport)
-    implementation(Libs.constraintLayout)
-    implementation(Libs.recyclerview)
-    implementation(Libs.material)
-    implementation(Libs.stdLib)
-    implementation(Libs.multidex)
+    /*
+        // common
+        implementation(Libs.appcompat)
+        implementation(Libs.legacySupport)
+        implementation(Libs.constraintLayout)
+        implementation(Libs.recyclerview)
+        implementation(Libs.material)
+        implementation(Libs.stdLib)
+        implementation(Libs.multidex)
 
-    // List of KTX extensions
-    // https://developer.android.com/kotlin/ktx/extensions-list
-    implementation(Libs.coreKtx)
-    implementation(Libs.activityKtx)
-    implementation(Libs.fragmentKtx)
+        // List of KTX extensions
+        // https://developer.android.com/kotlin/ktx/extensions-list
+        implementation(Libs.coreKtx)
+        implementation(Libs.activityKtx)
+        implementation(Libs.fragmentKtx)
 
-    // Lifecycle
-    // https://developer.android.com/jetpack/androidx/releases/lifecycle
-    implementation(Libs.lifecycleViewModelKtx)
-    implementation(Libs.lifecycleLiveDataKtx)
-    implementation(Libs.lifecycleKtx)
-    implementation(Libs.lifecycleJava8)
+        // Lifecycle
+        // https://developer.android.com/jetpack/androidx/releases/lifecycle
+        implementation(Libs.lifecycleViewModelKtx)
+        implementation(Libs.lifecycleLiveDataKtx)
+        implementation(Libs.lifecycleKtx)
+        implementation(Libs.lifecycleJava8)
 
-    // room
-    // https://developer.android.com/topic/libraries/architecture/room
-    implementation(Libs.roomRuntime)
-    kapt(Libs.roomCompiler)
-    implementation(Libs.roomKtx)
+        // room
+        // https://developer.android.com/topic/libraries/architecture/room
+        implementation(Libs.roomRuntime)
+        kapt(Libs.roomCompiler)
+        implementation(Libs.roomKtx)
 
-    // paging
-    // https://developer.android.com/topic/libraries/architecture/paging
-    implementation(Libs.paging)
+        // paging
+        // https://developer.android.com/topic/libraries/architecture/paging
+        implementation(Libs.paging)
 
-    // navigation
-    // https://developer.android.com/jetpack/androidx/releases/navigation
-    implementation(Libs.navigationRuntimeKtx)
-    implementation(Libs.navigationFragmentKtx)
-    implementation(Libs.navigationUiKtx)
-//    implementation(Libs.navigationDynamicModule)
+        // navigation
+        // https://developer.android.com/jetpack/androidx/releases/navigation
+        implementation(Libs.navigationRuntimeKtx)
+        implementation(Libs.navigationFragmentKtx)
+        implementation(Libs.navigationUiKtx)
+    //    implementation(Libs.navigationDynamicModule)
 
-    // work
-    // https://developer.android.com/topic/libraries/architecture/workmanager
-//    implementation(Libs.workManager)
+        // work
+        // https://developer.android.com/topic/libraries/architecture/workmanager
+    //    implementation(Libs.workManager)
 
-    // rx
-    // https://github.com/ReactiveX/RxJava
-//    implementation(Libs.rxjava)
+        // rx
+        // https://github.com/ReactiveX/RxJava
+    //    implementation(Libs.rxjava)
 
-    // coroutines
-    // https://github.com/Kotlin/kotlinx.coroutines
-    implementation(Libs.coroutinesCore)
-    implementation(Libs.coroutinesAndroid)
-    testImplementation(Libs.coroutinesTest)
+        // coroutines
+        // https://github.com/Kotlin/kotlinx.coroutines
+        implementation(Libs.coroutinesCore)
+        implementation(Libs.coroutinesAndroid)
+        testImplementation(Libs.coroutinesTest)
 
-    // moshi
-    implementation(Libs.moshi)
-    kapt(Libs.moshiCodeGen)
+        // moshi
+        implementation(Libs.moshi)
+        kapt(Libs.moshiCodeGen)
 
-    // retrofit
-    // https://github.com/square/retrofit
-    implementation(Libs.retrofit)
-    implementation(Libs.retrofitMoshi)
-    implementation(Libs.okLogging)
-//    implementation(Libs.retrofitRxjava)
+        // retrofit
+        // https://github.com/square/retrofit
+        implementation(Libs.retrofit)
+        implementation(Libs.retrofitMoshi)
+        implementation(Libs.okLogging)
+    //    implementation(Libs.retrofitRxjava)
 
-    // stetho
-    // http://facebook.github.io/stetho/
-    implementation(Libs.stetho)
-    implementation(Libs.stethoOkhttp3)
+        // stetho
+        // http://facebook.github.io/stetho/
+        implementation(Libs.stetho)
+        implementation(Libs.stethoOkhttp3)
 
-    // glide
-    // https://github.com/bumptech/glide
-    implementation(Libs.glideRuntime)
-    kapt(Libs.glideCompiler)
+        // glide
+        // https://github.com/bumptech/glide
+        implementation(Libs.glideRuntime)
+        kapt(Libs.glideCompiler)
 
-    //dagger hilt
-    implementation(Libs.daggerHiltAndroid)
-    kapt(Libs.daggerHiltAndroidCompiler)
-    implementation(Libs.daggerHiltViewModel)
-    kapt(Libs.daggerHiltViewModelCompiler)
+        //dagger hilt
+        implementation(Libs.daggerHiltAndroid)
+        kapt(Libs.daggerHiltAndroidCompiler)
+        implementation(Libs.daggerHiltViewModel)
+        kapt(Libs.daggerHiltViewModelCompiler)
 
-    // runtime permission
-    // https://github.com/googlesamples/easypermissions
-//    implementation(Libs.easyPermissions)
+        // runtime permission
+        // https://github.com/googlesamples/easypermissions
+    //    implementation(Libs.easyPermissions)
 
-    // firebase
-    // https://firebase.google.com/docs/android/setup
-    implementation(Libs.firebaseAnalytics)
-    implementation(Libs.firebaseCrashlytics)
+        // firebase
+        // https://firebase.google.com/docs/android/setup
+        implementation(Libs.firebaseAnalytics)
+        implementation(Libs.firebaseCrashlytics)
 
-    // lottie
-    // https://github.com/airbnb/lottie-android
-//    implementation(Libs.lottie)
+        // lottie
+        // https://github.com/airbnb/lottie-android
+    //    implementation(Libs.lottie)
 
-    // timber
-    // https://github.com/JakeWharton/timber
-    implementation(Libs.timber)
+        // timber
+        // https://github.com/JakeWharton/timber
+        implementation(Libs.timber)
 
-    implementation(Libs.viewpager2)
+        implementation(Libs.viewpager2)
 
-    compileOnly(Libs.lombok)
-    annotationProcessor(Libs.annotationLombok)
+        compileOnly(Libs.lombok)
+        annotationProcessor(Libs.annotationLombok)
 
-    // unit test
-    testImplementation(Libs.junit)
-    testImplementation(Libs.mockitoCore)
-    androidTestImplementation(Libs.mockitoAndroid)
-    testImplementation(Libs.testCore)
-    testImplementation(Libs.archCore)
-    */
+        // unit test
+        testImplementation(Libs.junit)
+        testImplementation(Libs.mockitoCore)
+        androidTestImplementation(Libs.mockitoAndroid)
+        testImplementation(Libs.testCore)
+        testImplementation(Libs.archCore)
+        */
 
     // compose
     // https://developer.android.com/jetpack/compose/interop/adding
@@ -380,7 +384,7 @@ dependencies {
     // or Material Design 2
     implementation("androidx.compose.material:material:1.4.3")
     // Material Design 3
-    implementation("androidx.compose.material3:material3:1.1.0")
+    implementation("androidx.compose.material3:material3:1.1.1")
     // Android Studio Preview support
     implementation("androidx.compose.ui:ui-tooling-preview:1.4.3")
     debugImplementation("androidx.compose.ui:ui-tooling:1.4.3")
@@ -398,7 +402,7 @@ dependencies {
     // Optional - Add full set of material icons
     implementation("androidx.compose.material:material-icons-extended:1.4.3")
     // Optional - Add window size utils
-    implementation("androidx.compose.material3:material3-window-size-class:1.1.0")
+    implementation("androidx.compose.material3:material3-window-size-class:1.1.1")
     // Optional - Integration with activities
     implementation("androidx.activity:activity-compose:1.7.2")
     // Optional - Integration with ViewModels
@@ -408,12 +412,12 @@ dependencies {
     // Lifecycle utilities for Compose
     implementation("androidx.lifecycle:lifecycle-runtime-compose:2.6.1")
     // navigation
-    implementation("androidx.navigation:navigation-compose:2.5.3")
+    implementation("androidx.navigation:navigation-compose:2.6.0")
     implementation("androidx.hilt:hilt-navigation-compose:1.0.0")
     // https://github.com/skydoves/landscapist
 //    implementation("com.github.skydoves:landscape-bom:2.1.7")
-    implementation("com.github.skydoves:landscapist-glide:2.2.0")
-    implementation("com.github.skydoves:landscapist-placeholder:2.2.0")
+    implementation("com.github.skydoves:landscapist-glide:2.2.2")
+    implementation("com.github.skydoves:landscapist-placeholder:2.2.2")
     // https://google.github.io/accompanist/
     // https://github.com/google/accompanist
     val accompanistVersion = "0.28.0"
@@ -463,27 +467,33 @@ project.afterEvaluate {
                 sourceName = buildTypeName
             } else {
                 sourcePath = "${productFlavorName}/${buildTypeName}"
-                sourceName = "${productFlavorName}${buildTypeName.replaceFirstChar {
+                sourceName = "${productFlavorName}${
+                    buildTypeName.replaceFirstChar {
+                        if (it.isLowerCase()) it.titlecase(
+                            Locale.getDefault()
+                        ) else it.toString()
+                    }
+                }"
+            }
+            val testTaskName = "test${
+                sourceName.replaceFirstChar {
                     if (it.isLowerCase()) it.titlecase(
                         Locale.getDefault()
                     ) else it.toString()
-                }}"
-            }
-            val testTaskName = "test${sourceName.replaceFirstChar {
-                if (it.isLowerCase()) it.titlecase(
-                    Locale.getDefault()
-                ) else it.toString()
-            }}UnitTest"
+                }
+            }UnitTest"
             // Create coverage task of form 'testFlavorTypeCoverage' depending on 'testFlavorTypeUnitTest'
             task<JacocoReport>("${testTaskName}Coverage") {
                 //where store all test to run follow second way above
                 group = "coverage"
                 description =
-                    "Generate Jacoco coverage reports on the ${sourceName.replaceFirstChar {
-                        if (it.isLowerCase()) it.titlecase(
-                            Locale.getDefault()
-                        ) else it.toString()
-                    }} build."
+                    "Generate Jacoco coverage reports on the ${
+                        sourceName.replaceFirstChar {
+                            if (it.isLowerCase()) it.titlecase(
+                                Locale.getDefault()
+                            ) else it.toString()
+                        }
+                    } build."
                 val excludeFiles = arrayListOf(
                     "**/R.class", "**/R$*.class", "**/BuildConfig.*", "**/Manifest*.*",
                     "**/*Test*.*", "android/**/*.*",

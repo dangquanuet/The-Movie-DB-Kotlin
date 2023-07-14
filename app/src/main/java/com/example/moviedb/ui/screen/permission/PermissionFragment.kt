@@ -43,24 +43,24 @@ class PermissionFragment : BaseFragment<FragmentPermisisonBinding, BaseViewModel
             singlePermissionCode,
             object : RequestPermissionListener {
                 override fun onPermissionRationaleShouldBeShown(requestPermission: () -> Unit) {
-                    showDialog(
+                    baseActivity.showDialog(
                         message = "Please allow permission to use this feature",
-                        textPositive = "OK",
-                        positiveListener = {
+                        firstText = "OK",
+                        firstListener = {
                             requestPermission.invoke()
                         },
-                        textNegative = "Cancel"
+                        secondText = "Cancel"
                     )
                 }
 
                 override fun onPermissionPermanentlyDenied(openAppSetting: () -> Unit) {
-                    showDialog(
+                    baseActivity.showDialog(
                         message = "Permission Disabled, Please allow permission to use this feature",
-                        textPositive = "OK",
-                        positiveListener = {
+                        firstText = "OK",
+                        firstListener = {
                             openAppSetting.invoke()
                         },
-                        textNegative = "Cancel"
+                        secondText = "Cancel"
                     )
                 }
 
@@ -86,24 +86,24 @@ class PermissionFragment : BaseFragment<FragmentPermisisonBinding, BaseViewModel
             multiplePermissionsCode,
             object : RequestPermissionListener {
                 override fun onPermissionRationaleShouldBeShown(requestPermission: () -> Unit) {
-                    showDialog(
+                    baseActivity.showDialog(
                         message = "Please allow permissions to use this feature",
-                        textPositive = "OK",
-                        positiveListener = {
+                        firstText = "OK",
+                        firstListener = {
                             requestPermission.invoke()
                         },
-                        textNegative = "Cancel"
+                        secondText = "Cancel"
                     )
                 }
 
                 override fun onPermissionPermanentlyDenied(openAppSetting: () -> Unit) {
-                    showDialog(
+                    baseActivity.showDialog(
                         message = "Permission Disabled, Please allow permissions to use this feature",
-                        textPositive = "OK",
-                        positiveListener = {
+                        firstText = "OK",
+                        firstListener = {
                             openAppSetting.invoke()
                         },
-                        textNegative = "Cancel"
+                        secondText = "Cancel"
                     )
                 }
 
