@@ -2,7 +2,6 @@ package com.example.moviedb.ui.base.loadmorerefresh
 
 import com.example.moviedb.data.constant.Constants
 import com.example.moviedb.ui.base.BaseViewModel
-import com.example.moviedb.ui.widgets.EndlessRecyclerOnScrollListener
 import kotlinx.coroutines.flow.MutableStateFlow
 
 /**
@@ -15,19 +14,13 @@ abstract class BaseLoadMoreRefreshViewModel<Item>() : BaseViewModel() {
 
     // load more flag
     private val isLoadMore = MutableStateFlow(false)
+    private var loadMoreTimeMillis = 0L
 
     // current page
     private val currentPage = MutableStateFlow(getPreFirstPage())
 
     // last page flag
     private val isLastPage = MutableStateFlow(false)
-
-    // scroll listener for recycler view
-    val onScrollListener = object : EndlessRecyclerOnScrollListener(getLoadMoreThreshold()) {
-        override fun onLoadMore() {
-            doLoadMore()
-        }
-    }
 
     // item list
     val itemList = MutableStateFlow(arrayListOf<Item>())
@@ -70,8 +63,15 @@ abstract class BaseLoadMoreRefreshViewModel<Item>() : BaseViewModel() {
     /**
      * load first page
      */
-    protected fun refreshData() {
+    private fun refreshData() {
         loadData(getFirstPage())
+    }
+
+    fun onBind(position: Int) {
+//        Timber.v("Check load more on $position")
+        if (itemList.value.size - position < getLoadMoreThreshold()) {
+            doLoadMore()
+        }
     }
 
     fun doLoadMore() {
@@ -79,11 +79,13 @@ abstract class BaseLoadMoreRefreshViewModel<Item>() : BaseViewModel() {
             isLoading()
                     || isRefreshing.value
                     || isLoadMore.value
-                    || isLastPage.value -> {
+                    || isLastPage.value
+                    || System.currentTimeMillis() - loadMoreTimeMillis < 2000 -> {
             }
 
             else -> {
                 isLoadMore.value = true
+                loadMoreTimeMillis = System.currentTimeMillis()
                 loadMore()
             }
         }
@@ -92,7 +94,7 @@ abstract class BaseLoadMoreRefreshViewModel<Item>() : BaseViewModel() {
     /**
      * load next page
      */
-    protected fun loadMore() {
+    private fun loadMore() {
         loadData(currentPage.value.plus(1))
     }
 
@@ -116,8 +118,7 @@ abstract class BaseLoadMoreRefreshViewModel<Item>() : BaseViewModel() {
     /**
      * reset load more
      */
-    fun resetLoadMore() {
-        onScrollListener.resetOnLoadMore()
+    private fun resetLoadMore() {
         isLastPage.value = false
     }
 
@@ -144,13 +145,11 @@ abstract class BaseLoadMoreRefreshViewModel<Item>() : BaseViewModel() {
         isLastPage.value = (items?.size ?: 0) < getNumberItemPerPage()
 
         // reset load
-//        hideLoading()
         isRefreshing.value = false
         isLoadMore.value = false
-
+        showSuccess()
         // check empty list
         checkEmptyList()
-        showSuccess()
     }
 
     /**
@@ -158,12 +157,9 @@ abstract class BaseLoadMoreRefreshViewModel<Item>() : BaseViewModel() {
      */
     override suspend fun onError(throwable: Throwable) {
         super.onError(throwable)
-        onScrollListener.isLoading = false
-
         // reset load
         isRefreshing.value = false
         isLoadMore.value = false
-
         // check empty list
         checkEmptyList()
     }

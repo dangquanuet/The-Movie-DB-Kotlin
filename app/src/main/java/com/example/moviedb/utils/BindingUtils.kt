@@ -10,7 +10,6 @@ import android.widget.TextView
 import androidx.annotation.DrawableRes
 import androidx.core.widget.ContentLoadingProgressBar
 import androidx.databinding.BindingAdapter
-import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
@@ -29,11 +28,6 @@ fun SwipeRefreshLayout.enableRefresh(enable: Boolean?) {
 @BindingAdapter("isRefreshing")
 fun SwipeRefreshLayout.customRefreshing(refreshing: Boolean?) {
     isRefreshing = refreshing == true
-}
-
-@BindingAdapter("onScrollListener")
-fun RecyclerView.customScrollListener(listener: RecyclerView.OnScrollListener?) {
-    if (listener != null) addOnScrollListener(listener)
 }
 
 @BindingAdapter("glideSrc")

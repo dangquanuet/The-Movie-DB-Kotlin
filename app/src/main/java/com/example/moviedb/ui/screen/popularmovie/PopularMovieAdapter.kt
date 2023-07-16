@@ -5,10 +5,12 @@ import com.example.moviedb.R
 import com.example.moviedb.data.model.Movie
 import com.example.moviedb.databinding.ItemMovieBinding
 import com.example.moviedb.ui.base.BaseListAdapter
+import com.example.moviedb.ui.base.BaseViewHolder
 import com.example.moviedb.utils.setSingleClick
 
 class PopularMovieAdapter(
-    val itemClickListener: (Movie) -> Unit = {}
+    val itemClickListener: (Movie) -> Unit = {},
+    val onBindPosition: (Int) -> Unit = {}
 ) : BaseListAdapter<Movie, ItemMovieBinding>(object : DiffUtil.ItemCallback<Movie>() {
     override fun areItemsTheSame(oldItem: Movie, newItem: Movie): Boolean {
         return oldItem.id == newItem.id
@@ -33,4 +35,8 @@ class PopularMovieAdapter(
         }
     }
 
+    override fun onBindViewHolder(holder: BaseViewHolder<ItemMovieBinding>, position: Int) {
+        super.onBindViewHolder(holder, position)
+        onBindPosition(position)
+    }
 }
