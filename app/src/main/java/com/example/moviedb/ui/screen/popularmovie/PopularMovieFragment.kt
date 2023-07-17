@@ -3,21 +3,22 @@ package com.example.moviedb.ui.screen.popularmovie
 import android.graphics.Color
 import android.os.Bundle
 import android.view.View
+import androidx.core.widget.ContentLoadingProgressBar
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.moviedb.data.model.Movie
-import com.example.moviedb.databinding.FragmentLoadmoreRefreshBinding
+import com.example.moviedb.databinding.FragmentItemsBinding
 import com.example.moviedb.ui.base.BaseListAdapter
 import com.example.moviedb.ui.base.getNavController
-import com.example.moviedb.ui.base.loadmorerefresh.BaseLoadMoreRefreshFragment
+import com.example.moviedb.ui.base.items.ItemsFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class PopularMovieFragment :
-    BaseLoadMoreRefreshFragment<FragmentLoadmoreRefreshBinding, PopularMovieViewModel, Movie>() {
+    ItemsFragment<FragmentItemsBinding, PopularMovieViewModel, Movie>() {
 
     override val viewModel: PopularMovieViewModel by viewModels()
     override val listAdapter: BaseListAdapter<Movie, out ViewDataBinding> by lazy {
@@ -28,6 +29,8 @@ class PopularMovieFragment :
     }
     override val swipeRefreshLayout: SwipeRefreshLayout
         get() = viewBinding.refreshLayout
+    override val progressLoading: ContentLoadingProgressBar
+        get() = viewBinding.progressLoading
     override val recyclerView: RecyclerView
         get() = viewBinding.recyclerView
 

@@ -45,20 +45,8 @@ abstract class BaseActivity<ViewBinding : ViewDataBinding, ViewModel : BaseViewM
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.uiState.collectLatest { uiState ->
-                    when (uiState) {
-                        is UiState.Loading -> {
-                            handleLoading(isLoading = true)
-                        }
-
-                        is UiState.Error -> {
-                            handleLoading(isLoading = false)
-                            handleError(uiState.errorType)
-                        }
-
-                        else -> {
-                            handleLoading(isLoading = false)
-                        }
-                    }
+                    handleLoading(uiState.isLoading)
+                    handleError(errorType = uiState.errorType)
                 }
             }
         }
@@ -68,10 +56,11 @@ abstract class BaseActivity<ViewBinding : ViewDataBinding, ViewModel : BaseViewM
      * override this if not use loading dialog (example progress bar)
      */
     protected open fun handleLoading(isLoading: Boolean) {
-        if (isLoading) showLoadingDialog() else dismissLLoadingDialog()
+        if (isLoading) showLoadingDialog()
+        else dismissLLoadingDialog()
     }
 
-    protected fun handleError(errorType: ErrorType) {
+    protected fun handleError(errorType: ErrorType?) {
         when (errorType) {
             ErrorType.NoInternetConnection -> {
                 handleErrorMessage(getString(R.string.no_internet_connection))
@@ -96,16 +85,23 @@ abstract class BaseActivity<ViewBinding : ViewDataBinding, ViewModel : BaseViewM
             is ErrorType.UnknownError -> {
                 handleErrorMessage(getString(R.string.unknown_error))
             }
+
+            else -> {
+                dismissShowingDialog()
+            }
         }
     }
 
     protected open fun handleErrorMessage(message: String?) {
-        if (message.isNullOrBlank()) return
-        dismissLLoadingDialog()
-        showDialog(
-            message = message,
-            firstText = getString(R.string.ok)
-        )
+        if (message.isNullOrBlank().not()) {
+            showDialog(
+                message = message,
+                firstText = getString(R.string.ok),
+                dismissListener = {
+                    viewModel.hideError()
+                }
+            )
+        }
     }
 
     override fun onStart() {

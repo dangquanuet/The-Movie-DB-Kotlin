@@ -6,6 +6,8 @@ import com.example.moviedb.data.remote.toBaseException
 import com.example.moviedb.data.repository.UserRepository
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.plus
 import java.net.ConnectException
@@ -15,7 +17,8 @@ import java.net.UnknownHostException
 import javax.inject.Inject
 
 open class BaseViewModel : ViewModel() {
-    val uiState = MutableStateFlow<UiState>(UiState.Success)
+    private val _uiState = MutableStateFlow(UiState())
+    val uiState: StateFlow<UiState> = _uiState
 
     @Inject
     lateinit var userRepo: UserRepository
@@ -30,15 +33,11 @@ open class BaseViewModel : ViewModel() {
     }
     protected val viewModelScopeExceptionHandler by lazy { viewModelScope + exceptionHandler }
 
-    fun showSuccess() {
-        uiState.value = UiState.Success
-    }
-
     /**
      * handle throwable when load fail
      */
-    protected open suspend fun onError(throwable: Throwable) {
-        val errorType: ErrorType = when (throwable) {
+    protected fun toErrorType(throwable: Throwable): ErrorType {
+        return when (throwable) {
             // case no internet connection
             is UnknownHostException -> {
                 ErrorType.NoInternetConnection
@@ -70,16 +69,34 @@ open class BaseViewModel : ViewModel() {
                 }
             }
         }
-        uiState.value = UiState.Error(errorType)
     }
 
-    fun showError(throwable: Throwable) {
-        uiState.value = UiState.Error(ErrorType.UnknownError(throwable))
+    protected open fun onError(throwable: Throwable) {
+        _uiState.update {
+            it.copy(
+                isLoading = false,
+                errorType = toErrorType(throwable)
+            )
+        }
+    }
+
+    open fun hideError() {
+        _uiState.update {
+            it.copy(errorType = null)
+        }
     }
 
     fun showLoading() {
-        uiState.value = UiState.Loading
+        _uiState.update {
+            it.copy(isLoading = true, errorType = null)
+        }
     }
 
-    fun isLoading() = uiState.value == UiState.Loading
+    fun hideLoading() {
+        _uiState.update {
+            it.copy(isLoading = false)
+        }
+    }
+
+    fun isLoading() = uiState.value.isLoading
 }

@@ -4,8 +4,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.moviedb.data.constant.MovieListType
 import com.example.moviedb.data.model.Movie
 import com.example.moviedb.data.remote.api.ApiParams
-import com.example.moviedb.data.repository.UserRepository
-import com.example.moviedb.ui.base.loadmorerefresh.BaseLoadMoreRefreshViewModel
+import com.example.moviedb.ui.base.items.ItemsViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
@@ -13,8 +12,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class PopularMovieViewModel @Inject constructor(
-    private val userRepository: UserRepository
-) : BaseLoadMoreRefreshViewModel<Movie>() {
+) : ItemsViewModel<Movie>() {
 
     val mode = MutableStateFlow(MovieListType.POPULAR.type)
 
@@ -29,7 +27,7 @@ class PopularMovieViewModel @Inject constructor(
 
         viewModelScope.launch {
             try {
-                onLoadSuccess(page, userRepository.getMovieList(hashMap).results)
+                onLoadSuccess(page, userRepo.getMovieList(hashMap).results)
             } catch (e: Exception) {
                 onError(e)
             }

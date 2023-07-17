@@ -56,20 +56,8 @@ abstract class BaseDialogFragment<ViewBinding : ViewDataBinding, ViewModel : Bas
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.uiState.collectLatest { uiState ->
-                    when (uiState) {
-                        is UiState.Loading -> {
-                            handleLoading(isLoading = true)
-                        }
-
-                        is UiState.Error -> {
-                            handleLoading(isLoading = false)
-                            handleError(uiState.errorType)
-                        }
-
-                        else -> {
-                            handleLoading(isLoading = false)
-                        }
-                    }
+                    handleLoading(uiState.isLoading)
+                    handleError(errorType = uiState.errorType)
                 }
             }
         }
@@ -83,7 +71,7 @@ abstract class BaseDialogFragment<ViewBinding : ViewDataBinding, ViewModel : Bas
         else baseActivity.dismissLLoadingDialog()
     }
 
-    protected fun handleError(errorType: ErrorType) {
+    protected fun handleError(errorType: ErrorType?) {
         when (errorType) {
             ErrorType.NoInternetConnection -> {
                 handleErrorMessage(getString(R.string.no_internet_connection))
@@ -108,16 +96,23 @@ abstract class BaseDialogFragment<ViewBinding : ViewDataBinding, ViewModel : Bas
             is ErrorType.UnknownError -> {
                 handleErrorMessage(getString(R.string.unknown_error))
             }
+
+            else -> {
+                baseActivity.dismissShowingDialog()
+            }
         }
     }
 
     protected open fun handleErrorMessage(message: String?) {
-        if (message.isNullOrBlank()) return
-        baseActivity.dismissLLoadingDialog()
-        baseActivity.showDialog(
-            message = message,
-            firstText = getString(R.string.ok)
-        )
+        if (message.isNullOrBlank().not()) {
+            baseActivity.showDialog(
+                message = message,
+                firstText = getString(R.string.ok),
+                dismissListener = {
+                    viewModel.hideError()
+                }
+            )
+        }
     }
 
     override fun onStart() {

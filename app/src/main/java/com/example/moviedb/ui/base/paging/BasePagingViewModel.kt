@@ -91,7 +91,7 @@ abstract class BasePagingViewModel<Item : Any> : BaseViewModel() {
     /**
      * handler error
      */
-    override suspend fun onError(throwable: Throwable) {
+    override fun onError(throwable: Throwable) {
         super.onError(throwable)
         // reset load
         hideLoadRefresh()

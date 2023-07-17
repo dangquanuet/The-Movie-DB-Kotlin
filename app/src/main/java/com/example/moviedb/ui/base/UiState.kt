@@ -1,10 +1,9 @@
 package com.example.moviedb.ui.base
 
-sealed class UiState {
-    object Success : UiState()
-    object Loading : UiState()
-    class Error(val errorType: ErrorType) : UiState()
-}
+data class UiState(
+    val isLoading: Boolean = false,
+    val errorType: ErrorType? = null
+)
 
 sealed class ErrorType {
     object NoInternetConnection : ErrorType()

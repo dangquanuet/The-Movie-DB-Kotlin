@@ -32,11 +32,11 @@ class SplashFragment : BaseFragment<FragmentSplashBinding, BaseViewModel>() {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.splashViewStateFlow.collectLatest { state ->
                     when (state) {
-                        is SplashViewState.Idle -> {
+                        SplashViewState.Idle -> {
                             // do nothing
                         }
 
-                        is SplashViewState.NavigateToHome -> {
+                        SplashViewState.NavigateToHome -> {
                             navigateToHome()
                         }
                     }

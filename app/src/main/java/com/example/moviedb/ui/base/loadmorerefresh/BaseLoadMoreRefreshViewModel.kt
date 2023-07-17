@@ -147,7 +147,6 @@ abstract class BaseLoadMoreRefreshViewModel<Item>() : BaseViewModel() {
         // reset load
         isRefreshing.value = false
         isLoadMore.value = false
-        showSuccess()
         // check empty list
         checkEmptyList()
     }
@@ -155,7 +154,7 @@ abstract class BaseLoadMoreRefreshViewModel<Item>() : BaseViewModel() {
     /**
      * handle load fail
      */
-    override suspend fun onError(throwable: Throwable) {
+    override fun onError(throwable: Throwable) {
         super.onError(throwable)
         // reset load
         isRefreshing.value = false
