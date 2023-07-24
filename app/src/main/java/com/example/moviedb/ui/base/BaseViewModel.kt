@@ -10,6 +10,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.plus
+import timber.log.Timber
 import java.net.ConnectException
 import java.net.HttpURLConnection
 import java.net.SocketTimeoutException
@@ -37,6 +38,7 @@ open class BaseViewModel : ViewModel() {
      * handle throwable when load fail
      */
     protected fun toErrorType(throwable: Throwable): ErrorType {
+        Timber.e("toErrorType: ${throwable.printStackTrace()}")
         return when (throwable) {
             // case no internet connection
             is UnknownHostException -> {

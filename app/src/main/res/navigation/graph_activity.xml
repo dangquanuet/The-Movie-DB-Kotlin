@@ -29,6 +29,11 @@
             app:destination="@id/popularMovie"
             app:popUpTo="@id/splash"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/toComposeActivity"
+            app:destination="@id/composeActivity"
+            app:popUpTo="@id/splash"
+            app:popUpToInclusive="true" />
     </fragment>
 
     <fragment
@@ -65,4 +70,7 @@
             app:argType="com.example.moviedb.data.model.Movie" />
     </action>
 
+    <activity
+        android:id="@+id/composeActivity"
+        android:name="com.example.moviedb.compose.ComposeActivity" />
 </navigation>

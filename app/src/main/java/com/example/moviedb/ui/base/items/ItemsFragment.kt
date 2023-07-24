@@ -15,6 +15,7 @@ import com.example.moviedb.ui.base.BaseFragment
 import com.example.moviedb.ui.base.BaseListAdapter
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 abstract class ItemsFragment<ViewBinding : ViewDataBinding, ViewModel : ItemsViewModel<Item>, Item : Any> :
     BaseFragment<ViewBinding, ViewModel>() {
@@ -43,6 +44,7 @@ abstract class ItemsFragment<ViewBinding : ViewDataBinding, ViewModel : ItemsVie
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.itemsUiState.collectLatest { uiState ->
+                    Timber.d("uiState collectLatest $uiState")
                     swipeRefreshLayout.isRefreshing = uiState.isRefreshing
                     handleLoading(isLoading = uiState.isLoading)
                     listAdapter.submitList(uiState.items)

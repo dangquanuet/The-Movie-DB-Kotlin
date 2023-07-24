@@ -47,9 +47,10 @@ class SplashFragment : BaseFragment<FragmentSplashBinding, BaseViewModel>() {
 
     private fun navigateToHome() {
         getNavController()?.navigate(
-            when (1) {
+            when (2) {
                 0 -> SplashFragmentDirections.toMovieListPager()
                 1 -> SplashFragmentDirections.toPopularMovie()
+                2 -> SplashFragmentDirections.toComposeActivity()
                 else -> SplashFragmentDirections.toPagingMovie()
             }
         )

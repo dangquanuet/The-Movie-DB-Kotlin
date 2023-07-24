@@ -38,6 +38,12 @@
         </activity>
 
         <activity
+            android:name=".compose.ComposeActivity"
+            android:configChanges="orientation|screenSize"
+            android:exported="false"
+            android:theme="@style/Theme.MyApplication.NoActionBar" />
+
+        <activity
             android:name=".ui.screen.permission.PermissionActivity"
             android:exported="false">
             <!--<intent-filter>

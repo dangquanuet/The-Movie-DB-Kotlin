@@ -2,7 +2,6 @@ package com.example.moviedb.ui.base
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.view.animation.AnimationUtils
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.paging.PagingDataAdapter
@@ -11,7 +10,6 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.moviedb.BR
-import com.example.moviedb.R
 import java.util.concurrent.Executors
 
 private interface BaseRecyclerAdapter<Item : Any, ViewBinding : ViewDataBinding> {

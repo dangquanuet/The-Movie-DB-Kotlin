@@ -57,7 +57,7 @@ abstract class BaseBottomSheetDialogFragment<ViewBinding : ViewDataBinding, View
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.uiState.collectLatest { uiState ->
-                    handleLoading(uiState.isLoading)
+                    handleLoading(isLoading = uiState.isLoading)
                     handleError(errorType = uiState.errorType)
                 }
             }

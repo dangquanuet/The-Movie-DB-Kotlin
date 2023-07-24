@@ -6,10 +6,10 @@ data class UiState(
 )
 
 sealed class ErrorType {
-    object NoInternetConnection : ErrorType()
-    object ConnectTimeout : ErrorType()
-    object ForceUpdateApp : ErrorType()
-    object UnAuthorized : ErrorType()
-    object ServerMaintain : ErrorType()
+    data object NoInternetConnection : ErrorType()
+    data object ConnectTimeout : ErrorType()
+    data object ForceUpdateApp : ErrorType()
+    data object UnAuthorized : ErrorType()
+    data object ServerMaintain : ErrorType()
     class UnknownError(val throwable: Throwable) : ErrorType()
 }
