@@ -4,9 +4,9 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath("com.android.tools.build:gradle:8.2.0-rc01")
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.9.10")
-        classpath("androidx.navigation:navigation-safe-args-gradle-plugin:2.7.4")
+        classpath("com.android.tools.build:gradle:8.2.0-rc03")
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.9.20")
+        classpath("androidx.navigation:navigation-safe-args-gradle-plugin:2.7.5")
         classpath("com.google.dagger:hilt-android-gradle-plugin:2.48")
 //        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:${Libs.kotlinVersion}")
 //        classpath("androidx.navigation:navigation-safe-args-gradle-plugin:${Libs.navigationVersion}")
@@ -28,5 +28,5 @@ tasks.register("clean", Delete::class.java) {
 }
 
 plugins {
-    id("com.google.devtools.ksp") version "1.9.10-1.0.13" apply false
+    id("com.google.devtools.ksp") version "1.9.20-1.0.14" apply false
 }

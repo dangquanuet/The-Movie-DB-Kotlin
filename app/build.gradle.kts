@@ -15,7 +15,6 @@ plugins {
     jacoco
 }
 
-@Suppress("UnstableApiUsage")
 android {
     namespace = "com.example.moviedb"
     defaultConfig {
@@ -132,14 +131,15 @@ android {
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_17.toString()
     }
-    // https://developer.android.com/topic/libraries/data-binding
     buildFeatures {
+        buildConfig = true
+        // https://developer.android.com/topic/libraries/data-binding
         dataBinding = true
         compose = true
     }
     composeOptions {
         // check version here https://developer.android.com/jetpack/androidx/releases/compose-kotlin
-        kotlinCompilerExtensionVersion = "1.5.3"
+        kotlinCompilerExtensionVersion = "1.5.4"
     }
     lint {
 //        checkReleaseBuilds = false
@@ -154,15 +154,15 @@ dependencies {
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation("androidx.recyclerview:recyclerview:1.3.2")
     implementation("com.google.android.material:material:1.10.0")
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.9.10")
-    implementation("org.jetbrains.kotlin:kotlin-reflect:1.9.10")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.9.20")
+    implementation("org.jetbrains.kotlin:kotlin-reflect:1.9.20")
     implementation("androidx.multidex:multidex:2.0.1")
 
     // List of KTX extensions
     // https://developer.android.com/kotlin/ktx/extensions-list
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.activity:activity-ktx:1.8.0")
-    implementation("androidx.fragment:fragment-ktx:1.6.1")
+    implementation("androidx.fragment:fragment-ktx:1.6.2")
 
     // Lifecycle
     // https://developer.android.com/jetpack/androidx/releases/lifecycle
@@ -187,9 +187,9 @@ dependencies {
 
     // navigation
     // https://developer.android.com/jetpack/androidx/releases/navigation
-    implementation("androidx.navigation:navigation-runtime-ktx:2.7.4")
-    implementation("androidx.navigation:navigation-fragment-ktx:2.7.4")
-    implementation("androidx.navigation:navigation-ui-ktx:2.7.4")
+    implementation("androidx.navigation:navigation-runtime-ktx:2.7.5")
+    implementation("androidx.navigation:navigation-fragment-ktx:2.7.5")
+    implementation("androidx.navigation:navigation-ui-ktx:2.7.5")
 
     // coroutines
     // https://github.com/Kotlin/kotlinx.coroutines
@@ -222,11 +222,10 @@ dependencies {
     ksp("com.github.bumptech.glide:ksp:4.16.0")
 
     // dagger hilt
-    // TODO change to ksp https://github.com/google/dagger/issues/2349
     implementation("com.google.dagger:hilt-android:2.48.1")
-    kapt("com.google.dagger:hilt-android-compiler:2.48.1")
-    implementation("androidx.hilt:hilt-navigation-fragment:1.0.0")
-    kapt("androidx.hilt:hilt-compiler:1.0.0")
+    ksp("com.google.dagger:hilt-android-compiler:2.48.1")
+    implementation("androidx.hilt:hilt-navigation-fragment:1.1.0")
+    ksp("androidx.hilt:hilt-compiler:1.1.0")
 
     // runtime permission
     // https://github.com/googlesamples/easypermissions
@@ -257,7 +256,7 @@ dependencies {
     testImplementation("io.mockk:mockk:1.13.8")
     testImplementation("androidx.arch.core:core-testing:2.2.0")
     testImplementation("com.squareup.okhttp3:mockwebserver:5.0.0-alpha.11")
-    testImplementation("org.jetbrains.kotlin:kotlin-stdlib:1.9.10")
+    testImplementation("org.jetbrains.kotlin:kotlin-stdlib:1.9.20")
 //    testImplementation("org.robolectric:robolectric:4.3")
 
     /**
@@ -413,8 +412,8 @@ dependencies {
     // Lifecycle utilities for Compose
     implementation("androidx.lifecycle:lifecycle-runtime-compose:2.6.2")
     // navigation
-    implementation("androidx.navigation:navigation-compose:2.7.4")
-    implementation("androidx.hilt:hilt-navigation-compose:1.0.0")
+    implementation("androidx.navigation:navigation-compose:2.7.5")
+    implementation("androidx.hilt:hilt-navigation-compose:1.1.0")
     // https://github.com/skydoves/landscapist
 //    implementation("com.github.skydoves:landscape-bom:2.1.7")
     implementation("com.github.skydoves:landscapist-glide:2.2.10")
