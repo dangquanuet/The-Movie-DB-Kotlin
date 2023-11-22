@@ -9,35 +9,41 @@ on:
       - 'develop'
 
 jobs:
+  #Run unit test before pushing the code
   test:
-    name: Run Unit Tests And Build
+    name: Run Unit Tests
     runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v2
-      - name: set up JDK 1.8
+      - name: Set up JDK 1.8
         uses: actions/setup-java@v1
         with:
           java-version: 1.8
       - name: Unit tests
-        run: ./gradlew test --stacktrace
-      - name: Build with Gradle
-        run: ./gradlew assembleDebug
+        run: bash ./gradlew test --stacktrace
 
-  # apk:
-  #   name: Generate APK
-  #   runs-on: ubuntu-18.04
 
-  #   steps:
-  #     - uses: actions/checkout@v1
-  #     - name: set up JDK 1.8
-  #       uses: actions/setup-java@v1
-  #       with:
-  #         java-version: 1.8
-  #     - name: Build debug APK
-  #       run: bash ./gradlew assembleDebug --stacktrace
-  #     - name: Upload APK
-  #       uses: actions/upload-artifact@v1
-  #       with:
-  #         name: app
-  #         path: app/build/outputs/apk/debug/app-debug.apk
+ #Generate an unsigned apk and uploads it as an artifact
+ build:
+   name: Generate Unsigned APK
+   runs-on: ubuntu-latest
+    needs: [ test ] #Causes this task to execute after Run Unit Test job completes
+
+   steps:
+     - uses: actions/checkout@v2
+     - name: Set up JDK 1.8
+       uses: actions/setup-java@v1
+       with:
+         java-version: 1.8
+
+       # Build unsigned apk
+     - name: Build Unsigned APK
+       run: bash ./gradlew :app:assembleDebug
+
+       #Upload unsigned apk as an artifact
+     - name: Upload APK
+       uses: actions/upload-artifact@v2
+       with:
+         name: The Movie DB Kotlin
+         path: ${{ github.workspace }}/app/build/outputs/apk/debug/app-debug.apk
