@@ -13,6 +13,7 @@ buildscript {
 //        classpath("com.google.dagger:hilt-android-gradle-plugin:${Libs.daggerHiltVersion}")
         classpath("com.google.gms:google-services:4.4.2")
         classpath("com.google.firebase:firebase-crashlytics-gradle:3.0.2")
+        classpath("de.mannodermaus.gradle.plugins:android-junit5:1.11.0.0")
     }
 }
 

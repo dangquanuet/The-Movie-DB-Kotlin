@@ -17,6 +17,7 @@ plugins {
     id("dagger.hilt.android.plugin")
     jacoco
     id("kotlin-kapt") // for data binding
+    id("de.mannodermaus.android-junit5")
 }
 
 android {
@@ -136,6 +137,19 @@ android {
 //        checkReleaseBuilds = false
 //        abortOnError = false
     }
+    testOptions {
+        unitTests {
+            isReturnDefaultValues = true
+            isIncludeAndroidResources = true
+        }
+    }
+}
+
+tasks.withType<Test>().configureEach {
+    systemProperty(
+        "allure.results.directory",
+        layout.buildDirectory.dir("allure-results").get().asFile.absolutePath,
+    )
 }
 
 dependencies {
@@ -249,6 +263,14 @@ dependencies {
     testImplementation("com.squareup.okhttp3:mockwebserver:5.0.0-alpha.14")
     testImplementation("org.jetbrains.kotlin:kotlin-stdlib:2.0.21")
 //    testImplementation("org.robolectric:robolectric:4.3")
+
+    // JUnit5 (Jupiter) + Allure
+    testImplementation("org.junit.jupiter:junit-jupiter:5.11.4")
+    testImplementation("org.junit.jupiter:junit-jupiter-params:5.11.4")
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+    // vintage engine keeps existing JUnit4 tests running on the JUnit Platform
+    testRuntimeOnly("org.junit.vintage:junit-vintage-engine:5.11.4")
+    testImplementation("io.qameta.allure:allure-junit5:2.29.1")
 
     // compose
     // https://developer.android.com/jetpack/compose/interop/adding
@@ -431,7 +453,7 @@ kapt {
 }
 
 jacoco {
-    toolVersion = "0.8.8"
+    toolVersion = "0.8.12"
 }
 
 /** There are two ways to see test result:
@@ -513,10 +535,10 @@ project.afterEvaluate {
                 )
                 //Explain to Jacoco where are you .class file java and kotlin
                 classDirectories.setFrom(
-                    fileTree("${project.layout.buildDirectory}/intermediates/classes/${sourcePath}").exclude(
+                    fileTree("${project.layout.buildDirectory.get().asFile}/intermediates/classes/${sourcePath}").exclude(
                         excludeFiles
                     ),
-                    fileTree("${project.layout.buildDirectory}/tmp/kotlin-classes/${sourceName}").exclude(
+                    fileTree("${project.layout.buildDirectory.get().asFile}/tmp/kotlin-classes/${sourceName}").exclude(
                         excludeFiles
                     )
                 )
@@ -529,7 +551,7 @@ project.afterEvaluate {
                 //Explain to Jacoco where is your source code
                 sourceDirectories.setFrom(files(coverageSourceDirs))
                 //execute file .exec to generate data report
-                executionData.setFrom(files("${project.layout.buildDirectory}/jacoco/${testTaskName}.exec"))
+                executionData.setFrom(files("${project.layout.buildDirectory.get().asFile}/jacoco/${testTaskName}.exec"))
                 reports {
                     xml.required.set(true)
                     html.required.set(true)
